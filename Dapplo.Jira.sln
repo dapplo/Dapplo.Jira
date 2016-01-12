@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapplo.Jira", "Dapplo.Jira\Dapplo.Jira.csproj", "{4AE569B6-987B-4EEF-936C-D60672CE861E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapplo.Jira.Tests", "Dapplo.Jira.Tests\Dapplo.Jira.Tests.csproj", "{D5DD12F1-42CE-4A3B-85A8-D1F4C9306661}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4AE569B6-987B-4EEF-936C-D60672CE861E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AE569B6-987B-4EEF-936C-D60672CE861E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AE569B6-987B-4EEF-936C-D60672CE861E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AE569B6-987B-4EEF-936C-D60672CE861E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5DD12F1-42CE-4A3B-85A8-D1F4C9306661}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5DD12F1-42CE-4A3B-85A8-D1F4C9306661}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5DD12F1-42CE-4A3B-85A8-D1F4C9306661}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5DD12F1-42CE-4A3B-85A8-D1F4C9306661}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
