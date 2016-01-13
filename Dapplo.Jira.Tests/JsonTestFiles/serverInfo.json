@@ -1,0 +1,13 @@
+﻿{
+    "baseUrl": "http://localhost:8080/jira",
+    "version": "7.0",
+    "versionNumbers": [
+        11,
+        0,
+        0
+    ],
+    "buildNumber": 582,
+    "buildDate": "2016-01-08T01:45:48.856+0000",
+    "scmInfo": "1f51473f5c7b75c1a69a0090f4832cdc5053702a",
+    "serverTitle": "Greenshot JIRA"
+}

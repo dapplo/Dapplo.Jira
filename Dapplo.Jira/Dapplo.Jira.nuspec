@@ -14,7 +14,7 @@
 		<copyright>Copyright © Dapplo 2016</copyright>
 		<tags>Jira</tags>
 		<dependencies>
-			<dependency id="Dapplo.HttpExtensions" version="0.1.39" />
+			<dependency id="Dapplo.HttpExtensions" version="0.2.1" />
 		</dependencies>
     </metadata>
 </package>

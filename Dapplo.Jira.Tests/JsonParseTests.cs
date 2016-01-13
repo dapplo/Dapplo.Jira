@@ -21,28 +21,24 @@
 	along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-using System;
+using Dapplo.HttpExtensions;
+using Dapplo.Jira.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
-using System.Diagnostics;
+using System.IO;
 
 namespace Dapplo.Jira.Tests
 {
 	[TestClass]
-	public class JiraTests
+	public class JsonParseTests
 	{
 		[TestMethod]
-		public async Task TestCreateAndInitializeAsync()
+		public void TestParseServerInfo()
 		{
-			// Test against a well known JIRA
-			var jiraApi = await JiraApi.CreateAndInitializeAsync(new Uri("https://greenshot.atlassian.net"));
-			Assert.IsNotNull(jiraApi);
-			Assert.IsNotNull(jiraApi.JiraVersion);
-			Assert.IsNotNull(jiraApi.ServerTitle);
-			// This should be changed when the title changes
-			Assert.AreEqual("Greenshot JIRA", jiraApi.ServerTitle);
-			Debug.WriteLine($"Version {jiraApi.JiraVersion} - Title: {jiraApi.ServerTitle}");
+			var json = File.ReadAllText("JsonTestFiles/serverInfo.json");
+			var serverInfo = SimpleJson.DeserializeObject<ServerInfo>(json);
+			Assert.IsNotNull(serverInfo);
+			Assert.AreEqual("http://localhost:8080/jira", serverInfo.BaseUrl.AbsoluteUri);
+			Assert.AreEqual("Greenshot JIRA", serverInfo.ServerTitle);
 		}
 	}
 }

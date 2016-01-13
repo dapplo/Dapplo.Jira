@@ -21,28 +21,34 @@
 	along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
-using System.Diagnostics;
+using System.Runtime.Serialization;
 
-namespace Dapplo.Jira.Tests
+namespace Dapplo.Jira.Entities
 {
-	[TestClass]
-	public class JiraTests
+	/// <summary>
+	/// Server Info is used for the version and title
+	/// See: https://docs.atlassian.com/jira/REST/latest/#api/2/serverInfo
+	/// </summary>
+	[DataContract]
+	public class ServerInfo
 	{
-		[TestMethod]
-		public async Task TestCreateAndInitializeAsync()
-		{
-			// Test against a well known JIRA
-			var jiraApi = await JiraApi.CreateAndInitializeAsync(new Uri("https://greenshot.atlassian.net"));
-			Assert.IsNotNull(jiraApi);
-			Assert.IsNotNull(jiraApi.JiraVersion);
-			Assert.IsNotNull(jiraApi.ServerTitle);
-			// This should be changed when the title changes
-			Assert.AreEqual("Greenshot JIRA", jiraApi.ServerTitle);
-			Debug.WriteLine($"Version {jiraApi.JiraVersion} - Title: {jiraApi.ServerTitle}");
-		}
+		[DataMember(Name = "baseUrl")]
+		public Uri BaseUrl { get; set; }
+
+		[DataMember(Name = "version")]
+		public string Version { get; set; }
+
+		[DataMember(Name = "buildNumber")]
+		public int BuildNumber { get; set; }
+
+		[DataMember(Name = "buildDate")]
+		public DateTimeOffset buildDate { get; set; }
+
+		[DataMember(Name = "scmInfo")]
+		public string ScmInfo { get; set; }
+
+		[DataMember(Name = "serverTitle")]
+		public string ServerTitle { get; set; }
 	}
 }

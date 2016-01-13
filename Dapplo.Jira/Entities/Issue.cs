@@ -21,28 +21,15 @@
 	along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using System.Diagnostics;
 
-namespace Dapplo.Jira.Tests
+namespace Dapplo.Jira.Entities
 {
-	[TestClass]
-	public class JiraTests
+	public class Issue
 	{
-		[TestMethod]
-		public async Task TestCreateAndInitializeAsync()
-		{
-			// Test against a well known JIRA
-			var jiraApi = await JiraApi.CreateAndInitializeAsync(new Uri("https://greenshot.atlassian.net"));
-			Assert.IsNotNull(jiraApi);
-			Assert.IsNotNull(jiraApi.JiraVersion);
-			Assert.IsNotNull(jiraApi.ServerTitle);
-			// This should be changed when the title changes
-			Assert.AreEqual("Greenshot JIRA", jiraApi.ServerTitle);
-			Debug.WriteLine($"Version {jiraApi.JiraVersion} - Title: {jiraApi.ServerTitle}");
-		}
 	}
 }
