@@ -23,6 +23,7 @@
 
 
 using System;
+using System.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using System.Diagnostics;
@@ -43,6 +44,17 @@ namespace Dapplo.Jira.Tests
 			// This should be changed when the title changes
 			Assert.AreEqual("Greenshot JIRA", jiraApi.ServerTitle);
 			Debug.WriteLine($"Version {jiraApi.JiraVersion} - Title: {jiraApi.ServerTitle}");
+		}
+
+		[TestMethod]
+		public async Task TestProjectsAsync()
+		{
+			// Test against a well known JIRA
+			var jiraApi = await JiraApi.CreateAndInitializeAsync(new Uri("https://greenshot.atlassian.net"));
+			var projects = await jiraApi.Projects();
+
+			Assert.IsNotNull(projects);
+			Assert.IsNotNull(projects.Count > 0);
 		}
 	}
 }
