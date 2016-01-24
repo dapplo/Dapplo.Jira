@@ -82,14 +82,14 @@ namespace Dapplo.Jira
 		{
 			if (baseUri == null)
 			{
-				new ArgumentNullException(nameof(baseUri));
+				throw new ArgumentNullException(nameof(baseUri));
 			}
 			JiraBaseUri = baseUri;
 
 			_behaviour = new HttpBehaviour
 			{
 				HttpSettings = httpSettings,
-				OnCreateHttpClient = (httpClient) =>
+				OnHttpClientCreated = httpClient =>
 				{
 					httpClient.AddDefaultRequestHeader("X-Atlassian-Token", "nocheck");
 					if (!string.IsNullOrEmpty(_user) && _password != null)
@@ -119,9 +119,9 @@ namespace Dapplo.Jira
 		/// <returns>JiraApi (in a Task)</returns>
 		public static async Task<JiraApi> CreateAndInitializeAsync(Uri baseUri, IHttpSettings httpSettings)
 		{
-			var jiraAPI = new JiraApi(baseUri, httpSettings);
-			await jiraAPI.InitializeAsync();
-			return jiraAPI;
+			var jiraApi = new JiraApi(baseUri, httpSettings);
+			await jiraApi.InitializeAsync();
+			return jiraApi;
 		}
 
 		/// <summary>
@@ -156,7 +156,7 @@ namespace Dapplo.Jira
 		public async Task<dynamic> Issue(string issue, CancellationToken token = default(CancellationToken))
 		{
 			var issueUri = JiraBaseUri.AppendSegments(RestPath, "issue", issue);
-			return await issueUri.GetAsJsonAsync(_behaviour, token).ConfigureAwait(false);
+			return await issueUri.GetAsAsync<dynamic>(_behaviour, token).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -167,7 +167,7 @@ namespace Dapplo.Jira
 		public async Task<ServerInfo> ServerInfo(CancellationToken token = default(CancellationToken))
 		{
 			var serverInfoUri = JiraBaseUri.AppendSegments(RestPath, "serverInfo");
-			return await serverInfoUri.GetAsJsonAsync<ServerInfo>(_behaviour, token).ConfigureAwait(false);
+			return await serverInfoUri.GetAsAsync<ServerInfo>(_behaviour, token).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -180,7 +180,7 @@ namespace Dapplo.Jira
 		public async Task<dynamic> User(string username, CancellationToken token = default(CancellationToken))
 		{
 			var userUri = JiraBaseUri.AppendSegments(RestPath, "user").ExtendQuery("username", username);
-			return await userUri.GetAsJsonAsync(_behaviour, token).ConfigureAwait(false);
+			return await userUri.GetAsAsync<dynamic>(_behaviour, token).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -191,7 +191,7 @@ namespace Dapplo.Jira
 		public async Task<dynamic> Myself(CancellationToken token = default(CancellationToken))
 		{
 			var myselfUri = JiraBaseUri.AppendSegments(RestPath, "myself");
-			return await myselfUri.GetAsJsonAsync(_behaviour, token).ConfigureAwait(false);
+			return await myselfUri.GetAsAsync<dynamic>(_behaviour, token).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -202,7 +202,7 @@ namespace Dapplo.Jira
 		public async Task<dynamic> Projects(CancellationToken token = default(CancellationToken))
 		{
 			var projectUri = JiraBaseUri.AppendSegments(RestPath, "project");
-			return await projectUri.GetAsJsonAsync(_behaviour, token).ConfigureAwait(false);
+			return await projectUri.GetAsAsync<dynamic>(_behaviour, token).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -216,7 +216,7 @@ namespace Dapplo.Jira
 		public async Task<HttpResponseMessage> Attach(string issueKey, HttpContent content, CancellationToken token = default(CancellationToken))
 		{
 			var attachUri = JiraBaseUri.AppendSegments(RestPath, "issue", issueKey, "attachments");
-			using (var responseMessage = await attachUri.PostAsync(content, _behaviour, token).ConfigureAwait(false))
+			using (var responseMessage = await attachUri.PostAsync<HttpResponseMessage, HttpContent>(content, _behaviour, token).ConfigureAwait(false))
 			{
 				await responseMessage.HandleErrorAsync(_behaviour, token).ConfigureAwait(false);
 				return responseMessage;
@@ -231,7 +231,7 @@ namespace Dapplo.Jira
 		public async Task<dynamic> Filters(CancellationToken token = default(CancellationToken))
 		{
 			var filterFavouriteUri = JiraBaseUri.AppendSegments(RestPath, "filter", "favourite");
-			return await filterFavouriteUri.GetAsJsonAsync(_behaviour, token).ConfigureAwait(false);
+			return await filterFavouriteUri.GetAsAsync<dynamic>(_behaviour, token).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -242,7 +242,7 @@ namespace Dapplo.Jira
 		public async Task<dynamic> Search(string jql, CancellationToken token = default(CancellationToken))
 		{
 			var searchUri = JiraBaseUri.AppendSegments(RestPath, "search", "favourite").ExtendQuery("jql", jql);
-			return await searchUri.GetAsJsonAsync(_behaviour, token).ConfigureAwait(false);
+			return await searchUri.GetAsAsync<dynamic>(_behaviour, token).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -254,7 +254,7 @@ namespace Dapplo.Jira
 		public async Task<Stream> Avatar(dynamic user, CancellationToken token = default(CancellationToken))
 		{
 			var avatarUrl = new Uri(user.avatarUrls["48x48"]);
-			return await avatarUrl.GetAsMemoryStreamAsync(_behaviour, token).ConfigureAwait(false);
+			return await avatarUrl.GetAsAsync<MemoryStream>(_behaviour, token).ConfigureAwait(false);
 		}
 	}
 }
