@@ -246,16 +246,16 @@ namespace Dapplo.Jira
 		}
 
 		/// <summary>
-		/// Retrieve the 48x48 Avatar for the supplied user
+		/// Retrieve the 48x48 Avatar for the supplied user or project
 		/// </summary>
 		/// <typeparam name="TResponse">the type to return the result into. e.g. Bitmap,BitmapSource or MemoryStream</typeparam>
-		/// <param name="user">dyamic object from User or Myself method</param>
+		/// <param name="item">dyamic object from User or Myself method, or a project from the projects</param>
 		/// <param name="token">CancellationToken</param>
 		/// <returns>Bitmap,BitmapSource or MemoryStream depending on TResponse</returns>
-		public async Task<TResponse> Avatar<TResponse>(dynamic user, CancellationToken token = default(CancellationToken))
+		public async Task<TResponse> Avatar<TResponse>(dynamic item, CancellationToken token = default(CancellationToken))
 			where TResponse : class
 		{
-			var avatarUrl = new Uri(user.avatarUrls["48x48"]);
+			var avatarUrl = new Uri(item.avatarUrls["48x48"]);
 			return await avatarUrl.GetAsAsync<TResponse>(_behaviour, token).ConfigureAwait(false);
 		}
 	}

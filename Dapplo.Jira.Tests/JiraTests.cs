@@ -22,17 +22,24 @@
  */
 
 
-using System;
-using System.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
+using System;
+using System.Linq;
 using System.Diagnostics;
+using System.Drawing;
+using System.Threading.Tasks;
 
 namespace Dapplo.Jira.Tests
 {
 	[TestClass]
 	public class JiraTests
 	{
+		[TestInitialize]
+		public void ConfigureLogging()
+		{
+			HttpExtensions.HttpExtensionsGlobals.Logger = new HttpExtensions.Support.TraceLogger();
+		}
+
 		[TestMethod]
 		public async Task TestCreateAndInitializeAsync()
 		{
@@ -55,6 +62,11 @@ namespace Dapplo.Jira.Tests
 
 			Assert.IsNotNull(projects);
 			Assert.IsNotNull(projects.Count > 0);
+
+			foreach (var project in projects)
+			{
+				var avatar = await jiraApi.Avatar<Bitmap>(project);
+			}
 		}
 	}
 }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapplo.Jira", "Dapplo.Jira\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapplo.Jira.Tests", "Dapplo.Jira.Tests\Dapplo.Jira.Tests.csproj", "{D5DD12F1-42CE-4A3B-85A8-D1F4C9306661}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapplo.Jira.WpfExample", "Dapplo.Jira.WpfExample\Dapplo.Jira.WpfExample.csproj", "{21318574-B731-40E3-BA54-0C92429B5317}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D5DD12F1-42CE-4A3B-85A8-D1F4C9306661}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5DD12F1-42CE-4A3B-85A8-D1F4C9306661}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5DD12F1-42CE-4A3B-85A8-D1F4C9306661}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21318574-B731-40E3-BA54-0C92429B5317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21318574-B731-40E3-BA54-0C92429B5317}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21318574-B731-40E3-BA54-0C92429B5317}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21318574-B731-40E3-BA54-0C92429B5317}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
