@@ -28,6 +28,8 @@ using System.Linq;
 using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
+using Dapplo.LogFacade.Loggers;
+using Dapplo.LogFacade;
 
 namespace Dapplo.Jira.Tests
 {
@@ -37,7 +39,7 @@ namespace Dapplo.Jira.Tests
 		[TestInitialize]
 		public void ConfigureLogging()
 		{
-			HttpExtensions.HttpExtensionsGlobals.Logger = new HttpExtensions.Support.TraceLogger();
+			LogSettings.Logger = new TraceLogger();
 		}
 
 		[TestMethod]

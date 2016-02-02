@@ -23,6 +23,8 @@
 
 using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.Support;
+using Dapplo.LogFacade;
+using Dapplo.LogFacade.Loggers;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -44,7 +46,7 @@ namespace Dapplo.Jira.WpfExample
 		public MainWindow()
 		{
 			InitializeComponent();
-			HttpExtensionsGlobals.Logger = new TraceLogger();
+			LogSettings.Logger = new TraceLogger();
 			DataContext = this;
 
 			Loaded += MainWindow_Loaded;
