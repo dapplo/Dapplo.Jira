@@ -12,7 +12,7 @@
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	Dapplo.Exchange is distributed in the hope that it will be useful,
+	Dapplo.Jira is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
@@ -21,8 +21,6 @@
 	along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Dapplo.HttpExtensions;
-using Dapplo.HttpExtensions.Support;
 using Dapplo.LogFacade;
 using Dapplo.LogFacade.Loggers;
 using System;

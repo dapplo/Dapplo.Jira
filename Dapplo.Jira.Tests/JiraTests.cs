@@ -12,7 +12,7 @@
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	Dapplo.Exchange is distributed in the hope that it will be useful,
+	Dapplo.Jira is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
@@ -21,32 +21,23 @@
 	along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Linq;
 using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
-using Dapplo.LogFacade.Loggers;
-using Dapplo.LogFacade;
 
 namespace Dapplo.Jira.Tests
 {
 	[TestClass]
 	public class JiraTests
 	{
-		[TestInitialize]
-		public void ConfigureLogging()
-		{
-			LogSettings.Logger = new TraceLogger();
-		}
-
+		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
 		[TestMethod]
 		public async Task TestCreateAndInitializeAsync()
 		{
 			// Test against a well known JIRA
-			var jiraApi = await JiraApi.CreateAndInitializeAsync(new Uri("https://greenshot.atlassian.net"));
+			var jiraApi = await JiraApi.CreateAndInitializeAsync(TestJiraUri);
 			Assert.IsNotNull(jiraApi);
 			Assert.IsNotNull(jiraApi.JiraVersion);
 			Assert.IsNotNull(jiraApi.ServerTitle);
@@ -59,7 +50,7 @@ namespace Dapplo.Jira.Tests
 		public async Task TestProjectsAsync()
 		{
 			// Test against a well known JIRA
-			var jiraApi = await JiraApi.CreateAndInitializeAsync(new Uri("https://greenshot.atlassian.net"));
+			var jiraApi = await JiraApi.CreateAndInitializeAsync(TestJiraUri);
 			var projects = await jiraApi.Projects();
 
 			Assert.IsNotNull(projects);

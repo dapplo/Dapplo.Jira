@@ -21,25 +21,23 @@
 	along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Windows.Media.Imaging;
 
-namespace Dapplo.Jira.WpfExample
+using Dapplo.LogFacade;
+using Dapplo.LogFacade.Loggers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Dapplo.Jira.Tests
 {
 	/// <summary>
-	/// A container for reading the project data into, currently also by a lack of having them inside the API
+	/// This initializes the logger for all tests
 	/// </summary>
-	public class Project
+	[TestClass]
+	public class ConfigureLogging4Tests
 	{
-		public string Title
+		[AssemblyInitialize]
+		public static void ConfigureLogging(TestContext context)
 		{
-			get;
-			set;
-		}
-
-		public BitmapSource Avatar
-		{
-			get;
-			set;
+			LogSettings.Logger = new TraceLogger { Level = LogLevel.Verbose };
 		}
 	}
 }
