@@ -24,6 +24,7 @@
 using Dapplo.HttpExtensions;
 using Dapplo.Jira.Entities;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,8 +36,6 @@ namespace Dapplo.Jira
 	/// </summary>
 	public class JiraApi
 	{
-		private const string RestPath = "/rest/api/2";
-
 		/// <summary>
 		/// Store the specific HttpBehaviour, which contains a IHttpSettings and also some additional logic for making a HttpClient which works with Jira
 		/// </summary>
@@ -83,7 +82,7 @@ namespace Dapplo.Jira
 			{
 				throw new ArgumentNullException(nameof(baseUri));
 			}
-			JiraBaseUri = baseUri;
+			JiraBaseUri = baseUri.AppendSegments("rest", "api", "2");
 
 			_behaviour = new HttpBehaviour
 			{
@@ -150,23 +149,26 @@ namespace Dapplo.Jira
 		/// See: https://docs.atlassian.com/jira/REST/latest/#d2e4539
 		/// </summary>
 		/// <param name="issue">the issue key</param>
-		/// <param name="token"></param>
-		/// <returns>dynamic</returns>
-		public async Task<dynamic> Issue(string issue, CancellationToken token = default(CancellationToken))
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>Issue</returns>
+		public async Task<Issue> Issue(string issue, CancellationToken cancellationToken = default(CancellationToken))
 		{
-			var issueUri = JiraBaseUri.AppendSegments(RestPath, "issue", issue);
-			return await issueUri.GetAsAsync<dynamic>(_behaviour, token).ConfigureAwait(false);
+			var issueUri = JiraBaseUri.AppendSegments("issue", issue);
+			_behaviour.MakeCurrent();
+			return await issueUri.GetAsAsync<Issue>(cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
 		/// Get server information
 		/// See: https://docs.atlassian.com/jira/REST/latest/#d2e3828
 		/// </summary>
+		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>ServerInfo</returns>
-		public async Task<ServerInfo> ServerInfo(CancellationToken token = default(CancellationToken))
+		public async Task<ServerInfo> ServerInfo(CancellationToken cancellationToken = default(CancellationToken))
 		{
-			var serverInfoUri = JiraBaseUri.AppendSegments(RestPath, "serverInfo");
-			return await serverInfoUri.GetAsAsync<ServerInfo>(_behaviour, token).ConfigureAwait(false);
+			var serverInfoUri = JiraBaseUri.AppendSegments("serverInfo");
+			_behaviour.MakeCurrent();
+			return await serverInfoUri.GetAsAsync<ServerInfo>(cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -174,34 +176,53 @@ namespace Dapplo.Jira
 		/// See: https://docs.atlassian.com/jira/REST/latest/#d2e5339
 		/// </summary>
 		/// <param name="username"></param>
-		/// <param name="token"></param>
-		/// <returns>dynamic with user information</returns>
-		public async Task<dynamic> User(string username, CancellationToken token = default(CancellationToken))
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>user information</returns>
+		public async Task<User> User(string username, CancellationToken cancellationToken = default(CancellationToken))
 		{
-			var userUri = JiraBaseUri.AppendSegments(RestPath, "user").ExtendQuery("username", username);
-			return await userUri.GetAsAsync<dynamic>(_behaviour, token).ConfigureAwait(false);
+			var userUri = JiraBaseUri.AppendSegments("user").ExtendQuery("username", username);
+			_behaviour.MakeCurrent();
+			return await userUri.GetAsAsync<User>(cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
 		/// Get currrent user information
 		/// See: https://docs.atlassian.com/jira/REST/latest/#d2e4253
 		/// </summary>
-		/// <returns>dynamic with user information</returns>
-		public async Task<dynamic> Myself(CancellationToken token = default(CancellationToken))
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>User</returns>
+		public async Task<User> Myself(CancellationToken cancellationToken = default(CancellationToken))
 		{
-			var myselfUri = JiraBaseUri.AppendSegments(RestPath, "myself");
-			return await myselfUri.GetAsAsync<dynamic>(_behaviour, token).ConfigureAwait(false);
+			var myselfUri = JiraBaseUri.AppendSegments("myself");
+			_behaviour.MakeCurrent();
+			return await myselfUri.GetAsAsync<User>(cancellationToken).ConfigureAwait(false);
+		}
+
+		/// <summary>
+		/// Get all visible projects
+		/// See: https://docs.atlassian.com/jira/REST/latest/#d2e2779
+		/// </summary>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>list of ProjectDigest</returns>
+		public async Task<IList<ProjectDigest>> Projects(CancellationToken cancellationToken = default(CancellationToken))
+		{
+			var projectUri = JiraBaseUri.AppendSegments("project");
+			_behaviour.MakeCurrent();
+			return await projectUri.GetAsAsync<IList<ProjectDigest>>(cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
 		/// Get projects information
 		/// See: https://docs.atlassian.com/jira/REST/latest/#d2e2779
 		/// </summary>
-		/// <returns>dynamic array</returns>
-		public async Task<dynamic> Projects(CancellationToken token = default(CancellationToken))
+		/// <param name="projectKey">key of the project</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>ProjectDetails</returns>
+		public async Task<ProjectDetails> ProjectDetails(string projectKey, CancellationToken cancellationToken = default(CancellationToken))
 		{
-			var projectUri = JiraBaseUri.AppendSegments(RestPath, "project");
-			return await projectUri.GetAsAsync<dynamic>(_behaviour, token).ConfigureAwait(false);
+			var projectUri = JiraBaseUri.AppendSegments("project", projectKey);
+			_behaviour.MakeCurrent();
+			return await projectUri.GetAsAsync<ProjectDetails>(cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -209,53 +230,55 @@ namespace Dapplo.Jira
 		/// See: https://docs.atlassian.com/jira/REST/latest/#d2e3035
 		/// </summary>
 		/// <param name="issueKey"></param>
-		/// <param name="content">HttpContent, Make sure your HttpContent has a mime type...</param>
-		/// <param name="token"></param>
-		/// <returns>HttpResponseMessage</returns>
-		public async Task<HttpResponseMessage> Attach(string issueKey, HttpContent content, CancellationToken token = default(CancellationToken))
+		/// <param name="content">the content can be anything what Dapplo.HttpExtensions supports</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>Attachment</returns>
+		public async Task<Attachment> Attach(string issueKey, object content, CancellationToken cancellationToken = default(CancellationToken))
 		{
-			var attachUri = JiraBaseUri.AppendSegments(RestPath, "issue", issueKey, "attachments");
-			using (var responseMessage = await attachUri.PostAsync<HttpResponseMessage, HttpContent>(content, _behaviour, token).ConfigureAwait(false))
-			{
-				await responseMessage.HandleErrorAsync(_behaviour, token).ConfigureAwait(false);
-				return responseMessage;
-			}
+			_behaviour.MakeCurrent();
+			var attachUri = JiraBaseUri.AppendSegments("issue", issueKey, "attachments");
+			return await attachUri.PostAsync<Attachment>(content, cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
 		/// Get filter favorites
 		/// See: https://docs.atlassian.com/jira/REST/latest/#d2e1388
 		/// </summary>
+		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>dynamic (JsonArray)</returns>
-		public async Task<dynamic> Filters(CancellationToken token = default(CancellationToken))
+		public async Task<dynamic> Filters(CancellationToken cancellationToken = default(CancellationToken))
 		{
-			var filterFavouriteUri = JiraBaseUri.AppendSegments(RestPath, "filter", "favourite");
-			return await filterFavouriteUri.GetAsAsync<dynamic>(_behaviour, token).ConfigureAwait(false);
+			_behaviour.MakeCurrent();
+			var filterFavouriteUri = JiraBaseUri.AppendSegments("filter", "favourite");
+			return await filterFavouriteUri.GetAsAsync<dynamic>(cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
 		/// Search for issues, with a JQL (e.g. from a filter)
 		/// See: https://docs.atlassian.com/jira/REST/latest/#d2e2713
 		/// </summary>
+		/// <param name="jql">Jira Query Language, like SQL, for the search</param>
+		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>dynamic</returns>
-		public async Task<dynamic> Search(string jql, CancellationToken token = default(CancellationToken))
+		public async Task<dynamic> Search(string jql, CancellationToken cancellationToken = default(CancellationToken))
 		{
-			var searchUri = JiraBaseUri.AppendSegments(RestPath, "search", "favourite").ExtendQuery("jql", jql);
-			return await searchUri.GetAsAsync<dynamic>(_behaviour, token).ConfigureAwait(false);
+			_behaviour.MakeCurrent();
+			var searchUri = JiraBaseUri.AppendSegments("search", "favourite").ExtendQuery("jql", jql);
+			return await searchUri.GetAsAsync<dynamic>(cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
-		/// Retrieve the 48x48 Avatar for the supplied user or project
+		/// Retrieve the 48x48 Avatar for the supplied avatarUrls object
 		/// </summary>
 		/// <typeparam name="TResponse">the type to return the result into. e.g. Bitmap,BitmapSource or MemoryStream</typeparam>
-		/// <param name="item">dyamic object from User or Myself method, or a project from the projects</param>
-		/// <param name="token">CancellationToken</param>
+		/// <param name="avatarUrls">AvatarUrls object from User or Myself method, or a project from the projects</param>
+		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Bitmap,BitmapSource or MemoryStream depending on TResponse</returns>
-		public async Task<TResponse> Avatar<TResponse>(dynamic item, CancellationToken token = default(CancellationToken))
+		public async Task<TResponse> Avatar<TResponse>(AvatarUrls avatarUrls, CancellationToken cancellationToken = default(CancellationToken))
 			where TResponse : class
 		{
-			var avatarUrl = new Uri(item.avatarUrls["48x48"]);
-			return await avatarUrl.GetAsAsync<TResponse>(_behaviour, token).ConfigureAwait(false);
+			_behaviour.MakeCurrent();
+			return await avatarUrls.ExtraLarge.GetAsAsync<TResponse>(cancellationToken).ConfigureAwait(false);
 		}
 	}
 }

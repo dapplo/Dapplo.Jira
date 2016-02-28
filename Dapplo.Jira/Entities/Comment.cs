@@ -21,32 +21,37 @@
 	along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-using System.Collections.Generic;
+using System;
 using System.Runtime.Serialization;
 
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	/// Issue information
-	/// See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
+	/// Comment information
+	/// See: https://docs.atlassian.com/jira/REST/latest/#api/2/attachment
 	/// </summary>
 	[DataContract]
-	public class Issue
+	public class Comment
 	{
 		[DataMember(Name = "id")]
 		public string Id { get; set; }
 
-		[DataMember(Name = "key")]
-		public string Key { get; set; }
+		[DataMember(Name = "author")]
+		public User Author { get; set; }
 
-		[DataMember(Name = "description")]
-		public string Description { get; set; }
+		[DataMember(Name = "updateAuthor")]
+		public User UpdateAuthor { get; set; }
 
-		[DataMember(Name = "attachment")]
-		public IList<Attachment> Attachments { get; set; }
+		[DataMember(Name = "created")]
+		public DateTimeOffset Created { get; set; }
 
-		[DataMember(Name = "project")]
-		public ProjectDetails Project { get; set; }
+		[DataMember(Name = "updated")]
+		public DateTimeOffset Updated { get; set; }
+
+		[DataMember(Name = "body")]
+		public string Body { get; set; }
+
+		[DataMember(Name = "visibility")]
+		public Visibility Visibility { get; set; }
 	}
 }

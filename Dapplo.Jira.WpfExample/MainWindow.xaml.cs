@@ -60,10 +60,10 @@ namespace Dapplo.Jira.WpfExample
 			{
 				// Demonstrate the Avatar and it's underlying GetAsAsync<BitmapSource>
 				// could also be done with setting the source of the image, but this might not work without login
-				var avatar = await jiraApi.Avatar<BitmapSource>(project);
+				var avatar = await jiraApi.Avatar<BitmapSource>(project.Avatar);
 				Projects.Add(new Project
 				{
-					Title = project.name,
+					Title = project.Name,
 					Avatar = avatar
 				});
 			}

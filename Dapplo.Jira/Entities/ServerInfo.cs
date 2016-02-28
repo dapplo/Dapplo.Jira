@@ -43,7 +43,7 @@ namespace Dapplo.Jira.Entities
 		public int BuildNumber { get; set; }
 
 		[DataMember(Name = "buildDate")]
-		public DateTimeOffset buildDate { get; set; }
+		public DateTimeOffset BuildDate { get; set; }
 
 		[DataMember(Name = "scmInfo")]
 		public string ScmInfo { get; set; }

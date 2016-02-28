@@ -21,32 +21,31 @@
 	along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	/// Issue information
-	/// See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
+	/// User information
+	/// See: https://docs.atlassian.com/jira/REST/latest/#api/2/user
 	/// </summary>
 	[DataContract]
-	public class Issue
+	public class User
 	{
-		[DataMember(Name = "id")]
-		public string Id { get; set; }
+		[DataMember(Name = "name")]
+		public string Name { get; set; }
 
-		[DataMember(Name = "key")]
-		public string Key { get; set; }
+		[DataMember(Name = "emailAddress")]
+		public string EmailAddress { get; set; }
 
-		[DataMember(Name = "description")]
-		public string Description { get; set; }
+		[DataMember(Name = "displayName")]
+		public string DisplayName { get; set; }
 
-		[DataMember(Name = "attachment")]
-		public IList<Attachment> Attachments { get; set; }
+		[DataMember(Name = "avatarUrls")]
+		public AvatarUrls Avatars { get; set; }
 
-		[DataMember(Name = "project")]
-		public ProjectDetails Project { get; set; }
+		[DataMember(Name = "active")]
+		public bool Active { get; set; }
+
 	}
 }

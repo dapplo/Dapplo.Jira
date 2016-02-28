@@ -21,32 +21,48 @@
 	along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	/// Issue information
-	/// See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
+	/// Component information
+	/// See: https://docs.atlassian.com/jira/REST/latest/#api/2/component
 	/// </summary>
 	[DataContract]
-	public class Issue
+	public class Component
 	{
 		[DataMember(Name = "id")]
 		public string Id { get; set; }
 
-		[DataMember(Name = "key")]
-		public string Key { get; set; }
+		[DataMember(Name = "name")]
+		public string Name { get; set; }
 
 		[DataMember(Name = "description")]
 		public string Description { get; set; }
 
-		[DataMember(Name = "attachment")]
-		public IList<Attachment> Attachments { get; set; }
+		[DataMember(Name = "lead")]
+		public User Lead { get; set; }
+
+		[DataMember(Name = "assigneeType")]
+		public string AssigneeType { get; set; }
+
+		[DataMember(Name = "assignee")]
+		public User Assignee { get; set; }
+
+		[DataMember(Name = "realAssigneeType")]
+		public string RealAssigneeType { get; set; }
+
+		[DataMember(Name = "realAssignee")]
+		public User RealAssignee { get; set; }
+
+		[DataMember(Name = "isAssigneeTypeValid")]
+		public bool IsAssigneeTypeValid { get; set; }
 
 		[DataMember(Name = "project")]
-		public ProjectDetails Project { get; set; }
+		public string Project { get; set; }
+
+		[DataMember(Name = "projectId")]
+		public int ProjectId { get; set; }
 	}
 }

@@ -51,6 +51,7 @@ namespace Dapplo.Jira.Tests
 		{
 			// Test against a well known JIRA
 			var jiraApi = await JiraApi.CreateAndInitializeAsync(TestJiraUri);
+
 			var projects = await jiraApi.Projects();
 
 			Assert.IsNotNull(projects);
@@ -58,7 +59,11 @@ namespace Dapplo.Jira.Tests
 
 			foreach (var project in projects)
 			{
-				var avatar = await jiraApi.Avatar<Bitmap>(project);
+				var avatar = await jiraApi.Avatar<Bitmap>(project.Avatar);
+				Assert.IsTrue(avatar.Width == 48);
+
+				var projectDetails = await jiraApi.ProjectDetails(project.Key);
+				Assert.IsNotNull(projectDetails);
 			}
 		}
 	}

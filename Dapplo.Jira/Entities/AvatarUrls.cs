@@ -21,32 +21,28 @@
 	along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-using System.Collections.Generic;
+using System;
 using System.Runtime.Serialization;
 
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	/// Issue information
-	/// See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
+	/// Avatar information, has 16x16,24x24,32x32,48x48 Urls
+	/// See: https://docs.atlassian.com/jira/REST/latest/#api/2/project
 	/// </summary>
 	[DataContract]
-	public class Issue
+	public class AvatarUrls
 	{
-		[DataMember(Name = "id")]
-		public string Id { get; set; }
+		[DataMember(Name = "16x16")]
+		public Uri ExtraSmall { get; set; }
 
-		[DataMember(Name = "key")]
-		public string Key { get; set; }
+		[DataMember(Name = "24x24")]
+		public Uri Small { get; set; }
 
-		[DataMember(Name = "description")]
-		public string Description { get; set; }
+		[DataMember(Name = "32x32")]
+		public Uri Large { get; set; }
 
-		[DataMember(Name = "attachment")]
-		public IList<Attachment> Attachments { get; set; }
-
-		[DataMember(Name = "project")]
-		public ProjectDetails Project { get; set; }
+		[DataMember(Name = "48x48")]
+		public Uri ExtraLarge { get; set; }
 	}
 }
