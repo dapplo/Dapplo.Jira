@@ -13,8 +13,19 @@
         <language>en-us</language>
 		<copyright>Copyright © Dapplo 2016</copyright>
 		<tags>Jira</tags>
-    </metadata>
+		<dependencies>
+		  <group targetFramework="dotnet">
+			<dependency id="System.ComponentModel" version="4.0.0" />
+			<dependency id="System.Runtime.Serialization.Primitives" version="4.0.10" />
+		  </group>
+		</dependencies>
+	</metadata>
 	<files>
-		<file src="bin\release\$id$.pdb" target="lib\net451" />
+		<file src="bin\release\$id$.pdb" target="lib\net46" />
+		<file src="bin\release\$id$.dll" target="lib\net46" />
+		<file src="..\Dapplo.Jira.PCL\bin\release\$id$.pdb" target="lib\portable-net46+win10" />
+		<file src="..\Dapplo.Jira.PCL\bin\release\$id$.dll" target="lib\portable-net46+win10" />
+		<file src="..\Dapplo.Jira.PCL\bin\release\$id$.pdb" target="lib\dotnet" />
+		<file src="..\Dapplo.Jira.PCL\bin\release\$id$.dll" target="lib\dotnet" />
 	</files>
 </package>

@@ -1,0 +1,19 @@
+﻿{
+  "supports": {
+    "net46.app": {},
+    "uwp.10.0.app": {},
+    "dnxcore50.app": {}
+  },
+  "dependencies": {
+    "Dapplo.HttpExtensions": "0.4.21",
+    "Microsoft.NETCore": "5.0.0",
+    "Microsoft.NETCore.Portable.Compatibility": "1.0.0",
+    "System.ComponentModel": "4.0.0",
+    "System.Runtime.Serialization.Primitives": "4.0.10"
+  },
+  "frameworks": {
+    "dotnet": {
+      "imports": "portable-net452+win81"
+    }
+  }
+}

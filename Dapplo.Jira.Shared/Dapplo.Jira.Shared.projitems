@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>9adc9877-d20c-426d-b82d-dded453d12bd</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Dapplo.Jira</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Attachment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\AvatarUrls.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Comment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Component.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Issue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\IssueType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\ProjectCategory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\ProjectDetails.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\ProjectDigest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\ServerInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Visibility.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)JiraApi.cs" />
+  </ItemGroup>
+</Project>

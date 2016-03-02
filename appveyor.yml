@@ -1,7 +1,7 @@
 version: 0.1.{build}
 skip_tags: true
 configuration: Release
-platform: Any CPU
+platform: AnyCPU
 clone_depth: 2
 assembly_info:
   patch: true
