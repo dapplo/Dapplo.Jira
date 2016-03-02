@@ -8,8 +8,8 @@
     <ProjectGuid>{437D6408-B03C-4AE2-B736-D7E9763C2B09}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dapplo.Jira.PCL</RootNamespace>
-    <AssemblyName>Dapplo.Jira.PCL</AssemblyName>
+    <RootNamespace>Dapplo.Jira</RootNamespace>
+    <AssemblyName>Dapplo.Jira</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
