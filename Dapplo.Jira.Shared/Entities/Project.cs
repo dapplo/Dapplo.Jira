@@ -22,6 +22,7 @@
 #region using
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
@@ -29,22 +30,34 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Avatar information, has 16x16,24x24,32x32,48x48 Urls
-	///     See: <a href="https://docs.atlassian.com/jira/REST/latest/#api/2/project">Jira project</a>
+	///     Project information
+	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/project
 	/// </summary>
 	[DataContract]
-	public class AvatarUrls
+	public class Project : ProjectDigest
 	{
-		[DataMember(Name = "48x48")]
-		public Uri ExtraLarge { get; set; }
+		[DataMember(Name = "assigneeType")]
+		public string AssigneeType { get; set; }
 
-		[DataMember(Name = "16x16")]
-		public Uri ExtraSmall { get; set; }
+		[DataMember(Name = "url")]
+		public Uri BrowseUrl { get; set; }
 
-		[DataMember(Name = "32x32")]
-		public Uri Large { get; set; }
+		[DataMember(Name = "projectCategory")]
+		public ProjectCategory Category { get; set; }
 
-		[DataMember(Name = "24x24")]
-		public Uri Small { get; set; }
+		[DataMember(Name = "components")]
+		public IList<Component> Components { get; set; }
+
+		[DataMember(Name = "description")]
+		public string Description { get; set; }
+
+		[DataMember(Name = "email")]
+		public string Email { get; set; }
+
+		[DataMember(Name = "issueTypes")]
+		public IList<IssueType> IssueTypes { get; set; }
+
+		[DataMember(Name = "lead")]
+		public User Lead { get; set; }
 	}
 }

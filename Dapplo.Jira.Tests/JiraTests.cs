@@ -52,17 +52,17 @@ namespace Dapplo.Jira.Tests
 			// Test against a well known JIRA
 			var jiraApi = await JiraApi.CreateAndInitializeAsync(TestJiraUri);
 
-			var projects = await jiraApi.Projects();
+			var projects = await jiraApi.ProjectsAsync();
 
 			Assert.IsNotNull(projects);
 			Assert.IsNotNull(projects.Count > 0);
 
 			foreach (var project in projects)
 			{
-				var avatar = await jiraApi.Avatar<Bitmap>(project.Avatar);
+				var avatar = await jiraApi.AvatarAsync<Bitmap>(project.Avatar);
 				Assert.IsTrue(avatar.Width == 48);
 
-				var projectDetails = await jiraApi.ProjectDetails(project.Key);
+				var projectDetails = await jiraApi.ProjectAsync(project.Key);
 				Assert.IsNotNull(projectDetails);
 			}
 		}

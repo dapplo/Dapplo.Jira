@@ -29,22 +29,15 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Avatar information, has 16x16,24x24,32x32,48x48 Urls
-	///     See: <a href="https://docs.atlassian.com/jira/REST/latest/#api/2/project">Jira project</a>
+	///     Base fields, used in pretty much every entity
 	/// </summary>
 	[DataContract]
-	public class AvatarUrls
+	public class BaseProperties
 	{
-		[DataMember(Name = "48x48")]
-		public Uri ExtraLarge { get; set; }
+		[DataMember(Name = "id")]
+		public string Id { get; set; }
 
-		[DataMember(Name = "16x16")]
-		public Uri ExtraSmall { get; set; }
-
-		[DataMember(Name = "32x32")]
-		public Uri Large { get; set; }
-
-		[DataMember(Name = "24x24")]
-		public Uri Small { get; set; }
+		[DataMember(Name = "self")]
+		public Uri Self { get; set; }
 	}
 }

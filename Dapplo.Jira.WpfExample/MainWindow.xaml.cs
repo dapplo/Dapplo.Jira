@@ -54,13 +54,13 @@ namespace Dapplo.Jira.WpfExample
 		{
 			var jiraApi = await JiraApi.CreateAndInitializeAsync(new Uri("https://greenshot.atlassian.net"));
 
-			var projects = await jiraApi.Projects();
+			var projects = await jiraApi.ProjectsAsync();
 
 			foreach (var project in projects)
 			{
 				// Demonstrate the Avatar and it's underlying GetAsAsync<BitmapSource>
 				// could also be done with setting the source of the image, but this might not work without login
-				var avatar = await jiraApi.Avatar<BitmapSource>(project.Avatar);
+				var avatar = await jiraApi.AvatarAsync<BitmapSource>(project.Avatar);
 				Projects.Add(new Project
 				{
 					Title = project.Name,
