@@ -9,11 +9,14 @@
     <Import_RootNamespace>Dapplo.Jira</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AvatarSizes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Attachment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\AvatarUrls.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Comment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Component.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\ProgressInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\SearchResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Search.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\StatusCategory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Status.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Resolution.cs" />

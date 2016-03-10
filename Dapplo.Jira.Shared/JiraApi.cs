@@ -63,13 +63,14 @@ namespace Dapplo.Jira
 			_behaviour = new HttpBehaviour
 			{
 				HttpSettings = httpSettings,
-				OnHttpClientCreated = httpClient =>
+				OnHttpRequestMessageCreated = (httpMessage) =>
 				{
-					httpClient.AddDefaultRequestHeader("X-Atlassian-Token", "nocheck");
+					httpMessage?.Headers.TryAddWithoutValidation("X-Atlassian-Token", "nocheck");
 					if (!string.IsNullOrEmpty(_user) && _password != null)
 					{
-						httpClient.SetBasicAuthorization(_user, _password);
+						httpMessage?.SetBasicAuthorization(_user, _password);
 					}
+					return httpMessage;
 				}
 			};
 		}
@@ -100,8 +101,7 @@ namespace Dapplo.Jira
 			_password = password;
 		}
 
-		#region Read
-
+		#region write
 		/// <summary>
 		///     Attach content to the specified issue
 		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e3035
@@ -116,19 +116,34 @@ namespace Dapplo.Jira
 			var attachUri = JiraBaseUri.AppendSegments("issue", issueKey, "attachments");
 			return await attachUri.PostAsync<Attachment>(content, cancellationToken).ConfigureAwait(false);
 		}
+		#endregion
+
+		#region Read
 
 		/// <summary>
-		///     Retrieve the 48x48 Avatar for the supplied avatarUrls object
+		///     Retrieve the Avatar for the supplied avatarUrls object
 		/// </summary>
 		/// <typeparam name="TResponse">the type to return the result into. e.g. Bitmap,BitmapSource or MemoryStream</typeparam>
 		/// <param name="avatarUrls">AvatarUrls object from User or Myself method, or a project from the projects</param>
+		/// <param name="avatarSize">Use one of the AvatarSizes to specify the size you want to have</param>
 		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>Bitmap,BitmapSource or MemoryStream depending on TResponse</returns>
-		public async Task<TResponse> AvatarAsync<TResponse>(AvatarUrls avatarUrls, CancellationToken cancellationToken = default(CancellationToken))
+		/// <returns>Bitmap,BitmapSource or MemoryStream (etc) depending on TResponse</returns>
+		public async Task<TResponse> AvatarAsync<TResponse>(AvatarUrls avatarUrls, AvatarSizes avatarSize = AvatarSizes.ExtraLarge, CancellationToken cancellationToken = default(CancellationToken))
 			where TResponse : class
 		{
 			_behaviour.MakeCurrent();
-			return await avatarUrls.ExtraLarge.GetAsAsync<TResponse>(cancellationToken).ConfigureAwait(false);
+			switch (avatarSize)
+			{
+				case AvatarSizes.Small:
+					return await avatarUrls.Small.GetAsAsync<TResponse>(cancellationToken).ConfigureAwait(false);
+				case AvatarSizes.Medium:
+					return await avatarUrls.Medium.GetAsAsync<TResponse>(cancellationToken).ConfigureAwait(false);
+				case AvatarSizes.Large:
+					return await avatarUrls.Large.GetAsAsync<TResponse>(cancellationToken).ConfigureAwait(false);
+				case AvatarSizes.ExtraLarge:
+					return await avatarUrls.ExtraLarge.GetAsAsync<TResponse>(cancellationToken).ConfigureAwait(false);
+			}
+			throw new ArgumentException($"Unknown avatar size: {avatarSize}", nameof(avatarSize));
 		}
 
 		/// <summary>
@@ -190,13 +205,22 @@ namespace Dapplo.Jira
 		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2713
 		/// </summary>
 		/// <param name="jql">Jira Query Language, like SQL, for the search</param>
+		/// <param name="maxResults">Maximum number of results returned, default is 20</param>
+		/// <param name="fields">Jira fields to include, if null a default is taken</param>
 		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>dynamic</returns>
-		public async Task<dynamic> SearchAsync(string jql, CancellationToken cancellationToken = default(CancellationToken))
+		/// <returns>SearchResult</returns>
+		public async Task<SearchResult> SearchAsync(string jql, int maxResults = 20, IList<string> fields = null, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			_behaviour.MakeCurrent();
-			var searchUri = JiraBaseUri.AppendSegments("search", "favourite").ExtendQuery("jql", jql);
-			return await searchUri.GetAsAsync<dynamic>(cancellationToken).ConfigureAwait(false);
+			var search = new Search
+			{
+				Jql = jql,
+				ValidateQuery = true,
+				MaxResults = maxResults,
+				Fields = fields ?? new List<string> { "summary", "status", "assignee", "key", "project"}
+			};
+			var searchUri = JiraBaseUri.AppendSegments("search");
+			return await searchUri.PostAsync<SearchResult>(search, cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>

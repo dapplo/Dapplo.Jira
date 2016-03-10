@@ -23,22 +23,28 @@
 
 using Dapplo.HttpExtensions;
 using Dapplo.Jira.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System.IO;
+using Xunit.Abstractions;
+using Dapplo.LogFacade;
 
 namespace Dapplo.Jira.Tests
 {
-	[TestClass]
 	public class JsonParseTests
 	{
-		[TestMethod]
+		public JsonParseTests(ITestOutputHelper testOutputHelper)
+		{
+			XUnitLogger.RegisterLogger(testOutputHelper, LogLevel.Verbose);
+		}
+
+		[Fact]
 		public void TestParseServerInfo()
 		{
 			var json = File.ReadAllText("JsonTestFiles/serverInfo.json");
 			var serverInfo = SimpleJson.DeserializeObject<ServerInfo>(json);
-			Assert.IsNotNull(serverInfo);
-			Assert.AreEqual("http://localhost:8080/jira", serverInfo.BaseUrl.AbsoluteUri);
-			Assert.AreEqual("Greenshot JIRA", serverInfo.ServerTitle);
+			Assert.NotNull(serverInfo);
+			Assert.Equal("http://localhost:8080/jira", serverInfo.BaseUrl.AbsoluteUri);
+			Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
 		}
 	}
 }

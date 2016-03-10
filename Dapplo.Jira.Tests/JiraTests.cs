@@ -21,49 +21,71 @@
 	along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
+using Xunit.Abstractions;
+using Dapplo.LogFacade;
 
 namespace Dapplo.Jira.Tests
 {
-	[TestClass]
 	public class JiraTests
 	{
+		// Test against a well known JIRA
 		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
-		[TestMethod]
-		public async Task TestCreateAndInitializeAsync()
+
+		private JiraApi _jiraApi;
+
+		public JiraTests(ITestOutputHelper testOutputHelper)
 		{
-			// Test against a well known JIRA
-			var jiraApi = await JiraApi.CreateAndInitializeAsync(TestJiraUri);
-			Assert.IsNotNull(jiraApi);
-			Assert.IsNotNull(jiraApi.JiraVersion);
-			Assert.IsNotNull(jiraApi.ServerTitle);
-			// This should be changed when the title changes
-			Assert.AreEqual("Greenshot JIRA", jiraApi.ServerTitle);
-			Debug.WriteLine($"Version {jiraApi.JiraVersion} - Title: {jiraApi.ServerTitle}");
+			XUnitLogger.RegisterLogger(testOutputHelper, LogLevel.Verbose);
 		}
 
-		[TestMethod]
+		[Fact]
+		public async Task TestCreateAndInitializeAsync()
+		{
+			_jiraApi = await JiraApi.CreateAndInitializeAsync(TestJiraUri);
+			Assert.NotNull(_jiraApi);
+			Assert.NotNull(_jiraApi.JiraVersion);
+			Assert.NotNull(_jiraApi.ServerTitle);
+			// This should be changed when the title changes
+			Assert.Equal("Greenshot JIRA", _jiraApi.ServerTitle);
+			Debug.WriteLine($"Version {_jiraApi.JiraVersion} - Title: {_jiraApi.ServerTitle}");
+		}
+
+		[Fact]
 		public async Task TestProjectsAsync()
 		{
-			// Test against a well known JIRA
-			var jiraApi = await JiraApi.CreateAndInitializeAsync(TestJiraUri);
+			_jiraApi = await JiraApi.CreateAndInitializeAsync(TestJiraUri);
+			var projects = await _jiraApi.ProjectsAsync();
 
-			var projects = await jiraApi.ProjectsAsync();
-
-			Assert.IsNotNull(projects);
-			Assert.IsNotNull(projects.Count > 0);
+			Assert.NotNull(projects);
+			Assert.NotNull(projects.Count > 0);
 
 			foreach (var project in projects)
 			{
-				var avatar = await jiraApi.AvatarAsync<Bitmap>(project.Avatar);
-				Assert.IsTrue(avatar.Width == 48);
+				var avatar = await _jiraApi.AvatarAsync<Bitmap>(project.Avatar, AvatarSizes.ExtraLarge);
+				Assert.True(avatar.Width == 48);
 
-				var projectDetails = await jiraApi.ProjectAsync(project.Key);
-				Assert.IsNotNull(projectDetails);
+				var projectDetails = await _jiraApi.ProjectAsync(project.Key);
+				Assert.NotNull(projectDetails);
+			}
+		}
+
+		[Fact]
+		public async Task TestSearch()
+		{
+			_jiraApi = await JiraApi.CreateAndInitializeAsync(TestJiraUri);
+			var searchResult = await _jiraApi.SearchAsync("text ~ \"robin\"");
+
+			Assert.NotNull(searchResult);
+			Assert.NotNull(searchResult.Issues.Count > 0);
+
+			foreach (var issue in searchResult.Issues)
+			{
+				Assert.NotNull(issue.Fields.Project);
 			}
 		}
 	}

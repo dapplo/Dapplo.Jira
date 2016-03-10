@@ -22,6 +22,7 @@
 #region using
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
@@ -29,22 +30,24 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Avatar information, has 16x16,24x24,32x32,48x48 Urls
-	///     See: <a href="https://docs.atlassian.com/jira/REST/latest/#api/2/project">Jira project</a>
+	///     Search result information, see <a href="https://docs.atlassian.com/jira/REST/latest/#api/2/search-search">here</a>
 	/// </summary>
 	[DataContract]
-	public class AvatarUrls
+	public class SearchResult
 	{
-		[DataMember(Name = "48x48")]
-		public Uri ExtraLarge { get; set; }
+		[DataMember(Name = "expand")]
+		public string Expand { get; set; }
 
-		[DataMember(Name = "16x16")]
-		public Uri Small { get; set; }
+		[DataMember(Name = "startAt")]
+		public int StartAt { get; set; }
 
-		[DataMember(Name = "32x32")]
-		public Uri Medium { get; set; }
+		[DataMember(Name = "maxResults")]
+		public int MaxResults { get; set; }
 
-		[DataMember(Name = "24x24")]
-		public Uri Large { get; set; }
+		[DataMember(Name = "total")]
+		public int Total { get; set; }
+
+		[DataMember(Name = "issues")]
+		public IList<Issue> Issues { get; set; }
 	}
 }

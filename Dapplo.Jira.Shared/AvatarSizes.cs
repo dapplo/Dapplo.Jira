@@ -19,32 +19,16 @@
 //  You should have Config a copy of the GNU Lesser General Public License
 //  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
-#region using
-
-using System;
-using System.Runtime.Serialization;
-
-#endregion
-
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira
 {
 	/// <summary>
-	///     Avatar information, has 16x16,24x24,32x32,48x48 Urls
-	///     See: <a href="https://docs.atlassian.com/jira/REST/latest/#api/2/project">Jira project</a>
+	/// Used to specify the size for the avatar
 	/// </summary>
-	[DataContract]
-	public class AvatarUrls
-	{
-		[DataMember(Name = "48x48")]
-		public Uri ExtraLarge { get; set; }
-
-		[DataMember(Name = "16x16")]
-		public Uri Small { get; set; }
-
-		[DataMember(Name = "32x32")]
-		public Uri Medium { get; set; }
-
-		[DataMember(Name = "24x24")]
-		public Uri Large { get; set; }
+	public enum AvatarSizes
+    {
+		ExtraLarge,
+		Small,
+		Medium,
+		Large
 	}
 }
