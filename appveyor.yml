@@ -3,6 +3,9 @@ skip_tags: true
 configuration: Release
 platform: AnyCPU
 clone_depth: 2
+branches:
+  only:
+  - master
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
@@ -15,6 +18,7 @@ before_build:
   - nuget restore
 before_package:
   - GitLink .\
+  - nuget pack -Verbosity detailed "%APPVEYOR_PROJECT_NAME%.nuspec" -MSBuildVersion 14.0 -Properties id=%APPVEYOR_PROJECT_NAME%;version=%APPVEYOR_BUILD_VERSION%;author=Dapplo
 build:
   project: Dapplo.Jira.sln
   publish_nuget: true
