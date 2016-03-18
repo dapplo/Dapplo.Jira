@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Entities\AvatarUrls.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Comment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Component.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Error.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\ProgressInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\SearchResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Search.cs" />

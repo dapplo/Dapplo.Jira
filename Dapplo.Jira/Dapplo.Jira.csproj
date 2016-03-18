@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapplo.HttpExtensions, Version=0.4.36.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapplo.HttpExtensions.0.4.36\lib\net45\Dapplo.HttpExtensions.dll</HintPath>
+    <Reference Include="Dapplo.HttpExtensions, Version=0.4.37.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapplo.HttpExtensions.0.4.37\lib\net45\Dapplo.HttpExtensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Dapplo.LogFacade, Version=0.2.20.0, Culture=neutral, processorArchitecture=MSIL">

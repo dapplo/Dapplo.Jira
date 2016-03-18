@@ -65,7 +65,7 @@ namespace Dapplo.Jira
 				HttpSettings = httpSettings,
 				OnHttpRequestMessageCreated = (httpMessage) =>
 				{
-					httpMessage?.Headers.TryAddWithoutValidation("X-Atlassian-Token", "nocheck");
+					httpMessage?.Headers.TryAddWithoutValidation("X-Atlassian-Token", "no-check");
 					if (!string.IsNullOrEmpty(_user) && _password != null)
 					{
 						httpMessage?.SetBasicAuthorization(_user, _password);
@@ -197,7 +197,13 @@ namespace Dapplo.Jira
 		{
 			var projectUri = JiraBaseUri.AppendSegments("project");
 			_behaviour.MakeCurrent();
-			return await projectUri.GetAsAsync<IList<ProjectDigest>>(cancellationToken).ConfigureAwait(false);
+			var response = await projectUri.GetAsAsync< HttpResponse <IList<ProjectDigest>, Error>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(String.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
+			return response.Response;
+
 		}
 
 		/// <summary>
