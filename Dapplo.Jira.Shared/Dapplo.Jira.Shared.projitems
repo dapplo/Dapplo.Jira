@@ -10,6 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AvatarSizes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Worklog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Worklogs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Comments.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Pageable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Attachment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\AvatarUrls.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Comment.cs" />

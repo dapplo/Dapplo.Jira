@@ -33,7 +33,7 @@ namespace Dapplo.Jira.Entities
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/attachment
 	/// </summary>
 	[DataContract]
-	public class Comment : BaseProperties
+	public class Comment : BaseProperties<string>
 	{
 		[DataMember(Name = "author")]
 		public User Author { get; set; }

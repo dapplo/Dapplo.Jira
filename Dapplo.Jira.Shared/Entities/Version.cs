@@ -31,7 +31,7 @@ namespace Dapplo.Jira.Entities
 	///     Version information
 	/// </summary>
 	[DataContract]
-	public class Version : BaseProperties
+	public class Version : BaseProperties<string>
 	{
 		[DataMember(Name = "archived")]
 		public bool Archived { get; set; }

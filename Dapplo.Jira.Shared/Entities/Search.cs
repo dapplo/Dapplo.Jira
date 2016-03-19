@@ -33,16 +33,10 @@ namespace Dapplo.Jira.Entities
 	///     Search request information, see <a href="https://docs.atlassian.com/jira/REST/latest/#api/2/search-search">here</a>
 	/// </summary>
 	[DataContract]
-	public class Search
+	public class Search : Pageable
 	{
 		[DataMember(Name = "expand")]
 		public string Expand { get; set; }
-
-		[DataMember(Name = "startAt")]
-		public int StartAt { get; set; }
-
-		[DataMember(Name = "maxResults")]
-		public int MaxResults { get; set; }
 
 		[DataMember(Name = "validateQuery")]
 		public bool ValidateQuery { get; set; }

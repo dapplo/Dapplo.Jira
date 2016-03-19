@@ -21,7 +21,6 @@
 
 #region using
 
-using System;
 using System.Runtime.Serialization;
 
 #endregion
@@ -29,21 +28,15 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Status information
+	/// Containt a pagable array
 	/// </summary>
 	[DataContract]
-	public class Status : BaseProperties<string>
+	public class Pageable
 	{
-		[DataMember(Name = "statusCategory")]
-		public StatusCategory Category { get; set; }
+		[DataMember(Name = "startAt")]
+		public int StartAt { get; set; }
 
-		[DataMember(Name = "description")]
-		public string Description { get; set; }
-
-		[DataMember(Name = "iconUrl")]
-		public Uri IconUri { get; set; }
-
-		[DataMember(Name = "name")]
-		public string Name { get; set; }
+		[DataMember(Name = "maxResults")]
+		public int MaxResults { get; set; }
 	}
 }

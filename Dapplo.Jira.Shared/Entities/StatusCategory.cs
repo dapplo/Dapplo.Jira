@@ -21,6 +21,7 @@
 
 #region using
 
+using System;
 using System.Runtime.Serialization;
 
 #endregion
@@ -31,7 +32,7 @@ namespace Dapplo.Jira.Entities
 	///     StatusCategory information
 	/// </summary>
 	[DataContract]
-	public class StatusCategory : BaseProperties
+	public class StatusCategory : BaseProperties<long>
 	{
 		[DataMember(Name = "colorName")]
 		public string ColorName { get; set; }

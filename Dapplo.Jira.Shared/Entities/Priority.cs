@@ -32,7 +32,7 @@ namespace Dapplo.Jira.Entities
 	///     Visibility information
 	/// </summary>
 	[DataContract]
-	public class Priority :BaseProperties
+	public class Priority : BaseProperties<string>
 	{
 		[DataMember(Name = "name")]
 		public string Name { get; set; }

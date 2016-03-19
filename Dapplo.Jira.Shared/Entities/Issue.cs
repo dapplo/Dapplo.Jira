@@ -32,7 +32,7 @@ namespace Dapplo.Jira.Entities
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
 	/// </summary>
 	[DataContract]
-	public class Issue : BaseProperties
+	public class Issue : BaseProperties<string>
 	{
 		[DataMember(Name = "fields")]
 		public Fields Fields { get; set; }

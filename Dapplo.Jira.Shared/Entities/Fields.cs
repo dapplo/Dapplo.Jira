@@ -45,7 +45,7 @@ namespace Dapplo.Jira.Entities
 		public IList<Attachment> Attachments { get; set; }
 
 		[DataMember(Name = "comment")]
-		public IList<Comment> Comments { get; set; }
+		public Comments Comments { get; set; }
 
 		[DataMember(Name = "created")]
 		public DateTimeOffset Created { get; set; }
@@ -103,5 +103,8 @@ namespace Dapplo.Jira.Entities
 
 		[DataMember(Name = "watches")]
 		public Watches Watches { get; set; }
+
+		[DataMember(Name = "worklog")]
+		public Worklogs Worklogs { get; set; }
 	}
 }

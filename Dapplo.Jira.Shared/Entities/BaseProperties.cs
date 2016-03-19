@@ -32,10 +32,10 @@ namespace Dapplo.Jira.Entities
 	///     Base fields, used in pretty much every entity
 	/// </summary>
 	[DataContract]
-	public class BaseProperties
+	public class BaseProperties<TId>
 	{
 		[DataMember(Name = "id")]
-		public string Id { get; set; }
+		public TId Id { get; set; }
 
 		[DataMember(Name = "self")]
 		public Uri Self { get; set; }

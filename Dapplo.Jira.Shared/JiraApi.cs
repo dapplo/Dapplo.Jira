@@ -63,7 +63,7 @@ namespace Dapplo.Jira
 			_behaviour = new HttpBehaviour
 			{
 				HttpSettings = httpSettings,
-				OnHttpRequestMessageCreated = (httpMessage) =>
+				OnHttpRequestMessageCreated = httpMessage =>
 				{
 					httpMessage?.Headers.TryAddWithoutValidation("X-Atlassian-Token", "no-check");
 					if (!string.IsNullOrEmpty(_user) && _password != null)

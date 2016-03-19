@@ -75,6 +75,16 @@ namespace Dapplo.Jira.Tests
 		}
 
 		[Fact]
+		public async Task TestIssueAsync()
+		{
+			_jiraApi = await JiraApi.CreateAndInitializeAsync(TestJiraUri);
+			var issue = await _jiraApi.IssueAsync("BUG-1100");
+			Assert.NotNull(issue);
+			Assert.NotNull(issue.Fields.Comments.Elements);
+			Assert.True(issue.Fields.Comments.Elements.Count> 0);
+		}
+
+		[Fact]
 		public async Task TestSearch()
 		{
 			_jiraApi = await JiraApi.CreateAndInitializeAsync(TestJiraUri);

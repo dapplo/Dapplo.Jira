@@ -22,6 +22,7 @@
 #region using
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
@@ -29,21 +30,15 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Status information
+	///     Worklog information
 	/// </summary>
 	[DataContract]
-	public class Status : BaseProperties<string>
+	public class Worklogs : Pageable
 	{
-		[DataMember(Name = "statusCategory")]
-		public StatusCategory Category { get; set; }
+		[DataMember(Name = "total")]
+		public int Total { get; set; }
 
-		[DataMember(Name = "description")]
-		public string Description { get; set; }
-
-		[DataMember(Name = "iconUrl")]
-		public Uri IconUri { get; set; }
-
-		[DataMember(Name = "name")]
-		public string Name { get; set; }
+		[DataMember(Name = "worklogs")]
+		public IList<Worklog> Elements { get; set; }
 	}
 }

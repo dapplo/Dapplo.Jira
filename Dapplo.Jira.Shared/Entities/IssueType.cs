@@ -32,7 +32,7 @@ namespace Dapplo.Jira.Entities
 	///     IssueType information
 	/// </summary>
 	[DataContract]
-	public class IssueType : BaseProperties
+	public class IssueType : BaseProperties<string>
 	{
 		[DataMember(Name = "avatarId")]
 		public int AvatarId { get; set; }
