@@ -45,7 +45,7 @@ namespace Dapplo.Jira.Entities
 		public DateTimeOffset Created { get; set; }
 
 		[DataMember(Name = "filename")]
-		public User Filename { get; set; }
+		public string Filename { get; set; }
 
 		[DataMember(Name = "mimeType")]
 		public string MimeType { get; set; }
