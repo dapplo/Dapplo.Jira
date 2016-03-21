@@ -52,7 +52,7 @@ namespace Dapplo.Jira
 		/// </summary>
 		/// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
 		/// <param name="httpSettings">IHttpSettings or null for default</param>
-		private JiraApi(Uri baseUri, IHttpSettings httpSettings)
+		public JiraApi(Uri baseUri, IHttpSettings httpSettings = null)
 		{
 			if (baseUri == null)
 			{
@@ -62,7 +62,7 @@ namespace Dapplo.Jira
 
 			_behaviour = new HttpBehaviour
 			{
-				HttpSettings = httpSettings,
+				HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings,
 				OnHttpRequestMessageCreated = httpMessage =>
 				{
 					httpMessage?.Headers.TryAddWithoutValidation("X-Atlassian-Token", "no-check");
@@ -79,16 +79,6 @@ namespace Dapplo.Jira
 		///     The base URI for your JIRA server
 		/// </summary>
 		public Uri JiraBaseUri { get; }
-
-		/// <summary>
-		///     The version of the JIRA server
-		/// </summary>
-		public string JiraVersion { get; private set; }
-
-		/// <summary>
-		///     The title of the JIRA server
-		/// </summary>
-		public string ServerTitle { get; private set; }
 
 		/// <summary>
 		///     Set Basic Authentication for the current client
@@ -128,22 +118,35 @@ namespace Dapplo.Jira
 		/// <param name="avatarSize">Use one of the AvatarSizes to specify the size you want to have</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Bitmap,BitmapSource or MemoryStream (etc) depending on TResponse</returns>
-		public async Task<TResponse> AvatarAsync<TResponse>(AvatarUrls avatarUrls, AvatarSizes avatarSize = AvatarSizes.ExtraLarge, CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<TResponse> GetAvatarAsync<TResponse>(AvatarUrls avatarUrls, AvatarSizes avatarSize = AvatarSizes.ExtraLarge, CancellationToken cancellationToken = default(CancellationToken))
 			where TResponse : class
 		{
 			_behaviour.MakeCurrent();
+			Uri avatarUri;
+
 			switch (avatarSize)
 			{
 				case AvatarSizes.Small:
-					return await avatarUrls.Small.GetAsAsync<TResponse>(cancellationToken).ConfigureAwait(false);
+					avatarUri = avatarUrls.Small;
+					break;
 				case AvatarSizes.Medium:
-					return await avatarUrls.Medium.GetAsAsync<TResponse>(cancellationToken).ConfigureAwait(false);
+					avatarUri = avatarUrls.Medium;
+					break;
 				case AvatarSizes.Large:
-					return await avatarUrls.Large.GetAsAsync<TResponse>(cancellationToken).ConfigureAwait(false);
+					avatarUri = avatarUrls.Large;
+					break;
 				case AvatarSizes.ExtraLarge:
-					return await avatarUrls.ExtraLarge.GetAsAsync<TResponse>(cancellationToken).ConfigureAwait(false);
+					avatarUri = avatarUrls.ExtraLarge;
+					break;
+				default:
+					throw new ArgumentException($"Unknown avatar size: {avatarSize}", nameof(avatarSize));
 			}
-			throw new ArgumentException($"Unknown avatar size: {avatarSize}", nameof(avatarSize));
+			var response = await avatarUri.GetAsAsync<HttpResponse<TResponse, string>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(response.ErrorResponse);
+			}
+			return response.Response;
 		}
 
 		/// <summary>
@@ -153,11 +156,16 @@ namespace Dapplo.Jira
 		/// <param name="issue">the issue key</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Issue</returns>
-		public async Task<Issue> IssueAsync(string issue, CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<Issue> GetIssueAsync(string issue, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			var issueUri = JiraBaseUri.AppendSegments("issue", issue);
 			_behaviour.MakeCurrent();
-			return await issueUri.GetAsAsync<Issue>(cancellationToken).ConfigureAwait(false);
+			var response = await issueUri.GetAsAsync<HttpResponse<Issue, Error>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
+			return response.Response;
 		}
 
 		/// <summary>
@@ -166,11 +174,16 @@ namespace Dapplo.Jira
 		/// </summary>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>User</returns>
-		public async Task<User> MyselfAsync(CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<User> WhoAmIAsync(CancellationToken cancellationToken = default(CancellationToken))
 		{
 			var myselfUri = JiraBaseUri.AppendSegments("myself");
 			_behaviour.MakeCurrent();
-			return await myselfUri.GetAsAsync<User>(cancellationToken).ConfigureAwait(false);
+			var response = await myselfUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
+			return response.Response;
 		}
 
 		/// <summary>
@@ -180,11 +193,16 @@ namespace Dapplo.Jira
 		/// <param name="projectKey">key of the project</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>ProjectDetails</returns>
-		public async Task<Project> ProjectAsync(string projectKey, CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<Project> GetProjectAsync(string projectKey, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			var projectUri = JiraBaseUri.AppendSegments("project", projectKey);
 			_behaviour.MakeCurrent();
-			return await projectUri.GetAsAsync<Project>(cancellationToken).ConfigureAwait(false);
+			var response = await projectUri.GetAsAsync<HttpResponse<Project, Error>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
+			return response.Response;
 		}
 
 		/// <summary>
@@ -193,17 +211,16 @@ namespace Dapplo.Jira
 		/// </summary>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>list of ProjectDigest</returns>
-		public async Task<IList<ProjectDigest>> ProjectsAsync(CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<IList<ProjectDigest>> GetProjectsAsync(CancellationToken cancellationToken = default(CancellationToken))
 		{
 			var projectUri = JiraBaseUri.AppendSegments("project");
 			_behaviour.MakeCurrent();
 			var response = await projectUri.GetAsAsync< HttpResponse <IList<ProjectDigest>, Error>>(cancellationToken).ConfigureAwait(false);
 			if (response.HasError)
 			{
-				throw new Exception(String.Join(", ", response.ErrorResponse.ErrorMessages));
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
 			}
 			return response.Response;
-
 		}
 
 		/// <summary>
@@ -226,7 +243,12 @@ namespace Dapplo.Jira
 				Fields = fields ?? new List<string> { "summary", "status", "assignee", "key", "project"}
 			};
 			var searchUri = JiraBaseUri.AppendSegments("search");
-			return await searchUri.PostAsync<SearchResult>(search, cancellationToken).ConfigureAwait(false);
+			var response = await searchUri.PostAsync<HttpResponse<SearchResult, Error>>(search, cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
+			return response.Response;
 		}
 
 		/// <summary>
@@ -235,11 +257,17 @@ namespace Dapplo.Jira
 		/// </summary>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>ServerInfo</returns>
-		public async Task<ServerInfo> ServerInfoAsync(CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<ServerInfo> GetServerInfoAsync(CancellationToken cancellationToken = default(CancellationToken))
 		{
 			var serverInfoUri = JiraBaseUri.AppendSegments("serverInfo");
 			_behaviour.MakeCurrent();
-			return await serverInfoUri.GetAsAsync<ServerInfo>(cancellationToken).ConfigureAwait(false);
+
+			var response = await serverInfoUri.GetAsAsync<HttpResponse<ServerInfo, Error>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
+			return response.Response;
 		}
 
 		/// <summary>
@@ -248,40 +276,18 @@ namespace Dapplo.Jira
 		/// </summary>
 		/// <param name="username"></param>
 		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>user information</returns>
-		public async Task<User> UserAsync(string username, CancellationToken cancellationToken = default(CancellationToken))
+		/// <returns>User</returns>
+		public async Task<User> GetUserAsync(string username, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			var userUri = JiraBaseUri.AppendSegments("user").ExtendQuery("username", username);
 			_behaviour.MakeCurrent();
-			return await userUri.GetAsAsync<User>(cancellationToken).ConfigureAwait(false);
-		}
 
-		#endregion
-
-		#region Initializer
-
-		/// <summary>
-		///     Create the JiraApi, and initialize
-		///     This overload is created to prevent needed a reference to Dapplo.HttpExtensions for the IHttpSettings
-		/// </summary>
-		/// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
-		/// <returns>JiraApi (in a Task)</returns>
-		public static async Task<JiraApi> CreateAndInitializeAsync(Uri baseUri)
-		{
-			return await CreateAndInitializeAsync(baseUri, null);
-		}
-
-		/// <summary>
-		///     Create the JiraApi, and initialize
-		/// </summary>
-		/// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
-		/// <param name="httpSettings">IHttpSettings or null for default</param>
-		/// <returns>JiraApi (in a Task)</returns>
-		public static async Task<JiraApi> CreateAndInitializeAsync(Uri baseUri, IHttpSettings httpSettings)
-		{
-			var jiraApi = new JiraApi(baseUri, httpSettings);
-			await jiraApi.InitializeAsync();
-			return jiraApi;
+			var response = await userUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
+			return response.Response;
 		}
 
 		/// <summary>
@@ -289,24 +295,17 @@ namespace Dapplo.Jira
 		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1388
 		/// </summary>
 		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>dynamic (JsonArray)</returns>
-		public async Task<dynamic> FiltersAsync(CancellationToken cancellationToken = default(CancellationToken))
+		/// <returns>List of filter</returns>
+		public async Task<IList<Filter>> GetFavoriteFiltersAsync(CancellationToken cancellationToken = default(CancellationToken))
 		{
 			_behaviour.MakeCurrent();
 			var filterFavouriteUri = JiraBaseUri.AppendSegments("filter", "favourite");
-			return await filterFavouriteUri.GetAsAsync<dynamic>(cancellationToken).ConfigureAwait(false);
-		}
-
-		/// <summary>
-		///     This will just create a connection and retrieve the server title / jira version
-		/// </summary>
-		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>Task</returns>
-		public async Task InitializeAsync(CancellationToken cancellationToken = default(CancellationToken))
-		{
-			var serverInfo = await ServerInfoAsync(cancellationToken);
-			ServerTitle = serverInfo.ServerTitle;
-			JiraVersion = serverInfo.Version;
+			var response = await filterFavouriteUri.GetAsAsync<HttpResponse<IList<Filter>, Error>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
+			return response.Response;
 		}
 
 		#endregion

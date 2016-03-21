@@ -74,6 +74,12 @@
     <Compile Include="XUnitLogger.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="JsonTestFiles\favorites.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="JsonTestFiles\issue.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="JsonTestFiles\serverInfo.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

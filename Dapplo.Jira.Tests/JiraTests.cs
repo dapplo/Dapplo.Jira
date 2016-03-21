@@ -26,6 +26,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
+using Dapplo.Jira.Entities;
 using Xunit.Abstractions;
 using Dapplo.LogFacade;
 
@@ -44,50 +45,59 @@ namespace Dapplo.Jira.Tests
 		}
 
 		[Fact]
-		public async Task TestCreateAndInitializeAsync()
+		public async Task TestGetServerInfoAsync()
 		{
-			_jiraApi = await JiraApi.CreateAndInitializeAsync(TestJiraUri);
+			_jiraApi = new JiraApi(TestJiraUri);
 			Assert.NotNull(_jiraApi);
-			Assert.NotNull(_jiraApi.JiraVersion);
-			Assert.NotNull(_jiraApi.ServerTitle);
+			var serverInfo = await _jiraApi.GetServerInfoAsync();
+			Assert.NotNull(serverInfo.Version);
+			Assert.NotNull(serverInfo.ServerTitle);
 			// This should be changed when the title changes
-			Assert.Equal("Greenshot JIRA", _jiraApi.ServerTitle);
-			Debug.WriteLine($"Version {_jiraApi.JiraVersion} - Title: {_jiraApi.ServerTitle}");
+			Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
+			Debug.WriteLine($"Version {serverInfo.Version} - Title: {serverInfo.ServerTitle}");
 		}
 
 		[Fact]
-		public async Task TestProjectsAsync()
+		public async Task TestGetProjectsAsync()
 		{
-			_jiraApi = await JiraApi.CreateAndInitializeAsync(TestJiraUri);
-			var projects = await _jiraApi.ProjectsAsync();
+			_jiraApi = new JiraApi(TestJiraUri);
+			var projects = await _jiraApi.GetProjectsAsync();
 
 			Assert.NotNull(projects);
 			Assert.NotNull(projects.Count > 0);
 
 			foreach (var project in projects)
 			{
-				var avatar = await _jiraApi.AvatarAsync<Bitmap>(project.Avatar, AvatarSizes.ExtraLarge);
+				var avatar = await _jiraApi.GetAvatarAsync<Bitmap>(project.Avatar, AvatarSizes.ExtraLarge);
 				Assert.True(avatar.Width == 48);
 
-				var projectDetails = await _jiraApi.ProjectAsync(project.Key);
+				var projectDetails = await _jiraApi.GetProjectAsync(project.Key);
 				Assert.NotNull(projectDetails);
 			}
 		}
 
 		[Fact]
-		public async Task TestIssueAsync()
+		public async Task TestGetIssueAsync()
 		{
-			_jiraApi = await JiraApi.CreateAndInitializeAsync(TestJiraUri);
-			var issue = await _jiraApi.IssueAsync("BUG-1100");
+			_jiraApi = new JiraApi(TestJiraUri);
+			var issue = await _jiraApi.GetIssueAsync("BUG-1845");
 			Assert.NotNull(issue);
 			Assert.NotNull(issue.Fields.Comments.Elements);
 			Assert.True(issue.Fields.Comments.Elements.Count> 0);
 		}
 
 		[Fact]
+		public async Task TestGetFavoriteFiltersAsync()
+		{
+			_jiraApi = new JiraApi(TestJiraUri);
+			var filter = await _jiraApi.GetFavoriteFiltersAsync();
+			Assert.NotNull(filter);
+		}
+
+		[Fact]
 		public async Task TestSearch()
 		{
-			_jiraApi = await JiraApi.CreateAndInitializeAsync(TestJiraUri);
+			_jiraApi = new JiraApi(TestJiraUri);
 			var searchResult = await _jiraApi.SearchAsync("text ~ \"robin\"");
 
 			Assert.NotNull(searchResult);

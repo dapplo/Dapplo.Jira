@@ -1,0 +1,388 @@
+﻿{
+	"expand": "renderedFields,names,schema,transitions,operations,editmeta,changelog,versionedRepresentations",
+	"id": "40907",
+	"self": "https://greenshot.atlassian.net/rest/api/2/issue/40907",
+	"key": "BUG-1845",
+	"fields": {
+		"issuetype": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/issuetype/1",
+			"id": "1",
+			"description": "A problem which impairs or prevents the functions of the product.",
+			"iconUrl": "https://greenshot.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10403&avatarType=issuetype",
+			"name": "Bug",
+			"subtask": false,
+			"avatarId": 10403
+		},
+		"timespent": null,
+		"project": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/project/10402",
+			"id": "10402",
+			"key": "BUG",
+			"name": "Greenshot bugs",
+			"avatarUrls": {
+				"48x48": "https://greenshot.atlassian.net/secure/projectavatar?pid=10402&avatarId=10502",
+				"24x24": "https://greenshot.atlassian.net/secure/projectavatar?size=small&pid=10402&avatarId=10502",
+				"16x16": "https://greenshot.atlassian.net/secure/projectavatar?size=xsmall&pid=10402&avatarId=10502",
+				"32x32": "https://greenshot.atlassian.net/secure/projectavatar?size=medium&pid=10402&avatarId=10502"
+			},
+			"projectCategory": {
+				"self": "https://greenshot.atlassian.net/rest/api/2/projectCategory/10000",
+				"id": "10000",
+				"description": "Development Projects",
+				"name": "Development"
+			}
+		},
+		"fixVersions": [
+			{
+				"self": "https://greenshot.atlassian.net/rest/api/2/version/11400",
+				"id": "11400",
+				"name": "1.2.7.2",
+				"archived": false,
+				"released": false
+			}
+		],
+		"aggregatetimespent": null,
+		"resolution": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/resolution/3",
+			"id": "3",
+			"description": "The problem is a duplicate of an existing issue.",
+			"name": "Duplicate"
+		},
+		"customfield_10502": null,
+		"customfield_10700": null,
+		"customfield_10701": null,
+		"resolutiondate": "2015-11-05T10:42:15.119+0100",
+		"workratio": -1,
+		"lastViewed": null,
+		"watches": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/issue/BUG-1845/watchers",
+			"watchCount": 3,
+			"isWatching": false
+		},
+		"created": "2015-10-18T17:05:42.248+0200",
+		"customfield_10020": null,
+		"customfield_10021": "Not started",
+		"priority": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/priority/3",
+			"iconUrl": "https://greenshot.atlassian.net/images/icons/priorities/major.svg",
+			"name": "Major",
+			"id": "3"
+		},
+		"customfield_10100": null,
+		"labels": [ "Save" ],
+		"customfield_10016": null,
+		"customfield_10017": null,
+		"customfield_10018": null,
+		"customfield_10019": null,
+		"timeestimate": null,
+		"aggregatetimeoriginalestimate": null,
+		"versions": [
+			{
+				"self": "https://greenshot.atlassian.net/rest/api/2/version/10600",
+				"id": "10600",
+				"name": "1.2.4",
+				"archived": false,
+				"released": false
+			},
+			{
+				"self": "https://greenshot.atlassian.net/rest/api/2/version/10901",
+				"id": "10901",
+				"name": "1.2.6",
+				"archived": false,
+				"released": false
+			}
+		],
+		"issuelinks": [
+			{
+				"id": "13100",
+				"self": "https://greenshot.atlassian.net/rest/api/2/issueLink/13100",
+				"type": {
+					"id": "10001",
+					"name": "Cloners",
+					"inward": "is cloned by",
+					"outward": "clones",
+					"self": "https://greenshot.atlassian.net/rest/api/2/issueLinkType/10001"
+				},
+				"inwardIssue": {
+					"id": "41207",
+					"key": "BUG-1860",
+					"self": "https://greenshot.atlassian.net/rest/api/2/issue/41207",
+					"fields": {
+						"summary": "Imgur upoad - The request token is not set",
+						"status": {
+							"self": "https://greenshot.atlassian.net/rest/api/2/status/6",
+							"description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
+							"iconUrl": "https://greenshot.atlassian.net/images/icons/statuses/closed.png",
+							"name": "Closed",
+							"id": "6",
+							"statusCategory": {
+								"self": "https://greenshot.atlassian.net/rest/api/2/statuscategory/3",
+								"id": 3,
+								"key": "done",
+								"colorName": "green",
+								"name": "Done"
+							}
+						},
+						"priority": {
+							"self": "https://greenshot.atlassian.net/rest/api/2/priority/3",
+							"iconUrl": "https://greenshot.atlassian.net/images/icons/priorities/major.svg",
+							"name": "Major",
+							"id": "3"
+						},
+						"issuetype": {
+							"self": "https://greenshot.atlassian.net/rest/api/2/issuetype/1",
+							"id": "1",
+							"description": "A problem which impairs or prevents the functions of the product.",
+							"iconUrl": "https://greenshot.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10403&avatarType=issuetype",
+							"name": "Bug",
+							"subtask": false,
+							"avatarId": 10403
+						}
+					}
+				}
+			},
+			{
+				"id": "13104",
+				"self": "https://greenshot.atlassian.net/rest/api/2/issueLink/13104",
+				"type": {
+					"id": "10001",
+					"name": "Cloners",
+					"inward": "is cloned by",
+					"outward": "clones",
+					"self": "https://greenshot.atlassian.net/rest/api/2/issueLinkType/10001"
+				},
+				"inwardIssue": {
+					"id": "41209",
+					"key": "BUG-1862",
+					"self": "https://greenshot.atlassian.net/rest/api/2/issue/41209",
+					"fields": {
+						"summary": "Imgur upoad - The request token is not set",
+						"status": {
+							"self": "https://greenshot.atlassian.net/rest/api/2/status/6",
+							"description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
+							"iconUrl": "https://greenshot.atlassian.net/images/icons/statuses/closed.png",
+							"name": "Closed",
+							"id": "6",
+							"statusCategory": {
+								"self": "https://greenshot.atlassian.net/rest/api/2/statuscategory/3",
+								"id": 3,
+								"key": "done",
+								"colorName": "green",
+								"name": "Done"
+							}
+						},
+						"priority": {
+							"self": "https://greenshot.atlassian.net/rest/api/2/priority/3",
+							"iconUrl": "https://greenshot.atlassian.net/images/icons/priorities/major.svg",
+							"name": "Major",
+							"id": "3"
+						},
+						"issuetype": {
+							"self": "https://greenshot.atlassian.net/rest/api/2/issuetype/1",
+							"id": "1",
+							"description": "A problem which impairs or prevents the functions of the product.",
+							"iconUrl": "https://greenshot.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10403&avatarType=issuetype",
+							"name": "Bug",
+							"subtask": false,
+							"avatarId": 10403
+						}
+					}
+				}
+			}
+		],
+		"assignee": null,
+		"updated": "2015-11-05T10:57:20.785+0100",
+		"status": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/status/6",
+			"description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
+			"iconUrl": "https://greenshot.atlassian.net/images/icons/statuses/closed.png",
+			"name": "Closed",
+			"id": "6",
+			"statusCategory": {
+				"self": "https://greenshot.atlassian.net/rest/api/2/statuscategory/3",
+				"id": 3,
+				"key": "done",
+				"colorName": "green",
+				"name": "Done"
+			}
+		},
+		"components": [
+			{
+				"self": "https://greenshot.atlassian.net/rest/api/2/component/10134",
+				"id": "10134",
+				"name": "Imgur"
+			}
+		],
+		"timeoriginalestimate": null,
+		"description": "Uploading to Imgur worked a couple days ago. Now it doesn't work. Is there a way to reconfigure plugin like for the first time? Maybe Imgur changed something in their policy, and api keys or something only needs to be reconfigured?",
+		"customfield_10012": null,
+		"customfield_10013": null,
+		"customfield_10014": null,
+		"customfield_10015": null,
+		"timetracking": { },
+		"customfield_10006": "9223372036854775807",
+		"customfield_10600": null,
+		"customfield_10007": null,
+		"customfield_10008": null,
+		"attachment": [
+			{
+				"self": "https://greenshot.atlassian.net/rest/api/2/attachment/16502",
+				"id": "16502",
+				"filename": "imgur error.png",
+				"author": {
+					"self": "https://greenshot.atlassian.net/rest/api/2/user?username=Bielecki",
+					"name": "Bielecki",
+					"key": "bielecki",
+					"avatarUrls": {
+						"48x48": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=48",
+						"24x24": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=24",
+						"16x16": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=16",
+						"32x32": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=32"
+					},
+					"displayName": "Net Bielecki",
+					"active": true,
+					"timeZone": "Europe/Berlin"
+				},
+				"created": "2015-10-18T17:03:40.244+0200",
+				"size": 18500,
+				"mimeType": "image/png",
+				"content": "https://greenshot.atlassian.net/secure/attachment/16502/imgur+error.png",
+				"thumbnail": "https://greenshot.atlassian.net/secure/thumbnail/16502/_thumb_16502.png"
+			}
+		],
+		"aggregatetimeestimate": null,
+		"summary": "Imgur upoad - The request token is not set",
+		"creator": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/user?username=Bielecki",
+			"name": "Bielecki",
+			"key": "bielecki",
+			"avatarUrls": {
+				"48x48": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=48",
+				"24x24": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=24",
+				"16x16": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=16",
+				"32x32": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=32"
+			},
+			"displayName": "Net Bielecki",
+			"active": true,
+			"timeZone": "Europe/Berlin"
+		},
+		"subtasks": [ ],
+		"reporter": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/user?username=Bielecki",
+			"name": "Bielecki",
+			"key": "bielecki",
+			"avatarUrls": {
+				"48x48": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=48",
+				"24x24": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=24",
+				"16x16": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=16",
+				"32x32": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=32"
+			},
+			"displayName": "Net Bielecki",
+			"active": true,
+			"timeZone": "Europe/Berlin"
+		},
+		"customfield_10000": "1_*:*_1_*:*_144020_*|*_4_*:*_1_*:*_216042_*|*_5_*:*_1_*:*_0_*|*_6_*:*_1_*:*_1535420871_*|*_10002_*:*_1_*:*_11959",
+		"aggregateprogress": {
+			"progress": 0,
+			"total": 0
+		},
+		"customfield_10001": "2015-11-05T10:42:15.136+0100",
+		"customfield_10002": null,
+		"customfield_10003": null,
+		"customfield_10400": "0|101bgw:",
+		"environment": "Windows 7 x86 Home Premium",
+		"duedate": null,
+		"progress": {
+			"progress": 0,
+			"total": 0
+		},
+		"comment": {
+			"startAt": 0,
+			"maxResults": 2,
+			"total": 2,
+			"comments": [
+				{
+					"self": "https://greenshot.atlassian.net/rest/api/2/issue/40907/comment/90410",
+					"id": "90410",
+					"author": {
+						"self": "https://greenshot.atlassian.net/rest/api/2/user?username=Bielecki",
+						"name": "Bielecki",
+						"key": "bielecki",
+						"avatarUrls": {
+							"48x48": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=48",
+							"24x24": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=24",
+							"16x16": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=16",
+							"32x32": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=32"
+						},
+						"displayName": "Net Bielecki",
+						"active": true,
+						"timeZone": "Europe/Berlin"
+					},
+					"body": "Damn, first time using atlassian and messed up. It's doesn't mean to be closed. I just tried modify description...\r\nTried upload from 1.2.4 to 1.2.6 but it changed nothing.",
+					"updateAuthor": {
+						"self": "https://greenshot.atlassian.net/rest/api/2/user?username=Bielecki",
+						"name": "Bielecki",
+						"key": "bielecki",
+						"avatarUrls": {
+							"48x48": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=48",
+							"24x24": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=24",
+							"16x16": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=16",
+							"32x32": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=32"
+						},
+						"displayName": "Net Bielecki",
+						"active": true,
+						"timeZone": "Europe/Berlin"
+					},
+					"created": "2015-10-18T17:10:50.148+0200",
+					"updated": "2015-10-18T17:10:50.148+0200"
+				},
+				{
+					"self": "https://greenshot.atlassian.net/rest/api/2/issue/40907/comment/90718",
+					"id": "90718",
+					"author": {
+						"self": "https://greenshot.atlassian.net/rest/api/2/user?username=rkrom",
+						"name": "rkrom",
+						"key": "rkrom",
+						"avatarUrls": {
+							"48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=rkrom&avatarId=10600",
+							"24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=rkrom&avatarId=10600",
+							"16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=rkrom&avatarId=10600",
+							"32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=rkrom&avatarId=10600"
+						},
+						"displayName": "Robin Krom",
+						"active": true,
+						"timeZone": "Europe/Berlin"
+					},
+					"body": "See: BUG-1833",
+					"updateAuthor": {
+						"self": "https://greenshot.atlassian.net/rest/api/2/user?username=rkrom",
+						"name": "rkrom",
+						"key": "rkrom",
+						"avatarUrls": {
+							"48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=rkrom&avatarId=10600",
+							"24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=rkrom&avatarId=10600",
+							"16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=rkrom&avatarId=10600",
+							"32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=rkrom&avatarId=10600"
+						},
+						"displayName": "Robin Krom",
+						"active": true,
+						"timeZone": "Europe/Berlin"
+					},
+					"created": "2015-11-05T10:42:15.136+0100",
+					"updated": "2015-11-05T10:42:15.136+0100"
+				}
+			]
+		},
+		"votes": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/issue/BUG-1845/votes",
+			"votes": 2,
+			"hasVoted": false
+		},
+		"worklog": {
+			"startAt": 0,
+			"maxResults": 20,
+			"total": 0,
+			"worklogs": [ ]
+		}
+	}
+}

@@ -46,5 +46,13 @@ namespace Dapplo.Jira.Tests
 			Assert.Equal("http://localhost:8080/jira", serverInfo.BaseUrl.AbsoluteUri);
 			Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
 		}
+
+		[Fact]
+		public void TestParseIssue()
+		{
+			var json = File.ReadAllText("JsonTestFiles/issue.json");
+			var issue = SimpleJson.DeserializeObject<Issue>(json);
+			Assert.NotNull(issue);
+		}
 	}
 }
