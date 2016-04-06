@@ -16,13 +16,11 @@
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
 // 
-//  You should have Config a copy of the GNU Lesser General Public License
+//  You should have a copy of the GNU Lesser General Public License
 //  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
 #region using
 
-using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
@@ -35,19 +33,20 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class Subscriptions
 	{
-		[DataMember(Name = "size")]
-		public long Size { get; set; }
+		[DataMember(Name = "end-index")]
+		public long EndIndex { get; set; }
 
 		[DataMember(Name = "max-results")]
 		public long MaxResults { get; set; }
 
+		[DataMember(Name = "size")]
+		public long Size { get; set; }
+
 		[DataMember(Name = "start-index")]
 		public long StartIndex { get; set; }
 
-		[DataMember(Name = "end-index")]
-		public long EndIndex { get; set; }
+		//public IList<??> Items { get; set; }
 
 		//[DataMember(Name = "items")]
-		//public IList<??> Items { get; set; }
 	}
 }

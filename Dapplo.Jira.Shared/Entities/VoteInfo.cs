@@ -16,7 +16,7 @@
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
 // 
-//  You should have Config a copy of the GNU Lesser General Public License
+//  You should have a copy of the GNU Lesser General Public License
 //  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
 #region using
@@ -34,13 +34,13 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class VoteInfo
 	{
+		[DataMember(Name = "hasVoted")]
+		public bool HasVoted { get; set; }
+
 		[DataMember(Name = "self")]
 		public Uri Self { get; set; }
 
 		[DataMember(Name = "votest")]
 		public long Votes { get; set; }
-
-		[DataMember(Name = "hasVoted")]
-		public bool HasVoted { get; set; }
 	}
 }

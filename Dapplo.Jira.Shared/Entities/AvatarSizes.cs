@@ -16,16 +16,16 @@
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
 // 
-//  You should have Config a copy of the GNU Lesser General Public License
+//  You should have a copy of the GNU Lesser General Public License
 //  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	/// Used to specify the size for the avatar
+	///     Used to specify the size for the avatar
 	/// </summary>
 	public enum AvatarSizes
-    {
+	{
 		ExtraLarge,
 		Small,
 		Medium,

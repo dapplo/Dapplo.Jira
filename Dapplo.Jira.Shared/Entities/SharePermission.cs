@@ -16,12 +16,11 @@
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
 // 
-//  You should have Config a copy of the GNU Lesser General Public License
+//  You should have a copy of the GNU Lesser General Public License
 //  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
 #region using
 
-using System;
 using System.Runtime.Serialization;
 
 #endregion
@@ -37,10 +36,10 @@ namespace Dapplo.Jira.Entities
 		[DataMember(Name = "id")]
 		public string Id { get; set; }
 
-		[DataMember(Name = "type")]
-		public string Type { get; set; }
-
 		[DataMember(Name = "project")]
 		public Project Project { get; set; }
+
+		[DataMember(Name = "type")]
+		public string Type { get; set; }
 	}
 }

@@ -16,7 +16,7 @@
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
 // 
-//  You should have Config a copy of the GNU Lesser General Public License
+//  You should have a copy of the GNU Lesser General Public License
 //  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
 #region using
@@ -38,13 +38,13 @@ namespace Dapplo.Jira.Entities
 		[DataMember(Name = "48x48")]
 		public Uri ExtraLarge { get; set; }
 
-		[DataMember(Name = "16x16")]
-		public Uri Small { get; set; }
+		[DataMember(Name = "24x24")]
+		public Uri Large { get; set; }
 
 		[DataMember(Name = "32x32")]
 		public Uri Medium { get; set; }
 
-		[DataMember(Name = "24x24")]
-		public Uri Large { get; set; }
+		[DataMember(Name = "16x16")]
+		public Uri Small { get; set; }
 	}
 }

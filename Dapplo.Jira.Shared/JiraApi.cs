@@ -16,7 +16,7 @@
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
 // 
-//  You should have Config a copy of the GNU Lesser General Public License
+//  You should have a copy of the GNU Lesser General Public License
 //  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
 #region using
@@ -80,18 +80,8 @@ namespace Dapplo.Jira
 		/// </summary>
 		public Uri JiraBaseUri { get; }
 
-		/// <summary>
-		///     Set Basic Authentication for the current client
-		/// </summary>
-		/// <param name="user">username</param>
-		/// <param name="password">password</param>
-		public void SetBasicAuthentication(string user, string password)
-		{
-			_user = user;
-			_password = password;
-		}
-
 		#region write
+
 		/// <summary>
 		///     Attach content to the specified issue
 		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e3035
@@ -106,7 +96,19 @@ namespace Dapplo.Jira
 			var attachUri = JiraBaseUri.AppendSegments("issue", issueKey, "attachments");
 			return await attachUri.PostAsync<Attachment>(content, cancellationToken).ConfigureAwait(false);
 		}
+
 		#endregion
+
+		/// <summary>
+		///     Set Basic Authentication for the current client
+		/// </summary>
+		/// <param name="user">username</param>
+		/// <param name="password">password</param>
+		public void SetBasicAuthentication(string user, string password)
+		{
+			_user = user;
+			_password = password;
+		}
 
 		#region Read
 
@@ -215,7 +217,7 @@ namespace Dapplo.Jira
 		{
 			var projectUri = JiraBaseUri.AppendSegments("project");
 			_behaviour.MakeCurrent();
-			var response = await projectUri.GetAsAsync< HttpResponse <IList<ProjectDigest>, Error>>(cancellationToken).ConfigureAwait(false);
+			var response = await projectUri.GetAsAsync<HttpResponse<IList<ProjectDigest>, Error>>(cancellationToken).ConfigureAwait(false);
 			if (response.HasError)
 			{
 				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
@@ -240,7 +242,7 @@ namespace Dapplo.Jira
 				Jql = jql,
 				ValidateQuery = true,
 				MaxResults = maxResults,
-				Fields = fields ?? new List<string> { "summary", "status", "assignee", "key", "project"}
+				Fields = fields ?? new List<string> {"summary", "status", "assignee", "key", "project"}
 			};
 			var searchUri = JiraBaseUri.AppendSegments("search");
 			var response = await searchUri.PostAsync<HttpResponse<SearchResult, Error>>(search, cancellationToken).ConfigureAwait(false);

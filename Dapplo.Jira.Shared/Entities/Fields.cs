@@ -16,7 +16,7 @@
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
 // 
-//  You should have Config a copy of the GNU Lesser General Public License
+//  You should have a copy of the GNU Lesser General Public License
 //  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
 #region using
@@ -59,9 +59,6 @@ namespace Dapplo.Jira.Entities
 		[DataMember(Name = "fixVersions")]
 		public IList<Version> FixVersions { get; set; }
 
-		[DataMember(Name = "versions")]
-		public IList<Version> Versions { get; set; }
-
 		[DataMember(Name = "issueType")]
 		public IssueType IssueType { get; set; }
 
@@ -89,9 +86,6 @@ namespace Dapplo.Jira.Entities
 		[DataMember(Name = "resolutiondate")]
 		public DateTimeOffset ResolutionData { get; set; }
 
-		[DataMember(Name = "updated")]
-		public DateTimeOffset Updated { get; set; }
-
 		[DataMember(Name = "status")]
 		public Status Status { get; set; }
 
@@ -100,6 +94,12 @@ namespace Dapplo.Jira.Entities
 
 		[DataMember(Name = "timespent")]
 		public long TimeSpent { get; set; }
+
+		[DataMember(Name = "updated")]
+		public DateTimeOffset Updated { get; set; }
+
+		[DataMember(Name = "versions")]
+		public IList<Version> Versions { get; set; }
 
 		[DataMember(Name = "watches")]
 		public Watches Watches { get; set; }
