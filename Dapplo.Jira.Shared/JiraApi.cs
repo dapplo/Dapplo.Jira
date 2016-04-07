@@ -90,11 +90,16 @@ namespace Dapplo.Jira
 		/// <param name="content">the content can be anything what Dapplo.HttpExtensions supports</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Attachment</returns>
-		public async Task<Attachment> AttachAsync(string issueKey, object content, CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<IList<Attachment>> AttachAsync(string issueKey, object content, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			_behaviour.MakeCurrent();
 			var attachUri = JiraBaseUri.AppendSegments("issue", issueKey, "attachments");
-			return await attachUri.PostAsync<Attachment>(content, cancellationToken).ConfigureAwait(false);
+			var response = await attachUri.PostAsync<HttpResponse<IList<Attachment>, string>>(content, cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(response.ErrorResponse);
+			}
+			return response.Response;
 		}
 
 		#endregion
@@ -215,7 +220,7 @@ namespace Dapplo.Jira
 		/// <returns>list of ProjectDigest</returns>
 		public async Task<IList<ProjectDigest>> GetProjectsAsync(CancellationToken cancellationToken = default(CancellationToken))
 		{
-			var projectUri = JiraBaseUri.AppendSegments("project");
+			var projectUri = JiraBaseUri.AppendSegments("project").ExtendQuery("expand", "description,lead");
 			_behaviour.MakeCurrent();
 			var response = await projectUri.GetAsAsync<HttpResponse<IList<ProjectDigest>, Error>>(cancellationToken).ConfigureAwait(false);
 			if (response.HasError)

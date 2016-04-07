@@ -75,8 +75,8 @@ namespace Dapplo.Jira.Tests
 
 			foreach (var project in projects)
 			{
-				var avatar = await _jiraApi.GetAvatarAsync<Bitmap>(project.Avatar, AvatarSizes.ExtraLarge);
-				Assert.True(avatar.Width == 48);
+				var avatar = await _jiraApi.GetAvatarAsync<Bitmap>(project.Avatar, AvatarSizes.Medium);
+				Assert.True(avatar.Width == 32);
 
 				var projectDetails = await _jiraApi.GetProjectAsync(project.Key);
 				Assert.NotNull(projectDetails);
@@ -109,6 +109,18 @@ namespace Dapplo.Jira.Tests
 			{
 				Assert.NotNull(issue.Fields.Project);
 			}
+		}
+
+		//[Fact]
+		public async Task TestAttach()
+		{
+			_jiraApi = new JiraApi(TestJiraUri);
+			_jiraApi.SetBasicAuthentication("username", "password");
+			var attachmentContainer = new AttachmentContainer<string>{FileName = "test.txt", Content = "Testing 1 2 3" };
+			var attachments = await _jiraApi.AttachAsync("key", attachmentContainer);
+			Assert.NotNull(attachments);
+			Assert.True(attachments.Count > 0);
+			Assert.Equal("text/plain", attachments[0].MimeType);
 		}
 	}
 }

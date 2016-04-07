@@ -28,7 +28,7 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Project information
+	///     Project information (digest)
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/project
 	/// </summary>
 	[DataContract]
@@ -37,11 +37,17 @@ namespace Dapplo.Jira.Entities
 		[DataMember(Name = "avatarUrls")]
 		public AvatarUrls Avatar { get; set; }
 
+		[DataMember(Name = "projectCategory")]
+		public ProjectCategory Category { get; set; }
+
 		[DataMember(Name = "id")]
 		public string Id { get; set; }
 
 		[DataMember(Name = "key")]
 		public string Key { get; set; }
+
+		[DataMember(Name = "lead")]
+		public User Lead { get; set; }
 
 		[DataMember(Name = "name")]
 		public string Name { get; set; }

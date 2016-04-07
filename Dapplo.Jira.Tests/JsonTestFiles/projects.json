@@ -1,0 +1,165 @@
+﻿[
+	{
+		"expand": "description,lead,url,projectKeys",
+		"self": "https://greenshot.atlassian.net/rest/api/2/project/10000",
+		"id": "10000",
+		"key": "GSII",
+		"description": "",
+		"lead": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/user?username=rkrom",
+			"key": "rkrom",
+			"name": "rkrom",
+			"avatarUrls": {
+				"16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=rkrom&avatarId=10600",
+				"24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=rkrom&avatarId=10600",
+				"32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=rkrom&avatarId=10600",
+				"48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=rkrom&avatarId=10600"
+			},
+			"displayName": "Robin Krom",
+			"active": true
+		},
+		"name": "Greenshot 2.0",
+		"avatarUrls": {
+			"48x48": "https://greenshot.atlassian.net/secure/projectavatar?pid=10000&avatarId=10304",
+			"24x24": "https://greenshot.atlassian.net/secure/projectavatar?size=small&pid=10000&avatarId=10304",
+			"16x16": "https://greenshot.atlassian.net/secure/projectavatar?size=xsmall&pid=10000&avatarId=10304",
+			"32x32": "https://greenshot.atlassian.net/secure/projectavatar?size=medium&pid=10000&avatarId=10304"
+		},
+		"projectKeys": [ "GSII" ],
+		"projectTypeKey": "software"
+	},
+	{
+		"expand": "description,lead,url,projectKeys",
+		"self": "https://greenshot.atlassian.net/rest/api/2/project/10402",
+		"id": "10402",
+		"key": "BUG",
+		"description": "Greenshot bugs",
+		"lead": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/user?username=rkrom",
+			"key": "rkrom",
+			"name": "rkrom",
+			"avatarUrls": {
+				"16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=rkrom&avatarId=10600",
+				"24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=rkrom&avatarId=10600",
+				"32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=rkrom&avatarId=10600",
+				"48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=rkrom&avatarId=10600"
+			},
+			"displayName": "Robin Krom",
+			"active": true
+		},
+		"name": "Greenshot bugs",
+		"avatarUrls": {
+			"48x48": "https://greenshot.atlassian.net/secure/projectavatar?pid=10402&avatarId=10502",
+			"24x24": "https://greenshot.atlassian.net/secure/projectavatar?size=small&pid=10402&avatarId=10502",
+			"16x16": "https://greenshot.atlassian.net/secure/projectavatar?size=xsmall&pid=10402&avatarId=10502",
+			"32x32": "https://greenshot.atlassian.net/secure/projectavatar?size=medium&pid=10402&avatarId=10502"
+		},
+		"projectKeys": [ "BUG" ],
+		"projectCategory": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/projectCategory/10000",
+			"id": "10000",
+			"name": "Development",
+			"description": "Development Projects"
+		},
+		"projectTypeKey": "software"
+	},
+	{
+		"expand": "description,lead,url,projectKeys",
+		"self": "https://greenshot.atlassian.net/rest/api/2/project/10403",
+		"id": "10403",
+		"key": "FEATURE",
+		"description": "Greenshot feature requests",
+		"lead": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/user?username=rkrom",
+			"key": "rkrom",
+			"name": "rkrom",
+			"avatarUrls": {
+				"16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=rkrom&avatarId=10600",
+				"24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=rkrom&avatarId=10600",
+				"32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=rkrom&avatarId=10600",
+				"48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=rkrom&avatarId=10600"
+			},
+			"displayName": "Robin Krom",
+			"active": true
+		},
+		"name": "Greenshot feature requests",
+		"avatarUrls": {
+			"48x48": "https://greenshot.atlassian.net/secure/projectavatar?pid=10403&avatarId=10503",
+			"24x24": "https://greenshot.atlassian.net/secure/projectavatar?size=small&pid=10403&avatarId=10503",
+			"16x16": "https://greenshot.atlassian.net/secure/projectavatar?size=xsmall&pid=10403&avatarId=10503",
+			"32x32": "https://greenshot.atlassian.net/secure/projectavatar?size=medium&pid=10403&avatarId=10503"
+		},
+		"projectKeys": [ "FEATURE" ],
+		"projectCategory": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/projectCategory/10000",
+			"id": "10000",
+			"name": "Development",
+			"description": "Development Projects"
+		},
+		"projectTypeKey": "software"
+	},
+	{
+		"expand": "description,lead,url,projectKeys",
+		"self": "https://greenshot.atlassian.net/rest/api/2/project/10001",
+		"id": "10001",
+		"key": "GSG",
+		"description": "",
+		"lead": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/user?username=rkrom",
+			"key": "rkrom",
+			"name": "rkrom",
+			"avatarUrls": {
+				"16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=rkrom&avatarId=10600",
+				"24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=rkrom&avatarId=10600",
+				"32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=rkrom&avatarId=10600",
+				"48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=rkrom&avatarId=10600"
+			},
+			"displayName": "Robin Krom",
+			"active": true
+		},
+		"name": "Greenshot general",
+		"avatarUrls": {
+			"48x48": "https://greenshot.atlassian.net/secure/projectavatar?pid=10001&avatarId=10305",
+			"24x24": "https://greenshot.atlassian.net/secure/projectavatar?size=small&pid=10001&avatarId=10305",
+			"16x16": "https://greenshot.atlassian.net/secure/projectavatar?size=xsmall&pid=10001&avatarId=10305",
+			"32x32": "https://greenshot.atlassian.net/secure/projectavatar?size=medium&pid=10001&avatarId=10305"
+		},
+		"projectKeys": [ "GSG" ],
+		"projectTypeKey": "software"
+	},
+	{
+		"expand": "description,lead,url,projectKeys",
+		"self": "https://greenshot.atlassian.net/rest/api/2/project/10404",
+		"id": "10404",
+		"key": "SUPPORT",
+		"description": "Greenshot support requests",
+		"lead": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/user?username=rkrom",
+			"key": "rkrom",
+			"name": "rkrom",
+			"avatarUrls": {
+				"16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=rkrom&avatarId=10600",
+				"24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=rkrom&avatarId=10600",
+				"32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=rkrom&avatarId=10600",
+				"48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=rkrom&avatarId=10600"
+			},
+			"displayName": "Robin Krom",
+			"active": true
+		},
+		"name": "Greenshot support requests",
+		"avatarUrls": {
+			"48x48": "https://greenshot.atlassian.net/secure/projectavatar?pid=10404&avatarId=10504",
+			"24x24": "https://greenshot.atlassian.net/secure/projectavatar?size=small&pid=10404&avatarId=10504",
+			"16x16": "https://greenshot.atlassian.net/secure/projectavatar?size=xsmall&pid=10404&avatarId=10504",
+			"32x32": "https://greenshot.atlassian.net/secure/projectavatar?size=medium&pid=10404&avatarId=10504"
+		},
+		"projectKeys": [ "SUPPORT" ],
+		"projectCategory": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/projectCategory/10100",
+			"id": "10100",
+			"name": "Support",
+			"description": "Supporting projectd"
+		},
+		"projectTypeKey": "software"
+	}
+]

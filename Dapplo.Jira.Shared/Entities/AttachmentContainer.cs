@@ -21,37 +21,28 @@
 
 #region using
 
-using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
+using Dapplo.HttpExtensions.Support;
 
 #endregion
 
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Project information
-	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/project
+	///     The attachment needs to be uploaded as a multi-part request
 	/// </summary>
-	[DataContract]
-	public class Project : ProjectDigest
+	[HttpRequest(MultiPart = true)]
+	public class AttachmentContainer<T>
 	{
-		[DataMember(Name = "assigneeType")]
-		public string AssigneeType { get; set; }
+		[HttpPart(HttpParts.RequestContent)]
+		public T Content { get; set; }
 
-		[DataMember(Name = "url")]
-		public Uri BrowseUrl { get; set; }
+		[HttpPart(HttpParts.RequestMultipartName)]
+		public string ContentName { get; } = "file";
 
-		[DataMember(Name = "components")]
-		public IList<Component> Components { get; set; }
+		[HttpPart(HttpParts.RequestContentType)]
+		public string ContentType { get; set; } = "text/plain";
 
-		[DataMember(Name = "description")]
-		public string Description { get; set; }
-
-		[DataMember(Name = "email")]
-		public string Email { get; set; }
-
-		[DataMember(Name = "issueTypes")]
-		public IList<IssueType> IssueTypes { get; set; }
+		[HttpPart(HttpParts.RequestMultipartFilename)]
+		public string FileName { get; set; }
 	}
 }
