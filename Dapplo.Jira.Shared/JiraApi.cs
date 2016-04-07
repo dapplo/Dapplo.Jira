@@ -88,13 +88,22 @@ namespace Dapplo.Jira
 		/// </summary>
 		/// <param name="issueKey"></param>
 		/// <param name="content">the content can be anything what Dapplo.HttpExtensions supports</param>
+		/// <param name="filename">Filename for the attachment</param>
+		/// <param name="contentType">content-type for the attachment</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Attachment</returns>
-		public async Task<IList<Attachment>> AttachAsync(string issueKey, object content, CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<IList<Attachment>> AttachAsync<TContent>(string issueKey, TContent content, string filename, string contentType = null, CancellationToken cancellationToken = default(CancellationToken))
+			where TContent : class
 		{
+			var attachment = new AttachmentContainer<TContent>
+			{
+				Content = content,
+				ContentType = contentType,
+				FileName = filename
+			};
 			_behaviour.MakeCurrent();
 			var attachUri = JiraBaseUri.AppendSegments("issue", issueKey, "attachments");
-			var response = await attachUri.PostAsync<HttpResponse<IList<Attachment>, string>>(content, cancellationToken).ConfigureAwait(false);
+			var response = await attachUri.PostAsync<HttpResponse<IList<Attachment>, string>>(attachment, cancellationToken).ConfigureAwait(false);
 			if (response.HasError)
 			{
 				throw new Exception(response.ErrorResponse);

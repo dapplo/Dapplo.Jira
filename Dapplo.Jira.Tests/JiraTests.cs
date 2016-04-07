@@ -116,8 +116,7 @@ namespace Dapplo.Jira.Tests
 		{
 			_jiraApi = new JiraApi(TestJiraUri);
 			_jiraApi.SetBasicAuthentication("username", "password");
-			var attachmentContainer = new AttachmentContainer<string>{FileName = "test.txt", Content = "Testing 1 2 3" };
-			var attachments = await _jiraApi.AttachAsync("key", attachmentContainer);
+			var attachments = await _jiraApi.AttachAsync("key", "Testing 1 2 3", "test.txt");
 			Assert.NotNull(attachments);
 			Assert.True(attachments.Count > 0);
 			Assert.Equal("text/plain", attachments[0].MimeType);
