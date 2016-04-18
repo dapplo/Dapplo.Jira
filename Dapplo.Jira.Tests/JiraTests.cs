@@ -77,7 +77,7 @@ namespace Dapplo.Jira.Tests
 			foreach (var project in projects)
 			{
 				var avatar = await _jiraApi.GetAvatarAsync<Bitmap>(project.Avatar, AvatarSizes.Medium);
-				Assert.True(avatar.Width == 32);
+				Assert.True(avatar.Width == 24);
 
 				var projectDetails = await _jiraApi.GetProjectAsync(project.Key);
 				Assert.NotNull(projectDetails);
