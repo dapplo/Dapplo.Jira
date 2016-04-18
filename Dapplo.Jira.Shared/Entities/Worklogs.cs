@@ -32,12 +32,12 @@ namespace Dapplo.Jira.Entities
 	///     Worklog information
 	/// </summary>
 	[DataContract]
-	public class Worklogs : Pageable
+	public class Worklogs : PageableResult
 	{
+		/// <summary>
+		/// The worklog items
+		/// </summary>
 		[DataMember(Name = "worklogs")]
 		public IList<Worklog> Elements { get; set; }
-
-		[DataMember(Name = "total")]
-		public int Total { get; set; }
 	}
 }

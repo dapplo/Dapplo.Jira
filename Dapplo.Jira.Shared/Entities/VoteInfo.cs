@@ -22,6 +22,7 @@
 #region using
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
@@ -29,18 +30,33 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Visibility information
+	///     Vote information
 	/// </summary>
 	[DataContract]
 	public class VoteInfo
 	{
+		/// <summary>
+		/// Does the issue have votes?
+		/// </summary>
 		[DataMember(Name = "hasVoted")]
 		public bool HasVoted { get; set; }
 
+		/// <summary>
+		/// Link to itself
+		/// </summary>
 		[DataMember(Name = "self")]
 		public Uri Self { get; set; }
 
-		[DataMember(Name = "votest")]
+		/// <summary>
+		/// How many votes does it have
+		/// </summary>
+		[DataMember(Name = "votes")]
 		public long Votes { get; set; }
+
+		/// <summary>
+		/// Who are the voters
+		/// </summary>
+		[DataMember(Name = "voters")]
+		public IList<User> Voters { get; set; }
 	}
 }

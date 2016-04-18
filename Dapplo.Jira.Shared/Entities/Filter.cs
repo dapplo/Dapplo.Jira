@@ -30,35 +30,62 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     IssueType information
+	///     Filter information
 	/// </summary>
 	[DataContract]
 	public class Filter : BaseProperties<long>
 	{
+		/// <summary>
+		/// Description of the filter
+		/// </summary>
 		[DataMember(Name = "description")]
 		public string Description { get; set; }
 
+		/// <summary>
+		/// Is the filter a favorite?
+		/// </summary>
 		[DataMember(Name = "favorite")]
 		public bool IsFavorite { get; set; }
 
+		/// <summary>
+		/// The JQL (query) for the filter 
+		/// </summary>
 		[DataMember(Name = "jql")]
 		public string Jql { get; set; }
 
+		/// <summary>
+		/// Name for the filter
+		/// </summary>
 		[DataMember(Name = "name")]
 		public string Name { get; set; }
 
+		/// <summary>
+		/// User who owns the filter
+		/// </summary>
 		[DataMember(Name = "owner")]
 		public User Owner { get; set; }
 
+		/// <summary>
+		/// The URL to show the search results
+		/// </summary>
 		[DataMember(Name = "searchUrl")]
 		public Uri SearchUri { get; set; }
 
+		/// <summary>
+		/// The permissions for sharing
+		/// </summary>
 		[DataMember(Name = "sharePermissions")]
 		public IList<SharePermission> SharePermissions { get; set; }
 
+		/// <summary>
+		/// The subscriptions for this filter
+		/// </summary>
 		[DataMember(Name = "subscriptions")]
 		public Subscriptions Subscriptions { get; set; }
 
+		/// <summary>
+		/// The url to view the filter
+		/// </summary>
 		[DataMember(Name = "viewUrl")]
 		public Uri ViewUri { get; set; }
 	}

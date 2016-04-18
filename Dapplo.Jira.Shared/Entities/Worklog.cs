@@ -21,6 +21,7 @@
 
 #region using
 
+using System;
 using System.Runtime.Serialization;
 
 #endregion
@@ -33,5 +34,52 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class Worklog : BaseProperties<string>
 	{
+		/// <summary>
+		/// Author of this worklog
+		/// </summary>
+		[DataMember(Name = "author")]
+		public User Author { get; set; }
+
+		/// <summary>
+		/// Who updated this worklog
+		/// </summary>
+		[DataMember(Name = "updateAuthor")]
+		public User UpdateAuthor { get; set; }
+
+		/// <summary>
+		/// Comment for this worklog
+		/// </summary>
+		[DataMember(Name = "comment")]
+		public string Comment { get; set; }
+
+		/// <summary>
+		/// When was the worklog created
+		/// </summary>
+		[DataMember(Name = "created")]
+		public DateTimeOffset Create { get; set; }
+
+		/// <summary>
+		/// When was the worklog updated
+		/// </summary>
+		[DataMember(Name = "updated")]
+		public DateTimeOffset Updated { get; set; }
+
+		/// <summary>
+		/// When was the worklog started
+		/// </summary>
+		[DataMember(Name = "started")]
+		public DateTimeOffset Started { get; set; }
+
+		/// <summary>
+		/// Time spent in this worklog, this is a number and qualifier (h = hour, d = day etc)
+		/// </summary>
+		[DataMember(Name = "timeSpent")]
+		public string TimeSpent { get; set; }
+
+		/// <summary>
+		/// Time spent in this worklog, in seconds
+		/// </summary>
+		[DataMember(Name = "timeSpentSeconds")]
+		public long TimeSpentSeconds { get; set; }
 	}
 }

@@ -21,7 +21,6 @@
 
 #region using
 
-using System;
 using System.Runtime.Serialization;
 
 #endregion
@@ -29,33 +28,16 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     IssueType information
+	///     Component information (digest)
+	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/component
 	/// </summary>
 	[DataContract]
-	public class IssueType : BaseProperties<long>
+	public class ComponentDigest : BaseProperties<long>
 	{
 		/// <summary>
-		/// Description of the issue type
+		/// TODO: Needs comment
 		/// </summary>
-		[DataMember(Name = "description")]
-		public string Description { get; set; }
-
-		/// <summary>
-		/// URL to the icon for the issue type
-		/// </summary>
-		[DataMember(Name = "iconUrl")]
-		public Uri IconUri { get; set; }
-
-		/// <summary>
-		/// Is the issue type a sub task?
-		/// </summary>
-		[DataMember(Name = "subtask")]
-		public bool IsSubTask { get; set; }
-
-		/// <summary>
-		/// Name of the issue type
-		/// </summary>
-		[DataMember(Name = "name")]
-		public string Name { get; set; }
+		[DataMember(Name = "isAssigneeTypeValid")]
+		public bool IsAssigneeTypeValid { get; set; }
 	}
 }

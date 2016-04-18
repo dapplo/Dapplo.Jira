@@ -28,17 +28,20 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     ProjectCategory information
+	///     Project category information
 	/// </summary>
 	[DataContract]
-	public class ProjectCategory
+	public class ProjectCategory : BaseProperties<long>
 	{
+		/// <summary>
+		/// Description for the category
+		/// </summary>
 		[DataMember(Name = "description")]
 		public string Description { get; set; }
 
-		[DataMember(Name = "id")]
-		public string Id { get; set; }
-
+		/// <summary>
+		/// Name of the category
+		/// </summary>
 		[DataMember(Name = "name")]
 		public string Name { get; set; }
 	}

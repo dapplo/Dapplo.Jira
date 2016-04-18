@@ -122,5 +122,15 @@ namespace Dapplo.Jira.Tests
 			Assert.True(attachments.Count > 0);
 			Assert.Equal("text/plain", attachments[0].MimeType);
 		}
+
+		//[Fact]
+		public async Task TestGetProjectAsync()
+		{
+			_jiraApi = new JiraApi(TestJiraUri);
+			var project = await _jiraApi.GetProjectAsync("BATCH");
+
+			Assert.NotNull(project);
+			Assert.NotNull(project.Roles.Count > 0);
+		}
 	}
 }

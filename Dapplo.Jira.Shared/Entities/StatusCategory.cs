@@ -33,12 +33,21 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class StatusCategory : BaseProperties<long>
 	{
+		/// <summary>
+		/// Name of the color
+		/// </summary>
 		[DataMember(Name = "colorName")]
 		public string ColorName { get; set; }
 
+		/// <summary>
+		/// Key for the status category
+		/// </summary>
 		[DataMember(Name = "key")]
 		public string Key { get; set; }
 
+		/// <summary>
+		/// Name of the status category
+		/// </summary>
 		[DataMember(Name = "name")]
 		public string Name { get; set; }
 	}

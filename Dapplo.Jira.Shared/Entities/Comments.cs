@@ -33,12 +33,12 @@ namespace Dapplo.Jira.Entities
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/attachment
 	/// </summary>
 	[DataContract]
-	public class Comments : Pageable
+	public class Comments : PageableResult
 	{
+		/// <summary>
+		/// The actual commits
+		/// </summary>
 		[DataMember(Name = "comments")]
 		public IList<Comment> Elements { get; set; }
-
-		[DataMember(Name = "total")]
-		public int Total { get; set; }
 	}
 }

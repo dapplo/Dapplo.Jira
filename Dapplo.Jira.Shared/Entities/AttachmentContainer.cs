@@ -33,15 +33,28 @@ namespace Dapplo.Jira.Entities
 	[HttpRequest(MultiPart = true)]
 	public class AttachmentContainer<T>
 	{
+		/// <summary>
+		/// The actual content for the attachment
+		/// </summary>
 		[HttpPart(HttpParts.RequestContent)]
 		public T Content { get; set; }
 
+		/// <summary>
+		/// The name of the content, this is always "file"
+		/// </summary>
 		[HttpPart(HttpParts.RequestMultipartName)]
 		public string ContentName { get; } = "file";
 
+		/// <summary>
+		/// The (mime) type for the content
+		/// </summary>
 		[HttpPart(HttpParts.RequestContentType)]
 		public string ContentType { get; set; } = "text/plain";
 
+
+		/// <summary>
+		///Filename for the attachment
+		/// </summary>
 		[HttpPart(HttpParts.RequestMultipartFilename)]
 		public string FileName { get; set; }
 	}

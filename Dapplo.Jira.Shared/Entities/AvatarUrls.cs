@@ -35,15 +35,27 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class AvatarUrls
 	{
+		/// <summary>
+		/// Url to the 48x48 Avatar
+		/// </summary>
 		[DataMember(Name = "48x48")]
 		public Uri ExtraLarge { get; set; }
 
+		/// <summary>
+		/// Url to the 24x24 Avatar
+		/// </summary>
 		[DataMember(Name = "24x24")]
-		public Uri Large { get; set; }
-
-		[DataMember(Name = "32x32")]
 		public Uri Medium { get; set; }
 
+		/// <summary>
+		/// Url to the 32x32 Avatar
+		/// </summary>
+		[DataMember(Name = "32x32")]
+		public Uri Large { get; set; }
+
+		/// <summary>
+		/// Url to the 16x16 Avatar
+		/// </summary>
 		[DataMember(Name = "16x16")]
 		public Uri Small { get; set; }
 	}

@@ -34,6 +34,9 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class Error
 	{
+		/// <summary>
+		/// The list of error messages
+		/// </summary>
 		[DataMember(Name = "errorMessages")]
 		public IList<string> ErrorMessages { get; set; }
 	}

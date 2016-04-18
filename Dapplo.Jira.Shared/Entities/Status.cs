@@ -34,15 +34,27 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class Status : BaseProperties<string>
 	{
+		/// <summary>
+		/// Category for this status
+		/// </summary>
 		[DataMember(Name = "statusCategory")]
 		public StatusCategory Category { get; set; }
 
+		/// <summary>
+		/// Description for this status
+		/// </summary>
 		[DataMember(Name = "description")]
 		public string Description { get; set; }
 
+		/// <summary>
+		/// Url to the icon for this status
+		/// </summary>
 		[DataMember(Name = "iconUrl")]
 		public Uri IconUri { get; set; }
 
+		/// <summary>
+		/// Name of the status
+		/// </summary>
 		[DataMember(Name = "name")]
 		public string Name { get; set; }
 	}

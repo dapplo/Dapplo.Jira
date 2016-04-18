@@ -33,9 +33,15 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class Resolution : BaseProperties<string>
 	{
+		/// <summary>
+		/// Description of the resolution
+		/// </summary>
 		[DataMember(Name = "description")]
 		public string Description { get; set; }
 
+		/// <summary>
+		/// Name of the resolution
+		/// </summary>
 		[DataMember(Name = "name")]
 		public string Name { get; set; }
 	}

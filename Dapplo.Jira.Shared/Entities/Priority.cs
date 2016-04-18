@@ -29,15 +29,33 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Visibility information
+	///     Priority information
 	/// </summary>
 	[DataContract]
-	public class Priority : BaseProperties<string>
+	public class Priority : BaseProperties<int>
 	{
+		/// <summary>
+		/// Url to the icon for this priority
+		/// </summary>
 		[DataMember(Name = "iconUrl")]
 		public Uri IconUrl { get; set; }
 
+		/// <summary>
+		/// Name of the priority
+		/// </summary>
 		[DataMember(Name = "name")]
 		public string Name { get; set; }
+
+		/// <summary>
+		/// Status color
+		/// </summary>
+		[DataMember(Name = "statusColor")]
+		public string StatusColor { get; set; }
+
+		/// <summary>
+		/// Description of the priority
+		/// </summary>
+		[DataMember(Name = "description")]
+		public string Description { get; set; }
 	}
 }

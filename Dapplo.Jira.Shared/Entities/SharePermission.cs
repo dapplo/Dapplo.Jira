@@ -28,17 +28,26 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     SharePermission information
+	///     Share Permission information
 	/// </summary>
 	[DataContract]
 	public class SharePermission
 	{
+		/// <summary>
+		/// Id for the share permission
+		/// </summary>
 		[DataMember(Name = "id")]
 		public string Id { get; set; }
 
+		/// <summary>
+		/// Project for the permissions
+		/// </summary>
 		[DataMember(Name = "project")]
-		public Project Project { get; set; }
+		public ProjectDigest Project { get; set; }
 
+		/// <summary>
+		/// Share type can be project
+		/// </summary>
 		[DataMember(Name = "type")]
 		public string Type { get; set; }
 	}

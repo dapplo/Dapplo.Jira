@@ -21,7 +21,6 @@
 
 #region using
 
-using System;
 using System.Runtime.Serialization;
 
 #endregion
@@ -29,33 +28,21 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     IssueType information
+	///     Subscription information
 	/// </summary>
 	[DataContract]
-	public class IssueType : BaseProperties<long>
+	public class Subscription
 	{
 		/// <summary>
-		/// Description of the issue type
+		/// Id for this subscription
 		/// </summary>
-		[DataMember(Name = "description")]
-		public string Description { get; set; }
+		[DataMember(Name = "id")]
+		public long Id { get; set; }
 
 		/// <summary>
-		/// URL to the icon for the issue type
+		/// The user which subscribed
 		/// </summary>
-		[DataMember(Name = "iconUrl")]
-		public Uri IconUri { get; set; }
-
-		/// <summary>
-		/// Is the issue type a sub task?
-		/// </summary>
-		[DataMember(Name = "subtask")]
-		public bool IsSubTask { get; set; }
-
-		/// <summary>
-		/// Name of the issue type
-		/// </summary>
-		[DataMember(Name = "name")]
-		public string Name { get; set; }
+		[DataMember(Name = "user")]
+		public User Subscriber { get; set; }
 	}
 }

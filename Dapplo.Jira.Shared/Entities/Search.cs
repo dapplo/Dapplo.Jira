@@ -34,16 +34,28 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class Search : Pageable
 	{
+		/// <summary>
+		/// Expand values
+		/// </summary>
 		[DataMember(Name = "expand")]
 		public string Expand { get; set; }
 
+		/// <summary>
+		/// Fields for this query
+		/// </summary>
 		[DataMember(Name = "fields")]
 		public IList<string> Fields { get; set; }
 
+		/// <summary>
+		/// The JQL for this search
+		/// </summary>
 		[DataMember(Name = "jql")]
 		public string Jql { get; set; }
 
+		/// <summary>
+		/// Does the query (JQL) need to be validated?
+		/// </summary>
 		[DataMember(Name = "validateQuery")]
-		public bool ValidateQuery { get; set; }
+		public bool ValidateQuery { get; set; } = true;
 	}
 }

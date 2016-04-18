@@ -21,6 +21,7 @@
 
 #region using
 
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
@@ -32,24 +33,42 @@ namespace Dapplo.Jira.Entities
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/project
 	/// </summary>
 	[DataContract]
-	public class ProjectDigest
+	public class ProjectDigest : BaseProperties<long>
 	{
+		/// <summary>
+		/// Avatar for this project
+		/// </summary>
 		[DataMember(Name = "avatarUrls")]
 		public AvatarUrls Avatar { get; set; }
 
+		/// <summary>
+		/// The projects category 
+		/// </summary>
 		[DataMember(Name = "projectCategory")]
 		public ProjectCategory Category { get; set; }
 
-		[DataMember(Name = "id")]
-		public string Id { get; set; }
-
+		/// <summary>
+		/// Key for this project (the prefix of the issues in the project)
+		/// </summary>
 		[DataMember(Name = "key")]
 		public string Key { get; set; }
 
+		/// <summary>
+		/// User who is the lead for the project
+		/// </summary>
 		[DataMember(Name = "lead")]
 		public User Lead { get; set; }
 
+		/// <summary>
+		/// Name of the project
+		/// </summary>
 		[DataMember(Name = "name")]
 		public string Name { get; set; }
+
+		/// <summary>
+		/// All project keys associated with the project 
+		/// </summary>
+		[DataMember(Name = "projectKeys")]
+		public IList<string> projectKeys { get; set; }
 	}
 }

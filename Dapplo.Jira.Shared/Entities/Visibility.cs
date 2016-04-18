@@ -33,9 +33,15 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class Visibility
 	{
+		/// <summary>
+		/// Type for the visibility
+		/// </summary>
 		[DataMember(Name = "type")]
 		public string Type { get; set; }
 
+		/// <summary>
+		/// Value of the visibility
+		/// </summary>
 		[DataMember(Name = "value")]
 		public string Value { get; set; }
 	}

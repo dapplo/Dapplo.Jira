@@ -28,14 +28,20 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Containt a pagable array
+	///  Container for pagable information in a request, also the base for the PageableResult
 	/// </summary>
 	[DataContract]
 	public class Pageable
 	{
+		/// <summary>
+		/// Max of the results (this is the limit)
+		/// </summary>
 		[DataMember(Name = "maxResults")]
 		public int MaxResults { get; set; }
 
+		/// <summary>
+		/// Where in the total this "page" is located
+		/// </summary>
 		[DataMember(Name = "startAt")]
 		public int StartAt { get; set; }
 	}

@@ -35,24 +35,45 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class Attachment : BaseProperties<string>
 	{
+		/// <summary>
+		/// Who created the attachment
+		/// </summary>
 		[DataMember(Name = "author")]
 		public User Author { get; set; }
 
+		/// <summary>
+		/// Url which can be used to download the attachment
+		/// </summary>
 		[DataMember(Name = "content")]
 		public Uri ContentUri { get; set; }
 
+		/// <summary>
+		/// When was the attachment created
+		/// </summary>
 		[DataMember(Name = "created")]
 		public DateTimeOffset Created { get; set; }
 
+		/// <summary>
+		/// Filename of the attachment
+		/// </summary>
 		[DataMember(Name = "filename")]
 		public string Filename { get; set; }
 
+		/// <summary>
+		/// Mimetype for the attachment
+		/// </summary>
 		[DataMember(Name = "mimeType")]
 		public string MimeType { get; set; }
 
+		/// <summary>
+		/// Size (in bytes) of the attachment
+		/// </summary>
 		[DataMember(Name = "size")]
 		public long Size { get; set; }
 
+		/// <summary>
+		/// An URL to the thumbnail for this attachment
+		/// </summary>
 		[DataMember(Name = "thumbnail")]
 		public Uri ThumbnailUri { get; set; }
 	}

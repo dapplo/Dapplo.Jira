@@ -34,9 +34,15 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class Issue : BaseProperties<string>
 	{
+		/// <summary>
+		/// Fields for the issue
+		/// </summary>
 		[DataMember(Name = "fields")]
 		public Fields Fields { get; set; }
 
+		/// <summary>
+		/// Key of the issue
+		/// </summary>
 		[DataMember(Name = "key")]
 		public string Key { get; set; }
 	}

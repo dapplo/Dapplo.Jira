@@ -32,15 +32,18 @@ namespace Dapplo.Jira.Entities
 	///     Search result information, see <a href="https://docs.atlassian.com/jira/REST/latest/#api/2/search-search">here</a>
 	/// </summary>
 	[DataContract]
-	public class SearchResult : Pageable
+	public class SearchResult : PageableResult
 	{
+		/// <summary>
+		/// Expand values
+		/// </summary>
 		[DataMember(Name = "expand")]
 		public string Expand { get; set; }
 
+		/// <summary>
+		/// List of issues
+		/// </summary>
 		[DataMember(Name = "issues")]
 		public IList<Issue> Issues { get; set; }
-
-		[DataMember(Name = "total")]
-		public int Total { get; set; }
 	}
 }

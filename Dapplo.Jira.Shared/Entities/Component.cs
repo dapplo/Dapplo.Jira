@@ -28,42 +28,63 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Component information
+	///     Component information, retrieved for /component/id
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/component
 	/// </summary>
 	[DataContract]
-	public class Component
+	public class Component : ComponentDigest
 	{
-		[DataMember(Name = "assignee")]
-		public User Assignee { get; set; }
-
-		[DataMember(Name = "assigneeType")]
-		public string AssigneeType { get; set; }
-
+		/// <summary>
+		/// Description of this component
+		/// </summary>
 		[DataMember(Name = "description")]
 		public string Description { get; set; }
 
-		[DataMember(Name = "id")]
-		public string Id { get; set; }
-
-		[DataMember(Name = "isAssigneeTypeValid")]
-		public bool IsAssigneeTypeValid { get; set; }
-
+		/// <summary>
+		/// Lead for this component
+		/// </summary>
 		[DataMember(Name = "lead")]
 		public User Lead { get; set; }
 
+		/// <summary>
+		/// Name of the component
+		/// </summary>
 		[DataMember(Name = "name")]
 		public string Name { get; set; }
 
+		/// <summary>
+		/// Project key where this component belongs to
+		/// </summary>
 		[DataMember(Name = "project")]
 		public string Project { get; set; }
 
+		/// <summary>
+		/// Id of the project where this component belongs to
+		/// </summary>
 		[DataMember(Name = "projectId")]
 		public int ProjectId { get; set; }
 
+		/// <summary>
+		/// TODO: Needs comment
+		/// </summary>
+		[DataMember(Name = "assignee")]
+		public User Assignee { get; set; }
+
+		/// <summary>
+		/// TODO: Needs comment
+		/// </summary>
+		[DataMember(Name = "assigneeType")]
+		public string AssigneeType { get; set; }
+
+		/// <summary>
+		/// TODO: Needs comment
+		/// </summary>
 		[DataMember(Name = "realAssignee")]
 		public User RealAssignee { get; set; }
 
+		/// <summary>
+		/// TODO: Needs comment
+		/// </summary>
 		[DataMember(Name = "realAssigneeType")]
 		public string RealAssigneeType { get; set; }
 	}

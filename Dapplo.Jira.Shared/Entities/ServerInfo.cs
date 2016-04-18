@@ -35,21 +35,39 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class ServerInfo
 	{
+		/// <summary>
+		/// The base URL for this server
+		/// </summary>
 		[DataMember(Name = "baseUrl")]
 		public Uri BaseUrl { get; set; }
 
+		/// <summary>
+		/// Date of the build
+		/// </summary>
 		[DataMember(Name = "buildDate")]
 		public DateTimeOffset BuildDate { get; set; }
 
+		/// <summary>
+		/// Build number (internal information)
+		/// </summary>
 		[DataMember(Name = "buildNumber")]
 		public int BuildNumber { get; set; }
 
+		/// <summary>
+		/// Git commit id (at lease until the SCM is changed)
+		/// </summary>
 		[DataMember(Name = "scmInfo")]
 		public string ScmInfo { get; set; }
 
+		/// <summary>
+		/// Title of the server
+		/// </summary>
 		[DataMember(Name = "serverTitle")]
 		public string ServerTitle { get; set; }
 
+		/// <summary>
+		/// Version of the software
+		/// </summary>
 		[DataMember(Name = "version")]
 		public string Version { get; set; }
 	}

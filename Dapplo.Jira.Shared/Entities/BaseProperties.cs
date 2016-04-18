@@ -34,9 +34,15 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class BaseProperties<TId>
 	{
+		/// <summary>
+		/// Id of this entity
+		/// </summary>
 		[DataMember(Name = "id")]
 		public TId Id { get; set; }
 
+		/// <summary>
+		/// Link to itself
+		/// </summary>
 		[DataMember(Name = "self")]
 		public Uri Self { get; set; }
 	}

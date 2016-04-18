@@ -33,23 +33,41 @@ namespace Dapplo.Jira.Entities
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/attachment
 	/// </summary>
 	[DataContract]
-	public class Comment : BaseProperties<string>
+	public class Comment : BaseProperties<long>
 	{
+		/// <summary>
+		/// Who created the comment
+		/// </summary>
 		[DataMember(Name = "author")]
 		public User Author { get; set; }
 
+		/// <summary>
+		/// The text of the comment
+		/// </summary>
 		[DataMember(Name = "body")]
 		public string Body { get; set; }
 
+		/// <summary>
+		/// When was the comment created 
+		/// </summary>
 		[DataMember(Name = "created")]
 		public DateTimeOffset Created { get; set; }
 
+		/// <summary>
+		/// Who updated the comment
+		/// </summary>
 		[DataMember(Name = "updateAuthor")]
 		public User UpdateAuthor { get; set; }
 
+		/// <summary>
+		/// When was the comment updated
+		/// </summary>
 		[DataMember(Name = "updated")]
 		public DateTimeOffset Updated { get; set; }
 
+		/// <summary>
+		/// Is a comment visible
+		/// </summary>
 		[DataMember(Name = "visibility")]
 		public Visibility Visibility { get; set; }
 	}
