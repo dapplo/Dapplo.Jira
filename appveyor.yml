@@ -16,9 +16,16 @@ install:
   - choco install gitlink -y
 before_build:
   - nuget restore
+  - ps: if(-not $env:APPVEYOR_PULL_REQUEST_NUMBER) { $env:is_not_pr = "true"; }
 before_package:
+  - ps: Remove-Item packages\OpenCover* -include *.pdb -recurse
   - GitLink .\
   - nuget pack -Verbosity detailed "%APPVEYOR_PROJECT_NAME%.nuspec" -MSBuildVersion 14.0 -Properties id=%APPVEYOR_PROJECT_NAME%;version=%APPVEYOR_BUILD_VERSION%;author=Dapplo
+after_test: 
+    - ps: .\CreateCoverage.ps1
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: 7WKQnyTUvZhaCOIVI2+CmP/1tV9nJNHgZ6VJFa3lhxD81O9sJGp65DA/uG4sRyG9
 build:
   project: Dapplo.Jira.sln
   publish_nuget: true
@@ -41,7 +48,15 @@ deploy:
     secure: eBQPtXg53XgcvdcVY3wQAw6kkwNh+QhcsTDwzyQLLh6IOPyiePEaEhJR0D2YBjAj
   artifact: /.*\.nupkg/
   draft: false
+  on:
+    branch: master
+    is_not_pr: true
+    appveyor_repo_commit_message_extended: /\[release\]/
 - provider: NuGet
   skip_symbols: true
   api_key:
     secure: xkDQ385+smLqdzhESsXBJvnUjK4FZ4Djjrqi9tFR29dwESIvPYOrQAqgri5Nf/fA
+  on:
+    branch: master
+    is_not_pr: true
+    appveyor_repo_commit_message_extended: /\[release\]/

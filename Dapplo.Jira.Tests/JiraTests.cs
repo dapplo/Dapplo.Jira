@@ -21,12 +21,13 @@
 
 #region using
 
+using Dapplo.Jira.Entities;
+using Dapplo.Jira.Tests.Logger;
+using Dapplo.LogFacade;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
-using Dapplo.Jira.Entities;
-using Dapplo.LogFacade;
 using Xunit;
 using Xunit.Abstractions;
 

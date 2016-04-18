@@ -30,12 +30,19 @@
 	</metadata>
 	<files>
 		<file src="$id$\bin\release\$id$.pdb" target="lib\net45" />
+		<file src="$id$\bin\release\$id$.xml" target="lib\net45" />
 		<file src="$id$\bin\release\$id$.dll" target="lib\net45" />
+
 		<file src="$id$.PCL\bin\release\$id$.pdb" target="lib\dnxcore50" />
+		<file src="$id$.PCL\bin\release\$id$.xml" target="lib\dnxcore50" />
 		<file src="$id$.PCL\bin\release\$id$.dll" target="lib\dnxcore50" />
+
 		<file src="$id$.PCL\bin\release\$id$.pdb" target="lib\uap10.0" />
+		<file src="$id$.PCL\bin\release\$id$.xml" target="lib\uap10.0" />
 		<file src="$id$.PCL\bin\release\$id$.dll" target="lib\uap10.0" />
+
 		<file src="$id$.PCL\bin\release\$id$.pdb" target="lib\dotnet" />
+		<file src="$id$.PCL\bin\release\$id$.xml" target="lib\dotnet" />
 		<file src="$id$.PCL\bin\release\$id$.dll" target="lib\dotnet" />
 	</files>
 </package>

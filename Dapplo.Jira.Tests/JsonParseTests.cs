@@ -21,10 +21,11 @@
 
 #region using
 
-using System.IO;
 using Dapplo.HttpExtensions;
 using Dapplo.Jira.Entities;
+using Dapplo.Jira.Tests.Logger;
 using Dapplo.LogFacade;
+using System.IO;
 using Xunit;
 using Xunit.Abstractions;
 
