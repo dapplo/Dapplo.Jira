@@ -27,6 +27,7 @@ using Dapplo.LogFacade;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
@@ -40,25 +41,38 @@ namespace Dapplo.Jira.Tests
 		// Test against a well known JIRA
 		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
 
-		private JiraApi _jiraApi;
+		private readonly JiraApi _jiraApi;
 
 		public JiraTests(ITestOutputHelper testOutputHelper)
 		{
 			XUnitLogger.RegisterLogger(testOutputHelper, LogLevel.Verbose);
+			_jiraApi = new JiraApi(TestJiraUri);
+			var username = Environment.GetEnvironmentVariable("jira_test_username");
+			var password = Environment.GetEnvironmentVariable("jira_test_password");
+			if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+			{
+				_jiraApi.SetBasicAuthentication(username, password);
+			}
 		}
 
 		[Fact]
 		public async Task TestGetFavoriteFiltersAsync()
 		{
-			_jiraApi = new JiraApi(TestJiraUri);
 			var filter = await _jiraApi.GetFavoriteFiltersAsync();
 			Assert.NotNull(filter);
 		}
 
 		[Fact]
+		public async Task TestSearchUsersAsync()
+		{
+			var users = await _jiraApi.SearchUserAsync("Dapplo");
+			Assert.NotNull(users);
+			Assert.True(users.Count > 0);
+		}
+
+		[Fact]
 		public async Task TestGetIssueAsync()
 		{
-			_jiraApi = new JiraApi(TestJiraUri);
 			var issue = await _jiraApi.GetIssueAsync("BUG-1845");
 			Assert.NotNull(issue);
 			Assert.NotNull(issue.Fields.Comments.Elements);
@@ -68,7 +82,6 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetProjectsAsync()
 		{
-			_jiraApi = new JiraApi(TestJiraUri);
 			var projects = await _jiraApi.GetProjectsAsync();
 
 			Assert.NotNull(projects);
@@ -87,7 +100,6 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetServerInfoAsync()
 		{
-			_jiraApi = new JiraApi(TestJiraUri);
 			Assert.NotNull(_jiraApi);
 			var serverInfo = await _jiraApi.GetServerInfoAsync();
 			Assert.NotNull(serverInfo.Version);
@@ -100,7 +112,6 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestSearch()
 		{
-			_jiraApi = new JiraApi(TestJiraUri);
 			var searchResult = await _jiraApi.SearchAsync("text ~ \"robin\"");
 
 			Assert.NotNull(searchResult);
@@ -112,22 +123,19 @@ namespace Dapplo.Jira.Tests
 			}
 		}
 
-		//[Fact]
+		[Fact]
 		public async Task TestAttach()
 		{
-			_jiraApi = new JiraApi(TestJiraUri);
-			_jiraApi.SetBasicAuthentication("username", "password");
-			var attachments = await _jiraApi.AttachAsync("key", "Testing 1 2 3", "test.txt");
+			var attachments = await _jiraApi.AttachAsync("FEATURE-746", "Testing 1 2 3", "test.txt");
 			Assert.NotNull(attachments);
 			Assert.True(attachments.Count > 0);
-			Assert.Equal("text/plain", attachments[0].MimeType);
+			Assert.StartsWith("text/plain", attachments.Last().MimeType);
 		}
 
-		//[Fact]
+		[Fact]
 		public async Task TestGetProjectAsync()
 		{
-			_jiraApi = new JiraApi(TestJiraUri);
-			var project = await _jiraApi.GetProjectAsync("BATCH");
+			var project = await _jiraApi.GetProjectAsync("BUG");
 
 			Assert.NotNull(project);
 			Assert.NotNull(project.Roles.Count > 0);

@@ -268,6 +268,47 @@ namespace Dapplo.Jira
 		}
 
 		/// <summary>
+		/// Returns a list of users that match the search string.
+		/// This resource cannot be accessed anonymously.
+		/// See: https://docs.atlassian.com/jira/REST/latest/#api/2/user-findUsers
+		/// </summary>
+		/// <param name="query">A query string used to search username, name or e-mail address</param>
+		/// <param name="startAt"></param>
+		/// <param name="maxResults">Maximum number of results returned, default is 20</param>
+		/// <param name="includeActive">If true, then active users are included in the results (default true)</param>
+		/// <param name="includeInactive">If true, then inactive users are included in the results (default false)</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>SearchResult</returns>
+		public async Task<IList<User>> SearchUserAsync(string query, bool includeActive = true, bool includeInactive= false, int startAt = 0, int maxResults = 20, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			_behaviour.MakeCurrent();
+			var searchUri = JiraBaseUri.AppendSegments("user","search").ExtendQuery(new Dictionary<string, object>
+			{
+				{
+					"username", query
+				},
+				{
+					"includeActive", $"{includeActive}"
+				},
+				{
+					"includeInactive", $"{includeInactive}"
+				},
+				{
+					"startAt", startAt
+				},
+				{
+					"maxResults", maxResults
+				}
+			});
+			var response = await searchUri.GetAsAsync<HttpResponse<IList<User>, Error>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
+			return response.Response;
+		}
+
+		/// <summary>
 		///     Get server information
 		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e3828
 		/// </summary>
