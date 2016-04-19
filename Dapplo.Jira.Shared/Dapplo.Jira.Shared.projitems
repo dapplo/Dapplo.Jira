@@ -47,5 +47,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Entities\User.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Visibility.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)JiraApi.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)JiraConfig.cs" />
   </ItemGroup>
 </Project>

@@ -27,6 +27,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
 using Dapplo.Jira.Entities;
+using System.Net;
 
 #endregion
 
@@ -175,6 +176,11 @@ namespace Dapplo.Jira
 		public async Task<Issue> GetIssueAsync(string issue, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			var issueUri = JiraBaseUri.AppendSegments("issue", issue);
+			// Add the configurable expand values, if the value is not null or empty
+			if (JiraConfig.ExpandGetIssue?.Length > 0)
+			{
+				issueUri = issueUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetIssue));
+			}
 			_behaviour.MakeCurrent();
 			var response = await issueUri.GetAsAsync<HttpResponse<Issue, Error>>(cancellationToken).ConfigureAwait(false);
 			if (response.HasError)
@@ -212,6 +218,13 @@ namespace Dapplo.Jira
 		public async Task<Project> GetProjectAsync(string projectKey, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			var projectUri = JiraBaseUri.AppendSegments("project", projectKey);
+
+			// Add the configurable expand values, if the value is not null or empty
+			if (JiraConfig.ExpandGetProject?.Length > 0)
+			{
+				projectUri = projectUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetProject));
+			}
+
 			_behaviour.MakeCurrent();
 			var response = await projectUri.GetAsAsync<HttpResponse<Project, Error>>(cancellationToken).ConfigureAwait(false);
 			if (response.HasError)
@@ -229,9 +242,16 @@ namespace Dapplo.Jira
 		/// <returns>list of ProjectDigest</returns>
 		public async Task<IList<ProjectDigest>> GetProjectsAsync(CancellationToken cancellationToken = default(CancellationToken))
 		{
-			var projectUri = JiraBaseUri.AppendSegments("project").ExtendQuery("expand", "description,lead");
+			var projectsUri = JiraBaseUri.AppendSegments("project");
+
+			// Add the configurable expand values, if the value is not null or empty
+			if (JiraConfig.ExpandGetProjects?.Length > 0)
+			{
+				projectsUri = projectsUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetProjects));
+			}
+
 			_behaviour.MakeCurrent();
-			var response = await projectUri.GetAsAsync<HttpResponse<IList<ProjectDigest>, Error>>(cancellationToken).ConfigureAwait(false);
+			var response = await projectsUri.GetAsAsync<HttpResponse<IList<ProjectDigest>, Error>>(cancellationToken).ConfigureAwait(false);
 			if (response.HasError)
 			{
 				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
@@ -245,7 +265,7 @@ namespace Dapplo.Jira
 		/// </summary>
 		/// <param name="jql">Jira Query Language, like SQL, for the search</param>
 		/// <param name="maxResults">Maximum number of results returned, default is 20</param>
-		/// <param name="fields">Jira fields to include, if null a default is taken</param>
+		/// <param name="fields">Jira fields to include, if null the defaults from the JiraConfig.SearchFields are taken</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>SearchResult</returns>
 		public async Task<SearchResult> SearchAsync(string jql, int maxResults = 20, IList<string> fields = null, CancellationToken cancellationToken = default(CancellationToken))
@@ -256,9 +276,16 @@ namespace Dapplo.Jira
 				Jql = jql,
 				ValidateQuery = true,
 				MaxResults = maxResults,
-				Fields = fields ?? new List<string> {"summary", "status", "assignee", "key", "project"}
+				Fields = fields ?? new List<string>(JiraConfig.SearchFields)
 			};
 			var searchUri = JiraBaseUri.AppendSegments("search");
+
+			// Add the configurable expand values, if the value is not null or empty
+			if (JiraConfig.ExpandSearch?.Length > 0)
+			{
+				searchUri = searchUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandSearch));
+			}
+
 			var response = await searchUri.PostAsync<HttpResponse<SearchResult, Error>>(search, cancellationToken).ConfigureAwait(false);
 			if (response.HasError)
 			{
@@ -300,6 +327,7 @@ namespace Dapplo.Jira
 					"maxResults", maxResults
 				}
 			});
+
 			var response = await searchUri.GetAsAsync<HttpResponse<IList<User>, Error>>(cancellationToken).ConfigureAwait(false);
 			if (response.HasError)
 			{
@@ -357,12 +385,63 @@ namespace Dapplo.Jira
 		{
 			_behaviour.MakeCurrent();
 			var filterFavouriteUri = JiraBaseUri.AppendSegments("filter", "favourite");
+
+			// Add the configurable expand values, if the value is not null or empty
+			if (JiraConfig.ExpandGetFavoriteFilters?.Length > 0)
+			{
+				filterFavouriteUri = filterFavouriteUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetFavoriteFilters));
+			}
+
 			var response = await filterFavouriteUri.GetAsAsync<HttpResponse<IList<Filter>, Error>>(cancellationToken).ConfigureAwait(false);
 			if (response.HasError)
 			{
 				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
 			}
 			return response.Response;
+		}
+
+		/// <summary>
+		///     Get filter
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1388
+		/// </summary>
+		/// <param name="id">filter id</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>Filter</returns>
+		public async Task<Filter> GetFilterAsync(long id, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			_behaviour.MakeCurrent();
+			var filterUri = JiraBaseUri.AppendSegments("filter", id);
+
+			// Add the configurable expand values, if the value is not null or empty
+			if (JiraConfig.ExpandGetFilter?.Length > 0)
+			{
+				filterUri = filterUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetFilter));
+			}
+
+			var response = await filterUri.GetAsAsync<HttpResponse<Filter, Error>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
+			return response.Response;
+		}
+
+		/// <summary>
+		///     Delete filter
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1388
+		/// </summary>
+		/// <param name="id">filter id</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		public async Task DeleteFilterAsync(long id, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			_behaviour.MakeCurrent();
+			var filterUri = JiraBaseUri.AppendSegments("filter", id);
+
+			var response = await filterUri.DeleteAsync<HttpResponse<string, Error>>(cancellationToken).ConfigureAwait(false);
+			if (response.StatusCode != HttpStatusCode.NoContent)
+			{
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
 		}
 
 		#endregion

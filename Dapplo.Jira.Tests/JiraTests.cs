@@ -54,12 +54,30 @@ namespace Dapplo.Jira.Tests
 				_jiraApi.SetBasicAuthentication(username, password);
 			}
 		}
+		[Fact]
+		public void TestConstructor()
+		{
+			Assert.Throws<ArgumentNullException>(() => new JiraApi(null));
+		}
+
+		[Fact]
+		public async Task TestUser()
+		{
+			var meMyselfAndI = await _jiraApi.WhoAmIAsync();
+			Assert.NotNull(meMyselfAndI);
+			var meAgain = await _jiraApi.GetUserAsync(meMyselfAndI.Name);
+			Assert.NotNull(meAgain);
+		}
 
 		[Fact]
 		public async Task TestGetFavoriteFiltersAsync()
 		{
-			var filter = await _jiraApi.GetFavoriteFiltersAsync();
-			Assert.NotNull(filter);
+			var filters = await _jiraApi.GetFavoriteFiltersAsync();
+			Assert.NotNull(filters);
+			foreach(var filter in filters)
+			{
+				await _jiraApi.GetFilterAsync(filter.Id);
+			}
 		}
 
 		[Fact]

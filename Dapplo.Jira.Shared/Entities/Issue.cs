@@ -41,6 +41,13 @@ namespace Dapplo.Jira.Entities
 		public Fields Fields { get; set; }
 
 		/// <summary>
+		/// Fields for the issue, but wiki markup is now rendered to HTML
+		/// This will be in the response when expand=renderedFields
+		/// </summary>
+		[DataMember(Name = "renderedFields")]
+		public Fields RenderedFields { get; set; }
+
+		/// <summary>
 		/// Key of the issue
 		/// </summary>
 		[DataMember(Name = "key")]
