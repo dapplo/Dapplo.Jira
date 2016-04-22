@@ -90,8 +90,14 @@ namespace Dapplo.Jira.Tests.Logger
 			{
 				throw new ArgumentNullException(nameof(testOutputHelper), "Couldn't find a ITestOutputHelper in the CallContext");
 			}
-			testOutputHelper.WriteLine($"{logInfo} - {messageTemplate}", logParameters);
-			testOutputHelper.WriteLine(exception.ToString());
+			if (messageTemplate != null)
+			{
+				testOutputHelper.WriteLine($"{logInfo} - {messageTemplate}", logParameters);
+			}
+			if (exception != null)
+			{
+				testOutputHelper.WriteLine(exception.ToString());
+			}
 		}
 
 		/// <summary>
