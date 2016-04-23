@@ -83,7 +83,7 @@ namespace Dapplo.Jira.Tests.Logger
 			testOutputHelper.WriteLine($"{logInfo} - {messageTemplate}", logParameters);
 		}
 
-		public override void Write(LogInfo logInfo, Exception exception, string messageTemplate, params object[] logParameters)
+		public override void Write(LogInfo logInfo, Exception exception, string messageTemplate = null, params object[] logParameters)
 		{
 			var testOutputHelper = TestOutputHelperAsyncLocal.Value;
 			if (testOutputHelper == null)

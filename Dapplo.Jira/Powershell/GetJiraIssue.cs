@@ -24,11 +24,11 @@
 using System.Management.Automation;
 using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
-using Dapplo.PowerShell.Jira.Support;
+using Dapplo.Jira.Powershell.Support;
 
 #endregion
 
-namespace Dapplo.PowerShell.Jira
+namespace Dapplo.Jira.Powershell
 {
 	/// <summary>
 	/// A Cmdlet which processes the information of a Jira issue

@@ -23,12 +23,11 @@
 
 using System;
 using System.Management.Automation;
-using Dapplo.Jira;
 using System.Threading.Tasks;
 
 #endregion
 
-namespace Dapplo.PowerShell.Jira.Support
+namespace Dapplo.Jira.Powershell.Support
 {
 	/// <summary>
 	/// This is the base class for all (most?) Jira CmdLets

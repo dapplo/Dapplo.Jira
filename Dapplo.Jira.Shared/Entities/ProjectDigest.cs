@@ -69,6 +69,6 @@ namespace Dapplo.Jira.Entities
 		/// All project keys associated with the project 
 		/// </summary>
 		[DataMember(Name = "projectKeys")]
-		public IList<string> projectKeys { get; set; }
+		public IList<string> ProjectKeys { get; set; }
 	}
 }

@@ -21,15 +21,15 @@
 
 #region using
 
+using System.IO;
 using System.Management.Automation;
 using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
-using Dapplo.PowerShell.Jira.Support;
-using System.IO;
+using Dapplo.Jira.Powershell.Support;
 
 #endregion
 
-namespace Dapplo.PowerShell.Jira
+namespace Dapplo.Jira.Powershell
 {
 	/// <summary>
 	/// A Cmdlet to attach an attachment to a jira issue

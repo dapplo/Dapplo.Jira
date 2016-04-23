@@ -26,7 +26,7 @@ using System.Threading.Tasks;
 
 #endregion
 
-namespace Dapplo.PowerShell.Jira.Support
+namespace Dapplo.Jira.Powershell.Support
 {
 	/// <summary>
 	/// The base for Async Cmdlets
