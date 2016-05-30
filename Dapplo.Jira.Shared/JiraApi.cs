@@ -81,39 +81,6 @@ namespace Dapplo.Jira
 		/// </summary>
 		public Uri JiraBaseUri { get; }
 
-		#region write
-
-		/// <summary>
-		///     Attach content to the specified issue
-		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e3035
-		/// </summary>
-		/// <param name="issueKey"></param>
-		/// <param name="content">the content can be anything what Dapplo.HttpExtensions supports</param>
-		/// <param name="filename">Filename for the attachment</param>
-		/// <param name="contentType">content-type for the attachment</param>
-		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>Attachment</returns>
-		public async Task<IList<Attachment>> AttachAsync<TContent>(string issueKey, TContent content, string filename, string contentType = null, CancellationToken cancellationToken = default(CancellationToken))
-			where TContent : class
-		{
-			var attachment = new AttachmentContainer<TContent>
-			{
-				Content = content,
-				ContentType = contentType,
-				FileName = filename
-			};
-			_behaviour.MakeCurrent();
-			var attachUri = JiraBaseUri.AppendSegments("issue", issueKey, "attachments");
-			var response = await attachUri.PostAsync<HttpResponse<IList<Attachment>, string>>(attachment, cancellationToken).ConfigureAwait(false);
-			if (response.HasError)
-			{
-				throw new Exception(response.ErrorResponse);
-			}
-			return response.Response;
-		}
-
-		#endregion
-
 		/// <summary>
 		///     Set Basic Authentication for the current client
 		/// </summary>
@@ -124,8 +91,6 @@ namespace Dapplo.Jira
 			_user = user;
 			_password = password;
 		}
-
-		#region Read
 
 		/// <summary>
 		///     Retrieve the Avatar for the supplied avatarUrls object
@@ -166,6 +131,8 @@ namespace Dapplo.Jira
 			return response.Response;
 		}
 
+		#region issue
+
 		/// <summary>
 		///     Get issue information
 		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e4539
@@ -183,75 +150,6 @@ namespace Dapplo.Jira
 			}
 			_behaviour.MakeCurrent();
 			var response = await issueUri.GetAsAsync<HttpResponse<Issue, Error>>(cancellationToken).ConfigureAwait(false);
-			if (response.HasError)
-			{
-				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
-			}
-			return response.Response;
-		}
-
-		/// <summary>
-		///     Get currrent user information
-		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e4253
-		/// </summary>
-		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>User</returns>
-		public async Task<User> WhoAmIAsync(CancellationToken cancellationToken = default(CancellationToken))
-		{
-			var myselfUri = JiraBaseUri.AppendSegments("myself");
-			_behaviour.MakeCurrent();
-			var response = await myselfUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
-			if (response.HasError)
-			{
-				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
-			}
-			return response.Response;
-		}
-
-		/// <summary>
-		///     Get projects information
-		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2779
-		/// </summary>
-		/// <param name="projectKey">key of the project</param>
-		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>ProjectDetails</returns>
-		public async Task<Project> GetProjectAsync(string projectKey, CancellationToken cancellationToken = default(CancellationToken))
-		{
-			var projectUri = JiraBaseUri.AppendSegments("project", projectKey);
-
-			// Add the configurable expand values, if the value is not null or empty
-			if (JiraConfig.ExpandGetProject?.Length > 0)
-			{
-				projectUri = projectUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetProject));
-			}
-
-			_behaviour.MakeCurrent();
-			var response = await projectUri.GetAsAsync<HttpResponse<Project, Error>>(cancellationToken).ConfigureAwait(false);
-			if (response.HasError)
-			{
-				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
-			}
-			return response.Response;
-		}
-
-		/// <summary>
-		///     Get all visible projects
-		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2779
-		/// </summary>
-		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>list of ProjectDigest</returns>
-		public async Task<IList<ProjectDigest>> GetProjectsAsync(CancellationToken cancellationToken = default(CancellationToken))
-		{
-			var projectsUri = JiraBaseUri.AppendSegments("project");
-
-			// Add the configurable expand values, if the value is not null or empty
-			if (JiraConfig.ExpandGetProjects?.Length > 0)
-			{
-				projectsUri = projectsUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetProjects));
-			}
-
-			_behaviour.MakeCurrent();
-			var response = await projectsUri.GetAsAsync<HttpResponse<IList<ProjectDigest>, Error>>(cancellationToken).ConfigureAwait(false);
 			if (response.HasError)
 			{
 				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
@@ -295,46 +193,34 @@ namespace Dapplo.Jira
 		}
 
 		/// <summary>
-		/// Returns a list of users that match the search string.
-		/// This resource cannot be accessed anonymously.
-		/// See: https://docs.atlassian.com/jira/REST/latest/#api/2/user-findUsers
+		///     Attach content to the specified issue
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e3035
 		/// </summary>
-		/// <param name="query">A query string used to search username, name or e-mail address</param>
-		/// <param name="startAt"></param>
-		/// <param name="maxResults">Maximum number of results returned, default is 20</param>
-		/// <param name="includeActive">If true, then active users are included in the results (default true)</param>
-		/// <param name="includeInactive">If true, then inactive users are included in the results (default false)</param>
+		/// <param name="issueKey"></param>
+		/// <param name="content">the content can be anything what Dapplo.HttpExtensions supports</param>
+		/// <param name="filename">Filename for the attachment</param>
+		/// <param name="contentType">content-type for the attachment</param>
 		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>SearchResult</returns>
-		public async Task<IList<User>> SearchUserAsync(string query, bool includeActive = true, bool includeInactive= false, int startAt = 0, int maxResults = 20, CancellationToken cancellationToken = default(CancellationToken))
+		/// <returns>Attachment</returns>
+		public async Task<IList<Attachment>> AttachAsync<TContent>(string issueKey, TContent content, string filename, string contentType = null, CancellationToken cancellationToken = default(CancellationToken))
+			where TContent : class
 		{
-			_behaviour.MakeCurrent();
-			var searchUri = JiraBaseUri.AppendSegments("user","search").ExtendQuery(new Dictionary<string, object>
+			var attachment = new AttachmentContainer<TContent>
 			{
-				{
-					"username", query
-				},
-				{
-					"includeActive", $"{includeActive}"
-				},
-				{
-					"includeInactive", $"{includeInactive}"
-				},
-				{
-					"startAt", startAt
-				},
-				{
-					"maxResults", maxResults
-				}
-			});
-
-			var response = await searchUri.GetAsAsync<HttpResponse<IList<User>, Error>>(cancellationToken).ConfigureAwait(false);
+				Content = content,
+				ContentType = contentType,
+				FileName = filename
+			};
+			_behaviour.MakeCurrent();
+			var attachUri = JiraBaseUri.AppendSegments("issue", issueKey, "attachments");
+			var response = await attachUri.PostAsync<HttpResponse<IList<Attachment>, string>>(attachment, cancellationToken).ConfigureAwait(false);
 			if (response.HasError)
 			{
-				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+				throw new Exception(response.ErrorResponse);
 			}
 			return response.Response;
 		}
+		#endregion
 
 		/// <summary>
 		///     Get server information
@@ -355,25 +241,7 @@ namespace Dapplo.Jira
 			return response.Response;
 		}
 
-		/// <summary>
-		///     Get user information
-		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e5339
-		/// </summary>
-		/// <param name="username"></param>
-		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>User</returns>
-		public async Task<User> GetUserAsync(string username, CancellationToken cancellationToken = default(CancellationToken))
-		{
-			var userUri = JiraBaseUri.AppendSegments("user").ExtendQuery("username", username);
-			_behaviour.MakeCurrent();
-
-			var response = await userUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
-			if (response.HasError)
-			{
-				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
-			}
-			return response.Response;
-		}
+		#region filter
 
 		/// <summary>
 		///     Get filter favorites
@@ -444,6 +312,143 @@ namespace Dapplo.Jira
 			}
 		}
 
+		#endregion
+
+		#region project
+
+		/// <summary>
+		///     Get projects information
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2779
+		/// </summary>
+		/// <param name="projectKey">key of the project</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>ProjectDetails</returns>
+		public async Task<Project> GetProjectAsync(string projectKey, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			var projectUri = JiraBaseUri.AppendSegments("project", projectKey);
+
+			// Add the configurable expand values, if the value is not null or empty
+			if (JiraConfig.ExpandGetProject?.Length > 0)
+			{
+				projectUri = projectUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetProject));
+			}
+
+			_behaviour.MakeCurrent();
+			var response = await projectUri.GetAsAsync<HttpResponse<Project, Error>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
+			return response.Response;
+		}
+
+		/// <summary>
+		///     Get all visible projects
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2779
+		/// </summary>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>list of ProjectDigest</returns>
+		public async Task<IList<ProjectDigest>> GetProjectsAsync(CancellationToken cancellationToken = default(CancellationToken))
+		{
+			var projectsUri = JiraBaseUri.AppendSegments("project");
+
+			// Add the configurable expand values, if the value is not null or empty
+			if (JiraConfig.ExpandGetProjects?.Length > 0)
+			{
+				projectsUri = projectsUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetProjects));
+			}
+
+			_behaviour.MakeCurrent();
+			var response = await projectsUri.GetAsAsync<HttpResponse<IList<ProjectDigest>, Error>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
+			return response.Response;
+		}
+		#endregion
+
+		#region user
+
+		/// <summary>
+		///     Get user information
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e5339
+		/// </summary>
+		/// <param name="username"></param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>User</returns>
+		public async Task<User> GetUserAsync(string username, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			var userUri = JiraBaseUri.AppendSegments("user").ExtendQuery("username", username);
+			_behaviour.MakeCurrent();
+
+			var response = await userUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
+			return response.Response;
+		}
+
+		/// <summary>
+		/// Returns a list of users that match the search string.
+		/// This resource cannot be accessed anonymously.
+		/// See: https://docs.atlassian.com/jira/REST/latest/#api/2/user-findUsers
+		/// </summary>
+		/// <param name="query">A query string used to search username, name or e-mail address</param>
+		/// <param name="startAt"></param>
+		/// <param name="maxResults">Maximum number of results returned, default is 20</param>
+		/// <param name="includeActive">If true, then active users are included in the results (default true)</param>
+		/// <param name="includeInactive">If true, then inactive users are included in the results (default false)</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>SearchResult</returns>
+		public async Task<IList<User>> SearchUserAsync(string query, bool includeActive = true, bool includeInactive = false, int startAt = 0, int maxResults = 20, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			_behaviour.MakeCurrent();
+			var searchUri = JiraBaseUri.AppendSegments("user", "search").ExtendQuery(new Dictionary<string, object>
+			{
+				{
+					"username", query
+				},
+				{
+					"includeActive", $"{includeActive}"
+				},
+				{
+					"includeInactive", $"{includeInactive}"
+				},
+				{
+					"startAt", startAt
+				},
+				{
+					"maxResults", maxResults
+				}
+			});
+
+			var response = await searchUri.GetAsAsync<HttpResponse<IList<User>, Error>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
+			return response.Response;
+		}
+
+		/// <summary>
+		///     Get currrent user information
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e4253
+		/// </summary>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>User</returns>
+		public async Task<User> WhoAmIAsync(CancellationToken cancellationToken = default(CancellationToken))
+		{
+			var myselfUri = JiraBaseUri.AppendSegments("myself");
+			_behaviour.MakeCurrent();
+			var response = await myselfUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+			}
+			return response.Response;
+		}
 		#endregion
 	}
 }
