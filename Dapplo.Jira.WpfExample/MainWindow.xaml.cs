@@ -40,7 +40,7 @@ namespace Dapplo.Jira.WpfExample
 		public MainWindow()
 		{
 			InitializeComponent();
-			LogSettings.Logger = new TraceLogger();
+			LogSettings.RegisterDefaultLogger<TraceLogger>();
 			DataContext = this;
 
 			Loaded += MainWindow_Loaded;

@@ -178,5 +178,11 @@ namespace Dapplo.Jira.Entities
 		/// </summary>
 		[DataMember(Name = "worklog")]
 		public Worklogs Worklogs { get; set; }
+
+		/// <summary>
+		/// Catch all unspecified fields
+		/// </summary>
+		[DataMember]
+		public IDictionary<string, string> CustomFields { get; set; }
 	}
 }

@@ -22,7 +22,7 @@
 #region using
 
 using Dapplo.Jira.Entities;
-using Dapplo.Jira.Tests.Logger;
+using Dapplo.Log.XUnit;
 using Dapplo.LogFacade;
 using System;
 using System.Diagnostics;
@@ -45,7 +45,7 @@ namespace Dapplo.Jira.Tests
 
 		public JiraTests(ITestOutputHelper testOutputHelper)
 		{
-			XUnitLogger.RegisterLogger(testOutputHelper, LogLevel.Verbose);
+			XUnitLogger.RegisterLogger(testOutputHelper, LogLevels.Verbose);
 			_jiraApi = new JiraApi(TestJiraUri);
 			var username = Environment.GetEnvironmentVariable("jira_test_username");
 			var password = Environment.GetEnvironmentVariable("jira_test_password");

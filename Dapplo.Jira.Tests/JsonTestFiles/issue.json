@@ -1,388 +1,325 @@
 ﻿{
-	"expand": "renderedFields,names,schema,transitions,operations,editmeta,changelog,versionedRepresentations",
-	"id": "40907",
-	"self": "https://greenshot.atlassian.net/rest/api/2/issue/40907",
-	"key": "BUG-1845",
+	"expand": "renderedFields,names,schema,transitions,operations,editmeta,changelog",
+	"id": "304335",
+	"self": "https://jira/rest/api/2/issue/304335",
+	"key": "CAL-153",
 	"fields": {
-		"issuetype": {
-			"self": "https://greenshot.atlassian.net/rest/api/2/issuetype/1",
-			"id": "1",
-			"description": "A problem which impairs or prevents the functions of the product.",
-			"iconUrl": "https://greenshot.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10403&avatarType=issuetype",
-			"name": "Bug",
-			"subtask": false,
-			"avatarId": 10403
-		},
-		"timespent": null,
-		"project": {
-			"self": "https://greenshot.atlassian.net/rest/api/2/project/10402",
-			"id": "10402",
-			"key": "BUG",
-			"name": "Greenshot bugs",
-			"avatarUrls": {
-				"48x48": "https://greenshot.atlassian.net/secure/projectavatar?pid=10402&avatarId=10502",
-				"24x24": "https://greenshot.atlassian.net/secure/projectavatar?size=small&pid=10402&avatarId=10502",
-				"16x16": "https://greenshot.atlassian.net/secure/projectavatar?size=xsmall&pid=10402&avatarId=10502",
-				"32x32": "https://greenshot.atlassian.net/secure/projectavatar?size=medium&pid=10402&avatarId=10502"
-			},
-			"projectCategory": {
-				"self": "https://greenshot.atlassian.net/rest/api/2/projectCategory/10000",
-				"id": "10000",
-				"description": "Development Projects",
-				"name": "Development"
-			}
-		},
-		"fixVersions": [
-			{
-				"self": "https://greenshot.atlassian.net/rest/api/2/version/11400",
-				"id": "11400",
-				"name": "1.2.7.2",
-				"archived": false,
-				"released": false
-			}
-		],
-		"aggregatetimespent": null,
-		"resolution": {
-			"self": "https://greenshot.atlassian.net/rest/api/2/resolution/3",
-			"id": "3",
-			"description": "The problem is a duplicate of an existing issue.",
-			"name": "Duplicate"
-		},
-		"customfield_10502": null,
-		"customfield_10700": null,
-		"customfield_10701": null,
-		"resolutiondate": "2015-11-05T10:42:15.119+0100",
-		"workratio": -1,
-		"lastViewed": null,
-		"watches": {
-			"self": "https://greenshot.atlassian.net/rest/api/2/issue/BUG-1845/watchers",
-			"watchCount": 3,
-			"isWatching": false
-		},
-		"created": "2015-10-18T17:05:42.248+0200",
-		"customfield_10020": null,
-		"customfield_10021": "Not started",
-		"priority": {
-			"self": "https://greenshot.atlassian.net/rest/api/2/priority/3",
-			"iconUrl": "https://greenshot.atlassian.net/images/icons/priorities/major.svg",
-			"name": "Major",
-			"id": "3"
-		},
-		"customfield_10100": null,
-		"labels": [ "Save" ],
-		"customfield_10016": null,
-		"customfield_10017": null,
-		"customfield_10018": null,
-		"customfield_10019": null,
-		"timeestimate": null,
-		"aggregatetimeoriginalestimate": null,
-		"versions": [
-			{
-				"self": "https://greenshot.atlassian.net/rest/api/2/version/10600",
-				"id": "10600",
-				"name": "1.2.4",
-				"archived": false,
-				"released": false
-			},
-			{
-				"self": "https://greenshot.atlassian.net/rest/api/2/version/10901",
-				"id": "10901",
-				"name": "1.2.6",
-				"archived": false,
-				"released": false
-			}
-		],
-		"issuelinks": [
-			{
-				"id": "13100",
-				"self": "https://greenshot.atlassian.net/rest/api/2/issueLink/13100",
-				"type": {
-					"id": "10001",
-					"name": "Cloners",
-					"inward": "is cloned by",
-					"outward": "clones",
-					"self": "https://greenshot.atlassian.net/rest/api/2/issueLinkType/10001"
-				},
-				"inwardIssue": {
-					"id": "41207",
-					"key": "BUG-1860",
-					"self": "https://greenshot.atlassian.net/rest/api/2/issue/41207",
-					"fields": {
-						"summary": "Imgur upoad - The request token is not set",
-						"status": {
-							"self": "https://greenshot.atlassian.net/rest/api/2/status/6",
-							"description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
-							"iconUrl": "https://greenshot.atlassian.net/images/icons/statuses/closed.png",
-							"name": "Closed",
-							"id": "6",
-							"statusCategory": {
-								"self": "https://greenshot.atlassian.net/rest/api/2/statuscategory/3",
-								"id": 3,
-								"key": "done",
-								"colorName": "green",
-								"name": "Done"
-							}
-						},
-						"priority": {
-							"self": "https://greenshot.atlassian.net/rest/api/2/priority/3",
-							"iconUrl": "https://greenshot.atlassian.net/images/icons/priorities/major.svg",
-							"name": "Major",
-							"id": "3"
-						},
-						"issuetype": {
-							"self": "https://greenshot.atlassian.net/rest/api/2/issuetype/1",
-							"id": "1",
-							"description": "A problem which impairs or prevents the functions of the product.",
-							"iconUrl": "https://greenshot.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10403&avatarType=issuetype",
-							"name": "Bug",
-							"subtask": false,
-							"avatarId": 10403
-						}
-					}
-				}
-			},
-			{
-				"id": "13104",
-				"self": "https://greenshot.atlassian.net/rest/api/2/issueLink/13104",
-				"type": {
-					"id": "10001",
-					"name": "Cloners",
-					"inward": "is cloned by",
-					"outward": "clones",
-					"self": "https://greenshot.atlassian.net/rest/api/2/issueLinkType/10001"
-				},
-				"inwardIssue": {
-					"id": "41209",
-					"key": "BUG-1862",
-					"self": "https://greenshot.atlassian.net/rest/api/2/issue/41209",
-					"fields": {
-						"summary": "Imgur upoad - The request token is not set",
-						"status": {
-							"self": "https://greenshot.atlassian.net/rest/api/2/status/6",
-							"description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
-							"iconUrl": "https://greenshot.atlassian.net/images/icons/statuses/closed.png",
-							"name": "Closed",
-							"id": "6",
-							"statusCategory": {
-								"self": "https://greenshot.atlassian.net/rest/api/2/statuscategory/3",
-								"id": 3,
-								"key": "done",
-								"colorName": "green",
-								"name": "Done"
-							}
-						},
-						"priority": {
-							"self": "https://greenshot.atlassian.net/rest/api/2/priority/3",
-							"iconUrl": "https://greenshot.atlassian.net/images/icons/priorities/major.svg",
-							"name": "Major",
-							"id": "3"
-						},
-						"issuetype": {
-							"self": "https://greenshot.atlassian.net/rest/api/2/issuetype/1",
-							"id": "1",
-							"description": "A problem which impairs or prevents the functions of the product.",
-							"iconUrl": "https://greenshot.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10403&avatarType=issuetype",
-							"name": "Bug",
-							"subtask": false,
-							"avatarId": 10403
-						}
-					}
-				}
-			}
-		],
-		"assignee": null,
-		"updated": "2015-11-05T10:57:20.785+0100",
-		"status": {
-			"self": "https://greenshot.atlassian.net/rest/api/2/status/6",
-			"description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
-			"iconUrl": "https://greenshot.atlassian.net/images/icons/statuses/closed.png",
-			"name": "Closed",
-			"id": "6",
-			"statusCategory": {
-				"self": "https://greenshot.atlassian.net/rest/api/2/statuscategory/3",
-				"id": 3,
-				"key": "done",
-				"colorName": "green",
-				"name": "Done"
-			}
-		},
-		"components": [
-			{
-				"self": "https://greenshot.atlassian.net/rest/api/2/component/10134",
-				"id": "10134",
-				"name": "Imgur"
-			}
-		],
-		"timeoriginalestimate": null,
-		"description": "Uploading to Imgur worked a couple days ago. Now it doesn't work. Is there a way to reconfigure plugin like for the first time? Maybe Imgur changed something in their policy, and api keys or something only needs to be reconfigured?",
-		"customfield_10012": null,
-		"customfield_10013": null,
-		"customfield_10014": null,
-		"customfield_10015": null,
-		"timetracking": { },
-		"customfield_10006": "9223372036854775807",
-		"customfield_10600": null,
-		"customfield_10007": null,
-		"customfield_10008": null,
-		"attachment": [
-			{
-				"self": "https://greenshot.atlassian.net/rest/api/2/attachment/16502",
-				"id": "16502",
-				"filename": "imgur error.png",
-				"author": {
-					"self": "https://greenshot.atlassian.net/rest/api/2/user?username=Bielecki",
-					"name": "Bielecki",
-					"key": "bielecki",
-					"avatarUrls": {
-						"48x48": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=48",
-						"24x24": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=24",
-						"16x16": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=16",
-						"32x32": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=32"
-					},
-					"displayName": "Net Bielecki",
-					"active": true,
-					"timeZone": "Europe/Berlin"
-				},
-				"created": "2015-10-18T17:03:40.244+0200",
-				"size": 18500,
-				"mimeType": "image/png",
-				"content": "https://greenshot.atlassian.net/secure/attachment/16502/imgur+error.png",
-				"thumbnail": "https://greenshot.atlassian.net/secure/thumbnail/16502/_thumb_16502.png"
-			}
-		],
-		"aggregatetimeestimate": null,
-		"summary": "Imgur upoad - The request token is not set",
-		"creator": {
-			"self": "https://greenshot.atlassian.net/rest/api/2/user?username=Bielecki",
-			"name": "Bielecki",
-			"key": "bielecki",
-			"avatarUrls": {
-				"48x48": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=48",
-				"24x24": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=24",
-				"16x16": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=16",
-				"32x32": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=32"
-			},
-			"displayName": "Net Bielecki",
-			"active": true,
-			"timeZone": "Europe/Berlin"
-		},
-		"subtasks": [ ],
-		"reporter": {
-			"self": "https://greenshot.atlassian.net/rest/api/2/user?username=Bielecki",
-			"name": "Bielecki",
-			"key": "bielecki",
-			"avatarUrls": {
-				"48x48": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=48",
-				"24x24": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=24",
-				"16x16": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=16",
-				"32x32": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=32"
-			},
-			"displayName": "Net Bielecki",
-			"active": true,
-			"timeZone": "Europe/Berlin"
-		},
-		"customfield_10000": "1_*:*_1_*:*_144020_*|*_4_*:*_1_*:*_216042_*|*_5_*:*_1_*:*_0_*|*_6_*:*_1_*:*_1535420871_*|*_10002_*:*_1_*:*_11959",
-		"aggregateprogress": {
-			"progress": 0,
-			"total": 0
-		},
-		"customfield_10001": "2015-11-05T10:42:15.136+0100",
-		"customfield_10002": null,
-		"customfield_10003": null,
-		"customfield_10400": "0|101bgw:",
-		"environment": "Windows 7 x86 Home Premium",
-		"duedate": null,
+		"summary": "MARKUS_21.04./Kreditprüfung vs. Softphone: Nach der Erfassung eines Interessenten wird der Status \"Nacharbeit\" nicht vorbelegt",
 		"progress": {
 			"progress": 0,
 			"total": 0
 		},
+		"timetracking": { },
+		"issuetype": {
+			"self": "https://jira/rest/api/2/issuetype/1",
+			"id": "1",
+			"description": "Problem / Fehler in der aktuell implementierten Funktionalität",
+			"iconUrl": "https://jira/images/icons/issuetypes/bug.png",
+			"name": "Fehler",
+			"subtask": false
+		},
+		"customfield_10610": null,
+		"timespent": null,
+		"reporter": {
+			"self": "https://jira/rest/api/2/user?username=svc_snow",
+			"name": "svc_snow",
+			"emailAddress": "SP_ITBJira@ing-diba.de",
+			"avatarUrls": {
+				"16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10662",
+				"24x24": "https://jira/secure/useravatar?size=small&avatarId=10662",
+				"32x32": "https://jira/secure/useravatar?size=medium&avatarId=10662",
+				"48x48": "https://jira/secure/useravatar?avatarId=10662"
+			},
+			"displayName": "Technischer User für ServiceNow Zugriff",
+			"active": true
+		},
+		"created": "2016-02-25T09:02:17.000+0100",
+		"updated": "2016-04-13T11:42:24.000+0200",
+		"description": "--- Link nach Service Now: [INC0122304|https://ingdibaprod.service-now.com/nav_to.do?uri=incident.do?sys_id=2bb3e82937751600ce8a19a543990e2a] ---\nNach der Erfassung eines neuen Interessenten innerhalb der Kreditprüfung, sollte das Softphone den Status \"Nacharbeit\" vorbelegen. Dies ist aktuell jedoch nicht der Fall.\r\n\r\nDer Einstieg in die Kreditprüfung erfolgt ohne Partner im Kontext über Kredit in der Navigationsleiste.\r\n\r\nZum Vergleich auch eine Screenshotfolge der Exkoeröffnung für einen Interessenten, bei dem nach der Stammdatenerfassung der Status \"Nacharbeit\" vorbelegt wird.",
+		"priority": {
+			"self": "https://jira/rest/api/2/priority/8",
+			"iconUrl": "https://jira/images/icons/priorities/minor.png",
+			"name": "3-geringfügig",
+			"id": "8"
+		},
+		"customfield_11994": "9223372036854775807",
+		"customfield_11995": [ "com.atlassian.greenhopper.service.sprint.Sprint@32ba3983[rapidViewId=1642,state=FUTURE,name=Anstehendes Refinement,startDate=<null>,endDate=<null>,completeDate=<null>,id=3323]" ],
+		"customfield_11992": null,
+		"issuelinks": [ ],
+		"customfield_10620": null,
+		"customfield_12290": "2|zzgepi:zyq3xr",
+		"customfield_11990": null,
+		"subtasks": [ ],
+		"status": {
+			"self": "https://jira/rest/api/2/status/1",
+			"description": "The issue is open and ready for the assignee to start work on it.",
+			"iconUrl": "https://jira/images/icons/statuses/open.png",
+			"name": "Offen",
+			"id": "1",
+			"statusCategory": {
+				"self": "https://jira/rest/api/2/statuscategory/2",
+				"id": 2,
+				"key": "new",
+				"colorName": "blue-gray",
+				"name": "New"
+			}
+		},
+		"customfield_11996": "CAL-250",
+		"customfield_12007": null,
+		"customfield_12090": "INC0122304",
+		"labels": [ "SprintRelease" ],
+		"workratio": -1,
+		"customfield_12190": null,
+		"customfield_10421": null,
+		"project": {
+			"self": "https://jira/rest/api/2/project/20451",
+			"id": "20451",
+			"key": "CAL",
+			"name": "Callimero Agile",
+			"avatarUrls": {
+				"16x16": "https://jira/secure/projectavatar?size=xsmall&pid=20451&avatarId=10002",
+				"24x24": "https://jira/secure/projectavatar?size=small&pid=20451&avatarId=10002",
+				"32x32": "https://jira/secure/projectavatar?size=medium&pid=20451&avatarId=10002",
+				"48x48": "https://jira/secure/projectavatar?pid=20451&avatarId=10002"
+			}
+		},
+		"customfield_10420": "2016-02-26 16:11:04.0",
+		"environment": null,
+		"customfield_10193": null,
+		"aggregateprogress": {
+			"progress": 0,
+			"total": 0
+		},
+		"lastViewed": "2016-04-18T15:23:10.437+0200",
+		"components": [
+			{
+				"self": "https://jira/rest/api/2/component/33413",
+				"id": "33413",
+				"name": "41_Softphone"
+			}
+		],
 		"comment": {
 			"startAt": 0,
-			"maxResults": 2,
-			"total": 2,
+			"maxResults": 1,
+			"total": 1,
 			"comments": [
 				{
-					"self": "https://greenshot.atlassian.net/rest/api/2/issue/40907/comment/90410",
-					"id": "90410",
+					"self": "https://jira/rest/api/2/issue/304335/comment/1225798",
+					"id": "1225798",
 					"author": {
-						"self": "https://greenshot.atlassian.net/rest/api/2/user?username=Bielecki",
-						"name": "Bielecki",
-						"key": "bielecki",
+						"self": "https://jira/rest/api/2/user?username=05019061",
+						"name": "05019061",
+						"emailAddress": "R.Foerther@ing-diba.de",
 						"avatarUrls": {
-							"48x48": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=48",
-							"24x24": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=24",
-							"16x16": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=16",
-							"32x32": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=32"
+							"16x16": "https://jira/secure/useravatar?size=xsmall&ownerId=05019061&avatarId=28640",
+							"24x24": "https://jira/secure/useravatar?size=small&ownerId=05019061&avatarId=28640",
+							"32x32": "https://jira/secure/useravatar?size=medium&ownerId=05019061&avatarId=28640",
+							"48x48": "https://jira/secure/useravatar?ownerId=05019061&avatarId=28640"
 						},
-						"displayName": "Net Bielecki",
-						"active": true,
-						"timeZone": "Europe/Berlin"
+						"displayName": "Foerther, Roland",
+						"active": true
 					},
-					"body": "Damn, first time using atlassian and messed up. It's doesn't mean to be closed. I just tried modify description...\r\nTried upload from 1.2.4 to 1.2.6 but it changed nothing.",
+					"body": "Kannst Du hier bei der Analyse helfen?",
 					"updateAuthor": {
-						"self": "https://greenshot.atlassian.net/rest/api/2/user?username=Bielecki",
-						"name": "Bielecki",
-						"key": "bielecki",
+						"self": "https://jira/rest/api/2/user?username=05019061",
+						"name": "05019061",
+						"emailAddress": "R.Foerther@ing-diba.de",
 						"avatarUrls": {
-							"48x48": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=48",
-							"24x24": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=24",
-							"16x16": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=16",
-							"32x32": "https://secure.gravatar.com/avatar/4bec4503d17aaf18b8b2e00a92b03ee1?d=mm&s=32"
+							"16x16": "https://jira/secure/useravatar?size=xsmall&ownerId=05019061&avatarId=28640",
+							"24x24": "https://jira/secure/useravatar?size=small&ownerId=05019061&avatarId=28640",
+							"32x32": "https://jira/secure/useravatar?size=medium&ownerId=05019061&avatarId=28640",
+							"48x48": "https://jira/secure/useravatar?ownerId=05019061&avatarId=28640"
 						},
-						"displayName": "Net Bielecki",
-						"active": true,
-						"timeZone": "Europe/Berlin"
+						"displayName": "Foerther, Roland",
+						"active": true
 					},
-					"created": "2015-10-18T17:10:50.148+0200",
-					"updated": "2015-10-18T17:10:50.148+0200"
-				},
-				{
-					"self": "https://greenshot.atlassian.net/rest/api/2/issue/40907/comment/90718",
-					"id": "90718",
-					"author": {
-						"self": "https://greenshot.atlassian.net/rest/api/2/user?username=rkrom",
-						"name": "rkrom",
-						"key": "rkrom",
-						"avatarUrls": {
-							"48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=rkrom&avatarId=10600",
-							"24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=rkrom&avatarId=10600",
-							"16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=rkrom&avatarId=10600",
-							"32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=rkrom&avatarId=10600"
-						},
-						"displayName": "Robin Krom",
-						"active": true,
-						"timeZone": "Europe/Berlin"
-					},
-					"body": "See: BUG-1833",
-					"updateAuthor": {
-						"self": "https://greenshot.atlassian.net/rest/api/2/user?username=rkrom",
-						"name": "rkrom",
-						"key": "rkrom",
-						"avatarUrls": {
-							"48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=rkrom&avatarId=10600",
-							"24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=rkrom&avatarId=10600",
-							"16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=rkrom&avatarId=10600",
-							"32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=rkrom&avatarId=10600"
-						},
-						"displayName": "Robin Krom",
-						"active": true,
-						"timeZone": "Europe/Berlin"
-					},
-					"created": "2015-11-05T10:42:15.136+0100",
-					"updated": "2015-11-05T10:42:15.136+0100"
+					"created": "2016-02-26T16:11:04.000+0100",
+					"updated": "2016-02-26T16:11:04.000+0100",
+					"visibility": {
+						"type": "role",
+						"value": "Entwickler"
+					}
 				}
 			]
 		},
+		"timeoriginalestimate": null,
 		"votes": {
-			"self": "https://greenshot.atlassian.net/rest/api/2/issue/BUG-1845/votes",
-			"votes": 2,
+			"self": "https://jira/rest/api/2/issue/CAL-153/votes",
+			"votes": 0,
 			"hasVoted": false
 		},
+		"resolution": null,
+		"fixVersions": [
+			{
+				"self": "https://jira/rest/api/2/version/30353",
+				"id": "30353",
+				"name": "Offen",
+				"archived": false,
+				"released": false
+			}
+		],
+		"resolutiondate": null,
+		"creator": {
+			"self": "https://jira/rest/api/2/user?username=svc_snow",
+			"name": "svc_snow",
+			"emailAddress": "SP_ITBJira@ing-diba.de",
+			"avatarUrls": {
+				"16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10662",
+				"24x24": "https://jira/secure/useravatar?size=small&avatarId=10662",
+				"32x32": "https://jira/secure/useravatar?size=medium&avatarId=10662",
+				"48x48": "https://jira/secure/useravatar?avatarId=10662"
+			},
+			"displayName": "Technischer User für ServiceNow Zugriff",
+			"active": true
+		},
+		"aggregatetimeoriginalestimate": null,
+		"duedate": null,
+		"watches": {
+			"self": "https://jira/rest/api/2/issue/CAL-153/watchers",
+			"watchCount": 2,
+			"isWatching": true
+		},
+		"customfield_10452": null,
 		"worklog": {
 			"startAt": 0,
 			"maxResults": 20,
 			"total": 0,
 			"worklogs": [ ]
-		}
+		},
+		"customfield_10370": "-2147483648",
+		"assignee": {
+			"self": "https://jira/rest/api/2/user?username=05018085",
+			"name": "05018085",
+			"emailAddress": "Robertus.Krom@ing-diba.de",
+			"avatarUrls": {
+				"16x16": "https://jira/secure/useravatar?size=xsmall&ownerId=05018085&avatarId=28346",
+				"24x24": "https://jira/secure/useravatar?size=small&ownerId=05018085&avatarId=28346",
+				"32x32": "https://jira/secure/useravatar?size=medium&ownerId=05018085&avatarId=28346",
+				"48x48": "https://jira/secure/useravatar?ownerId=05018085&avatarId=28346"
+			},
+			"displayName": "Krom, Robin",
+			"active": true
+		},
+		"attachment": [
+			{
+				"self": "https://jira/rest/api/2/attachment/427893",
+				"id": "427893",
+				"filename": "Exko_Er?ffnung_Nacharbeit_nach_Stammdatenerfassung_01.png",
+				"author": {
+					"self": "https://jira/rest/api/2/user?username=svc_snow",
+					"name": "svc_snow",
+					"emailAddress": "SP_ITBJira@ing-diba.de",
+					"avatarUrls": {
+						"16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10662",
+						"24x24": "https://jira/secure/useravatar?size=small&avatarId=10662",
+						"32x32": "https://jira/secure/useravatar?size=medium&avatarId=10662",
+						"48x48": "https://jira/secure/useravatar?avatarId=10662"
+					},
+					"displayName": "Technischer User für ServiceNow Zugriff",
+					"active": true
+				},
+				"created": "2016-02-25T09:02:32.000+0100",
+				"size": 106927,
+				"mimeType": "image/png; charset=UTF-8",
+				"content": "https://jira/secure/attachment/427893/Exko_Er%3Fffnung_Nacharbeit_nach_Stammdatenerfassung_01.png",
+				"thumbnail": "https://jira/secure/thumbnail/427893/_thumb_427893.png"
+			},
+			{
+				"self": "https://jira/rest/api/2/attachment/427891",
+				"id": "427891",
+				"filename": "Exko_Er?ffnung_Nacharbeit_nach_Stammdatenerfassung.png",
+				"author": {
+					"self": "https://jira/rest/api/2/user?username=svc_snow",
+					"name": "svc_snow",
+					"emailAddress": "SP_ITBJira@ing-diba.de",
+					"avatarUrls": {
+						"16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10662",
+						"24x24": "https://jira/secure/useravatar?size=small&avatarId=10662",
+						"32x32": "https://jira/secure/useravatar?size=medium&avatarId=10662",
+						"48x48": "https://jira/secure/useravatar?avatarId=10662"
+					},
+					"displayName": "Technischer User für ServiceNow Zugriff",
+					"active": true
+				},
+				"created": "2016-02-25T09:02:32.000+0100",
+				"size": 96365,
+				"mimeType": "image/png; charset=UTF-8",
+				"content": "https://jira/secure/attachment/427891/Exko_Er%3Fffnung_Nacharbeit_nach_Stammdatenerfassung.png",
+				"thumbnail": "https://jira/secure/thumbnail/427891/_thumb_427891.png"
+			},
+			{
+				"self": "https://jira/rest/api/2/attachment/427894",
+				"id": "427894",
+				"filename": "Kreditpr?fung_kein_Nacharbeit_nach_Stammdatenerfassung_01.png",
+				"author": {
+					"self": "https://jira/rest/api/2/user?username=svc_snow",
+					"name": "svc_snow",
+					"emailAddress": "SP_ITBJira@ing-diba.de",
+					"avatarUrls": {
+						"16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10662",
+						"24x24": "https://jira/secure/useravatar?size=small&avatarId=10662",
+						"32x32": "https://jira/secure/useravatar?size=medium&avatarId=10662",
+						"48x48": "https://jira/secure/useravatar?avatarId=10662"
+					},
+					"displayName": "Technischer User für ServiceNow Zugriff",
+					"active": true
+				},
+				"created": "2016-02-25T09:02:32.000+0100",
+				"size": 110483,
+				"mimeType": "image/png; charset=UTF-8",
+				"content": "https://jira/secure/attachment/427894/Kreditpr%3Ffung_kein_Nacharbeit_nach_Stammdatenerfassung_01.png",
+				"thumbnail": "https://jira/secure/thumbnail/427894/_thumb_427894.png"
+			},
+			{
+				"self": "https://jira/rest/api/2/attachment/427892",
+				"id": "427892",
+				"filename": "Kreditpr?fung_kein_Nacharbeit_nach_Stammdatenerfassung_02.png",
+				"author": {
+					"self": "https://jira/rest/api/2/user?username=svc_snow",
+					"name": "svc_snow",
+					"emailAddress": "SP_ITBJira@ing-diba.de",
+					"avatarUrls": {
+						"16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10662",
+						"24x24": "https://jira/secure/useravatar?size=small&avatarId=10662",
+						"32x32": "https://jira/secure/useravatar?size=medium&avatarId=10662",
+						"48x48": "https://jira/secure/useravatar?avatarId=10662"
+					},
+					"displayName": "Technischer User für ServiceNow Zugriff",
+					"active": true
+				},
+				"created": "2016-02-25T09:02:32.000+0100",
+				"size": 107128,
+				"mimeType": "image/png; charset=UTF-8",
+				"content": "https://jira/secure/attachment/427892/Kreditpr%3Ffung_kein_Nacharbeit_nach_Stammdatenerfassung_02.png",
+				"thumbnail": "https://jira/secure/thumbnail/427892/_thumb_427892.png"
+			},
+			{
+				"self": "https://jira/rest/api/2/attachment/427890",
+				"id": "427890",
+				"filename": "Kreditpr?fung_kein_Nacharbeit_nach_Stammdatenerfassung.png",
+				"author": {
+					"self": "https://jira/rest/api/2/user?username=svc_snow",
+					"name": "svc_snow",
+					"emailAddress": "SP_ITBJira@ing-diba.de",
+					"avatarUrls": {
+						"16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10662",
+						"24x24": "https://jira/secure/useravatar?size=small&avatarId=10662",
+						"32x32": "https://jira/secure/useravatar?size=medium&avatarId=10662",
+						"48x48": "https://jira/secure/useravatar?avatarId=10662"
+					},
+					"displayName": "Technischer User für ServiceNow Zugriff",
+					"active": true
+				},
+				"created": "2016-02-25T09:02:32.000+0100",
+				"size": 92529,
+				"mimeType": "image/png; charset=UTF-8",
+				"content": "https://jira/secure/attachment/427890/Kreditpr%3Ffung_kein_Nacharbeit_nach_Stammdatenerfassung.png",
+				"thumbnail": "https://jira/secure/thumbnail/427890/_thumb_427890.png"
+			}
+		],
+		"aggregatetimeestimate": null,
+		"versions": [ ],
+		"timeestimate": null,
+		"aggregatetimespent": null
 	}
 }
