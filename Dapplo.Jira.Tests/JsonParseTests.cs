@@ -24,7 +24,7 @@
 using Dapplo.HttpExtensions;
 using Dapplo.Jira.Entities;
 using Dapplo.Log.XUnit;
-using Dapplo.LogFacade;
+using Dapplo.Log.Facade;
 using System.IO;
 using Xunit;
 using Xunit.Abstractions;
@@ -37,7 +37,7 @@ namespace Dapplo.Jira.Tests
 	{
 		public JsonParseTests(ITestOutputHelper testOutputHelper)
 		{
-			XUnitLogger.RegisterLogger(testOutputHelper, LogLevels.Verbose);
+			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
 		}
 
 		[Fact]

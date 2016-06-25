@@ -25,8 +25,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using Dapplo.LogFacade;
-using Dapplo.LogFacade.Loggers;
+using Dapplo.Log.Facade;
+using Dapplo.Log.Loggers;
 
 #endregion
 

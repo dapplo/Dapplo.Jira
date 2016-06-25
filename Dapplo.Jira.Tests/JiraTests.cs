@@ -23,7 +23,7 @@
 
 using Dapplo.Jira.Entities;
 using Dapplo.Log.XUnit;
-using Dapplo.LogFacade;
+using Dapplo.Log.Facade;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -45,7 +45,7 @@ namespace Dapplo.Jira.Tests
 
 		public JiraTests(ITestOutputHelper testOutputHelper)
 		{
-			XUnitLogger.RegisterLogger(testOutputHelper, LogLevels.Verbose);
+			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
 			_jiraApi = new JiraApi(TestJiraUri);
 			var username = Environment.GetEnvironmentVariable("jira_test_username");
 			var password = Environment.GetEnvironmentVariable("jira_test_password");
