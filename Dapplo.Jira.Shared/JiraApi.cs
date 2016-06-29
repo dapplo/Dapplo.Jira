@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
@@ -47,10 +48,7 @@ namespace Dapplo.Jira
         private readonly HttpBehaviour _behaviour;
 
         private string _password;
-
         private string _user;
-
-        private JiraSeesion _session;
 
         /// <summary>
         ///     Create the JiraApi object, here the HttpClient is configured
@@ -63,7 +61,8 @@ namespace Dapplo.Jira
             {
                 throw new ArgumentNullException(nameof(baseUri));
             }
-            JiraBaseUri = baseUri.AppendSegments("rest", "api", "2");
+	        JiraBaseUri = baseUri;
+			JiraRestUri = baseUri.AppendSegments("rest", "api", "2");
             JiraAuthUri = baseUri.AppendSegments("rest", "auth", "1");
 
             _behaviour = new HttpBehaviour
@@ -78,30 +77,24 @@ namespace Dapplo.Jira
                         httpMessage?.SetBasicAuthorization(_user, _password);
                     }
                     return httpMessage;
-                },
-                OnHttpMessageHandlerCreated = handler =>
-                {
-                    if (_session != null)
-                    {
-                        ((HttpClientHandler)handler).CookieContainer = new CookieContainer();
-
-                        ((HttpClientHandler)handler).CookieContainer.Add(baseUri, new Cookie(_session.Name, _session.Value));
-                    }
-
-                    return handler;
                 }
             };
         }
 
-        /// <summary>
-        ///     The base URI for your JIRA server
-        /// </summary>
-        public Uri JiraBaseUri { get; }
+		/// <summary>
+		///     The base URI for your JIRA server
+		/// </summary>
+		public Uri JiraBaseUri { get; }
 
-        /// <summary>
-        ///     The base URI for JIRA auth api
-        /// </summary>
-        public Uri JiraAuthUri { get; }
+		/// <summary>
+		///     The rest URI for your JIRA server
+		/// </summary>
+		public Uri JiraRestUri { get; }
+
+		/// <summary>
+		///     The base URI for JIRA auth api
+		/// </summary>
+		public Uri JiraAuthUri { get; }
 
         /// <summary>
         ///     Set Basic Authentication for the current client
@@ -146,8 +139,7 @@ namespace Dapplo.Jira
                     throw new ArgumentException($"Unknown avatar size: {avatarSize}", nameof(avatarSize));
             }
             var response = await avatarUri.GetAsAsync<HttpResponse<TResponse, string>>(cancellationToken).ConfigureAwait(false);
-            HandleErrors(response);
-            return response.Response;
+            return HandleErrors(response);
         }
 
         #region issue
@@ -161,7 +153,7 @@ namespace Dapplo.Jira
         /// <returns>Issue</returns>
         public async Task<Issue> GetIssueAsync(string issue, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var issueUri = JiraBaseUri.AppendSegments("issue", issue);
+            var issueUri = JiraRestUri.AppendSegments("issue", issue);
             // Add the configurable expand values, if the value is not null or empty
             if (JiraConfig.ExpandGetIssue?.Length > 0)
             {
@@ -192,7 +184,7 @@ namespace Dapplo.Jira
                 MaxResults = maxResults,
                 Fields = fields ?? new List<string>(JiraConfig.SearchFields)
             };
-            var searchUri = JiraBaseUri.AppendSegments("search");
+            var searchUri = JiraRestUri.AppendSegments("search");
 
             // Add the configurable expand values, if the value is not null or empty
             if (JiraConfig.ExpandSearch?.Length > 0)
@@ -225,7 +217,7 @@ namespace Dapplo.Jira
                 FileName = filename
             };
             _behaviour.MakeCurrent();
-            var attachUri = JiraBaseUri.AppendSegments("issue", issueKey, "attachments");
+            var attachUri = JiraRestUri.AppendSegments("issue", issueKey, "attachments");
             var response = await attachUri.PostAsync<HttpResponse<IList<Attachment>, string>>(attachment, cancellationToken).ConfigureAwait(false);
             HandleErrors(response);
             return response.Response;
@@ -240,13 +232,12 @@ namespace Dapplo.Jira
         /// <returns>ServerInfo</returns>
         public async Task<ServerInfo> GetServerInfoAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            var serverInfoUri = JiraBaseUri.AppendSegments("serverInfo");
+            var serverInfoUri = JiraRestUri.AppendSegments("serverInfo");
             _behaviour.MakeCurrent();
 
             var response = await serverInfoUri.GetAsAsync<HttpResponse<ServerInfo, Error>>(cancellationToken).ConfigureAwait(false);
-            HandleErrors(response);
-            return response.Response;
-        }
+			return HandleErrors(response);
+		}
 
         #region filter
 
@@ -259,7 +250,7 @@ namespace Dapplo.Jira
         public async Task<IList<Filter>> GetFavoriteFiltersAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             _behaviour.MakeCurrent();
-            var filterFavouriteUri = JiraBaseUri.AppendSegments("filter", "favourite");
+            var filterFavouriteUri = JiraRestUri.AppendSegments("filter", "favourite");
 
             // Add the configurable expand values, if the value is not null or empty
             if (JiraConfig.ExpandGetFavoriteFilters?.Length > 0)
@@ -268,9 +259,8 @@ namespace Dapplo.Jira
             }
 
             var response = await filterFavouriteUri.GetAsAsync<HttpResponse<IList<Filter>, Error>>(cancellationToken).ConfigureAwait(false);
-            HandleErrors(response);
-            return response.Response;
-        }
+			return HandleErrors(response);
+		}
 
         /// <summary>
         ///     Get filter
@@ -282,7 +272,7 @@ namespace Dapplo.Jira
         public async Task<Filter> GetFilterAsync(long id, CancellationToken cancellationToken = default(CancellationToken))
         {
             _behaviour.MakeCurrent();
-            var filterUri = JiraBaseUri.AppendSegments("filter", id);
+            var filterUri = JiraRestUri.AppendSegments("filter", id);
 
             // Add the configurable expand values, if the value is not null or empty
             if (JiraConfig.ExpandGetFilter?.Length > 0)
@@ -291,9 +281,8 @@ namespace Dapplo.Jira
             }
 
             var response = await filterUri.GetAsAsync<HttpResponse<Filter, Error>>(cancellationToken).ConfigureAwait(false);
-            HandleErrors(response);
-            return response.Response;
-        }
+			return HandleErrors(response);
+		}
 
         /// <summary>
         ///     Delete filter
@@ -304,7 +293,7 @@ namespace Dapplo.Jira
         public async Task DeleteFilterAsync(long id, CancellationToken cancellationToken = default(CancellationToken))
         {
             _behaviour.MakeCurrent();
-            var filterUri = JiraBaseUri.AppendSegments("filter", id);
+            var filterUri = JiraRestUri.AppendSegments("filter", id);
 
             var response = await filterUri.DeleteAsync<HttpResponse<string, Error>>(cancellationToken).ConfigureAwait(false);
             if (response.StatusCode != HttpStatusCode.NoContent)
@@ -326,7 +315,7 @@ namespace Dapplo.Jira
         /// <returns>ProjectDetails</returns>
         public async Task<Project> GetProjectAsync(string projectKey, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var projectUri = JiraBaseUri.AppendSegments("project", projectKey);
+            var projectUri = JiraRestUri.AppendSegments("project", projectKey);
 
             // Add the configurable expand values, if the value is not null or empty
             if (JiraConfig.ExpandGetProject?.Length > 0)
@@ -336,9 +325,8 @@ namespace Dapplo.Jira
 
             _behaviour.MakeCurrent();
             var response = await projectUri.GetAsAsync<HttpResponse<Project, Error>>(cancellationToken).ConfigureAwait(false);
-            HandleErrors(response);
-            return response.Response;
-        }
+			return HandleErrors(response);
+		}
 
         /// <summary>
         ///     Get all visible projects
@@ -348,7 +336,7 @@ namespace Dapplo.Jira
         /// <returns>list of ProjectDigest</returns>
         public async Task<IList<ProjectDigest>> GetProjectsAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            var projectsUri = JiraBaseUri.AppendSegments("project");
+            var projectsUri = JiraRestUri.AppendSegments("project");
 
             // Add the configurable expand values, if the value is not null or empty
             if (JiraConfig.ExpandGetProjects?.Length > 0)
@@ -358,9 +346,8 @@ namespace Dapplo.Jira
 
             _behaviour.MakeCurrent();
             var response = await projectsUri.GetAsAsync<HttpResponse<IList<ProjectDigest>, Error>>(cancellationToken).ConfigureAwait(false);
-            HandleErrors(response);
-            return response.Response;
-        }
+			return HandleErrors(response);
+		}
         #endregion
 
         #region user
@@ -374,13 +361,12 @@ namespace Dapplo.Jira
         /// <returns>User</returns>
         public async Task<User> GetUserAsync(string username, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var userUri = JiraBaseUri.AppendSegments("user").ExtendQuery("username", username);
+            var userUri = JiraRestUri.AppendSegments("user").ExtendQuery("username", username);
             _behaviour.MakeCurrent();
 
             var response = await userUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
-            HandleErrors(response);
-            return response.Response;
-        }
+			return HandleErrors(response);
+		}
 
         /// <summary>
         /// Returns a list of users that match the search string.
@@ -397,16 +383,16 @@ namespace Dapplo.Jira
         public async Task<IList<User>> SearchUserAsync(string query, bool includeActive = true, bool includeInactive = false, int startAt = 0, int maxResults = 20, CancellationToken cancellationToken = default(CancellationToken))
         {
             _behaviour.MakeCurrent();
-            var searchUri = JiraBaseUri.AppendSegments("user", "search").ExtendQuery(new Dictionary<string, object>
+            var searchUri = JiraRestUri.AppendSegments("user", "search").ExtendQuery(new Dictionary<string, object>
             {
                 {
                     "username", query
                 },
                 {
-                    "includeActive", $"{includeActive}"
+                    "includeActive", includeActive
                 },
                 {
-                    "includeInactive", $"{includeInactive}"
+                    "includeInactive", includeInactive
                 },
                 {
                     "startAt", startAt
@@ -417,9 +403,8 @@ namespace Dapplo.Jira
             });
 
             var response = await searchUri.GetAsAsync<HttpResponse<IList<User>, Error>>(cancellationToken).ConfigureAwait(false);
-            HandleErrors(response);
-            return response.Response;
-        }
+			return HandleErrors(response);
+		}
 
         /// <summary>
         ///     Get currrent user information
@@ -429,85 +414,83 @@ namespace Dapplo.Jira
         /// <returns>User</returns>
         public async Task<User> WhoAmIAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            var myselfUri = JiraBaseUri.AppendSegments("myself");
+            var myselfUri = JiraRestUri.AppendSegments("myself");
             _behaviour.MakeCurrent();
             var response = await myselfUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
-            HandleErrors(response);
-            return response.Response;
-        }
-        #endregion
+			return HandleErrors(response);
+		}
+		#endregion
 
-        /// <summary>
-        /// Starts new session. No additional authorization requered.
-        /// </summary>
-        /// <remarks>
-        /// Please be aware that although cookie-based authentication has many benefits, such as performance (not having to make multiple authentication calls)
-        /// </remarks>
-        /// <param name="login">User login</param>
-        /// <param name="password">User password</param>
-        public async Task<JiraLoginInfo> StartSessionAsync(string login, string password, CancellationToken cancellationToken = default(CancellationToken))
+		#region Session
+		/// <summary>
+		/// Starts new session. No additional authorization requered.
+		/// </summary>
+		/// <remarks>
+		/// Please be aware that although cookie-based authentication has many benefits, such as performance (not having to make multiple authentication calls)
+		/// </remarks>
+		/// <param name="login">User login</param>
+		/// <param name="password">User password</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>LoginInfo</returns>
+		public async Task<LoginInfo> StartSessionAsync(string login, string password, CancellationToken cancellationToken = default(CancellationToken))
         {
             var sessionUri = JiraAuthUri.AppendSegments("session");
 
-            _behaviour.OnHttpRequestMessageCreated = message =>
-            {
-                message.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-
-                return message;
-            };
-
             _behaviour.MakeCurrent();
 
-            var response = await sessionUri.PostAsync<HttpResponse<SessionResponseSuccess, Error>>($"{{ \"username\": \"{login}\", \"password\": \"{password}\"}}", cancellationToken);
-            _behaviour.OnHttpRequestMessageCreated = null;
+			var content = new StringContent($"{{ \"username\": \"{login}\", \"password\": \"{password}\"}}");
+			content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+
+			var response = await sessionUri.PostAsync<HttpResponse<SessionResponse, Error>>(content, cancellationToken);
 
             HandleErrors(response);
 
-            _session = response.Response.Session;
-
+			_behaviour.CookieContainer.Add(JiraBaseUri, new Cookie(response.Response.Session.Name, response.Response.Session.Value));
             return response.Response.LoginInfo;
         }
 
         /// <summary>
-        /// Ends session. No additional authorization requered.
+        /// Ends session. No additional authorization required.
         /// </summary>
         public async Task EndSessionAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            if(_session != null)
+			var sessionCookie = _behaviour.CookieContainer.GetCookies(JiraBaseUri).Cast<Cookie>().FirstOrDefault();
+
+			if (sessionCookie != null)
             {
                 var sessionUri = JiraAuthUri.AppendSegments("session");
 
-                _behaviour.MakeCurrent();
+				_behaviour.MakeCurrent();
 
-                var response = await sessionUri.DeleteAsync<HttpResponseMessage>(cancellationToken);
+				var response = await sessionUri.DeleteAsync<HttpResponseMessage>(cancellationToken);
 
                 if(response.StatusCode != HttpStatusCode.NoContent)
                 {
                     throw new Exception($"Status: {response.StatusCode} Message: Failed to close jira session");
                 }
-
-                _session = null;
+				// Remove the cookie
+	            sessionCookie.Expired = true;
             }
-        }
+		}
 
-        private bool HandleErrors<TResponse>(HttpResponse<TResponse, Error> response) where TResponse : class
-        {
-            if (response.HasError)
-            {
-                throw new Exception($"Status: {response.StatusCode} Message: {string.Join(", ", response.ErrorResponse.ErrorMessages ?? new List<string>())}");
-            }
+		#endregion
 
-            return true;
-        }
-
-        private bool HandleErrors<TResponse>(HttpResponse<TResponse, string> response) where TResponse : class
+		/// <summary>
+		/// Helper method for handling errors in the response, if the response has an error an exception is thrown.
+		/// Else the real response is returned.
+		/// </summary>
+		/// <typeparam name="TResponse">Type for the ok content</typeparam>
+		/// <typeparam name="TError">Type for the error content</typeparam>
+		/// <param name="response">TResponse</param>
+		/// <returns></returns>
+		private TResponse HandleErrors<TResponse, TError>(HttpResponse<TResponse, TError> response) where TResponse : class where TError : class
         {
             if (response.HasError)
             {
                 throw new Exception($"Status: {response.StatusCode} Message: {response.ErrorResponse}");
             }
 
-            return true;
-        }
+			return response.Response;
+		}
     }
 }

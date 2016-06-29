@@ -19,7 +19,7 @@ before_build:
   - ps: if(-not $env:APPVEYOR_PULL_REQUEST_NUMBER) { $env:is_not_pr = "true"; }
 before_package:
   - ps: Remove-Item packages\OpenCover* -include ("*.pdb", "*.sln", "*.csproj") -recurse
-  - GitLink .\
+  - ps: if(-not $env:APPVEYOR_PULL_REQUEST_NUMBER) { GitLink .\ }
   - nuget pack -Verbosity detailed "%APPVEYOR_PROJECT_NAME%.nuspec" -MSBuildVersion 14.0 -Properties id=%APPVEYOR_PROJECT_NAME%;version=%APPVEYOR_BUILD_VERSION%;author=Dapplo
 after_test: 
     - ps: .\CreateCoverage.ps1
@@ -46,16 +46,6 @@ notifications:
   on_build_failure: true
   on_build_status_changed: false
 deploy:
-- provider: GitHub
-  release: Dapplo.Jira-v$(appveyor_build_version)
-  auth_token:
-    secure: eBQPtXg53XgcvdcVY3wQAw6kkwNh+QhcsTDwzyQLLh6IOPyiePEaEhJR0D2YBjAj
-  artifact: /.*\.nupkg/
-  draft: false
-  on:
-    branch: master
-    is_not_pr: true
-    appveyor_repo_commit_message_extended: /\[release\]/
 - provider: NuGet
   skip_symbols: true
   api_key:
