@@ -440,7 +440,7 @@ namespace Dapplo.Jira
 		/// </summary>
 		/// <remarks>
 		///     Please be aware that although cookie-based authentication has many benefits, such as performance (not having to
-		///     make multiple authentication calls)
+		///     make multiple authentication calls), the session cookie can expire..
 		/// </remarks>
 		/// <param name="login">User login</param>
 		/// <param name="password">User password</param>
