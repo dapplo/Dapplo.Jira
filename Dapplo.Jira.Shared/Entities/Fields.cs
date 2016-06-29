@@ -86,7 +86,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		/// Type of the issue
 		/// </summary>
-		[DataMember(Name = "issueType")]
+		[DataMember(Name = "issuetype")]
 		public IssueType IssueType { get; set; }
 
 		/// <summary>

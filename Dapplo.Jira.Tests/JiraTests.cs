@@ -93,7 +93,8 @@ namespace Dapplo.Jira.Tests
 		{
 			var issue = await _jiraApi.GetIssueAsync("BUG-1845");
 			Assert.NotNull(issue);
-			Assert.NotNull(issue.Fields.Comments.Elements);
+            Assert.NotNull(issue.Fields.IssueType);
+            Assert.NotNull(issue.Fields.Comments.Elements);
 			Assert.True(issue.Fields.Comments.Elements.Count > 0);
 		}
 
@@ -158,5 +159,5 @@ namespace Dapplo.Jira.Tests
 			Assert.NotNull(project);
 			Assert.NotNull(project.Roles.Count > 0);
 		}
-	}
+    }
 }
