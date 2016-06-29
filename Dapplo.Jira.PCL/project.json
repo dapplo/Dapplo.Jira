@@ -6,6 +6,8 @@
   },
   "dependencies": {
     "Dapplo.HttpExtensions": "0.5.23",
+    "Dapplo.Log.Facade": "0.5.3",
+    "Dapplo.Utils": "0.1.49",
     "Microsoft.NETCore": "5.0.0",
     "Microsoft.NETCore.Portable.Compatibility": "1.0.0",
     "System.ComponentModel": "4.0.0",

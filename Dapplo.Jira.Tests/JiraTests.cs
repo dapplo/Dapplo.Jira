@@ -1,34 +1,38 @@
-﻿//  Dapplo - building blocks for desktop applications
-//  Copyright (C) 2015-2016 Dapplo
-// 
-//  For more information see: http://dapplo.net/
-//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
-// 
-//  This file is part of Dapplo.Jira
-// 
-//  Dapplo.Jira is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Lesser General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-// 
-//  Dapplo.Jira is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Lesser General Public License for more details.
-// 
-//  You should have a copy of the GNU Lesser General Public License
-//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+﻿#region Dapplo 2016 - GNU Lesser General Public License
 
-#region using
+// Dapplo - building blocks for .NET applications
+// Copyright (C) 2016 Dapplo
+// 
+// For more information see: http://dapplo.net/
+// Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+// 
+// This file is part of Dapplo.Jira
+// 
+// Dapplo.Jira is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// Dapplo.Jira is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+// 
+// You should have a copy of the GNU Lesser General Public License
+// along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
-using Dapplo.Jira.Entities;
-using Dapplo.Log.XUnit;
-using Dapplo.Log.Facade;
+#endregion
+
+#region Usings
+
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapplo.Jira.Entities;
+using Dapplo.Log.Facade;
+using Dapplo.Log.XUnit;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -38,11 +42,6 @@ namespace Dapplo.Jira.Tests
 {
 	public class JiraTests
 	{
-		// Test against a well known JIRA
-		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
-
-		private readonly JiraApi _jiraApi;
-
 		public JiraTests(ITestOutputHelper testOutputHelper)
 		{
 			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
@@ -54,6 +53,21 @@ namespace Dapplo.Jira.Tests
 				_jiraApi.SetBasicAuthentication(username, password);
 			}
 		}
+
+		// Test against a well known JIRA
+		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
+
+		private readonly JiraApi _jiraApi;
+
+		[Fact]
+		public async Task TestAttach()
+		{
+			var attachments = await _jiraApi.AttachAsync("FEATURE-746", "Testing 1 2 3", "test.txt");
+			Assert.NotNull(attachments);
+			Assert.True(attachments.Count > 0);
+			Assert.StartsWith("text/plain", attachments.Last().MimeType);
+		}
+
 		[Fact]
 		public void TestConstructor()
 		{
@@ -61,31 +75,14 @@ namespace Dapplo.Jira.Tests
 		}
 
 		[Fact]
-		public async Task TestUser()
-		{
-			var meMyselfAndI = await _jiraApi.WhoAmIAsync();
-			Assert.NotNull(meMyselfAndI);
-			var meAgain = await _jiraApi.GetUserAsync(meMyselfAndI.Name);
-			Assert.NotNull(meAgain);
-		}
-
-		[Fact]
 		public async Task TestGetFavoriteFiltersAsync()
 		{
 			var filters = await _jiraApi.GetFavoriteFiltersAsync();
 			Assert.NotNull(filters);
-			foreach(var filter in filters)
+			foreach (var filter in filters)
 			{
 				await _jiraApi.GetFilterAsync(filter.Id);
 			}
-		}
-
-		[Fact]
-		public async Task TestSearchUsersAsync()
-		{
-			var users = await _jiraApi.SearchUserAsync("Dapplo");
-			Assert.NotNull(users);
-			Assert.True(users.Count > 0);
 		}
 
 		[Fact]
@@ -93,9 +90,18 @@ namespace Dapplo.Jira.Tests
 		{
 			var issue = await _jiraApi.GetIssueAsync("BUG-1845");
 			Assert.NotNull(issue);
-            Assert.NotNull(issue.Fields.IssueType);
-            Assert.NotNull(issue.Fields.Comments.Elements);
+			Assert.NotNull(issue.Fields.IssueType);
+			Assert.NotNull(issue.Fields.Comments.Elements);
 			Assert.True(issue.Fields.Comments.Elements.Count > 0);
+		}
+
+		[Fact]
+		public async Task TestGetProjectAsync()
+		{
+			var project = await _jiraApi.GetProjectAsync("BUG");
+
+			Assert.NotNull(project);
+			Assert.NotNull(project.Roles.Count > 0);
 		}
 
 		[Fact]
@@ -143,21 +149,20 @@ namespace Dapplo.Jira.Tests
 		}
 
 		[Fact]
-		public async Task TestAttach()
+		public async Task TestSearchUsersAsync()
 		{
-			var attachments = await _jiraApi.AttachAsync("FEATURE-746", "Testing 1 2 3", "test.txt");
-			Assert.NotNull(attachments);
-			Assert.True(attachments.Count > 0);
-			Assert.StartsWith("text/plain", attachments.Last().MimeType);
+			var users = await _jiraApi.SearchUserAsync("Dapplo");
+			Assert.NotNull(users);
+			Assert.True(users.Count > 0);
 		}
 
 		[Fact]
-		public async Task TestGetProjectAsync()
+		public async Task TestUser()
 		{
-			var project = await _jiraApi.GetProjectAsync("BUG");
-
-			Assert.NotNull(project);
-			Assert.NotNull(project.Roles.Count > 0);
+			var meMyselfAndI = await _jiraApi.WhoAmIAsync();
+			Assert.NotNull(meMyselfAndI);
+			var meAgain = await _jiraApi.GetUserAsync(meMyselfAndI.Name);
+			Assert.NotNull(meAgain);
 		}
-    }
+	}
 }
