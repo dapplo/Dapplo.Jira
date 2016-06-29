@@ -62,5 +62,28 @@ namespace Dapplo.Jira.Entities
 		/// </summary>
 		[DataMember(Name = "16x16")]
 		public Uri Small { get; set; }
+
+		/// <summary>
+		/// Helper method to get the Uri for a certain avatar size
+		/// </summary>
+		/// <param name="avatarSize"></param>
+		/// <returns>Uri</returns>
+		/// <exception cref="ArgumentException">when an unknown avatar size is requested</exception>
+		public Uri GetUri(AvatarSizes avatarSize)
+		{
+			switch (avatarSize)
+			{
+				case AvatarSizes.Small:
+					return Small;
+				case AvatarSizes.Medium:
+					return Medium;
+				case AvatarSizes.Large:
+					return Large;
+				case AvatarSizes.ExtraLarge:
+					return ExtraLarge;
+				default:
+					throw new ArgumentException($"Unknown avatar size: {avatarSize}", nameof(avatarSize));
+			}
+		}
 	}
 }

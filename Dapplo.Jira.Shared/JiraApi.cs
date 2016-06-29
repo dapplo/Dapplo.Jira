@@ -19,7 +19,7 @@
 // GNU Lesser General Public License for more details.
 // 
 // You should have a copy of the GNU Lesser General Public License
-// along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+// along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.be 
 
 #endregion
 
@@ -124,25 +124,8 @@ namespace Dapplo.Jira
 			where TResponse : class
 		{
 			_behaviour.MakeCurrent();
-			Uri avatarUri;
+			Uri avatarUri = avatarUrls.GetUri(avatarSize);
 
-			switch (avatarSize)
-			{
-				case AvatarSizes.Small:
-					avatarUri = avatarUrls.Small;
-					break;
-				case AvatarSizes.Medium:
-					avatarUri = avatarUrls.Medium;
-					break;
-				case AvatarSizes.Large:
-					avatarUri = avatarUrls.Large;
-					break;
-				case AvatarSizes.ExtraLarge:
-					avatarUri = avatarUrls.ExtraLarge;
-					break;
-				default:
-					throw new ArgumentException($"Unknown avatar size: {avatarSize}", nameof(avatarSize));
-			}
 			var response = await avatarUri.GetAsAsync<HttpResponse<TResponse, string>>(cancellationToken).ConfigureAwait(false);
 			return HandleErrors(response);
 		}
