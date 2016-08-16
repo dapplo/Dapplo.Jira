@@ -153,7 +153,7 @@ namespace Dapplo.Jira
 		/// <typeparam name="TError">Type for the error content</typeparam>
 		/// <param name="response">TResponse</param>
 		/// <returns></returns>
-		private TResponse HandleErrors<TResponse, TError>(HttpResponse<TResponse, TError> response) where TResponse : class where TError : class
+		private static TResponse HandleErrors<TResponse, TError>(HttpResponse<TResponse, TError> response) where TResponse : class where TError : class
 		{
 			if (response.HasError)
 			{
@@ -164,6 +164,31 @@ namespace Dapplo.Jira
 		}
 
 		#region issue
+
+		/// <summary>
+		///     Add comment to the specified issue
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1139
+		/// </summary>
+		/// <param name="issueKey">key for the issue</param>
+		/// <param name="body">the body of the comment</param>
+		/// <param name="visibility">optional visibility role</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>Attachment</returns>
+		public async Task AddCommentAsync(string issueKey, string body, string visibility = null, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			var comment = new Comment
+			{
+				Body = body,
+				Visibility = visibility == null ? null : new Visibility
+				{
+					Type = "role",
+					Value = visibility
+				}
+			};
+			_behaviour.MakeCurrent();
+			var attachUri = JiraRestUri.AppendSegments("issue", issueKey, "comment");
+			await attachUri.PostAsync(comment, cancellationToken).ConfigureAwait(false);
+		}
 
 		/// <summary>
 		///     Get issue information
@@ -184,6 +209,26 @@ namespace Dapplo.Jira
 			var response = await issueUri.GetAsAsync<HttpResponse<Issue, Error>>(cancellationToken).ConfigureAwait(false);
 			HandleErrors(response);
 			return response.Response;
+		}
+
+		/// <summary>
+		///     Get possible transitions for the specified issue
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1289
+		/// </summary>
+		/// <param name="issue">the issue key</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>Issue</returns>
+		public async Task<IList<Transition>> GetPossibleTransitionsAsync(string issue, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			var transitionsUri = JiraRestUri.AppendSegments("issue", issue, "transitions");
+			if (JiraConfig.ExpandGetTransitions?.Length > 0)
+			{
+				transitionsUri = transitionsUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetTransitions));
+			}
+			_behaviour.MakeCurrent();
+			var response = await transitionsUri.GetAsAsync<HttpResponse<Transitions, Error>>(cancellationToken).ConfigureAwait(false);
+			HandleErrors(response);
+			return response.Response.Items;
 		}
 
 		/// <summary>
@@ -244,6 +289,21 @@ namespace Dapplo.Jira
 			var response = await attachUri.PostAsync<HttpResponse<IList<Attachment>, string>>(attachment, cancellationToken).ConfigureAwait(false);
 			HandleErrors(response);
 			return response.Response;
+		}
+
+		/// <summary>
+		///     Update comment
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1139
+		/// </summary>
+		/// <param name="issueKey">jira key to which the comment belongs</param>
+		/// <param name="comment">Comment to update</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>Attachment</returns>
+		public async Task UpdateCommentAsync(string issueKey, Comment comment, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			_behaviour.MakeCurrent();
+			var attachUri = JiraRestUri.AppendSegments("issue", issueKey, "comment", comment.Id);
+			await attachUri.PutAsync(comment, cancellationToken).ConfigureAwait(false);
 		}
 
 		#endregion

@@ -25,6 +25,7 @@
 
 #region Usings
 
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
@@ -32,15 +33,15 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Subscription information
+	///     Transitions information
 	/// </summary>
 	[DataContract]
-	public class Subscription : BaseId<long>
+	public class Transitions
 	{
 		/// <summary>
-		///     The user which subscribed
+		///     The actual list of transitions
 		/// </summary>
-		[DataMember(Name = "user")]
-		public User Subscriber { get; set; }
+		[DataMember(Name = "transitions")]
+		public IList<Transition> Items { get; set; }
 	}
 }

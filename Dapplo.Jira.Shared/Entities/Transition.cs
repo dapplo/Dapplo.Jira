@@ -25,6 +25,7 @@
 
 #region Usings
 
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
@@ -32,15 +33,39 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Subscription information
+	///     Transition information
 	/// </summary>
 	[DataContract]
-	public class Subscription : BaseId<long>
+	public class Transition : BaseId<long>
 	{
 		/// <summary>
-		///     The user which subscribed
+		///     Name for this transition
 		/// </summary>
-		[DataMember(Name = "user")]
-		public User Subscriber { get; set; }
+		[DataMember(Name = "name")]
+		public string Name { get; set; }
+
+		/// <summary>
+		///     To status for the transation
+		/// </summary>
+		[DataMember(Name = "to")]
+		public Status To { get; set; }
+
+		/// <summary>
+		///     Schema for the transation
+		/// </summary>
+		[DataMember(Name = "schema")]
+		public Schema Schema { get; set; }
+
+		/// <summary>
+		///     Possible fields for the transation
+		/// </summary>
+		[DataMember(Name = "fields")]
+		public IDictionary<string, PossibleField> PossibleFields { get; set; }
+
+		/// <summary>
+		///     Does this transition have a screen?
+		/// </summary>
+		[DataMember(Name = "hasScreen")]
+		public bool HasScreen { get; set; }
 	}
 }

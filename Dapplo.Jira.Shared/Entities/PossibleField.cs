@@ -25,6 +25,8 @@
 
 #region Usings
 
+using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
@@ -32,15 +34,39 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Subscription information
+	///     Possible field information
 	/// </summary>
 	[DataContract]
-	public class Subscription : BaseId<long>
+	public class PossibleField
 	{
 		/// <summary>
-		///     The user which subscribed
+		///     The summary of the time spend on this issue
 		/// </summary>
-		[DataMember(Name = "user")]
-		public User Subscriber { get; set; }
+		[DataMember(Name = "required")]
+		public bool Required { get; set; }
+
+		/// <summary>
+		///    Name of the field
+		/// </summary>
+		[DataMember(Name = "name")]
+		public string Name { get; set; }
+
+		/// <summary>
+		///    TODO: Describe
+		/// </summary>
+		[DataMember(Name = "autoCompleteUrl")]
+		public Uri autoCompleteUrl { get; set; }
+
+		/// <summary>
+		///     Possible operations
+		/// </summary>
+		[DataMember(Name = "operations")]
+		public IList<string> Operations { get; set; }
+
+		/// <summary>
+		///     Allowed values
+		/// </summary>
+		[DataMember(Name = "allowedValues")]
+		public IList<AllowedValue> AllowedValues { get; set; }
 	}
 }

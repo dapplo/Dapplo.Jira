@@ -25,6 +25,7 @@
 
 #region Usings
 
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
@@ -32,15 +33,28 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Subscription information
+	///     Schema information, used in transition
 	/// </summary>
 	[DataContract]
-	public class Subscription : BaseId<long>
+	public class Schema
 	{
 		/// <summary>
-		///     The user which subscribed
+		///     Type for this schema
 		/// </summary>
-		[DataMember(Name = "user")]
-		public User Subscriber { get; set; }
+		[DataMember(Name = "type")]
+		public string Type { get; set; }
+
+		/// <summary>
+		///     System for this schema
+		/// </summary>
+		[DataMember(Name = "system")]
+		public string System { get; set; }
+
+		/// <summary>
+		///     Type for the item
+		/// </summary>
+		[DataMember(Name = "items")]
+		public string Items { get; set; }
+
 	}
 }

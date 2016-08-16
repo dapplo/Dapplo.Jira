@@ -30,6 +30,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapplo.HttpExtensions.ContentConverter;
 using Dapplo.Jira.Entities;
 using Dapplo.Log.Facade;
 using Dapplo.Log.XUnit;
@@ -46,8 +47,9 @@ namespace Dapplo.Jira.Tests
 		{
 			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
 			_jiraApi = new JiraApi(TestJiraUri);
-			var username = Environment.GetEnvironmentVariable("jira_test_username");
+			   var username = Environment.GetEnvironmentVariable("jira_test_username");
 			var password = Environment.GetEnvironmentVariable("jira_test_password");
+
 			if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
 			{
 				_jiraApi.SetBasicAuthentication(username, password);
@@ -163,6 +165,17 @@ namespace Dapplo.Jira.Tests
 			Assert.NotNull(meMyselfAndI);
 			var meAgain = await _jiraApi.GetUserAsync(meMyselfAndI.Name);
 			Assert.NotNull(meAgain);
+		}
+
+		[Fact]
+		public async Task TestGetPossibleTransitionsAsync()
+		{
+			JsonHttpContentConverter.Instance.LogThreshold = 0;
+			JiraConfig.ExpandGetTransitions = new[] { "transitions.fields" };
+			var transitions = await _jiraApi.GetPossibleTransitionsAsync("BUG-1845");
+			Assert.NotNull(transitions);
+			Assert.True(transitions.Count > 0);
+			Assert.NotNull(transitions[0].PossibleFields);
 		}
 	}
 }

@@ -39,6 +39,12 @@ namespace Dapplo.Jira
 		public static string[] ExpandGetIssue { get; set; } = {"version", "container"};
 
 		/// <summary>
+		///     The values that are expanded in the GetTransitions result
+		///     Examples are: transitions.fields
+		/// </summary>
+		public static string[] ExpandGetTransitions { get; set; }
+
+		/// <summary>
 		///     The values that are expanded in the GetProject result
 		/// </summary>
 		public static string[] ExpandGetProject { get; set; }

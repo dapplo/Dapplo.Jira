@@ -36,14 +36,8 @@ namespace Dapplo.Jira.Entities
 	///     Base fields, used in pretty much every entity
 	/// </summary>
 	[DataContract]
-	public class BaseProperties<TId>
+	public class BaseProperties<TId> : BaseId<TId>
 	{
-		/// <summary>
-		///     Id of this entity
-		/// </summary>
-		[DataMember(Name = "id")]
-		public TId Id { get; set; }
-
 		/// <summary>
 		///     Link to itself
 		/// </summary>

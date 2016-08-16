@@ -11,11 +11,17 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Entities\AttachmentContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\AvatarSizes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\AllowedValue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\PossibleField.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\BaseId.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\ComponentDigest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\JiraSession.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\LoginInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\PageableResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\SessionResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Schema.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Transition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Transitions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Subscription.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Subscriptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\SharePermission.cs" />
