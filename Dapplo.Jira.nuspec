@@ -15,16 +15,16 @@
 		<tags>Jira</tags>
 		<dependencies>
 			<group targetFramework="net45">
-				<dependency id="Dapplo.HttpExtensions" version="0.5.29" />
+				<dependency id="Dapplo.HttpExtensions" version="0.5.30" />
 			</group>
 			<group targetFramework="dnxcore50">
-				<dependency id="Dapplo.HttpExtensions" version="0.5.29" />
+				<dependency id="Dapplo.HttpExtensions" version="0.5.30" />
 			</group>
 			<group targetFramework="uap10.0">
-				<dependency id="Dapplo.HttpExtensions" version="0.5.29" />
+				<dependency id="Dapplo.HttpExtensions" version="0.5.30" />
 			</group>
 			<group targetFramework="dotnet">
-				<dependency id="Dapplo.HttpExtensions" version="0.5.29" />
+				<dependency id="Dapplo.HttpExtensions" version="0.5.30" />
 			</group>
 		</dependencies>
 	</metadata>

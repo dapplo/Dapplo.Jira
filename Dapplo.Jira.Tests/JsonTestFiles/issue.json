@@ -1,325 +1,213 @@
 ﻿{
-	"expand": "renderedFields,names,schema,transitions,operations,editmeta,changelog",
-	"id": "304335",
-	"self": "https://jira/rest/api/2/issue/304335",
-	"key": "CAL-153",
+	"expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+	"id": "46903",
+	"self": "https://greenshot.atlassian.net/rest/api/2/issue/46903",
+	"key": "BUG-2000",
 	"fields": {
-		"summary": "MARKUS_21.04./Kreditprüfung vs. Softphone: Nach der Erfassung eines Interessenten wird der Status \"Nacharbeit\" nicht vorbelegt",
-		"progress": {
-			"progress": 0,
-			"total": 0
-		},
-		"timetracking": { },
 		"issuetype": {
-			"self": "https://jira/rest/api/2/issuetype/1",
+			"self": "https://greenshot.atlassian.net/rest/api/2/issuetype/1",
 			"id": "1",
-			"description": "Problem / Fehler in der aktuell implementierten Funktionalität",
-			"iconUrl": "https://jira/images/icons/issuetypes/bug.png",
-			"name": "Fehler",
-			"subtask": false
+			"description": "A problem which impairs or prevents the functions of the product.",
+			"iconUrl": "https://greenshot.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10403&avatarType=issuetype",
+			"name": "Bug",
+			"subtask": false,
+			"avatarId": 10403
 		},
-		"customfield_10610": null,
 		"timespent": null,
-		"reporter": {
-			"self": "https://jira/rest/api/2/user?username=svc_snow",
-			"name": "svc_snow",
-			"emailAddress": "SP_ITBJira@ing-diba.de",
+		"project": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/project/10402",
+			"id": "10402",
+			"key": "BUG",
+			"name": "Greenshot bugs",
 			"avatarUrls": {
-				"16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10662",
-				"24x24": "https://jira/secure/useravatar?size=small&avatarId=10662",
-				"32x32": "https://jira/secure/useravatar?size=medium&avatarId=10662",
-				"48x48": "https://jira/secure/useravatar?avatarId=10662"
+				"48x48": "https://greenshot.atlassian.net/secure/projectavatar?pid=10402&avatarId=10502",
+				"24x24": "https://greenshot.atlassian.net/secure/projectavatar?size=small&pid=10402&avatarId=10502",
+				"16x16": "https://greenshot.atlassian.net/secure/projectavatar?size=xsmall&pid=10402&avatarId=10502",
+				"32x32": "https://greenshot.atlassian.net/secure/projectavatar?size=medium&pid=10402&avatarId=10502"
 			},
-			"displayName": "Technischer User für ServiceNow Zugriff",
-			"active": true
+			"projectCategory": {
+				"self": "https://greenshot.atlassian.net/rest/api/2/projectCategory/10000",
+				"id": "10000",
+				"description": "Development Projects",
+				"name": "Development"
+			}
 		},
-		"created": "2016-02-25T09:02:17.000+0100",
-		"updated": "2016-04-13T11:42:24.000+0200",
-		"description": "--- Link nach Service Now: [INC0122304|https://ingdibaprod.service-now.com/nav_to.do?uri=incident.do?sys_id=2bb3e82937751600ce8a19a543990e2a] ---\nNach der Erfassung eines neuen Interessenten innerhalb der Kreditprüfung, sollte das Softphone den Status \"Nacharbeit\" vorbelegen. Dies ist aktuell jedoch nicht der Fall.\r\n\r\nDer Einstieg in die Kreditprüfung erfolgt ohne Partner im Kontext über Kredit in der Navigationsleiste.\r\n\r\nZum Vergleich auch eine Screenshotfolge der Exkoeröffnung für einen Interessenten, bei dem nach der Stammdatenerfassung der Status \"Nacharbeit\" vorbelegt wird.",
+		"fixVersions": [ ],
+		"aggregatetimespent": null,
+		"resolution": null,
+		"customfield_10502": null,
+		"customfield_10700": null,
+		"customfield_10701": null,
+		"resolutiondate": null,
+		"workratio": -1,
+		"lastViewed": null,
+		"watches": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/issue/BUG-2000/watchers",
+			"watchCount": 2,
+			"isWatching": false
+		},
+		"created": "2016-07-21T08:53:24.030+0200",
+		"customfield_10020": null,
+		"customfield_10021": "Not started",
 		"priority": {
-			"self": "https://jira/rest/api/2/priority/8",
-			"iconUrl": "https://jira/images/icons/priorities/minor.png",
-			"name": "3-geringfügig",
-			"id": "8"
+			"self": "https://greenshot.atlassian.net/rest/api/2/priority/3",
+			"iconUrl": "https://greenshot.atlassian.net/images/icons/priorities/major.svg",
+			"name": "Major",
+			"id": "3"
 		},
-		"customfield_11994": "9223372036854775807",
-		"customfield_11995": [ "com.atlassian.greenhopper.service.sprint.Sprint@32ba3983[rapidViewId=1642,state=FUTURE,name=Anstehendes Refinement,startDate=<null>,endDate=<null>,completeDate=<null>,id=3323]" ],
-		"customfield_11992": null,
+		"customfield_10100": null,
+		"labels": [ "Image_editor" ],
+		"customfield_10016": null,
+		"customfield_10017": null,
+		"customfield_10018": null,
+		"customfield_10019": null,
+		"timeestimate": null,
+		"aggregatetimeoriginalestimate": null,
+		"versions": [
+			{
+				"self": "https://greenshot.atlassian.net/rest/api/2/version/10309",
+				"id": "10309",
+				"name": "1.1.8",
+				"archived": false,
+				"released": false,
+				"releaseDate": "2014-04-01"
+			}
+		],
 		"issuelinks": [ ],
-		"customfield_10620": null,
-		"customfield_12290": "2|zzgepi:zyq3xr",
-		"customfield_11990": null,
-		"subtasks": [ ],
+		"assignee": null,
+		"updated": "2016-07-21T11:02:18.296+0200",
 		"status": {
-			"self": "https://jira/rest/api/2/status/1",
+			"self": "https://greenshot.atlassian.net/rest/api/2/status/1",
 			"description": "The issue is open and ready for the assignee to start work on it.",
-			"iconUrl": "https://jira/images/icons/statuses/open.png",
-			"name": "Offen",
+			"iconUrl": "https://greenshot.atlassian.net/images/icons/statuses/open.png",
+			"name": "Open",
 			"id": "1",
 			"statusCategory": {
-				"self": "https://jira/rest/api/2/statuscategory/2",
+				"self": "https://greenshot.atlassian.net/rest/api/2/statuscategory/2",
 				"id": 2,
 				"key": "new",
 				"colorName": "blue-gray",
-				"name": "New"
+				"name": "To Do"
 			}
 		},
-		"customfield_11996": "CAL-250",
-		"customfield_12007": null,
-		"customfield_12090": "INC0122304",
-		"labels": [ "SprintRelease" ],
-		"workratio": -1,
-		"customfield_12190": null,
-		"customfield_10421": null,
-		"project": {
-			"self": "https://jira/rest/api/2/project/20451",
-			"id": "20451",
-			"key": "CAL",
-			"name": "Callimero Agile",
+		"components": [
+			{
+				"self": "https://greenshot.atlassian.net/rest/api/2/component/10133",
+				"id": "10133",
+				"name": "Dropbox"
+			}
+		],
+		"timeoriginalestimate": null,
+		"description": "dfgdfgf",
+		"customfield_10012": null,
+		"customfield_10013": null,
+		"customfield_10014": null,
+		"customfield_10015": null,
+		"timetracking": { },
+		"customfield_10006": "9223372036854775807",
+		"customfield_10600": null,
+		"customfield_10007": null,
+		"customfield_10008": null,
+		"customfield_10800": null,
+		"attachment": [ ],
+		"aggregatetimeestimate": null,
+		"summary": "Test",
+		"creator": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/user?username=sureshdubey",
+			"name": "xxxxxxxxx",
+			"key": "xxxxxxxxx",
 			"avatarUrls": {
-				"16x16": "https://jira/secure/projectavatar?size=xsmall&pid=20451&avatarId=10002",
-				"24x24": "https://jira/secure/projectavatar?size=small&pid=20451&avatarId=10002",
-				"32x32": "https://jira/secure/projectavatar?size=medium&pid=20451&avatarId=10002",
-				"48x48": "https://jira/secure/projectavatar?pid=20451&avatarId=10002"
-			}
+				"48x48": "https://secure.gravatar.com/avatar/bfa19178c1bb49dd5a5d0ea101509bc6?d=mm&s=48",
+				"24x24": "https://secure.gravatar.com/avatar/bfa19178c1bb49dd5a5d0ea101509bc6?d=mm&s=24",
+				"16x16": "https://secure.gravatar.com/avatar/bfa19178c1bb49dd5a5d0ea101509bc6?d=mm&s=16",
+				"32x32": "https://secure.gravatar.com/avatar/bfa19178c1bb49dd5a5d0ea101509bc6?d=mm&s=32"
+			},
+			"displayName": "xxxxxxxxx",
+			"active": true,
+			"timeZone": "Europe/Berlin"
 		},
-		"customfield_10420": "2016-02-26 16:11:04.0",
-		"environment": null,
-		"customfield_10193": null,
+		"subtasks": [ ],
+		"reporter": {
+			"self": "https://greenshot.atlassian.net/rest/api/2/user?username=sureshdubey",
+			"name": "xxxxxxxxx",
+			"key": "xxxxxxxxx",
+			"avatarUrls": {
+				"48x48": "https://secure.gravatar.com/avatar/bfa19178c1bb49dd5a5d0ea101509bc6?d=mm&s=48",
+				"24x24": "https://secure.gravatar.com/avatar/bfa19178c1bb49dd5a5d0ea101509bc6?d=mm&s=24",
+				"16x16": "https://secure.gravatar.com/avatar/bfa19178c1bb49dd5a5d0ea101509bc6?d=mm&s=16",
+				"32x32": "https://secure.gravatar.com/avatar/bfa19178c1bb49dd5a5d0ea101509bc6?d=mm&s=32"
+			},
+			"displayName": "xxxxxxxxx",
+			"active": true,
+			"timeZone": "Europe/Berlin"
+		},
+		"customfield_10000": null,
 		"aggregateprogress": {
 			"progress": 0,
 			"total": 0
 		},
-		"lastViewed": "2016-04-18T15:23:10.437+0200",
-		"components": [
-			{
-				"self": "https://jira/rest/api/2/component/33413",
-				"id": "33413",
-				"name": "41_Softphone"
-			}
-		],
+		"customfield_10001": "2016-07-21T11:02:18.296+0200",
+		"customfield_10002": null,
+		"customfield_10003": null,
+		"customfield_10400": "0|101cuo:",
+		"environment": "dfgdfg",
+		"duedate": null,
+		"progress": {
+			"progress": 0,
+			"total": 0
+		},
 		"comment": {
-			"startAt": 0,
-			"maxResults": 1,
-			"total": 1,
 			"comments": [
 				{
-					"self": "https://jira/rest/api/2/issue/304335/comment/1225798",
-					"id": "1225798",
+					"self": "https://greenshot.atlassian.net/rest/api/2/issue/46903/comment/96904",
+					"id": "96904",
 					"author": {
-						"self": "https://jira/rest/api/2/user?username=05019061",
-						"name": "05019061",
-						"emailAddress": "R.Foerther@ing-diba.de",
+						"self": "https://greenshot.atlassian.net/rest/api/2/user?username=rkrom",
+						"name": "rkrom",
+						"key": "rkrom",
 						"avatarUrls": {
-							"16x16": "https://jira/secure/useravatar?size=xsmall&ownerId=05019061&avatarId=28640",
-							"24x24": "https://jira/secure/useravatar?size=small&ownerId=05019061&avatarId=28640",
-							"32x32": "https://jira/secure/useravatar?size=medium&ownerId=05019061&avatarId=28640",
-							"48x48": "https://jira/secure/useravatar?ownerId=05019061&avatarId=28640"
+							"48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=rkrom&avatarId=10600",
+							"24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=rkrom&avatarId=10600",
+							"16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=rkrom&avatarId=10600",
+							"32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=rkrom&avatarId=10600"
 						},
-						"displayName": "Foerther, Roland",
-						"active": true
+						"displayName": "Robin Krom",
+						"active": true,
+						"timeZone": "Europe/Berlin"
 					},
-					"body": "Kannst Du hier bei der Analyse helfen?",
+					"body": "Does this ticket have any reason?",
 					"updateAuthor": {
-						"self": "https://jira/rest/api/2/user?username=05019061",
-						"name": "05019061",
-						"emailAddress": "R.Foerther@ing-diba.de",
+						"self": "https://greenshot.atlassian.net/rest/api/2/user?username=rkrom",
+						"name": "rkrom",
+						"key": "rkrom",
 						"avatarUrls": {
-							"16x16": "https://jira/secure/useravatar?size=xsmall&ownerId=05019061&avatarId=28640",
-							"24x24": "https://jira/secure/useravatar?size=small&ownerId=05019061&avatarId=28640",
-							"32x32": "https://jira/secure/useravatar?size=medium&ownerId=05019061&avatarId=28640",
-							"48x48": "https://jira/secure/useravatar?ownerId=05019061&avatarId=28640"
+							"48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=rkrom&avatarId=10600",
+							"24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=rkrom&avatarId=10600",
+							"16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=rkrom&avatarId=10600",
+							"32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=rkrom&avatarId=10600"
 						},
-						"displayName": "Foerther, Roland",
-						"active": true
+						"displayName": "Robin Krom",
+						"active": true,
+						"timeZone": "Europe/Berlin"
 					},
-					"created": "2016-02-26T16:11:04.000+0100",
-					"updated": "2016-02-26T16:11:04.000+0100",
-					"visibility": {
-						"type": "role",
-						"value": "Entwickler"
-					}
+					"created": "2016-07-21T11:02:18.296+0200",
+					"updated": "2016-07-21T11:02:18.296+0200"
 				}
-			]
+			],
+			"maxResults": 1,
+			"total": 1,
+			"startAt": 0
 		},
-		"timeoriginalestimate": null,
 		"votes": {
-			"self": "https://jira/rest/api/2/issue/CAL-153/votes",
+			"self": "https://greenshot.atlassian.net/rest/api/2/issue/BUG-2000/votes",
 			"votes": 0,
 			"hasVoted": false
 		},
-		"resolution": null,
-		"fixVersions": [
-			{
-				"self": "https://jira/rest/api/2/version/30353",
-				"id": "30353",
-				"name": "Offen",
-				"archived": false,
-				"released": false
-			}
-		],
-		"resolutiondate": null,
-		"creator": {
-			"self": "https://jira/rest/api/2/user?username=svc_snow",
-			"name": "svc_snow",
-			"emailAddress": "SP_ITBJira@ing-diba.de",
-			"avatarUrls": {
-				"16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10662",
-				"24x24": "https://jira/secure/useravatar?size=small&avatarId=10662",
-				"32x32": "https://jira/secure/useravatar?size=medium&avatarId=10662",
-				"48x48": "https://jira/secure/useravatar?avatarId=10662"
-			},
-			"displayName": "Technischer User für ServiceNow Zugriff",
-			"active": true
-		},
-		"aggregatetimeoriginalestimate": null,
-		"duedate": null,
-		"watches": {
-			"self": "https://jira/rest/api/2/issue/CAL-153/watchers",
-			"watchCount": 2,
-			"isWatching": true
-		},
-		"customfield_10452": null,
 		"worklog": {
 			"startAt": 0,
 			"maxResults": 20,
 			"total": 0,
 			"worklogs": [ ]
-		},
-		"customfield_10370": "-2147483648",
-		"assignee": {
-			"self": "https://jira/rest/api/2/user?username=05018085",
-			"name": "05018085",
-			"emailAddress": "Robertus.Krom@ing-diba.de",
-			"avatarUrls": {
-				"16x16": "https://jira/secure/useravatar?size=xsmall&ownerId=05018085&avatarId=28346",
-				"24x24": "https://jira/secure/useravatar?size=small&ownerId=05018085&avatarId=28346",
-				"32x32": "https://jira/secure/useravatar?size=medium&ownerId=05018085&avatarId=28346",
-				"48x48": "https://jira/secure/useravatar?ownerId=05018085&avatarId=28346"
-			},
-			"displayName": "Krom, Robin",
-			"active": true
-		},
-		"attachment": [
-			{
-				"self": "https://jira/rest/api/2/attachment/427893",
-				"id": "427893",
-				"filename": "Exko_Er?ffnung_Nacharbeit_nach_Stammdatenerfassung_01.png",
-				"author": {
-					"self": "https://jira/rest/api/2/user?username=svc_snow",
-					"name": "svc_snow",
-					"emailAddress": "SP_ITBJira@ing-diba.de",
-					"avatarUrls": {
-						"16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10662",
-						"24x24": "https://jira/secure/useravatar?size=small&avatarId=10662",
-						"32x32": "https://jira/secure/useravatar?size=medium&avatarId=10662",
-						"48x48": "https://jira/secure/useravatar?avatarId=10662"
-					},
-					"displayName": "Technischer User für ServiceNow Zugriff",
-					"active": true
-				},
-				"created": "2016-02-25T09:02:32.000+0100",
-				"size": 106927,
-				"mimeType": "image/png; charset=UTF-8",
-				"content": "https://jira/secure/attachment/427893/Exko_Er%3Fffnung_Nacharbeit_nach_Stammdatenerfassung_01.png",
-				"thumbnail": "https://jira/secure/thumbnail/427893/_thumb_427893.png"
-			},
-			{
-				"self": "https://jira/rest/api/2/attachment/427891",
-				"id": "427891",
-				"filename": "Exko_Er?ffnung_Nacharbeit_nach_Stammdatenerfassung.png",
-				"author": {
-					"self": "https://jira/rest/api/2/user?username=svc_snow",
-					"name": "svc_snow",
-					"emailAddress": "SP_ITBJira@ing-diba.de",
-					"avatarUrls": {
-						"16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10662",
-						"24x24": "https://jira/secure/useravatar?size=small&avatarId=10662",
-						"32x32": "https://jira/secure/useravatar?size=medium&avatarId=10662",
-						"48x48": "https://jira/secure/useravatar?avatarId=10662"
-					},
-					"displayName": "Technischer User für ServiceNow Zugriff",
-					"active": true
-				},
-				"created": "2016-02-25T09:02:32.000+0100",
-				"size": 96365,
-				"mimeType": "image/png; charset=UTF-8",
-				"content": "https://jira/secure/attachment/427891/Exko_Er%3Fffnung_Nacharbeit_nach_Stammdatenerfassung.png",
-				"thumbnail": "https://jira/secure/thumbnail/427891/_thumb_427891.png"
-			},
-			{
-				"self": "https://jira/rest/api/2/attachment/427894",
-				"id": "427894",
-				"filename": "Kreditpr?fung_kein_Nacharbeit_nach_Stammdatenerfassung_01.png",
-				"author": {
-					"self": "https://jira/rest/api/2/user?username=svc_snow",
-					"name": "svc_snow",
-					"emailAddress": "SP_ITBJira@ing-diba.de",
-					"avatarUrls": {
-						"16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10662",
-						"24x24": "https://jira/secure/useravatar?size=small&avatarId=10662",
-						"32x32": "https://jira/secure/useravatar?size=medium&avatarId=10662",
-						"48x48": "https://jira/secure/useravatar?avatarId=10662"
-					},
-					"displayName": "Technischer User für ServiceNow Zugriff",
-					"active": true
-				},
-				"created": "2016-02-25T09:02:32.000+0100",
-				"size": 110483,
-				"mimeType": "image/png; charset=UTF-8",
-				"content": "https://jira/secure/attachment/427894/Kreditpr%3Ffung_kein_Nacharbeit_nach_Stammdatenerfassung_01.png",
-				"thumbnail": "https://jira/secure/thumbnail/427894/_thumb_427894.png"
-			},
-			{
-				"self": "https://jira/rest/api/2/attachment/427892",
-				"id": "427892",
-				"filename": "Kreditpr?fung_kein_Nacharbeit_nach_Stammdatenerfassung_02.png",
-				"author": {
-					"self": "https://jira/rest/api/2/user?username=svc_snow",
-					"name": "svc_snow",
-					"emailAddress": "SP_ITBJira@ing-diba.de",
-					"avatarUrls": {
-						"16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10662",
-						"24x24": "https://jira/secure/useravatar?size=small&avatarId=10662",
-						"32x32": "https://jira/secure/useravatar?size=medium&avatarId=10662",
-						"48x48": "https://jira/secure/useravatar?avatarId=10662"
-					},
-					"displayName": "Technischer User für ServiceNow Zugriff",
-					"active": true
-				},
-				"created": "2016-02-25T09:02:32.000+0100",
-				"size": 107128,
-				"mimeType": "image/png; charset=UTF-8",
-				"content": "https://jira/secure/attachment/427892/Kreditpr%3Ffung_kein_Nacharbeit_nach_Stammdatenerfassung_02.png",
-				"thumbnail": "https://jira/secure/thumbnail/427892/_thumb_427892.png"
-			},
-			{
-				"self": "https://jira/rest/api/2/attachment/427890",
-				"id": "427890",
-				"filename": "Kreditpr?fung_kein_Nacharbeit_nach_Stammdatenerfassung.png",
-				"author": {
-					"self": "https://jira/rest/api/2/user?username=svc_snow",
-					"name": "svc_snow",
-					"emailAddress": "SP_ITBJira@ing-diba.de",
-					"avatarUrls": {
-						"16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10662",
-						"24x24": "https://jira/secure/useravatar?size=small&avatarId=10662",
-						"32x32": "https://jira/secure/useravatar?size=medium&avatarId=10662",
-						"48x48": "https://jira/secure/useravatar?avatarId=10662"
-					},
-					"displayName": "Technischer User für ServiceNow Zugriff",
-					"active": true
-				},
-				"created": "2016-02-25T09:02:32.000+0100",
-				"size": 92529,
-				"mimeType": "image/png; charset=UTF-8",
-				"content": "https://jira/secure/attachment/427890/Kreditpr%3Ffung_kein_Nacharbeit_nach_Stammdatenerfassung.png",
-				"thumbnail": "https://jira/secure/thumbnail/427890/_thumb_427890.png"
-			}
-		],
-		"aggregatetimeestimate": null,
-		"versions": [ ],
-		"timeestimate": null,
-		"aggregatetimespent": null
+		}
 	}
 }

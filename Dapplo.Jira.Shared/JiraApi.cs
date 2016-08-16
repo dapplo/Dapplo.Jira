@@ -176,6 +176,10 @@ namespace Dapplo.Jira
 		/// <returns>Attachment</returns>
 		public async Task AddCommentAsync(string issueKey, string body, string visibility = null, CancellationToken cancellationToken = default(CancellationToken))
 		{
+			if (issueKey == null)
+			{
+				throw new ArgumentNullException(nameof(issueKey));
+			}
 			var comment = new Comment
 			{
 				Body = body,
@@ -194,12 +198,16 @@ namespace Dapplo.Jira
 		///     Get issue information
 		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e4539
 		/// </summary>
-		/// <param name="issue">the issue key</param>
+		/// <param name="issueKey">the issue key</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Issue</returns>
-		public async Task<Issue> GetIssueAsync(string issue, CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<Issue> GetIssueAsync(string issueKey, CancellationToken cancellationToken = default(CancellationToken))
 		{
-			var issueUri = JiraRestUri.AppendSegments("issue", issue);
+			if (issueKey == null)
+			{
+				throw new ArgumentNullException(nameof(issueKey));
+			}
+			var issueUri = JiraRestUri.AppendSegments("issue", issueKey);
 			// Add the configurable expand values, if the value is not null or empty
 			if (JiraConfig.ExpandGetIssue?.Length > 0)
 			{
@@ -215,12 +223,16 @@ namespace Dapplo.Jira
 		///     Get possible transitions for the specified issue
 		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1289
 		/// </summary>
-		/// <param name="issue">the issue key</param>
+		/// <param name="issueKey">the issue key</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Issue</returns>
-		public async Task<IList<Transition>> GetPossibleTransitionsAsync(string issue, CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<IList<Transition>> GetPossibleTransitionsAsync(string issueKey, CancellationToken cancellationToken = default(CancellationToken))
 		{
-			var transitionsUri = JiraRestUri.AppendSegments("issue", issue, "transitions");
+			if (issueKey == null)
+			{
+				throw new ArgumentNullException(nameof(issueKey));
+			}
+			var transitionsUri = JiraRestUri.AppendSegments("issue", issueKey, "transitions");
 			if (JiraConfig.ExpandGetTransitions?.Length > 0)
 			{
 				transitionsUri = transitionsUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetTransitions));
@@ -243,6 +255,10 @@ namespace Dapplo.Jira
 		public async Task<SearchResult> SearchAsync(string jql, int maxResults = 20, IList<string> fields = null,
 			CancellationToken cancellationToken = default(CancellationToken))
 		{
+			if (jql == null)
+			{
+				throw new ArgumentNullException(nameof(jql));
+			}
 			_behaviour.MakeCurrent();
 			var search = new Search
 			{
@@ -274,10 +290,18 @@ namespace Dapplo.Jira
 		/// <param name="contentType">content-type for the attachment</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Attachment</returns>
-		public async Task<IList<Attachment>> AttachAsync<TContent>(string issueKey, TContent content, string filename, string contentType = null,
+		public async Task<Attachment> AttachAsync<TContent>(string issueKey, TContent content, string filename, string contentType = null,
 			CancellationToken cancellationToken = default(CancellationToken))
 			where TContent : class
 		{
+			if (issueKey == null)
+			{
+				throw new ArgumentNullException(nameof(issueKey));
+			}
+			if (content == null)
+			{
+				throw new ArgumentNullException(nameof(content));
+			}
 			var attachment = new AttachmentContainer<TContent>
 			{
 				Content = content,
@@ -288,7 +312,76 @@ namespace Dapplo.Jira
 			var attachUri = JiraRestUri.AppendSegments("issue", issueKey, "attachments");
 			var response = await attachUri.PostAsync<HttpResponse<IList<Attachment>, string>>(attachment, cancellationToken).ConfigureAwait(false);
 			HandleErrors(response);
-			return response.Response;
+			// Return the attachment, should be only one!
+			return response.Response[0];
+		}
+
+		/// <summary>
+		///     Delete the specified attachment
+		/// </summary>
+		/// <param name="attachment">The Attachment to delete</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		public Task DeleteAttachmentAsync(Attachment attachment, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			if (attachment == null)
+			{
+				throw new ArgumentNullException(nameof(attachment));
+			}
+
+			return DeleteAttachmentAsync(attachment.Id, cancellationToken);
+		}
+
+		/// <summary>
+		///     Delete the specified attachment
+		/// </summary>
+		/// <param name="attachmentId">Id from the attachment</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		public async Task DeleteAttachmentAsync(long attachmentId, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			_behaviour.MakeCurrent();
+			var deleteAttachmentUri = JiraRestUri.AppendSegments("attachment", attachmentId);
+			await deleteAttachmentUri.DeleteAsync(cancellationToken).ConfigureAwait(false);
+		}
+
+		/// <summary>
+		///     Get the content for the specified attachment
+		/// </summary>
+		/// <typeparam name="TResponse">the type which is returned, can be decided by the client and should be supported by Dapplo.HttpExtensions or your own IHttpContentConverter</typeparam>
+		/// <param name="attachment">the attachment</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>TResponse</returns>
+		public async Task<TResponse> GetAttachmentContentAsAsync<TResponse>(Attachment attachment, CancellationToken cancellationToken = default(CancellationToken))
+			where TResponse : class
+		{
+			if (attachment == null)
+			{
+				throw new ArgumentNullException(nameof(attachment));
+			}
+
+			_behaviour.MakeCurrent();
+			return await attachment.ContentUri.GetAsAsync<TResponse>(cancellationToken).ConfigureAwait(false);
+		}
+
+		/// <summary>
+		///     Get the thumbnail for the specified attachment
+		/// </summary>
+		/// <typeparam name="TResponse">the type which is returned, can be decided by the client and should be supported by Dapplo.HttpExtensions or your own IHttpContentConverter</typeparam>
+		/// <param name="attachment">the attachment</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>TResponse</returns>
+		public async Task<TResponse> GetAttachmentThumbnailAsAsync<TResponse>(Attachment attachment, CancellationToken cancellationToken = default(CancellationToken))
+			where TResponse : class
+		{
+			if (attachment == null)
+			{
+				throw new ArgumentNullException(nameof(attachment));
+			}
+			if (attachment.ThumbnailUri == null)
+			{
+				return null;
+			}
+			_behaviour.MakeCurrent();
+			return await attachment.ThumbnailUri.GetAsAsync<TResponse>(cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -301,6 +394,11 @@ namespace Dapplo.Jira
 		/// <returns>Attachment</returns>
 		public async Task UpdateCommentAsync(string issueKey, Comment comment, CancellationToken cancellationToken = default(CancellationToken))
 		{
+			if (issueKey == null)
+			{
+				throw new ArgumentNullException(nameof(issueKey));
+			}
+
 			_behaviour.MakeCurrent();
 			var attachUri = JiraRestUri.AppendSegments("issue", issueKey, "comment", comment.Id);
 			await attachUri.PutAsync(comment, cancellationToken).ConfigureAwait(false);
@@ -384,6 +482,10 @@ namespace Dapplo.Jira
 		/// <returns>ProjectDetails</returns>
 		public async Task<Project> GetProjectAsync(string projectKey, CancellationToken cancellationToken = default(CancellationToken))
 		{
+			if (projectKey == null)
+			{
+				throw new ArgumentNullException(nameof(projectKey));
+			}
 			var projectUri = JiraRestUri.AppendSegments("project", projectKey);
 
 			// Add the configurable expand values, if the value is not null or empty
@@ -431,6 +533,10 @@ namespace Dapplo.Jira
 		/// <returns>User</returns>
 		public async Task<User> GetUserAsync(string username, CancellationToken cancellationToken = default(CancellationToken))
 		{
+			if (username == null)
+			{
+				throw new ArgumentNullException(nameof(username));
+			}
 			var userUri = JiraRestUri.AppendSegments("user").ExtendQuery("username", username);
 			_behaviour.MakeCurrent();
 
@@ -453,6 +559,10 @@ namespace Dapplo.Jira
 		public async Task<IList<User>> SearchUserAsync(string query, bool includeActive = true, bool includeInactive = false, int startAt = 0,
 			int maxResults = 20, CancellationToken cancellationToken = default(CancellationToken))
 		{
+			if (query == null)
+			{
+				throw new ArgumentNullException(nameof(query));
+			}
 			_behaviour.MakeCurrent();
 			var searchUri = JiraRestUri.AppendSegments("user", "search").ExtendQuery(new Dictionary<string, object>
 			{
@@ -508,6 +618,14 @@ namespace Dapplo.Jira
 		/// <returns>LoginInfo</returns>
 		public async Task<LoginInfo> StartSessionAsync(string login, string password, CancellationToken cancellationToken = default(CancellationToken))
 		{
+			if (login == null)
+			{
+				throw new ArgumentNullException(nameof(login));
+			}
+			if (password == null)
+			{
+				throw new ArgumentNullException(nameof(password));
+			}
 			var sessionUri = JiraAuthUri.AppendSegments("session");
 
 			_behaviour.MakeCurrent();

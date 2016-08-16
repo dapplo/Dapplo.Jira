@@ -43,11 +43,13 @@ namespace Dapplo.Jira.Tests
 {
 	public class JiraTests
 	{
+		private static readonly LogSource Log = new LogSource();
+
 		public JiraTests(ITestOutputHelper testOutputHelper)
 		{
 			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
 			_jiraApi = new JiraApi(TestJiraUri);
-			   var username = Environment.GetEnvironmentVariable("jira_test_username");
+			var username = Environment.GetEnvironmentVariable("jira_test_username");
 			var password = Environment.GetEnvironmentVariable("jira_test_password");
 
 			if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
@@ -62,12 +64,34 @@ namespace Dapplo.Jira.Tests
 		private readonly JiraApi _jiraApi;
 
 		[Fact]
-		public async Task TestAttach()
+		public async Task TestAttachment()
 		{
-			var attachments = await _jiraApi.AttachAsync("FEATURE-746", "Testing 1 2 3", "test.txt");
-			Assert.NotNull(attachments);
-			Assert.True(attachments.Count > 0);
-			Assert.StartsWith("text/plain", attachments.Last().MimeType);
+			const string filename = "test.txt";
+			const string testContent = "Testing 1 2 3";
+			var attachment = await _jiraApi.AttachAsync("FEATURE-746", testContent, filename);
+			Assert.NotNull(attachment);
+			Assert.StartsWith("text/plain", attachment.MimeType);
+
+			if (attachment.ThumbnailUri != null)
+			{
+				var attachmentThumbnail = await _jiraApi.GetAttachmentThumbnailAsAsync<Bitmap>(attachment);
+				Assert.NotNull(attachmentThumbnail);
+				Assert.True(attachmentThumbnail.Width > 0);
+			}
+
+			var returnedContent = await _jiraApi.GetAttachmentContentAsAsync<string>(attachment);
+			Assert.Equal(testContent, returnedContent);
+
+			bool hasBeenRemoved = false;
+			var issue = await _jiraApi.GetIssueAsync("FEATURE-746");
+			foreach (var attachment2Delete in issue.Fields.Attachments.Where(x => x.Filename == filename))
+			{
+				Log.Info().WriteLine("Deleting {0} from {1}", attachment2Delete.Filename, attachment2Delete.Created);
+				await _jiraApi.DeleteAttachmentAsync(attachment2Delete);
+				hasBeenRemoved = true;
+			}
+
+			Assert.True(hasBeenRemoved);
 		}
 
 		[Fact]

@@ -37,7 +37,7 @@ namespace Dapplo.Jira.Entities
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/attachment
 	/// </summary>
 	[DataContract]
-	public class Attachment : BaseProperties<string>
+	public class Attachment : BaseProperties<long>
 	{
 		/// <summary>
 		///     Who created the attachment
