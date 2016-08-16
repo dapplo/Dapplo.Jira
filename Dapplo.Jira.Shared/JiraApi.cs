@@ -639,6 +639,10 @@ namespace Dapplo.Jira
 			{
 				throw new ArgumentNullException(nameof(password));
 			}
+			if (!_behaviour.HttpSettings.UseCookies)
+			{
+				throw new ArgumentException("Cookies need to be enabled", nameof(IHttpSettings.UseCookies));
+			}
 			var sessionUri = JiraAuthUri.AppendSegments("session");
 
 			_behaviour.MakeCurrent();
@@ -650,7 +654,6 @@ namespace Dapplo.Jira
 
 			HandleErrors(response);
 
-			_behaviour.CookieContainer.Add(JiraBaseUri, new Cookie(response.Response.Session.Name, response.Response.Session.Value));
 			return response.Response.LoginInfo;
 		}
 
@@ -659,9 +662,11 @@ namespace Dapplo.Jira
 		/// </summary>
 		public async Task EndSessionAsync(CancellationToken cancellationToken = default(CancellationToken))
 		{
-			var sessionCookie = _behaviour.CookieContainer.GetCookies(JiraBaseUri).Cast<Cookie>().FirstOrDefault();
+			// Find the cookie to expire
+			var sessionCookies = _behaviour.CookieContainer.GetCookies(JiraBaseUri).Cast<Cookie>().ToList();
 
-			if (sessionCookie != null)
+			// check if a cookie was found, if not skip the end session
+			if (sessionCookies.Any())
 			{
 				var sessionUri = JiraAuthUri.AppendSegments("session");
 
@@ -672,8 +677,12 @@ namespace Dapplo.Jira
 				{
 					throw new Exception($"Status: {response.StatusCode} Message: Failed to close jira session");
 				}
-				// Remove the cookie
-				sessionCookie.Expired = true;
+				// Expire the cookie
+				foreach (var sessionCookie in sessionCookies)
+				{
+					sessionCookie.Expired = true;
+				}
+				
 			}
 		}
 
