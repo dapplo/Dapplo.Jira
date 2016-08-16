@@ -127,7 +127,11 @@ namespace Dapplo.Jira
 			Uri avatarUri = avatarUrls.GetUri(avatarSize);
 
 			var response = await avatarUri.GetAsAsync<HttpResponse<TResponse, string>>(cancellationToken).ConfigureAwait(false);
-			return HandleErrors(response);
+			if (response.HasError)
+			{
+				throw new Exception($"Status: {response.StatusCode} Message: {response.ErrorResponse}");
+			}
+			return response.Response;
 		}
 
 		/// <summary>
@@ -153,11 +157,11 @@ namespace Dapplo.Jira
 		/// <typeparam name="TError">Type for the error content</typeparam>
 		/// <param name="response">TResponse</param>
 		/// <returns></returns>
-		private static TResponse HandleErrors<TResponse, TError>(HttpResponse<TResponse, TError> response) where TResponse : class where TError : class
+		private static TResponse HandleErrors<TResponse, TError>(HttpResponse<TResponse, TError> response) where TResponse : class where TError : Error
 		{
 			if (response.HasError)
 			{
-				throw new Exception($"Status: {response.StatusCode} Message: {response.ErrorResponse}");
+				throw new Exception($"Status: {response.StatusCode} Message: {string.Join(", ", response.ErrorResponse.ErrorMessages)}");
 			}
 
 			return response.Response;
@@ -310,7 +314,7 @@ namespace Dapplo.Jira
 			};
 			_behaviour.MakeCurrent();
 			var attachUri = JiraRestUri.AppendSegments("issue", issueKey, "attachments");
-			var response = await attachUri.PostAsync<HttpResponse<IList<Attachment>, string>>(attachment, cancellationToken).ConfigureAwait(false);
+			var response = await attachUri.PostAsync<HttpResponse<IList<Attachment>, Error>>(attachment, cancellationToken).ConfigureAwait(false);
 			HandleErrors(response);
 			// Return the attachment, should be only one!
 			return response.Response[0];
