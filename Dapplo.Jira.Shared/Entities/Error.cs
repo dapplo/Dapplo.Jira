@@ -39,6 +39,12 @@ namespace Dapplo.Jira.Entities
 	public class Error
 	{
 		/// <summary>
+		///     The message
+		/// </summary>
+		[DataMember(Name = "message")]
+		public string Message { get; set; }
+
+		/// <summary>
 		///     The list of error messages
 		/// </summary>
 		[DataMember(Name = "errorMessages")]

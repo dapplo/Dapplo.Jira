@@ -161,7 +161,16 @@ namespace Dapplo.Jira
 		{
 			if (response.HasError)
 			{
-				throw new Exception($"Status: {response.StatusCode} Message: {string.Join(", ", response.ErrorResponse.ErrorMessages)}");
+				var message = response.StatusCode.ToString();
+				if (response.ErrorResponse.ErrorMessages != null)
+				{
+					message = string.Join(", ", response.ErrorResponse.ErrorMessages);
+				}
+				else if (response.ErrorResponse?.Message != null)
+				{
+					message = response.ErrorResponse?.Message;
+				}
+				throw new Exception($"Status: {response.StatusCode} Message: {message}");
 			}
 
 			return response.Response;
@@ -616,15 +625,15 @@ namespace Dapplo.Jira
 		///     Please be aware that although cookie-based authentication has many benefits, such as performance (not having to
 		///     make multiple authentication calls), the session cookie can expire..
 		/// </remarks>
-		/// <param name="login">User login</param>
+		/// <param name="username">User username</param>
 		/// <param name="password">User password</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>LoginInfo</returns>
-		public async Task<LoginInfo> StartSessionAsync(string login, string password, CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<LoginInfo> StartSessionAsync(string username, string password, CancellationToken cancellationToken = default(CancellationToken))
 		{
-			if (login == null)
+			if (username == null)
 			{
-				throw new ArgumentNullException(nameof(login));
+				throw new ArgumentNullException(nameof(username));
 			}
 			if (password == null)
 			{
@@ -634,7 +643,7 @@ namespace Dapplo.Jira
 
 			_behaviour.MakeCurrent();
 
-			var content = new StringContent($"{{ \"username\": \"{login}\", \"password\": \"{password}\"}}");
+			var content = new StringContent($"{{ \"username\": \"{username}\", \"password\": \"{password}\"}}");
 			content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
 
 			var response = await sessionUri.PostAsync<HttpResponse<SessionResponse, Error>>(content, cancellationToken);
@@ -657,7 +666,6 @@ namespace Dapplo.Jira
 				var sessionUri = JiraAuthUri.AppendSegments("session");
 
 				_behaviour.MakeCurrent();
-
 				var response = await sessionUri.DeleteAsync<HttpResponseMessage>(cancellationToken);
 
 				if (response.StatusCode != HttpStatusCode.NoContent)
