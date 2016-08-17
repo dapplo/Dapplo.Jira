@@ -48,7 +48,7 @@ namespace Dapplo.Jira.Entities
 		///     Fields for this query
 		/// </summary>
 		[DataMember(Name = "fields")]
-		public IList<string> Fields { get; set; }
+		public IEnumerable<string> Fields { get; set; }
 
 		/// <summary>
 		///     The JQL for this search

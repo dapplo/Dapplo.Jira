@@ -265,7 +265,7 @@ namespace Dapplo.Jira
 		/// <param name="fields">Jira fields to include, if null the defaults from the JiraConfig.SearchFields are taken</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>SearchResult</returns>
-		public async Task<SearchResult> SearchAsync(string jql, int maxResults = 20, IList<string> fields = null,
+		public async Task<SearchResult> SearchAsync(string jql, int maxResults = 20, IEnumerable<string> fields = null,
 			CancellationToken cancellationToken = default(CancellationToken))
 		{
 			if (jql == null)
