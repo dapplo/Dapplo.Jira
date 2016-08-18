@@ -112,6 +112,27 @@ namespace Dapplo.Jira
 		}
 
 		/// <summary>
+		/// Returns the content, specified by the Urim from the JIRA server.
+		/// This is used internally, but can also be used to get e.g. the icon for an issue type.
+		/// </summary>
+		/// <typeparam name="TResponse"></typeparam>
+		/// <param name="contentUri">Uri</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>TResponse</returns>
+		public async Task<TResponse> GetUriContentAsync<TResponse>(Uri contentUri, CancellationToken cancellationToken = default(CancellationToken))
+			where TResponse : class
+		{
+			_behaviour.MakeCurrent();
+
+			var response = await contentUri.GetAsAsync<HttpResponse<TResponse, string>>(cancellationToken).ConfigureAwait(false);
+			if (response.HasError)
+			{
+				throw new Exception($"Status: {response.StatusCode} Message: {response.ErrorResponse}");
+			}
+			return response.Response;
+		}
+
+		/// <summary>
 		///     Retrieve the Avatar for the supplied avatarUrls object
 		/// </summary>
 		/// <typeparam name="TResponse">the type to return the result into. e.g. Bitmap,BitmapSource or MemoryStream</typeparam>
@@ -126,12 +147,7 @@ namespace Dapplo.Jira
 			_behaviour.MakeCurrent();
 			Uri avatarUri = avatarUrls.GetUri(avatarSize);
 
-			var response = await avatarUri.GetAsAsync<HttpResponse<TResponse, string>>(cancellationToken).ConfigureAwait(false);
-			if (response.HasError)
-			{
-				throw new Exception($"Status: {response.StatusCode} Message: {response.ErrorResponse}");
-			}
-			return response.Response;
+			return await GetUriContentAsync<TResponse>(avatarUri, cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -370,9 +386,7 @@ namespace Dapplo.Jira
 			{
 				throw new ArgumentNullException(nameof(attachment));
 			}
-
-			_behaviour.MakeCurrent();
-			return await attachment.ContentUri.GetAsAsync<TResponse>(cancellationToken).ConfigureAwait(false);
+			return await GetUriContentAsync<TResponse>(attachment.ContentUri, cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -393,8 +407,8 @@ namespace Dapplo.Jira
 			{
 				return null;
 			}
-			_behaviour.MakeCurrent();
-			return await attachment.ThumbnailUri.GetAsAsync<TResponse>(cancellationToken).ConfigureAwait(false);
+
+			return await GetUriContentAsync<TResponse>(attachment.ThumbnailUri, cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
