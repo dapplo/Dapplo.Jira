@@ -35,6 +35,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
 using Dapplo.Jira.Entities;
+using Dapplo.Log.Facade;
 
 #endregion
 
@@ -45,6 +46,8 @@ namespace Dapplo.Jira
 	/// </summary>
 	public class JiraApi
 	{
+		private static readonly LogSource Log = new LogSource();
+
 		/// <summary>
 		///     Store the specific HttpBehaviour, which contains a IHttpSettings and also some additional logic for making a
 		///     HttpClient which works with Jira
@@ -61,6 +64,8 @@ namespace Dapplo.Jira
 		/// <param name="httpSettings">IHttpSettings or null for default</param>
 		public JiraApi(Uri baseUri, IHttpSettings httpSettings = null)
 		{
+			Log.Debug().WriteLine("Created jira api client for {0}", baseUri);
+
 			if (baseUri == null)
 			{
 				throw new ArgumentNullException(nameof(baseUri));
@@ -122,6 +127,8 @@ namespace Dapplo.Jira
 		public async Task<TResponse> GetUriContentAsync<TResponse>(Uri contentUri, CancellationToken cancellationToken = default(CancellationToken))
 			where TResponse : class
 		{
+			Log.Debug().WriteLine("Retrieving content from {0}", contentUri);
+
 			_behaviour.MakeCurrent();
 
 			var response = await contentUri.GetAsAsync<HttpResponse<TResponse, string>>(cancellationToken).ConfigureAwait(false);
@@ -144,8 +151,9 @@ namespace Dapplo.Jira
 			CancellationToken cancellationToken = default(CancellationToken))
 			where TResponse : class
 		{
+			var avatarUri = avatarUrls.GetUri(avatarSize);
+
 			_behaviour.MakeCurrent();
-			Uri avatarUri = avatarUrls.GetUri(avatarSize);
 
 			return await GetUriContentAsync<TResponse>(avatarUri, cancellationToken).ConfigureAwait(false);
 		}
@@ -158,10 +166,18 @@ namespace Dapplo.Jira
 		/// <returns>ServerInfo</returns>
 		public async Task<ServerInfo> GetServerInfoAsync(CancellationToken cancellationToken = default(CancellationToken))
 		{
+			Log.Debug().WriteLine("Retrieving server information");
+
 			var serverInfoUri = JiraRestUri.AppendSegments("serverInfo");
 			_behaviour.MakeCurrent();
 
 			var response = await serverInfoUri.GetAsAsync<HttpResponse<ServerInfo, Error>>(cancellationToken).ConfigureAwait(false);
+
+			if (!response.HasError)
+			{
+				var serverInfo = response.Response;
+				Log.Debug().WriteLine("Server title {0}, version {1}, uri {2}, build date {3}, build number {4}, scm info {5}",serverInfo.ServerTitle, serverInfo.Version, serverInfo.BaseUrl, serverInfo.BuildDate, serverInfo.BuildNumber, serverInfo.ScmInfo);
+			}
 			return HandleErrors(response);
 		}
 
@@ -186,6 +202,7 @@ namespace Dapplo.Jira
 				{
 					message = response.ErrorResponse?.Message;
 				}
+				Log.Warn().WriteLine("Http status code: {0}. Response from server: {1}", response.StatusCode, message);
 				throw new Exception($"Status: {response.StatusCode} Message: {message}");
 			}
 
@@ -209,6 +226,7 @@ namespace Dapplo.Jira
 			{
 				throw new ArgumentNullException(nameof(issueKey));
 			}
+			Log.Debug().WriteLine("Adding comment to {0}", issueKey);
 			var comment = new Comment
 			{
 				Body = body,
@@ -236,6 +254,7 @@ namespace Dapplo.Jira
 			{
 				throw new ArgumentNullException(nameof(issueKey));
 			}
+			Log.Debug().WriteLine("Retrieving issue information for {0}", issueKey);
 			var issueUri = JiraRestUri.AppendSegments("issue", issueKey);
 			// Add the configurable expand values, if the value is not null or empty
 			if (JiraConfig.ExpandGetIssue?.Length > 0)
@@ -261,6 +280,7 @@ namespace Dapplo.Jira
 			{
 				throw new ArgumentNullException(nameof(issueKey));
 			}
+			Log.Debug().WriteLine("Retrieving transition information for {0}", issueKey);
 			var transitionsUri = JiraRestUri.AppendSegments("issue", issueKey, "transitions");
 			if (JiraConfig.ExpandGetTransitions?.Length > 0)
 			{
@@ -288,6 +308,9 @@ namespace Dapplo.Jira
 			{
 				throw new ArgumentNullException(nameof(jql));
 			}
+
+			Log.Debug().WriteLine("Searching via JQL: {0}", jql);
+
 			_behaviour.MakeCurrent();
 			var search = new Search
 			{
@@ -331,6 +354,9 @@ namespace Dapplo.Jira
 			{
 				throw new ArgumentNullException(nameof(content));
 			}
+
+			Log.Debug().WriteLine("Attaching to issue {0}", issueKey);
+
 			var attachment = new AttachmentContainer<TContent>
 			{
 				Content = content,
@@ -367,6 +393,8 @@ namespace Dapplo.Jira
 		/// <param name="cancellationToken">CancellationToken</param>
 		public async Task DeleteAttachmentAsync(long attachmentId, CancellationToken cancellationToken = default(CancellationToken))
 		{
+			Log.Debug().WriteLine("Deleting attachment {0}", attachmentId);
+
 			_behaviour.MakeCurrent();
 			var deleteAttachmentUri = JiraRestUri.AppendSegments("attachment", attachmentId);
 			await deleteAttachmentUri.DeleteAsync(cancellationToken).ConfigureAwait(false);
@@ -386,6 +414,9 @@ namespace Dapplo.Jira
 			{
 				throw new ArgumentNullException(nameof(attachment));
 			}
+
+			Log.Debug().WriteLine("Getting attachment content for {0}", attachment.Id);
+
 			return await GetUriContentAsync<TResponse>(attachment.ContentUri, cancellationToken).ConfigureAwait(false);
 		}
 
@@ -408,6 +439,8 @@ namespace Dapplo.Jira
 				return null;
 			}
 
+			Log.Debug().WriteLine("Deleting attachment  thumbnail {0}", attachment.Id);
+
 			return await GetUriContentAsync<TResponse>(attachment.ThumbnailUri, cancellationToken).ConfigureAwait(false);
 		}
 
@@ -426,6 +459,8 @@ namespace Dapplo.Jira
 				throw new ArgumentNullException(nameof(issueKey));
 			}
 
+			Log.Debug().WriteLine("Updating comment {0} for issue {1}", comment.Id, issueKey);
+
 			_behaviour.MakeCurrent();
 			var attachUri = JiraRestUri.AppendSegments("issue", issueKey, "comment", comment.Id);
 			await attachUri.PutAsync(comment, cancellationToken).ConfigureAwait(false);
@@ -443,6 +478,8 @@ namespace Dapplo.Jira
 		/// <returns>List of filter</returns>
 		public async Task<IList<Filter>> GetFavoriteFiltersAsync(CancellationToken cancellationToken = default(CancellationToken))
 		{
+			Log.Debug().WriteLine("Retrieving favorite filters");
+
 			_behaviour.MakeCurrent();
 			var filterFavouriteUri = JiraRestUri.AppendSegments("filter", "favourite");
 
@@ -465,6 +502,8 @@ namespace Dapplo.Jira
 		/// <returns>Filter</returns>
 		public async Task<Filter> GetFilterAsync(long id, CancellationToken cancellationToken = default(CancellationToken))
 		{
+			Log.Debug().WriteLine("Retrieving filter {0}", id);
+
 			_behaviour.MakeCurrent();
 			var filterUri = JiraRestUri.AppendSegments("filter", id);
 
@@ -486,6 +525,8 @@ namespace Dapplo.Jira
 		/// <param name="cancellationToken">CancellationToken</param>
 		public async Task DeleteFilterAsync(long id, CancellationToken cancellationToken = default(CancellationToken))
 		{
+			Log.Debug().WriteLine("Deleting filter {0}", id);
+
 			_behaviour.MakeCurrent();
 			var filterUri = JiraRestUri.AppendSegments("filter", id);
 
@@ -513,6 +554,9 @@ namespace Dapplo.Jira
 			{
 				throw new ArgumentNullException(nameof(projectKey));
 			}
+
+			Log.Debug().WriteLine("Retrieving project {0}", projectKey);
+
 			var projectUri = JiraRestUri.AppendSegments("project", projectKey);
 
 			// Add the configurable expand values, if the value is not null or empty
@@ -534,6 +578,8 @@ namespace Dapplo.Jira
 		/// <returns>list of ProjectDigest</returns>
 		public async Task<IList<ProjectDigest>> GetProjectsAsync(CancellationToken cancellationToken = default(CancellationToken))
 		{
+			Log.Debug().WriteLine("Retrieving projects");
+
 			var projectsUri = JiraRestUri.AppendSegments("project");
 
 			// Add the configurable expand values, if the value is not null or empty
@@ -564,6 +610,8 @@ namespace Dapplo.Jira
 			{
 				throw new ArgumentNullException(nameof(username));
 			}
+			Log.Debug().WriteLine("Retrieving user {0}", username);
+
 			var userUri = JiraRestUri.AppendSegments("user").ExtendQuery("username", username);
 			_behaviour.MakeCurrent();
 
@@ -590,6 +638,8 @@ namespace Dapplo.Jira
 			{
 				throw new ArgumentNullException(nameof(query));
 			}
+			Log.Debug().WriteLine("Search user via {0}", query);
+
 			_behaviour.MakeCurrent();
 			var searchUri = JiraRestUri.AppendSegments("user", "search").ExtendQuery(new Dictionary<string, object>
 			{
@@ -622,6 +672,8 @@ namespace Dapplo.Jira
 		/// <returns>User</returns>
 		public async Task<User> WhoAmIAsync(CancellationToken cancellationToken = default(CancellationToken))
 		{
+			Log.Debug().WriteLine("Retieving who I am");
+
 			var myselfUri = JiraRestUri.AppendSegments("myself");
 			_behaviour.MakeCurrent();
 			var response = await myselfUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
@@ -657,6 +709,8 @@ namespace Dapplo.Jira
 			{
 				throw new ArgumentException("Cookies need to be enabled", nameof(IHttpSettings.UseCookies));
 			}
+			Log.Debug().WriteLine("Starting a session for {0}", username);
+
 			var sessionUri = JiraAuthUri.AppendSegments("session");
 
 			_behaviour.MakeCurrent();
@@ -679,9 +733,19 @@ namespace Dapplo.Jira
 			// Find the cookie to expire
 			var sessionCookies = _behaviour.CookieContainer.GetCookies(JiraBaseUri).Cast<Cookie>().ToList();
 
+			Log.Debug().WriteLine("Ending session");
+
 			// check if a cookie was found, if not skip the end session
 			if (sessionCookies.Any())
 			{
+				if (Log.IsDebugEnabled())
+				{
+					Log.Debug().WriteLine("Found {0} cookies to invalidate", sessionCookies.Count);
+					foreach (var sessionCookie in sessionCookies)
+					{
+						Log.Debug().WriteLine("Found cookie {0} for domain {1} which expires on {2}", sessionCookie.Name, sessionCookie.Domain, sessionCookie.Expires);
+					}
+				}
 				var sessionUri = JiraAuthUri.AppendSegments("session");
 
 				_behaviour.MakeCurrent();
@@ -689,9 +753,9 @@ namespace Dapplo.Jira
 
 				if (response.StatusCode != HttpStatusCode.NoContent)
 				{
-					throw new Exception($"Status: {response.StatusCode} Message: Failed to close jira session");
+					Log.Warn().WriteLine("Failed to close jira session. Status code: {0} ", response.StatusCode);
 				}
-				// Expire the cookie
+				// Expire the cookie, no mather what the return code was.
 				foreach (var sessionCookie in sessionCookies)
 				{
 					sessionCookie.Expired = true;
