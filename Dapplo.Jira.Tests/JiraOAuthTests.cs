@@ -1,10 +1,6 @@
-﻿using Dapplo.HttpExtensions;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
+﻿using System;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using Dapplo.HttpExtensions.Extensions;
 using Dapplo.HttpExtensions.OAuth;
 using Dapplo.Log.Facade;
 using Dapplo.Log.XUnit;
@@ -18,7 +14,6 @@ namespace Dapplo.Jira.Tests
 	{
 		// Test against a well known JIRA
 		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
-		private static readonly Uri JiraOAuthUri = TestJiraUri.AppendSegments("plugins", "servlet", "oauth");
 		private readonly JiraApi _jiraApi;
 
 		public JiraOAuthTests(ITestOutputHelper testOutputHelper)
@@ -51,17 +46,6 @@ Lw03eHTNQghS0A=="));
 				RsaSha1Provider = provider,
 				AuthorizeMode = AuthorizeModes.LocalhostServer,
 				CloudServiceName = "Greenshot Jira",
-				TokenUrl = JiraOAuthUri.AppendSegments("request-token"),
-				TokenMethod = HttpMethod.Post,
-				AccessTokenUrl = JiraOAuthUri.AppendSegments("access-token"),
-				AccessTokenMethod = HttpMethod.Post,
-				CheckVerifier = false,
-				SignatureType = OAuth1SignatureTypes.RsaSha1,
-				AuthorizationUri = JiraOAuthUri.AppendSegments("authorize")
-				 .ExtendQuery(new Dictionary<string, string>{
-						{ OAuth1Parameters.Token.EnumValueOf(), "{RequestToken}"},
-						{ OAuth1Parameters.Callback.EnumValueOf(), "{RedirectUrl}"}
-				 })
 			};
 			_jiraApi = new JiraApi(TestJiraUri, oAuthSettings);
 		}

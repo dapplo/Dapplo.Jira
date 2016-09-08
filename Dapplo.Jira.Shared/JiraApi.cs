@@ -34,6 +34,7 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
+using Dapplo.HttpExtensions.Extensions;
 #if !_PCL_
 using Dapplo.HttpExtensions.OAuth;
 #endif
@@ -64,9 +65,7 @@ namespace Dapplo.Jira
 		/// <param name="httpSettings">IHttpSettings or null for default</param>
 		public JiraApi(Uri baseUri, IHttpSettings httpSettings = null) : this(baseUri)
 		{
-			IChangeableHttpBehaviour behaviour = new HttpBehaviour();
-			ConfigureBehaviour(behaviour, httpSettings);
-			_behaviour = behaviour;
+			_behaviour = ConfigureBehaviour(new HttpBehaviour(), httpSettings);
 		}
 
 #if !_PCL_
@@ -74,27 +73,45 @@ namespace Dapplo.Jira
 		///     Create the JiraApi, using OAuth 1 for the communication, here the HttpClient is configured
 		/// </summary>
 		/// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
-		/// <param name="oauth1Setting">OAuth1Settings</param>
+		/// <param name="oAuthSettings">OAuth1Settings with the values </param>
 		/// <param name="httpSettings">IHttpSettings or null for default</param>
-		public JiraApi(Uri baseUri, OAuth1Settings oauth1Setting,  IHttpSettings httpSettings = null) : this(baseUri)
+		public JiraApi(Uri baseUri, OAuth1Settings oAuthSettings, IHttpSettings httpSettings = null) : this(baseUri)
 		{
-			IChangeableHttpBehaviour behaviour = OAuth1HttpBehaviourFactory.Create(oauth1Setting);
-			ConfigureBehaviour(behaviour, httpSettings);
-			_behaviour = behaviour;
+			var jiraOAuthUri = JiraBaseUri.AppendSegments("plugins", "servlet", "oauth");
+			// Configure the OAuth1Settings
+			oAuthSettings.TokenUrl = jiraOAuthUri.AppendSegments("request-token");
+			oAuthSettings.TokenMethod = HttpMethod.Post;
+			oAuthSettings.AccessTokenUrl = jiraOAuthUri.AppendSegments("access-token");
+			oAuthSettings.AccessTokenMethod = HttpMethod.Post;
+			oAuthSettings.CheckVerifier = false;
+			oAuthSettings.SignatureType = OAuth1SignatureTypes.RsaSha1;
+			oAuthSettings.AuthorizationUri = jiraOAuthUri.AppendSegments("authorize")
+				 .ExtendQuery(new Dictionary<string, string>{
+						{ OAuth1Parameters.Token.EnumValueOf(), "{RequestToken}"},
+						{ OAuth1Parameters.Callback.EnumValueOf(), "{RedirectUrl}"}
+				 });
+
+			_behaviour = ConfigureBehaviour(OAuth1HttpBehaviourFactory.Create(oAuthSettings), httpSettings);
 		}
 #endif
+		/// <summary>
+		/// Constructor for only the Uri, used internally
+		/// </summary>
+		/// <param name="baseUri"></param>
 		private JiraApi(Uri baseUri)
 		{
 			JiraBaseUri = baseUri;
 			JiraRestUri = baseUri.AppendSegments("rest", "api", "2");
 			JiraAuthUri = baseUri.AppendSegments("rest", "auth", "1");
 		}
+
 		/// <summary>
-		/// Helper methdo to configure the IChangeableHttpBehaviour
+		/// Helper method to configure the IChangeableHttpBehaviour
 		/// </summary>
 		/// <param name="behaviour">IChangeableHttpBehaviour</param>
 		/// <param name="httpSettings">IHttpSettings</param>
-		private void ConfigureBehaviour(IChangeableHttpBehaviour behaviour, IHttpSettings httpSettings = null)
+		/// <returns>the behaviour, but configured as IHttpBehaviour </returns>
+		private IHttpBehaviour ConfigureBehaviour(IChangeableHttpBehaviour behaviour, IHttpSettings httpSettings = null)
 		{
 			behaviour.HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings;
 			behaviour.OnHttpRequestMessageCreated = httpMessage =>
@@ -106,9 +123,9 @@ namespace Dapplo.Jira
 				}
 				return httpMessage;
 			};
-
-
+			return behaviour;
 		}
+
 		/// <summary>
 		///     The base URI for your JIRA server
 		/// </summary>
