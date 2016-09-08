@@ -34,6 +34,9 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
+#if !_PCL_
+using Dapplo.HttpExtensions.OAuth;
+#endif
 using Dapplo.Jira.Entities;
 
 #endregion
@@ -49,7 +52,7 @@ namespace Dapplo.Jira
 		///     Store the specific HttpBehaviour, which contains a IHttpSettings and also some additional logic for making a
 		///     HttpClient which works with Jira
 		/// </summary>
-		private readonly HttpBehaviour _behaviour;
+		private readonly IHttpBehaviour _behaviour;
 
 		private string _password;
 		private string _user;
@@ -59,32 +62,53 @@ namespace Dapplo.Jira
 		/// </summary>
 		/// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
 		/// <param name="httpSettings">IHttpSettings or null for default</param>
-		public JiraApi(Uri baseUri, IHttpSettings httpSettings = null)
+		public JiraApi(Uri baseUri, IHttpSettings httpSettings = null) : this(baseUri)
 		{
-			if (baseUri == null)
-			{
-				throw new ArgumentNullException(nameof(baseUri));
-			}
+			IChangeableHttpBehaviour behaviour = new HttpBehaviour();
+			ConfigureBehaviour(behaviour, httpSettings);
+			_behaviour = behaviour;
+		}
+
+#if !_PCL_
+		/// <summary>
+		///     Create the JiraApi, using OAuth 1 for the communication, here the HttpClient is configured
+		/// </summary>
+		/// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
+		/// <param name="oauth1Setting">OAuth1Settings</param>
+		/// <param name="httpSettings">IHttpSettings or null for default</param>
+		public JiraApi(Uri baseUri, OAuth1Settings oauth1Setting,  IHttpSettings httpSettings = null) : this(baseUri)
+		{
+			IChangeableHttpBehaviour behaviour = OAuth1HttpBehaviourFactory.Create(oauth1Setting);
+			ConfigureBehaviour(behaviour, httpSettings);
+			_behaviour = behaviour;
+		}
+#endif
+		private JiraApi(Uri baseUri)
+		{
 			JiraBaseUri = baseUri;
 			JiraRestUri = baseUri.AppendSegments("rest", "api", "2");
 			JiraAuthUri = baseUri.AppendSegments("rest", "auth", "1");
-
-			_behaviour = new HttpBehaviour
-			{
-				HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings,
-				OnHttpRequestMessageCreated = httpMessage =>
-				{
-					httpMessage?.Headers.TryAddWithoutValidation("X-Atlassian-Token", "no-check");
-
-					if (!string.IsNullOrEmpty(_user) && _password != null)
-					{
-						httpMessage?.SetBasicAuthorization(_user, _password);
-					}
-					return httpMessage;
-				}
-			};
 		}
+		/// <summary>
+		/// Helper methdo to configure the IChangeableHttpBehaviour
+		/// </summary>
+		/// <param name="behaviour">IChangeableHttpBehaviour</param>
+		/// <param name="httpSettings">IHttpSettings</param>
+		private void ConfigureBehaviour(IChangeableHttpBehaviour behaviour, IHttpSettings httpSettings = null)
+		{
+			behaviour.HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings;
+			behaviour.OnHttpRequestMessageCreated = httpMessage =>
+			{
+				httpMessage?.Headers.TryAddWithoutValidation("X-Atlassian-Token", "no-check");
+				if (!string.IsNullOrEmpty(_user) && _password != null)
+				{
+					httpMessage?.SetBasicAuthorization(_user, _password);
+				}
+				return httpMessage;
+			};
 
+
+		}
 		/// <summary>
 		///     The base URI for your JIRA server
 		/// </summary>
