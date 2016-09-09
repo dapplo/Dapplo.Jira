@@ -34,8 +34,8 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
-using Dapplo.HttpExtensions.Extensions;
 #if !_PCL_
+using Dapplo.HttpExtensions.Extensions;
 using Dapplo.HttpExtensions.OAuth;
 #endif
 using Dapplo.Jira.Entities;
@@ -212,11 +212,12 @@ namespace Dapplo.Jira
 
 			var response = await serverInfoUri.GetAsAsync<HttpResponse<ServerInfo, Error>>(cancellationToken).ConfigureAwait(false);
 
-			if (!response.HasError)
+			if (response.HasError)
 			{
-				var serverInfo = response.Response;
-				Log.Debug().WriteLine("Server title {0}, version {1}, uri {2}, build date {3}, build number {4}, scm info {5}",serverInfo.ServerTitle, serverInfo.Version, serverInfo.BaseUrl, serverInfo.BuildDate, serverInfo.BuildNumber, serverInfo.ScmInfo);
+				return HandleErrors(response);
 			}
+			var serverInfo = response.Response;
+			Log.Debug().WriteLine("Server title {0}, version {1}, uri {2}, build date {3}, build number {4}, scm info {5}",serverInfo.ServerTitle, serverInfo.Version, serverInfo.BaseUrl, serverInfo.BuildDate, serverInfo.BuildNumber, serverInfo.ScmInfo);
 			return HandleErrors(response);
 		}
 
@@ -230,22 +231,21 @@ namespace Dapplo.Jira
 		/// <returns></returns>
 		private static TResponse HandleErrors<TResponse, TError>(HttpResponse<TResponse, TError> response) where TResponse : class where TError : Error
 		{
-			if (response.HasError)
+			if (!response.HasError)
 			{
-				var message = response.StatusCode.ToString();
-				if (response.ErrorResponse.ErrorMessages != null)
-				{
-					message = string.Join(", ", response.ErrorResponse.ErrorMessages);
-				}
-				else if (response.ErrorResponse?.Message != null)
-				{
-					message = response.ErrorResponse?.Message;
-				}
-				Log.Warn().WriteLine("Http status code: {0}. Response from server: {1}", response.StatusCode, message);
-				throw new Exception($"Status: {response.StatusCode} Message: {message}");
+				return response.Response;
 			}
-
-			return response.Response;
+			var message = response.StatusCode.ToString();
+			if (response.ErrorResponse.ErrorMessages != null)
+			{
+				message = string.Join(", ", response.ErrorResponse.ErrorMessages);
+			}
+			else if (response.ErrorResponse?.Message != null)
+			{
+				message = response.ErrorResponse?.Message;
+			}
+			Log.Warn().WriteLine("Http status code: {0}. Response from server: {1}", response.StatusCode, message);
+			throw new Exception($"Status: {response.StatusCode} Message: {message}");
 		}
 
 		#region issue

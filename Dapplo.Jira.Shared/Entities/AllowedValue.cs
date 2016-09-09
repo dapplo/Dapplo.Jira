@@ -49,7 +49,7 @@ namespace Dapplo.Jira.Entities
 		///    TODO: Describe
 		/// </summary>
 		[DataMember(Name = "autoCompleteUrl")]
-		public Uri autoCompleteUrl { get; set; }
+		public Uri AutoCompleteUrl { get; set; }
 
 		/// <summary>
 		///     Possible operations

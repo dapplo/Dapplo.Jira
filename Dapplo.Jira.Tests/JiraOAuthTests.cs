@@ -1,12 +1,15 @@
 ﻿using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions.OAuth;
 using Dapplo.Log.Facade;
 using Dapplo.Log.XUnit;
-using DevDefined.OAuth.KeyInterop;
+using Org.BouncyCastle.Crypto.Parameters;
 using Xunit;
 using Xunit.Abstractions;
+using Org.BouncyCastle.OpenSsl;
+using Org.BouncyCastle.Security;
 
 namespace Dapplo.Jira.Tests
 {
@@ -19,8 +22,8 @@ namespace Dapplo.Jira.Tests
 		public JiraOAuthTests(ITestOutputHelper testOutputHelper)
 		{
 			// Retrieve the Private key from Demo Certificate.
-			var parser = new AsnKeyParser(Convert.FromBase64String(
-				@"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALRiMLAh9iimur8V
+			const string privateKeyString = @"-----BEGIN PRIVATE KEY-----
+MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALRiMLAh9iimur8V
 A7qVvdqxevEuUkW4K+2KdMXmnQbG9Aa7k7eBjK1S+0LYmVjPKlJGNXHDGuy5Fw/d
 7rjVJ0BLB+ubPK8iA/Tw3hLQgXMRRGRXXCn8ikfuQfjUS1uZSatdLB81mydBETlJ
 hI6GH4twrbDJCR2Bwy/XWXgqgGRzAgMBAAECgYBYWVtleUzavkbrPjy0T5FMou8H
@@ -33,10 +36,16 @@ WPTpAkBI+gFhjfJvRw38n3g/+UeAkwMI2TJQS4n8+hid0uus3/zOjDySH3XHCUno
 cn1xOJAyZODBo47E+67R4jV1/gzbAkEAklJaspRPXP877NssM5nAZMU0/O/NGCZ+
 3jPgDUno6WbJn5cqm8MqWhW1xGkImgRk+fkDBquiq4gPiT898jusgQJAd5Zrr6Q8
 AO/0isr/3aa6O6NLQxISLKcPDk2NOccAfS/xOtfOz4sJYM3+Bs4Io9+dZGSDCA54
-Lw03eHTNQghS0A=="));
-			var provider = new RSACryptoServiceProvider();
+Lw03eHTNQghS0A==
+-----END PRIVATE KEY-----";
 
-			provider.ImportParameters(parser.ParseRSAPrivateKey());
+			var provider = new RSACryptoServiceProvider();
+			using (var stringReader = new StringReader(privateKeyString))
+			{
+				var privateKey = (RsaPrivateCrtKeyParameters) new PemReader(stringReader).ReadObject();
+				var rsaParameters = DotNetUtilities.ToRSAParameters(privateKey);
+				provider.ImportParameters(rsaParameters);
+			}
 
 			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
 
@@ -45,7 +54,7 @@ Lw03eHTNQghS0A=="));
 				ClientId = "lInXLgx6HbF9FFq1ZQN8iSEnhzO3JVuf",
 				RsaSha1Provider = provider,
 				AuthorizeMode = AuthorizeModes.LocalhostServer,
-				CloudServiceName = "Greenshot Jira",
+				CloudServiceName = "Greenshot Jira"
 			};
 			_jiraApi = new JiraApi(TestJiraUri, oAuthSettings);
 		}
