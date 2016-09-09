@@ -10,7 +10,14 @@ using Xunit.Abstractions;
 namespace Dapplo.Jira.Tests
 {
 	/// <summary>
-	/// Test a OAuth 
+	/// Test a OAuth connection to the JIRA system.
+	/// The process would be as follows:
+	/// 1) Create a public/private key pair once for your application
+	/// 2) setup an application link in Jira, as incoming connection. Use the public key created in 1. Give a "consumer key", this can be anything.
+	/// 3) In your code, create a RSACryptoServiceProvider from the private key (however you want) and fill the OAuth1Settings (if you have token information, pass this)
+	/// 4) Create the JiraApi instance with the Uri and OAuth1Settings -> start using it.
+	/// 5) At the first connect, the authentication challenge is started if there wasn't any token information
+	/// 6) Store the OAuthToken / OAuthTokenSecret / OAuthTokenVerifier for later usage...
 	/// </summary>
 	public class JiraOAuthTests : IOAuth1Token
 	{
