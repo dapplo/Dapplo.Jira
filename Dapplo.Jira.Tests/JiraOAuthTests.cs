@@ -1,19 +1,18 @@
 ﻿using System;
-using System.IO;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions.OAuth;
 using Dapplo.Log.Facade;
 using Dapplo.Log.XUnit;
-using Org.BouncyCastle.Crypto.Parameters;
 using Xunit;
 using Xunit.Abstractions;
-using Org.BouncyCastle.OpenSsl;
-using Org.BouncyCastle.Security;
 
 namespace Dapplo.Jira.Tests
 {
-	public class JiraOAuthTests
+	/// <summary>
+	/// Test a OAuth 
+	/// </summary>
+	public class JiraOAuthTests : IOAuth1Token
 	{
 		// Test against a well known JIRA
 		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
@@ -21,41 +20,39 @@ namespace Dapplo.Jira.Tests
 
 		public JiraOAuthTests(ITestOutputHelper testOutputHelper)
 		{
-			// Retrieve the Private key from Demo Certificate.
-			const string privateKeyString = @"-----BEGIN PRIVATE KEY-----
-MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALRiMLAh9iimur8V
-A7qVvdqxevEuUkW4K+2KdMXmnQbG9Aa7k7eBjK1S+0LYmVjPKlJGNXHDGuy5Fw/d
-7rjVJ0BLB+ubPK8iA/Tw3hLQgXMRRGRXXCn8ikfuQfjUS1uZSatdLB81mydBETlJ
-hI6GH4twrbDJCR2Bwy/XWXgqgGRzAgMBAAECgYBYWVtleUzavkbrPjy0T5FMou8H
-X9u2AC2ry8vD/l7cqedtwMPp9k7TubgNFo+NGvKsl2ynyprOZR1xjQ7WgrgVB+mm
-uScOM/5HVceFuGRDhYTCObE+y1kxRloNYXnx3ei1zbeYLPCHdhxRYW7T0qcynNmw
-rn05/KO2RLjgQNalsQJBANeA3Q4Nugqy4QBUCEC09SqylT2K9FrrItqL2QKc9v0Z
-zO2uwllCbg0dwpVuYPYXYvikNHHg+aCWF+VXsb9rpPsCQQDWR9TT4ORdzoj+Nccn
-qkMsDmzt0EfNaAOwHOmVJ2RVBspPcxt5iN4HI7HNeG6U5YsFBb+/GZbgfBT3kpNG
-WPTpAkBI+gFhjfJvRw38n3g/+UeAkwMI2TJQS4n8+hid0uus3/zOjDySH3XHCUno
-cn1xOJAyZODBo47E+67R4jV1/gzbAkEAklJaspRPXP877NssM5nAZMU0/O/NGCZ+
-3jPgDUno6WbJn5cqm8MqWhW1xGkImgRk+fkDBquiq4gPiT898jusgQJAd5Zrr6Q8
-AO/0isr/3aa6O6NLQxISLKcPDk2NOccAfS/xOtfOz4sJYM3+Bs4Io9+dZGSDCA54
-Lw03eHTNQghS0A==
------END PRIVATE KEY-----";
+			// A demo Private key, to create a RSACryptoServiceProvider.
+			// This was created from a .pem via a tool here http://www.jensign.com/opensslkey/index.html
+			const string privateKeyXml = @"<RSAKeyValue><Modulus>tGIwsCH2KKa6vxUDupW92rF68S5SRbgr7Yp0xeadBsb0BruTt4GMrVL7QtiZWM8qUkY1ccMa7LkXD93uuNUnQEsH65s8ryID9P
+DeEtCBcxFEZFdcKfyKR+5B+NRLW5lJq10sHzWbJ0EROUmEjoYfi3CtsMkJHYHDL9dZeCqAZHM=</Modulus><Exponent>AQAB</Exponent><P>14DdDg26
+CrLhAFQIQLT1KrKVPYr0Wusi2ovZApz2/RnM7a7CWUJuDR3ClW5g9hdi+KQ0ceD5oJYX5Vexv2uk+w==</P><Q>1kfU0+DkXc6I/jXHJ6pDLA5s7dBHzWgDs
+BzplSdkVQbKT3MbeYjeByOxzXhulOWLBQW/vxmW4HwU95KTRlj06Q==</Q><DP>SPoBYY3yb0cN/J94P/lHgJMDCNkyUEuJ/PoYndLrrN/8zow8kh91xwlJ6
+HJ9cTiQMmTgwaOOxPuu0eI1df4M2w==</DP><DQ>klJaspRPXP877NssM5nAZMU0/O/NGCZ+3jPgDUno6WbJn5cqm8MqWhW1xGkImgRk+fkDBquiq4gPiT89
+8jusgQ==</DQ><InverseQ>d5Zrr6Q8AO/0isr/3aa6O6NLQxISLKcPDk2NOccAfS/xOtfOz4sJYM3+Bs4Io9+dZGSDCA54Lw03eHTNQghS0A==</Inverse
+Q><D>WFlbZXlM2r5G6z48tE+RTKLvB1/btgAtq8vLw/5e3KnnbcDD6fZO07m4DRaPjRryrJdsp8qazmUdcY0O1oK4FQfpprknDjP+R1XHhbhkQ4WEwjmxPst
+ZMUZaDWF58d3otc23mCzwh3YcUWFu09KnMpzZsK59OfyjtkS44EDWpbE=</D></RSAKeyValue>";
 
-			var provider = new RSACryptoServiceProvider();
-			using (var stringReader = new StringReader(privateKeyString))
-			{
-				var privateKey = (RsaPrivateCrtKeyParameters) new PemReader(stringReader).ReadObject();
-				var rsaParameters = DotNetUtilities.ToRSAParameters(privateKey);
-				provider.ImportParameters(rsaParameters);
-			}
+			// Create the RSACryptoServiceProvider for the XML above
+			var rsaCryptoServiceProvider = new RSACryptoServiceProvider();
+			rsaCryptoServiceProvider.FromXmlString(privateKeyXml);
 
+			// Configure the XUnitLogger for logging
 			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
 
+			// Only a few settings for the Jira OAuth are important
 			var oAuthSettings = new OAuth1Settings
 			{
+				// Is specified on the linked-applications as consumer key
 				ClientId = "lInXLgx6HbF9FFq1ZQN8iSEnhzO3JVuf",
-				RsaSha1Provider = provider,
+				// This needs to have the private key, the represented public key is set in the linked-applications
+				RsaSha1Provider = rsaCryptoServiceProvider,
+				// Use a server at Localhost to redirect to, alternative an embedded browser can be used
 				AuthorizeMode = AuthorizeModes.LocalhostServer,
-				CloudServiceName = "Greenshot Jira"
+				// When using the embbed browser this is directly visible, with the LocalhostServer it's in the info notice after a redirect
+				CloudServiceName = "Greenshot Jira",
+				// the IOAuth1Token implementation, here it's this, gets the tokens to store & retrieve for later
+				Token = this
 			};
+			// Create the JiraApi for the Uri and the settings
 			_jiraApi = new JiraApi(TestJiraUri, oAuthSettings);
 		}
 
@@ -64,11 +61,18 @@ Lw03eHTNQghS0A==
 		///     This will test Oauth with a LocalServer "code" receiver
 		/// </summary>
 		/// <returns>Task</returns>
-		//[Fact]
-		public async Task TestOauth2Request()
+		[Fact]
+		public async Task TestOauthRequest()
 		{
+			// Check "who am I" so we can see that the user who authenticated is really logged in
 			var user = await _jiraApi.WhoAmIAsync();
 			Assert.NotNull(user);
+			Assert.NotEmpty(OAuthToken);
+			Assert.NotEmpty(OAuthTokenSecret);
 		}
+
+		public string OAuthToken { get; set; }
+		public string OAuthTokenSecret { get; set; }
+		public string OAuthTokenVerifier { get; set; }
 	}
 }
