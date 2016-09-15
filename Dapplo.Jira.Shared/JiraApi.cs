@@ -76,23 +76,34 @@ namespace Dapplo.Jira
 		///     Create the JiraApi, using OAuth 1 for the communication, here the HttpClient is configured
 		/// </summary>
 		/// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
-		/// <param name="oAuthSettings">OAuth1Settings with the values </param>
+		/// <param name="jiraOAuthSettings">JiraOAuthSettings</param>
 		/// <param name="httpSettings">IHttpSettings or null for default</param>
-		public JiraApi(Uri baseUri, OAuth1Settings oAuthSettings, IHttpSettings httpSettings = null) : this(baseUri)
+		public JiraApi(Uri baseUri, JiraOAuthSettings jiraOAuthSettings, IHttpSettings httpSettings = null) : this(baseUri)
 		{
 			var jiraOAuthUri = JiraBaseUri.AppendSegments("plugins", "servlet", "oauth");
+
+			var oAuthSettings = new OAuth1Settings
+			{
+				TokenUrl = jiraOAuthUri.AppendSegments("request-token"),
+				TokenMethod = HttpMethod.Post,
+				AccessTokenUrl = jiraOAuthUri.AppendSegments("access-token"),
+				AccessTokenMethod = HttpMethod.Post,
+				CheckVerifier = false,
+				SignatureType = OAuth1SignatureTypes.RsaSha1,
+				Token = jiraOAuthSettings.Token,
+				ClientId = jiraOAuthSettings.ConsumerKey,
+				CloudServiceName = jiraOAuthSettings.CloudServiceName,
+				RsaSha1Provider = jiraOAuthSettings.RsaSha1Provider,
+				AuthorizeMode = jiraOAuthSettings.AuthorizeMode,
+				AuthorizationUri = jiraOAuthUri.AppendSegments("authorize")
+					.ExtendQuery(new Dictionary<string, string>
+					{
+						{OAuth1Parameters.Token.EnumValueOf(), "{RequestToken}"},
+						{OAuth1Parameters.Callback.EnumValueOf(), "{RedirectUrl}"}
+					})
+			};
+
 			// Configure the OAuth1Settings
-			oAuthSettings.TokenUrl = jiraOAuthUri.AppendSegments("request-token");
-			oAuthSettings.TokenMethod = HttpMethod.Post;
-			oAuthSettings.AccessTokenUrl = jiraOAuthUri.AppendSegments("access-token");
-			oAuthSettings.AccessTokenMethod = HttpMethod.Post;
-			oAuthSettings.CheckVerifier = false;
-			oAuthSettings.SignatureType = OAuth1SignatureTypes.RsaSha1;
-			oAuthSettings.AuthorizationUri = jiraOAuthUri.AppendSegments("authorize")
-				 .ExtendQuery(new Dictionary<string, string>{
-						{ OAuth1Parameters.Token.EnumValueOf(), "{RequestToken}"},
-						{ OAuth1Parameters.Callback.EnumValueOf(), "{RedirectUrl}"}
-				 });
 
 			_behaviour = ConfigureBehaviour(OAuth1HttpBehaviourFactory.Create(oAuthSettings), httpSettings);
 		}

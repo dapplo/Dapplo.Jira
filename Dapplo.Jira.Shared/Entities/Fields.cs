@@ -28,6 +28,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Dapplo.HttpExtensions;
 
 #endregion
 
@@ -166,7 +167,7 @@ namespace Dapplo.Jira.Entities
 		public DateTimeOffset Updated { get; set; }
 
 		/// <summary>
-		///     Version for which this ticket is (e.g. a bug in version 1.2)
+		///     Version for which this ticket is
 		/// </summary>
 		[DataMember(Name = "versions")]
 		public IList<Version> Versions { get; set; }
@@ -184,9 +185,10 @@ namespace Dapplo.Jira.Entities
 		public Worklogs Worklogs { get; set; }
 
 		/// <summary>
-		///     Catch all unspecified fields
+		///    All custom field values.
+		///    A custom field must match the reg-ex pattern "customfield_.*", otherwise it's ignored.
 		/// </summary>
-		[DataMember]
-		public IDictionary<string, string> CustomFields { get; set; }
+		[ExtensionData(Pattern = "customfield_.*")]
+		public IDictionary<string, string> CustomFields { get; } = new Dictionary<string, string>();
 	}
 }

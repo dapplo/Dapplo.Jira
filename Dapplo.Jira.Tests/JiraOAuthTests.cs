@@ -46,10 +46,10 @@ ZMUZaDWF58d3otc23mCzwh3YcUWFu09KnMpzZsK59OfyjtkS44EDWpbE=</D></RSAKeyValue>";
 			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
 
 			// Only a few settings for the Jira OAuth are important
-			var oAuthSettings = new OAuth1Settings
+			var oAuthSettings = new JiraOAuthSettings
 			{
 				// Is specified on the linked-applications as consumer key
-				ClientId = "lInXLgx6HbF9FFq1ZQN8iSEnhzO3JVuf",
+				ConsumerKey = "lInXLgx6HbF9FFq1ZQN8iSEnhzO3JVuf",
 				// This needs to have the private key, the represented public key is set in the linked-applications
 				RsaSha1Provider = rsaCryptoServiceProvider,
 				// Use a server at Localhost to redirect to, alternative an embedded browser can be used
@@ -68,7 +68,7 @@ ZMUZaDWF58d3otc23mCzwh3YcUWFu09KnMpzZsK59OfyjtkS44EDWpbE=</D></RSAKeyValue>";
 		///     This will test Oauth with a LocalServer "code" receiver
 		/// </summary>
 		/// <returns>Task</returns>
-		[Fact]
+		//[Fact]
 		public async Task TestOauthRequest()
 		{
 			// Check "who am I" so we can see that the user who authenticated is really logged in

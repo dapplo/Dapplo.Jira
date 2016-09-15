@@ -33,8 +33,8 @@
     <DocumentationFile>bin\Release\Dapplo.Jira.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapplo.HttpExtensions, Version=0.5.34.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapplo.HttpExtensions.0.5.34\lib\net45\Dapplo.HttpExtensions.dll</HintPath>
+    <Reference Include="Dapplo.HttpExtensions, Version=0.5.42.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapplo.HttpExtensions.0.5.42\lib\net45\Dapplo.HttpExtensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Dapplo.Log.Facade, Version=0.5.4.0, Culture=neutral, processorArchitecture=MSIL">
@@ -51,6 +51,7 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JiraOAuthSettings.cs" />
     <Compile Include="Powershell\AddJiraAttachment.cs" />
     <Compile Include="Powershell\GetJiraIssue.cs" />
     <Compile Include="Powershell\GetJiraProjects.cs" />

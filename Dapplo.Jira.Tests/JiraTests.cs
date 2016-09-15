@@ -118,6 +118,7 @@ namespace Dapplo.Jira.Tests
 			Assert.NotNull(issue);
 			Assert.NotNull(issue.Fields.IssueType);
 			Assert.NotNull(issue.Fields.Comments.Elements);
+			Assert.True(issue.Fields.CustomFields.Count > 0);
 			Assert.True(issue.Fields.Comments.Elements.Count > 0);
 		}
 
@@ -194,7 +195,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetPossibleTransitionsAsync()
 		{
-			JsonHttpContentConverter.Instance.LogThreshold = 0;
+			SimpleJsonHttpContentConverter.Instance.LogThreshold = 0;
 			JiraConfig.ExpandGetTransitions = new[] { "transitions.fields" };
 			var transitions = await _jiraApi.GetPossibleTransitionsAsync("BUG-1845");
 			Assert.NotNull(transitions);
