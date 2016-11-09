@@ -34,12 +34,12 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
-#if !_PCL_
+#if !NETSTANDARD1_3
 using Dapplo.HttpExtensions.Extensions;
 using Dapplo.HttpExtensions.OAuth;
 #endif
 using Dapplo.Jira.Entities;
-using Dapplo.Log.Facade;
+using Dapplo.Log;
 
 #endregion
 
@@ -71,7 +71,7 @@ namespace Dapplo.Jira
 			_behaviour = ConfigureBehaviour(new HttpBehaviour(), httpSettings);
 		}
 
-#if !_PCL_
+#if !NETSTANDARD1_3
 		/// <summary>
 		///     Create the JiraApi, using OAuth 1 for the communication, here the HttpClient is configured
 		/// </summary>

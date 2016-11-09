@@ -23,6 +23,7 @@
 
 #endregion
 
+#if NET45 || NET46
 #region Usings
 
 using System.Management.Automation;
@@ -87,3 +88,4 @@ namespace Dapplo.Jira.Powershell.Support
 		}
 	}
 }
+#endif

@@ -28,7 +28,7 @@
 using System;
 using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
-using Dapplo.Log.Facade;
+using Dapplo.Log;
 using Dapplo.Log.XUnit;
 using Xunit;
 using Xunit.Abstractions;

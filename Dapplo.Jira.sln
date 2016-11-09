@@ -1,41 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapplo.Jira", "Dapplo.Jira\Dapplo.Jira.csproj", "{4AE569B6-987B-4EEF-936C-D60672CE861E}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dapplo.Jira", "Dapplo.Jira\Dapplo.Jira.xproj", "{C57A6597-291B-4BB4-B87A-30B0B39C41E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapplo.Jira.WpfExample", "Dapplo.Jira.WpfExample\Dapplo.Jira.WpfExample.csproj", "{21318574-B731-40E3-BA54-0C92429B5317}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Dapplo.Jira.Shared", "Dapplo.Jira.Shared\Dapplo.Jira.Shared.shproj", "{9ADC9877-D20C-426D-B82D-DDED453D12BD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapplo.Jira.PCL", "Dapplo.Jira.PCL\Dapplo.Jira.PCL.csproj", "{437D6408-B03C-4AE2-B736-D7E9763C2B09}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapplo.Jira.Tests", "Dapplo.Jira.Tests\Dapplo.Jira.Tests.csproj", "{2119C12B-5874-4E60-BD36-45CA1D29FDDC}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dapplo.Jira.Tests", "Dapplo.Jira.Tests\Dapplo.Jira.Tests.xproj", "{2119C12B-5874-4E60-BD36-45CA1D29FDDC}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Dapplo.Jira.Shared\Dapplo.Jira.Shared.projitems*{9adc9877-d20c-426d-b82d-dded453d12bd}*SharedItemsImports = 13
-		Dapplo.Jira.Shared\Dapplo.Jira.Shared.projitems*{4ae569b6-987b-4eef-936c-d60672ce861e}*SharedItemsImports = 4
-		Dapplo.Jira.Shared\Dapplo.Jira.Shared.projitems*{437d6408-b03c-4ae2-b736-d7e9763c2b09}*SharedItemsImports = 4
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AnyCPU = Debug|AnyCPU
 		Release|AnyCPU = Release|AnyCPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4AE569B6-987B-4EEF-936C-D60672CE861E}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
-		{4AE569B6-987B-4EEF-936C-D60672CE861E}.Debug|AnyCPU.Build.0 = Debug|Any CPU
-		{4AE569B6-987B-4EEF-936C-D60672CE861E}.Release|AnyCPU.ActiveCfg = Release|Any CPU
-		{4AE569B6-987B-4EEF-936C-D60672CE861E}.Release|AnyCPU.Build.0 = Release|Any CPU
-		{21318574-B731-40E3-BA54-0C92429B5317}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
-		{21318574-B731-40E3-BA54-0C92429B5317}.Debug|AnyCPU.Build.0 = Debug|Any CPU
-		{21318574-B731-40E3-BA54-0C92429B5317}.Release|AnyCPU.ActiveCfg = Release|Any CPU
-		{21318574-B731-40E3-BA54-0C92429B5317}.Release|AnyCPU.Build.0 = Release|Any CPU
-		{437D6408-B03C-4AE2-B736-D7E9763C2B09}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
-		{437D6408-B03C-4AE2-B736-D7E9763C2B09}.Debug|AnyCPU.Build.0 = Debug|Any CPU
-		{437D6408-B03C-4AE2-B736-D7E9763C2B09}.Release|AnyCPU.ActiveCfg = Release|Any CPU
-		{437D6408-B03C-4AE2-B736-D7E9763C2B09}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{C57A6597-291B-4BB4-B87A-30B0B39C41E2}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{C57A6597-291B-4BB4-B87A-30B0B39C41E2}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{C57A6597-291B-4BB4-B87A-30B0B39C41E2}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{C57A6597-291B-4BB4-B87A-30B0B39C41E2}.Release|AnyCPU.Build.0 = Release|Any CPU
 		{2119C12B-5874-4E60-BD36-45CA1D29FDDC}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
 		{2119C12B-5874-4E60-BD36-45CA1D29FDDC}.Debug|AnyCPU.Build.0 = Debug|Any CPU
 		{2119C12B-5874-4E60-BD36-45CA1D29FDDC}.Release|AnyCPU.ActiveCfg = Release|Any CPU

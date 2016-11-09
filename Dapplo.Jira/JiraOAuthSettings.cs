@@ -23,6 +23,7 @@
 
 #endregion
 
+#if NET45 || NET46
 using Dapplo.HttpExtensions.OAuth;
 using System.Security.Cryptography;
 
@@ -60,3 +61,4 @@ namespace Dapplo.Jira
 		public IOAuth1Token Token { get; set; } = new OAuth1Token();
 	}
 }
+#endif

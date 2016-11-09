@@ -1,0 +1,56 @@
+{
+	"version": "1.0.0-*",
+	"title": "Dapplo.Jira.Tests",
+	"authors": [ "Robin Krom" ],
+	"copyright": "Copyright © Dapplo 2016",
+	"description": "Tests for Dapplo.Jira",
+	"supports": {},
+	"dependencies": {
+		"Dapplo.Log": "1.0.22",
+		"Dapplo.Log.XUnit": "1.0.22",
+		"Dapplo.Utils": "1.0.126",
+		"Dapplo.Jira": "*",
+		"xunit.runner.visualstudio": "2.1.0",
+		"Xunit.StaFact": "0.1.36-beta"
+	},
+	"frameworks": {
+		"net45": {
+			"dependencies": {
+				"NETStandard.Library": "1.6.0"
+			},
+			"frameworkAssemblies": {
+				"PresentationCore": "4.0.0.0",
+				"PresentationFramework": "4.0.0.0",
+				"System.Drawing": "4.0.0.0",
+				"System.Runtime.Caching": "4.0.0.0",
+				"System.Xaml": "4.0.0.0",
+				"WindowsBase": "4.0.0.0"
+			}
+		}
+	},
+	"configurations": {
+		"Release": {
+			"buildOptions": {
+				"optimize": true
+			}
+		},
+		"Debug": {
+			"buildOptions": {
+				"optimize": false
+			}
+		}
+	},
+	"tools": {
+		"coveralls.io": "1.3.4",
+		"OpenCover": "4.6.519",
+		"ReportGenerator": "2.5.0.0",
+		"xunit.runner.console": "2.1.0"
+	},
+	"buildOptions": {
+		"xmlDoc": false,
+		"copyToOutput": [ "JsonTestFiles\\*.json" ]
+	},
+	"scripts": {
+		"postbuild": [ "" ]
+	}
+}

@@ -30,9 +30,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.ContentConverter;
 using Dapplo.Jira.Entities;
-using Dapplo.Log.Facade;
+using Dapplo.Log;
 using Dapplo.Log.XUnit;
 using Xunit;
 using Xunit.Abstractions;
@@ -44,6 +45,7 @@ namespace Dapplo.Jira.Tests
 	public class JiraTests
 	{
 		private static readonly LogSource Log = new LogSource();
+		private static readonly SvgBitmapHttpContentConverter SvgBitmapHttpContentConverterInstance = new SvgBitmapHttpContentConverter();
 
 		public JiraTests(ITestOutputHelper testOutputHelper)
 		{
@@ -56,6 +58,13 @@ namespace Dapplo.Jira.Tests
 			{
 				_jiraApi.SetBasicAuthentication(username, password);
 			}
+
+			if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
+			{
+				HttpExtensionsGlobals.HttpContentConverters.Add(SvgBitmapHttpContentConverterInstance);
+			}
+			SvgBitmapHttpContentConverterInstance.Width = 24;
+			SvgBitmapHttpContentConverterInstance.Height = 24;
 		}
 
 		// Test against a well known JIRA
