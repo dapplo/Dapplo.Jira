@@ -3,14 +3,14 @@
     "title": "Dapplo.Jira",
     "authors": [ "Robin Krom" ],
     "copyright": "Copyright © Dapplo 2016",
-    "description": "A library for accessing Atlassians JIRA from .NET.",
+    "description": "A library for accessing Atlassians Jira from .NET",
     "packOptions": {
         "owners": [ "Dapplo" ],
-        "summary": "jira dapplo",
+        "summary": "A library for accessing Atlassians Jira from .NET",
         "licenseUrl": "http://www.gnu.org/licenses/lgpl-3.0.en.html",
         "projectUrl": "http://www.dapplo.net/blocks/Dapplo.Jira/",
         "iconUrl": "http://www.dapplo.net/favicon.ico",
-        "tags": [ "http", "uri", "extensions" ],
+        "tags": [ "atlassian", "jira", "dapplo" ],
         "requireLicenseAcceptance": false,
         "repository": {
             "type": "git",

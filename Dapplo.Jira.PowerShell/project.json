@@ -10,7 +10,7 @@
         "licenseUrl": "http://www.gnu.org/licenses/lgpl-3.0.en.html",
         "projectUrl": "http://www.dapplo.net/blocks/Dapplo.Jira/",
         "iconUrl": "http://www.dapplo.net/favicon.ico",
-        "tags": [ "http", "uri", "extensions", "powershell" ],
+        "tags": [ "atlassian", "jira", "dapplo", "powershell" ],
         "requireLicenseAcceptance": false,
         "repository": {
             "type": "git",
