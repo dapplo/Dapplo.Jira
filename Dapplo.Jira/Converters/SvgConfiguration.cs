@@ -24,39 +24,45 @@
 #endregion
 
 #if NET45 || NET46
-#region Usings
+using System.Collections.Generic;
+using Dapplo.HttpExtensions;
+using Dapplo.HttpExtensions.Extensions;
+using Dapplo.HttpExtensions.Support;
 
-using System.Management.Automation;
-using System.Threading.Tasks;
-using Dapplo.Jira.Entities;
-using Dapplo.Jira.Powershell.Support;
-
-#endregion
-
-namespace Dapplo.Jira.Powershell
+namespace Dapplo.Jira.Converters
 {
 	/// <summary>
-	///     A Cmdlet which processes the information of a Jira issue
+	///     Configuration for the SvgBitmapHttpContentConverter or SvgBitmapSourceHttpContentConverter
 	/// </summary>
-	[Cmdlet(VerbsCommon.Get, "JiraIssue")]
-	[OutputType(typeof(Fields))]
-	public class GetJiraIssue : JiraAsyncCmdlet
+	public class SvgConfiguration : IHttpRequestConfiguration
 	{
+		public SvgConfiguration()
+		{
+			Name = nameof(SvgConfiguration);
+		}
 		/// <summary>
-		///     Key for the issue that needs to be retrieved
+		///     Specify the supported content types
 		/// </summary>
-		[Parameter(ValueFromPipeline = true, Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
-		public string IssueKey { get; set; }
+		public IList<string> SupportedContentTypes { get; } = new List<string>
+		{
+			MediaTypes.Svg.EnumValueOf()
+		};
 
 		/// <summary>
-		///     Override ProcessRecordAsync to get the issue data and output the object
+		///     Target width for the generated SVG Bitmap
 		/// </summary>
-		/// <returns></returns>
-		protected override async Task ProcessRecordAsync()
-		{
-			var issue = await JiraApi.GetIssueAsync(IssueKey);
-			WriteObject(issue.Fields);
-		}
+		public int Width { get; set; } = 64;
+
+
+		/// <summary>
+		///     Target height for the generated SVG Bitmap
+		/// </summary>
+		public int Height { get; set; } = 64;
+
+		/// <summary>
+		///     Name of the configuration, this should be unique and usually is the type of the object
+		/// </summary>
+		public string Name { get; } = nameof(SvgConfiguration);
 	}
 }
 #endif

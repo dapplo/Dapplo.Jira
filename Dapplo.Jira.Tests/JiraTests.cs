@@ -26,17 +26,17 @@
 #region Usings
 
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.ContentConverter;
+using Dapplo.Jira.Converters;
 using Dapplo.Jira.Entities;
 using Dapplo.Log;
 using Dapplo.Log.XUnit;
 using Xunit;
 using Xunit.Abstractions;
+using Dapplo.HttpExtensions.Extensions;
 
 #endregion
 
@@ -45,7 +45,6 @@ namespace Dapplo.Jira.Tests
 	public class JiraTests
 	{
 		private static readonly LogSource Log = new LogSource();
-		private static readonly SvgBitmapHttpContentConverter SvgBitmapHttpContentConverterInstance = new SvgBitmapHttpContentConverter();
 
 		public JiraTests(ITestOutputHelper testOutputHelper)
 		{
@@ -58,13 +57,6 @@ namespace Dapplo.Jira.Tests
 			{
 				_jiraApi.SetBasicAuthentication(username, password);
 			}
-
-			if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
-			{
-				HttpExtensionsGlobals.HttpContentConverters.Add(SvgBitmapHttpContentConverterInstance);
-			}
-			SvgBitmapHttpContentConverterInstance.Width = 24;
-			SvgBitmapHttpContentConverterInstance.Height = 24;
 		}
 
 		// Test against a well known JIRA
@@ -148,6 +140,8 @@ namespace Dapplo.Jira.Tests
 			Assert.NotNull(projects);
 			Assert.NotNull(projects.Count > 0);
 
+			_jiraApi.JiraHttpBehaviour.SetConfig(new SvgConfiguration { Width = 24, Height = 24});
+
 			foreach (var project in projects)
 			{
 				var avatar = await _jiraApi.GetAvatarAsync<Bitmap>(project.Avatar, AvatarSizes.Medium);
@@ -167,7 +161,7 @@ namespace Dapplo.Jira.Tests
 			Assert.NotNull(serverInfo.ServerTitle);
 			// This should be changed when the title changes
 			Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
-			Debug.WriteLine($"Version {serverInfo.Version} - Title: {serverInfo.ServerTitle}");
+			Log.Debug().WriteLine($"Version {serverInfo.Version} - Title: {serverInfo.ServerTitle}");
 		}
 
 		[Fact]
@@ -204,7 +198,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetPossibleTransitionsAsync()
 		{
-			SimpleJsonHttpContentConverter.Instance.LogThreshold = 0;
+			SimpleJsonHttpContentConverter.Instance.Value.LogThreshold = 0;
 			JiraConfig.ExpandGetTransitions = new[] { "transitions.fields" };
 			var transitions = await _jiraApi.GetPossibleTransitionsAsync("BUG-1845");
 			Assert.NotNull(transitions);

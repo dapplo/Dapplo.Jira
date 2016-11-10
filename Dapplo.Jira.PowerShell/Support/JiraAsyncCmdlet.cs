@@ -26,32 +26,54 @@
 #if NET45 || NET46
 #region Usings
 
+using System;
 using System.Management.Automation;
 using System.Threading.Tasks;
-using Dapplo.Jira.Entities;
-using Dapplo.Jira.Powershell.Support;
 
 #endregion
 
-namespace Dapplo.Jira.Powershell
+namespace Dapplo.Jira.PowerShell.Support
 {
 	/// <summary>
-	///     A Cmdlet which outputs the projects in the specified jira
+	///     This is the base class for all (most?) Jira CmdLets
+	///     It will create the JiraApi instance, so the derriving class only needs to implement the logic
 	/// </summary>
-	[Cmdlet(VerbsCommon.Get, "JiraProjects")]
-	[OutputType(typeof(ProjectDigest))]
-	public class GetJiraProjects : JiraAsyncCmdlet
+	public class JiraAsyncCmdlet : AsyncCmdlet
 	{
 		/// <summary>
-		///     Process the Projects output
+		///     The Jira API which should be used to get information
 		/// </summary>
-		protected override async Task ProcessRecordAsync()
+		protected JiraApi JiraApi;
+
+		/// <summary>
+		///     Url to the Jira system
+		/// </summary>
+		[Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
+		public Uri JiraUri { get; set; }
+
+		/// <summary>
+		///     Password for the user
+		/// </summary>
+		[Parameter(ValueFromPipelineByPropertyName = true)]
+		public string Password { get; set; }
+
+		/// <summary>
+		///     User for the Jira connection
+		/// </summary>
+		[Parameter(ValueFromPipelineByPropertyName = true)]
+		public string Username { get; set; }
+
+		/// <summary>
+		///     Override the BeginProcessingAsync to connect to our jira
+		/// </summary>
+		protected override Task BeginProcessingAsync()
 		{
-			var projects = await JiraApi.GetProjectsAsync();
-			foreach (var projectDigest in projects)
+			JiraApi = new JiraApi(JiraUri);
+			if (Username != null)
 			{
-				WriteObject(projectDigest);
+				JiraApi.SetBasicAuthentication(Username, Password);
 			}
+			return Task.FromResult(true);
 		}
 	}
 }

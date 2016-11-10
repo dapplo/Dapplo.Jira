@@ -1,16 +1,16 @@
-{
+﻿{
     "version": "1.0.0-*",
-    "title": "Dapplo.Jira",
+    "title": "Dapplo.Jira.PowerShell",
     "authors": [ "Robin Krom" ],
     "copyright": "Copyright © Dapplo 2016",
-    "description": "A library for accessing Atlassians JIRA from .NET.",
+    "description": "A library for accessing Atlassians JIRA from .NET via the PowerShell",
     "packOptions": {
         "owners": [ "Dapplo" ],
-        "summary": "jira dapplo",
+        "summary": "jira dapplo powershell",
         "licenseUrl": "http://www.gnu.org/licenses/lgpl-3.0.en.html",
         "projectUrl": "http://www.dapplo.net/blocks/Dapplo.Jira/",
         "iconUrl": "http://www.dapplo.net/favicon.ico",
-        "tags": [ "http", "uri", "extensions" ],
+        "tags": [ "http", "uri", "extensions", "powershell" ],
         "requireLicenseAcceptance": false,
         "repository": {
             "type": "git",
@@ -19,29 +19,21 @@
     },
     "supports": {},
     "dependencies": {
-        "Dapplo.HttpExtensions": "0.6.7"
+        "Dapplo.Jira": "*"
     },
     "frameworks": {
-        "netstandard1.3": {
-            "dependencies": {
-                "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
-                "NETStandard.Library": "1.6.0"
-            }
-        },
         "net45": {
             "frameworkAssemblies": {
-                "System.Drawing": "4.0.0.0"
             },
             "dependencies": {
-                "Svg": "2.2.1"
+                "System.Management.Automation.dll": "10.0.10586"
             }
         },
         "net46": {
             "frameworkAssemblies": {
-                "System.Drawing": "4.0.0.0"
             },
             "dependencies": {
-                "Svg": "2.2.1"
+                "System.Management.Automation.dll": "10.0.10586"
             }
         }
     }

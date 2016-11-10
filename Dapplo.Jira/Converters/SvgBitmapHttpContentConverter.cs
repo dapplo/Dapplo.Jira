@@ -24,43 +24,39 @@
 #endregion
 
 #if NET45 || NET46
-using Dapplo.HttpExtensions;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.ContentConverter;
+using Dapplo.HttpExtensions.Extensions;
 using Dapplo.HttpExtensions.Support;
 using Dapplo.Log;
 using Svg;
-using Dapplo.HttpExtensions.Extensions;
-using System.Drawing.Imaging;
 
-namespace Dapplo.Jira
+namespace Dapplo.Jira.Converters
 {
 	/// <summary>
-	/// This adds SVG image support as jira uses this.
+	///     This adds SVG image support as jira uses this.
 	/// </summary>
 	public class SvgBitmapHttpContentConverter : IHttpContentConverter
 	{
 		private static readonly LogSource Log = new LogSource();
-		private static readonly IList<string> SupportedContentTypes = new List<string>();
 
-		static SvgBitmapHttpContentConverter()
-		{
-			SupportedContentTypes.Add(MediaTypes.Svg.EnumValueOf());
-		}
+		/// <summary>
+		/// Instance of this IHttpContentConverter for reusing
+		/// </summary>
+		public static Lazy<IHttpContentConverter> Instance {
+			get;
+		} = new Lazy<IHttpContentConverter>(() => new SvgBitmapHttpContentConverter());
 
 		/// <inheritdoc />
 		public int Order => 0;
-
-		public int Width { get; set; }
-
-		public int Height { get; set; }
 
 		/// <summary>
 		///     This checks if the HttpContent can be converted to a Bitmap and is assignable to the specified Type
@@ -70,12 +66,14 @@ namespace Dapplo.Jira
 		/// <returns>true if it can convert</returns>
 		public bool CanConvertFromHttpContent(Type typeToConvertTo, HttpContent httpContent)
 		{
-			if (typeToConvertTo == typeof(object) || !typeToConvertTo.IsAssignableFrom(typeof(Bitmap)))
+			if ((typeToConvertTo == typeof(object)) || !typeToConvertTo.IsAssignableFrom(typeof(Bitmap)))
 			{
 				return false;
 			}
 			var httpBehaviour = HttpBehaviour.Current;
-			return !httpBehaviour.ValidateResponseContentType || SupportedContentTypes.Contains(httpContent.GetContentType());
+			var configuration = httpBehaviour.GetConfig<SvgConfiguration>();
+
+			return !httpBehaviour.ValidateResponseContentType || configuration.SupportedContentTypes.Contains(httpContent.GetContentType());
 		}
 
 		/// <inheritdoc />
@@ -87,19 +85,22 @@ namespace Dapplo.Jira
 				Log.Error().WriteLine(exMessage);
 				throw new NotSupportedException(exMessage);
 			}
-			using (var memoryStream = (MemoryStream)await StreamHttpContentConverter.Instance.ConvertFromHttpContentAsync(typeof(MemoryStream), httpContent, cancellationToken).ConfigureAwait(false))
+			var httpBehaviour = HttpBehaviour.Current;
+			var configuration = httpBehaviour.GetConfig<SvgConfiguration>();
+			using (var memoryStream = (MemoryStream) await StreamHttpContentConverter.Instance.Value.ConvertFromHttpContentAsync(typeof(MemoryStream), httpContent, cancellationToken).ConfigureAwait(false))
 			{
 				Log.Debug().WriteLine("Creating a Bitmap from the SVG.");
 
-				var bitmap = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);// ImageHelper.CreateEmpty(Width, Height, PixelFormat.Format32bppArgb, Color.Transparent, 96, 96);
-				using (Graphics graphics = Graphics.FromImage(bitmap))
+				var bitmap = new Bitmap(configuration.Width, configuration.Height, PixelFormat.Format32bppArgb);
+					// ImageHelper.CreateEmpty(Width, Height, PixelFormat.Format32bppArgb, Color.Transparent, 96, 96);
+				using (var graphics = Graphics.FromImage(bitmap))
 				{
 					graphics.Clear(Color.Transparent);
 				}
 
 				var svgDoc = SvgDocument.Open<SvgDocument>(memoryStream);
-				svgDoc.Width = Width;
-				svgDoc.Height = Height;
+				svgDoc.Width = configuration.Width;
+				svgDoc.Height = configuration.Height;
 				svgDoc.Draw(bitmap);
 				return bitmap;
 			}
@@ -128,7 +129,7 @@ namespace Dapplo.Jira
 			{
 				throw new ArgumentNullException(nameof(httpRequestMessage));
 			}
-			if (resultType == typeof(object) || !resultType.IsAssignableFrom(typeof(Bitmap)))
+			if ((resultType == typeof(object)) || !resultType.IsAssignableFrom(typeof(Bitmap)))
 			{
 				return;
 			}
@@ -136,7 +137,6 @@ namespace Dapplo.Jira
 			Log.Debug().WriteLine("Modified the header(s) of the HttpRequestMessage: Accept: {0}", httpRequestMessage.Headers.Accept);
 		}
 	}
-
 }
 
 #endif

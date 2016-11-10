@@ -30,11 +30,11 @@ using System.IO;
 using System.Management.Automation;
 using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
-using Dapplo.Jira.Powershell.Support;
+using Dapplo.Jira.PowerShell.Support;
 
 #endregion
 
-namespace Dapplo.Jira.Powershell
+namespace Dapplo.Jira.PowerShell
 {
 	/// <summary>
 	///     A Cmdlet to attach an attachment to a jira issue

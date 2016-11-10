@@ -35,6 +35,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
 #if !NETSTANDARD1_3
+using Dapplo.Jira.Converters;
 using Dapplo.HttpExtensions.Extensions;
 using Dapplo.HttpExtensions.OAuth;
 #endif
@@ -127,6 +128,14 @@ namespace Dapplo.Jira
 		/// <returns>the behaviour, but configured as IHttpBehaviour </returns>
 		private IHttpBehaviour ConfigureBehaviour(IChangeableHttpBehaviour behaviour, IHttpSettings httpSettings = null)
 		{
+#if NET45 || NET46
+
+			if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
+			{
+				HttpExtensionsGlobals.HttpContentConverters.Add(SvgBitmapHttpContentConverter.Instance.Value);
+			}
+#endif
+
 			behaviour.HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings;
 			behaviour.OnHttpRequestMessageCreated = httpMessage =>
 			{
@@ -139,6 +148,11 @@ namespace Dapplo.Jira
 			};
 			return behaviour;
 		}
+
+		/// <summary>
+		/// The IHttpBehaviour for this Jira instance
+		/// </summary>
+		public IHttpBehaviour JiraHttpBehaviour => _behaviour;
 
 		/// <summary>
 		///     The base URI for your JIRA server
@@ -259,7 +273,7 @@ namespace Dapplo.Jira
 			throw new Exception($"Status: {response.StatusCode} Message: {message}");
 		}
 
-		#region issue
+#region issue
 
 		/// <summary>
 		///     Add comment to the specified issue
@@ -516,9 +530,9 @@ namespace Dapplo.Jira
 			await attachUri.PutAsync(comment, cancellationToken).ConfigureAwait(false);
 		}
 
-		#endregion
+#endregion
 
-		#region filter
+#region filter
 
 		/// <summary>
 		///     Get filter favorites
@@ -587,9 +601,9 @@ namespace Dapplo.Jira
 			}
 		}
 
-		#endregion
+#endregion
 
-		#region project
+#region project
 
 		/// <summary>
 		///     Get projects information
@@ -643,9 +657,9 @@ namespace Dapplo.Jira
 			return HandleErrors(response);
 		}
 
-		#endregion
+#endregion
 
-		#region user
+#region user
 
 		/// <summary>
 		///     Get user information
@@ -730,9 +744,9 @@ namespace Dapplo.Jira
 			return HandleErrors(response);
 		}
 
-		#endregion
+#endregion
 
-		#region Session
+#region Session
 
 		/// <summary>
 		///     Starts new session. No additional authorization requered.
@@ -814,6 +828,6 @@ namespace Dapplo.Jira
 			}
 		}
 
-		#endregion
+#endregion
 	}
 }

@@ -34,7 +34,7 @@ using System.Threading.Tasks;
 
 #endregion
 
-namespace Dapplo.Jira.Powershell.Support
+namespace Dapplo.Jira.PowerShell.Support
 {
 	/// <summary>
 	///     Provides a pump that supports running asynchronous methods on the current thread.
