@@ -84,7 +84,7 @@ namespace Dapplo.Jira.PowerShell
 			}
 			using (var stream = File.OpenRead(Filepath))
 			{
-				var attachment = await JiraApi.AttachAsync(IssueKey, stream, Filename, ContentType);
+				var attachment = await JiraApi.Attachment.AttachAsync(IssueKey, stream, Filename, ContentType);
 				WriteObject(attachment);
 			}
 		}

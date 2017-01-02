@@ -69,26 +69,26 @@ namespace Dapplo.Jira.Tests
 		{
 			const string filename = "test.txt";
 			const string testContent = "Testing 1 2 3";
-			var attachment = await _jiraApi.AttachAsync("FEATURE-746", testContent, filename);
+			var attachment = await _jiraApi.Attachment.AttachAsync("FEATURE-746", testContent, filename);
 			Assert.NotNull(attachment);
 			Assert.StartsWith("text/plain", attachment.MimeType);
 
 			if (attachment.ThumbnailUri != null)
 			{
-				var attachmentThumbnail = await _jiraApi.GetAttachmentThumbnailAsAsync<Bitmap>(attachment);
+				var attachmentThumbnail = await _jiraApi.Attachment.GetThumbnailAsAsync<Bitmap>(attachment);
 				Assert.NotNull(attachmentThumbnail);
 				Assert.True(attachmentThumbnail.Width > 0);
 			}
 
-			var returnedContent = await _jiraApi.GetAttachmentContentAsAsync<string>(attachment);
+			var returnedContent = await _jiraApi.Attachment.GetContentAsAsync<string>(attachment);
 			Assert.Equal(testContent, returnedContent);
 
 			bool hasBeenRemoved = false;
-			var issue = await _jiraApi.GetIssueAsync("FEATURE-746");
+			var issue = await _jiraApi.Issue.GetAsync("FEATURE-746");
 			foreach (var attachment2Delete in issue.Fields.Attachments.Where(x => x.Filename == filename))
 			{
 				Log.Info().WriteLine("Deleting {0} from {1}", attachment2Delete.Filename, attachment2Delete.Created);
-				await _jiraApi.DeleteAttachmentAsync(attachment2Delete);
+				await _jiraApi.Attachment.DeleteAsync(attachment2Delete);
 				hasBeenRemoved = true;
 			}
 
@@ -115,7 +115,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetIssueAsync()
 		{
-			var issue = await _jiraApi.GetIssueAsync("BUG-1845");
+			var issue = await _jiraApi.Issue.GetAsync("BUG-1845");
 			Assert.NotNull(issue);
 			Assert.NotNull(issue.Fields.IssueType);
 			Assert.NotNull(issue.Fields.Comments.Elements);
@@ -140,7 +140,7 @@ namespace Dapplo.Jira.Tests
 			Assert.NotNull(projects);
 			Assert.NotNull(projects.Count > 0);
 
-			_jiraApi.JiraHttpBehaviour.SetConfig(new SvgConfiguration { Width = 24, Height = 24});
+			_jiraApi.Behaviour.SetConfig(new SvgConfiguration { Width = 24, Height = 24});
 
 			foreach (var project in projects)
 			{
@@ -167,7 +167,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestSearch()
 		{
-			var searchResult = await _jiraApi.SearchAsync("text ~ \"robin\"");
+			var searchResult = await _jiraApi.Issue.SearchAsync("text ~ \"robin\"");
 
 			Assert.NotNull(searchResult);
 			Assert.NotNull(searchResult.Issues.Count > 0);
@@ -200,7 +200,7 @@ namespace Dapplo.Jira.Tests
 		{
 			SimpleJsonHttpContentConverter.Instance.Value.LogThreshold = 0;
 			JiraConfig.ExpandGetTransitions = new[] { "transitions.fields" };
-			var transitions = await _jiraApi.GetPossibleTransitionsAsync("BUG-1845");
+			var transitions = await _jiraApi.Issue.GetPossibleTransitionsAsync("BUG-1845");
 			Assert.NotNull(transitions);
 			Assert.True(transitions.Count > 0);
 			Assert.NotNull(transitions[0].PossibleFields);
