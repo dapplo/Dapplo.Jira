@@ -29,6 +29,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
 using Dapplo.Jira.Entities;
+using Dapplo.Jira.Query;
 using Dapplo.Log;
 
 namespace Dapplo.Jira.Internal
@@ -106,6 +107,13 @@ namespace Dapplo.Jira.Internal
 			var response = await transitionsUri.GetAsAsync<HttpResponse<Transitions, Error>>(cancellationToken).ConfigureAwait(false);
 			_jiraApi.HandleErrors(response);
 			return response.Response.Items;
+		}
+
+		/// <inheritdoc />
+		public async Task<SearchResult> SearchAsync(IFinalClause jql, int maxResults = 20, IEnumerable<string> fields = null,
+			CancellationToken cancellationToken = default(CancellationToken))
+		{
+			return await SearchAsync(jql.ToString(), maxResults, fields, cancellationToken);
 		}
 
 		/// <inheritdoc />

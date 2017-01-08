@@ -37,6 +37,7 @@ using Dapplo.Log.XUnit;
 using Xunit;
 using Xunit.Abstractions;
 using Dapplo.HttpExtensions.Extensions;
+using Dapplo.Jira.Query;
 
 #endregion
 
@@ -167,7 +168,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestSearch()
 		{
-			var searchResult = await _jiraApi.Issue.SearchAsync("text ~ \"robin\"");
+			var searchResult = await _jiraApi.Issue.SearchAsync(Where.Text.Contains("robin"));
 
 			Assert.NotNull(searchResult);
 			Assert.NotNull(searchResult.Issues.Count > 0);

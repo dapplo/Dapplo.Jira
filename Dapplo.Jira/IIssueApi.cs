@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
+using Dapplo.Jira.Query;
 
 namespace Dapplo.Jira
 {
@@ -50,5 +51,16 @@ namespace Dapplo.Jira
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>SearchResult</returns>
 		Task<SearchResult> SearchAsync(string jql, int maxResults = 20, IEnumerable<string> fields = null, CancellationToken cancellationToken = default(CancellationToken));
+
+		/// <summary>
+		///     Search for issues, with a JQL (e.g. from a filter)
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2713
+		/// </summary>
+		/// <param name="jql">Jira Query Language, like SQL, for the search. Use Where builder</param>
+		/// <param name="maxResults">Maximum number of results returned, default is 20</param>
+		/// <param name="fields">Jira fields to include, if null the defaults from the JiraConfig.SearchFields are taken</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>SearchResult</returns>
+		Task<SearchResult> SearchAsync(IFinalClause jql, int maxResults = 20, IEnumerable<string> fields = null, CancellationToken cancellationToken = default(CancellationToken));
 	}
 }
