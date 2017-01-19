@@ -1,30 +1,27 @@
-﻿#region Dapplo 2016 - GNU Lesser General Public License
-
-// Dapplo - building blocks for .NET applications
-// Copyright (C) 2016 Dapplo
+﻿//  Dapplo - building blocks for desktop applications
+//  Copyright (C) 2016 Dapplo
 // 
-// For more information see: http://dapplo.net/
-// Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+//  For more information see: http://dapplo.net/
+//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
 // 
-// This file is part of Dapplo.Jira
+//  This file is part of Dapplo.Jira
 // 
-// Dapplo.Jira is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
+//  Dapplo.Jira is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Lesser General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
 // 
-// Dapplo.Jira is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details.
+//  Dapplo.Jira is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Lesser General Public License for more details.
 // 
-// You should have a copy of the GNU Lesser General Public License
-// along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
-
-#endregion
+//  You should have a copy of the GNU Lesser General Public License
+//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
 #if NET45 || NET46
-#region Usings
+
+#region using
 
 using System.IO;
 using System.Management.Automation;
@@ -44,10 +41,10 @@ namespace Dapplo.Jira.PowerShell
 	public class AddJiraAttachment : JiraAsyncCmdlet
 	{
 		/// <summary>
-		///     Key for the issue to attach to
+		///     Content-type for the uploaded file
 		/// </summary>
-		[Parameter(ValueFromPipeline = true, Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
-		public string IssueKey { get; set; }
+		[Parameter(ValueFromPipeline = true, ValueFromPipelineByPropertyName = true)]
+		public string ContentType { get; set; }
 
 		/// <summary>
 		///     Filename for the attachment
@@ -62,10 +59,10 @@ namespace Dapplo.Jira.PowerShell
 		public string Filepath { get; set; }
 
 		/// <summary>
-		///     Content-type for the uploaded file
+		///     Key for the issue to attach to
 		/// </summary>
-		[Parameter(ValueFromPipeline = true, ValueFromPipelineByPropertyName = true)]
-		public string ContentType { get; set; }
+		[Parameter(ValueFromPipeline = true, Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
+		public string IssueKey { get; set; }
 
 		/// <summary>
 		///     Do the actual uploading, return the attachment object(s)
@@ -90,4 +87,5 @@ namespace Dapplo.Jira.PowerShell
 		}
 	}
 }
+
 #endif

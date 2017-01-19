@@ -1,29 +1,29 @@
-﻿#region Dapplo 2016 - GNU Lesser General Public License
+﻿//  Dapplo - building blocks for desktop applications
+//  Copyright (C) 2016 Dapplo
+// 
+//  For more information see: http://dapplo.net/
+//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+// 
+//  This file is part of Dapplo.Jira
+// 
+//  Dapplo.Jira is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Lesser General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+// 
+//  Dapplo.Jira is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Lesser General Public License for more details.
+// 
+//  You should have a copy of the GNU Lesser General Public License
+//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
-// Dapplo - building blocks for .NET applications
-// Copyright (C) 2017 Dapplo
-// 
-// For more information see: http://dapplo.net/
-// Dapplo repositories are hosted on GitHub: https://github.com/dapplo
-// 
-// This file is part of Dapplo.Confluence
-// 
-// Dapplo.Confluence is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Dapplo.Confluence is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details.
-// 
-// You should have a copy of the GNU Lesser General Public License
-// along with Dapplo.Confluence. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
-
-#endregion
+#region using
 
 using System.Linq;
+
+#endregion
 
 namespace Dapplo.Jira.Query
 {
@@ -32,7 +32,18 @@ namespace Dapplo.Jira.Query
 	/// </summary>
 	public static class Where
 	{
+		/// <summary>
+		///     Create a clause for the IssueKey field
+		/// </summary>
+		public static IIssueClause IssueKey => new IssueClause();
+
+		/// <summary>
+		///     Create a clause for the type field
+		/// </summary>
+		public static ITypeClause Type => new TypeClause();
+
 		#region User based clauses
+
 		/// <summary>
 		///     Create a clause for the creator
 		/// </summary>
@@ -67,9 +78,11 @@ namespace Dapplo.Jira.Query
 		///     Create a clause for the WorkLogAuthor
 		/// </summary>
 		public static IUserClause WorkLogAuthor => new UserClause(Fields.WorkLogAuthor);
+
 		#endregion
 
 		#region Date clauses
+
 		/// <summary>
 		///     Create a clause for the created field
 		/// </summary>
@@ -104,12 +117,8 @@ namespace Dapplo.Jira.Query
 		///     Create a clause for the WorkLogDate field
 		/// </summary>
 		public static IDatetimeClause WorkLogDate => new DatetimeClause(Fields.WorkLogDate);
-		#endregion
 
-		/// <summary>
-		///     Create a clause for the type field
-		/// </summary>
-		public static ITypeClause Type => new TypeClause();
+		#endregion
 
 		#region BooleanLogic
 
@@ -126,6 +135,7 @@ namespace Dapplo.Jira.Query
 		#endregion
 
 		#region text
+
 		/// <summary>
 		///     Create a clause for the Comment field
 		/// </summary>
@@ -160,14 +170,11 @@ namespace Dapplo.Jira.Query
 		///     Create a clause for the RequestChannelType field
 		/// </summary>
 		public static ITextClause RequestChannelType => new TextClause(Fields.RequestChannelType);
+
 		#endregion
 
-		/// <summary>
-		///     Create a clause for the IssueKey field
-		/// </summary>
-		public static IIssueClause IssueKey => new IssueClause();
-
 		#region Version clauses
+
 		/// <summary>
 		///     Create a clause for the AffectedVersion field
 		/// </summary>
@@ -177,8 +184,8 @@ namespace Dapplo.Jira.Query
 		///     Create a clause for the FixVersion field
 		/// </summary>
 		public static IVersionClause FixVersion => new VersionClause(Fields.FixVersion);
-		#endregion
 
+		#endregion
 
 		#region simple values
 
@@ -186,10 +193,12 @@ namespace Dapplo.Jira.Query
 		///     Create a clause for the Parent field
 		/// </summary>
 		public static ISimpleValueClause Parent => new SimpleValueClause(Fields.Parent);
+
 		/// <summary>
 		///     Create a clause for the Labels field
 		/// </summary>
 		public static ISimpleValueClause Labels => new SimpleValueClause(Fields.Labels);
+
 		#endregion
 	}
 }

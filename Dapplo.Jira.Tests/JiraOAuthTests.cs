@@ -1,27 +1,25 @@
-﻿#region Dapplo 2016 - GNU Lesser General Public License
+﻿//  Dapplo - building blocks for desktop applications
+//  Copyright (C) 2016 Dapplo
+// 
+//  For more information see: http://dapplo.net/
+//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+// 
+//  This file is part of Dapplo.Jira
+// 
+//  Dapplo.Jira is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Lesser General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+// 
+//  Dapplo.Jira is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Lesser General Public License for more details.
+// 
+//  You should have a copy of the GNU Lesser General Public License
+//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
-// Dapplo - building blocks for .NET applications
-// Copyright (C) 2016 Dapplo
-// 
-// For more information see: http://dapplo.net/
-// Dapplo repositories are hosted on GitHub: https://github.com/dapplo
-// 
-// This file is part of Dapplo.Jira
-// 
-// Dapplo.Jira is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Dapplo.Jira is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details.
-// 
-// You should have a copy of the GNU Lesser General Public License
-// along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
-
-#endregion
+#region using
 
 using System;
 using System.Security.Cryptography;
@@ -32,17 +30,21 @@ using Dapplo.Log.XUnit;
 using Xunit;
 using Xunit.Abstractions;
 
+#endregion
+
 namespace Dapplo.Jira.Tests
 {
 	/// <summary>
-	/// Test a OAuth connection to the JIRA system.
-	/// The process would be as follows:
-	/// 1) Create a public/private key pair once for your application
-	/// 2) setup an application link in Jira, as incoming connection. Use the public key created in 1. Give a "consumer key", this can be anything.
-	/// 3) In your code, create a RSACryptoServiceProvider from the private key (however you want) and fill the OAuth1Settings (if you have token information, pass this)
-	/// 4) Create the JiraApi instance with the Uri and OAuth1Settings -> start using it.
-	/// 5) At the first connect, the authentication challenge is started if there wasn't any token information
-	/// 6) Store the OAuthToken / OAuthTokenSecret / OAuthTokenVerifier for later usage...
+	///     Test a OAuth connection to the JIRA system.
+	///     The process would be as follows:
+	///     1) Create a public/private key pair once for your application
+	///     2) setup an application link in Jira, as incoming connection. Use the public key created in 1. Give a "consumer
+	///     key", this can be anything.
+	///     3) In your code, create a RSACryptoServiceProvider from the private key (however you want) and fill the
+	///     OAuth1Settings (if you have token information, pass this)
+	///     4) Create the JiraApi instance with the Uri and OAuth1Settings -> start using it.
+	///     5) At the first connect, the authentication challenge is started if there wasn't any token information
+	///     6) Store the OAuthToken / OAuthTokenSecret / OAuthTokenVerifier for later usage...
 	/// </summary>
 	public class JiraOAuthTests : IOAuth1Token
 	{
@@ -88,6 +90,10 @@ ZMUZaDWF58d3otc23mCzwh3YcUWFu09KnMpzZsK59OfyjtkS44EDWpbE=</D></RSAKeyValue>";
 			_jiraApi = new JiraApi(TestJiraUri, oAuthSettings);
 		}
 
+		public string OAuthToken { get; set; }
+		public string OAuthTokenSecret { get; set; }
+		public string OAuthTokenVerifier { get; set; }
+
 
 		/// <summary>
 		///     This will test Oauth with a LocalServer "code" receiver
@@ -97,14 +103,10 @@ ZMUZaDWF58d3otc23mCzwh3YcUWFu09KnMpzZsK59OfyjtkS44EDWpbE=</D></RSAKeyValue>";
 		public async Task TestOauthRequest()
 		{
 			// Check "who am I" so we can see that the user who authenticated is really logged in
-			var user = await _jiraApi.WhoAmIAsync();
+			var user = await _jiraApi.User.WhoAmIAsync();
 			Assert.NotNull(user);
 			Assert.NotEmpty(OAuthToken);
 			Assert.NotEmpty(OAuthTokenSecret);
 		}
-
-		public string OAuthToken { get; set; }
-		public string OAuthTokenSecret { get; set; }
-		public string OAuthTokenVerifier { get; set; }
 	}
 }

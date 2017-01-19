@@ -1,29 +1,25 @@
-﻿#region Dapplo 2016 - GNU Lesser General Public License
+﻿//  Dapplo - building blocks for desktop applications
+//  Copyright (C) 2016 Dapplo
+// 
+//  For more information see: http://dapplo.net/
+//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+// 
+//  This file is part of Dapplo.Jira
+// 
+//  Dapplo.Jira is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Lesser General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+// 
+//  Dapplo.Jira is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Lesser General Public License for more details.
+// 
+//  You should have a copy of the GNU Lesser General Public License
+//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
-// Dapplo - building blocks for .NET applications
-// Copyright (C) 2017 Dapplo
-// 
-// For more information see: http://dapplo.net/
-// Dapplo repositories are hosted on GitHub: https://github.com/dapplo
-// 
-// This file is part of Dapplo.Confluence
-// 
-// Dapplo.Confluence is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Dapplo.Confluence is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details.
-// 
-// You should have a copy of the GNU Lesser General Public License
-// along with Dapplo.Confluence. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
-
-#endregion
-
-#region Usings
+#region using
 
 using System;
 using System.Collections.Generic;
@@ -41,25 +37,25 @@ namespace Dapplo.Jira.Query
 	public interface IFinalClause
 	{
 		/// <summary>
-		/// Specify the order by field, default field order is used, this can be called mutiple times
+		///     Specify the order by field, default field order is used, this can be called mutiple times
 		/// </summary>
 		/// <param name="field">Field to specify what to order by</param>
 		/// <returns>IFinalClause</returns>
 		IFinalClause OrderBy(Fields field);
 
 		/// <summary>
-		/// Specify the order by, descending, this can be called mutiple times
-		/// </summary>
-		/// <param name="field">Field to specify what to order by</param>
-		/// <returns>IFinalClause</returns>
-		IFinalClause OrderByDescending(Fields field);
-
-		/// <summary>
-		/// Specify the order by, ascending, this can be called mutiple times
+		///     Specify the order by, ascending, this can be called mutiple times
 		/// </summary>
 		/// <param name="field">Field to specify what to order by</param>
 		/// <returns>IFinalClause</returns>
 		IFinalClause OrderByAscending(Fields field);
+
+		/// <summary>
+		///     Specify the order by, descending, this can be called mutiple times
+		/// </summary>
+		/// <param name="field">Field to specify what to order by</param>
+		/// <returns>IFinalClause</returns>
+		IFinalClause OrderByDescending(Fields field);
 	}
 
 	/// <summary>
@@ -67,12 +63,13 @@ namespace Dapplo.Jira.Query
 	/// </summary>
 	internal class Clause : IFinalClause
 	{
-		private string _finalClause;
 		private readonly IList<Tuple<Fields, bool?>> _orderByList = new List<Tuple<Fields, bool?>>();
+		private string _finalClause;
+
 		public Clause()
 		{
-			
 		}
+
 		public Clause(string finalClause)
 		{
 			_finalClause = finalClause;
@@ -93,8 +90,38 @@ namespace Dapplo.Jira.Query
 		/// </summary>
 		public string Value { get; set; }
 
+		public IFinalClause OrderBy(Fields field)
+		{
+			if (field == Fields.Labels)
+			{
+				throw new ArgumentException("Cannot order by something that can have multiple values, like label", nameof(field));
+			}
+			_orderByList.Add(new Tuple<Fields, bool?>(field, null));
+			return this;
+		}
+
+		public IFinalClause OrderByDescending(Fields field)
+		{
+			if (field == Fields.Labels)
+			{
+				throw new ArgumentException("Cannot order by something that can have multiple values, like label", nameof(field));
+			}
+			_orderByList.Add(new Tuple<Fields, bool?>(field, true));
+			return this;
+		}
+
+		public IFinalClause OrderByAscending(Fields field)
+		{
+			if (field == Fields.Labels)
+			{
+				throw new ArgumentException("Cannot order by something that can have multiple values, like label", nameof(field));
+			}
+			_orderByList.Add(new Tuple<Fields, bool?>(field, false));
+			return this;
+		}
+
 		/// <summary>
-		/// Change the operator to the negative version ( equals becomes not equals becomes equals)
+		///     Change the operator to the negative version ( equals becomes not equals becomes equals)
 		/// </summary>
 		public void Negate()
 		{
@@ -135,6 +162,15 @@ namespace Dapplo.Jira.Query
 			}
 		}
 
+		/// <summary>
+		///     Add implicit casting to string
+		/// </summary>
+		/// <param name="clause">Clause</param>
+		public static implicit operator string(Clause clause)
+		{
+			return clause.ToString();
+		}
+
 		public override string ToString()
 		{
 			if (string.IsNullOrEmpty(_finalClause))
@@ -156,45 +192,6 @@ namespace Dapplo.Jira.Query
 			}
 
 			return _finalClause;
-		}
-
-		public IFinalClause OrderBy(Fields field)
-		{
-			if (field == Fields.Labels)
-			{
-				throw new ArgumentException("Cannot order by something that can have multiple values, like label", nameof(field));
-			}
-			_orderByList.Add(new Tuple<Fields, bool?>(field, null));
-			return this;
-		}
-
-		public IFinalClause OrderByDescending(Fields field)
-		{
-			if (field == Fields.Labels)
-			{
-				throw new ArgumentException("Cannot order by something that can have multiple values, like label", nameof(field));
-			}
-			_orderByList.Add(new Tuple<Fields, bool?>(field, true));
-			return this;
-		}
-
-		public IFinalClause OrderByAscending(Fields field)
-		{
-			if (field == Fields.Labels)
-			{
-				throw new ArgumentException("Cannot order by something that can have multiple values, like label", nameof(field));
-			}
-			_orderByList.Add(new Tuple<Fields, bool?>(field, false));
-			return this;
-		}
-
-		/// <summary>
-		///     Add implicit casting to string
-		/// </summary>
-		/// <param name="clause">Clause</param>
-		public static implicit operator string(Clause clause)
-		{
-			return clause.ToString();
 		}
 	}
 }

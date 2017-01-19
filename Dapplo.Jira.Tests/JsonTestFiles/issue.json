@@ -32,7 +32,7 @@
 				"name": "Development"
 			}
 		},
-		"fixVersions": [ ],
+		"fixVersions": [],
 		"aggregatetimespent": null,
 		"resolution": null,
 		"customfield_10502": null,
@@ -56,7 +56,7 @@
 			"id": "3"
 		},
 		"customfield_10100": null,
-		"labels": [ "Image_editor" ],
+		"labels": ["Image_editor"],
 		"customfield_10016": null,
 		"customfield_10017": null,
 		"customfield_10018": null,
@@ -73,7 +73,7 @@
 				"releaseDate": "2014-04-01"
 			}
 		],
-		"issuelinks": [ ],
+		"issuelinks": [],
 		"assignee": null,
 		"updated": "2016-07-21T11:02:18.296+0200",
 		"status": {
@@ -103,13 +103,13 @@
 		"customfield_10013": null,
 		"customfield_10014": null,
 		"customfield_10015": null,
-		"timetracking": { },
+		"timetracking": {},
 		"customfield_10006": "9223372036854775807",
 		"customfield_10600": null,
 		"customfield_10007": null,
 		"customfield_10008": null,
 		"customfield_10800": null,
-		"attachment": [ ],
+		"attachment": [],
 		"aggregatetimeestimate": null,
 		"summary": "Test",
 		"creator": {
@@ -126,7 +126,7 @@
 			"active": true,
 			"timeZone": "Europe/Berlin"
 		},
-		"subtasks": [ ],
+		"subtasks": [],
 		"reporter": {
 			"self": "https://greenshot.atlassian.net/rest/api/2/user?username=sureshdubey",
 			"name": "xxxxxxxxx",
@@ -207,7 +207,7 @@
 			"startAt": 0,
 			"maxResults": 20,
 			"total": 0,
-			"worklogs": [ ]
+			"worklogs": []
 		}
 	}
 }

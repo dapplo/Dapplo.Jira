@@ -1,29 +1,25 @@
-﻿#region Dapplo 2016 - GNU Lesser General Public License
+﻿//  Dapplo - building blocks for desktop applications
+//  Copyright (C) 2016 Dapplo
+// 
+//  For more information see: http://dapplo.net/
+//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+// 
+//  This file is part of Dapplo.Jira
+// 
+//  Dapplo.Jira is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Lesser General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+// 
+//  Dapplo.Jira is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Lesser General Public License for more details.
+// 
+//  You should have a copy of the GNU Lesser General Public License
+//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
-// Dapplo - building blocks for .NET applications
-// Copyright (C) 2017 Dapplo
-// 
-// For more information see: http://dapplo.net/
-// Dapplo repositories are hosted on GitHub: https://github.com/dapplo
-// 
-// This file is part of Dapplo.Confluence
-// 
-// Dapplo.Confluence is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Dapplo.Confluence is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details.
-// 
-// You should have a copy of the GNU Lesser General Public License
-// along with Dapplo.Confluence. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
-
-#endregion
-
-#region Usings
+#region using
 
 using System;
 
@@ -32,19 +28,19 @@ using System;
 namespace Dapplo.Jira.Query
 {
 	/// <summary>
-	/// An interface for a date time calculations clause
+	///     An interface for a date time calculations clause
 	/// </summary>
 	public interface IDatetimeClause
 	{
-		IDatetimeClauseWithoutValue On { get; }
-		IDatetimeClauseWithoutValue Before { get; }
-		IDatetimeClauseWithoutValue BeforeOrOn { get; }
 		IDatetimeClauseWithoutValue After { get; }
 		IDatetimeClauseWithoutValue AfterOrOn { get; }
+		IDatetimeClauseWithoutValue Before { get; }
+		IDatetimeClauseWithoutValue BeforeOrOn { get; }
+		IDatetimeClauseWithoutValue On { get; }
 	}
 
 	/// <summary>
-	/// An interface for a date time calculations clause
+	///     An interface for a date time calculations clause
 	/// </summary>
 	public interface IDatetimeClauseWithoutValue
 	{
@@ -113,7 +109,7 @@ namespace Dapplo.Jira.Query
 	}
 
 	/// <summary>
-	/// A clause for date time calculations
+	///     A clause for date time calculations
 	/// </summary>
 	public class DatetimeClause : IDatetimeClause, IDatetimeClauseWithoutValue
 	{
@@ -125,35 +121,56 @@ namespace Dapplo.Jira.Query
 			{
 				Field = datetimeField
 			};
-
 		}
 
-		/// <summary>
-		///     Create an increment from the timespan.
-		///     increment has of (+/-)nn(y|M|w|d|h|m)
-		///     If the plus/minus(+/-) sign is omitted, plus is assumed.
-		///     nn: number; y: year, M: month; w: week; d: day; h: hour; m: minute.
-		/// </summary>
-		/// <param name="timeSpan">TimeSpan to convert</param>
-		/// <returns>string</returns>
-		private static string TimeSpanToIncrement(TimeSpan? timeSpan = null)
+		/// <inheritDoc />
+		public IDatetimeClauseWithoutValue On
 		{
-			if (!timeSpan.HasValue)
+			get
 			{
-				return "";
+				_clause.Operator = Operators.EqualTo;
+				return this;
 			}
-			TimeSpan increment = timeSpan.Value;
-			var days = increment.TotalDays;
-			if ((days > double.Epsilon || days < double.Epsilon) && days % 1 < double.Epsilon)
+		}
+
+		/// <inheritDoc />
+		public IDatetimeClauseWithoutValue Before
+		{
+			get
 			{
-				return $"\"{days}d\"";
+				_clause.Operator = Operators.LessThan;
+				return this;
 			}
-			var hours = increment.TotalHours;
-			if ((hours > double.Epsilon || hours < double.Epsilon) && hours % 1 < double.Epsilon)
+		}
+
+		/// <inheritDoc />
+		public IDatetimeClauseWithoutValue BeforeOrOn
+		{
+			get
 			{
-				return $"\"{hours}h\"";
+				_clause.Operator = Operators.LessThanEqualTo;
+				return this;
 			}
-			return $"\"{(int)timeSpan.Value.TotalMinutes}m\"";
+		}
+
+		/// <inheritDoc />
+		public IDatetimeClauseWithoutValue After
+		{
+			get
+			{
+				_clause.Operator = Operators.GreaterThan;
+				return this;
+			}
+		}
+
+		/// <inheritDoc />
+		public IDatetimeClauseWithoutValue AfterOrOn
+		{
+			get
+			{
+				_clause.Operator = Operators.GreaterThanEqualTo;
+				return this;
+			}
 		}
 
 		/// <inheritDoc />
@@ -226,54 +243,32 @@ namespace Dapplo.Jira.Query
 			return _clause;
 		}
 
-		/// <inheritDoc />
-		public IDatetimeClauseWithoutValue On
+		/// <summary>
+		///     Create an increment from the timespan.
+		///     increment has of (+/-)nn(y|M|w|d|h|m)
+		///     If the plus/minus(+/-) sign is omitted, plus is assumed.
+		///     nn: number; y: year, M: month; w: week; d: day; h: hour; m: minute.
+		/// </summary>
+		/// <param name="timeSpan">TimeSpan to convert</param>
+		/// <returns>string</returns>
+		private static string TimeSpanToIncrement(TimeSpan? timeSpan = null)
 		{
-			get
+			if (!timeSpan.HasValue)
 			{
-				_clause.Operator = Operators.EqualTo;
-				return this;
+				return "";
 			}
-		}
-
-		/// <inheritDoc />
-		public IDatetimeClauseWithoutValue Before
-		{
-			get
+			var increment = timeSpan.Value;
+			var days = increment.TotalDays;
+			if ((days > double.Epsilon || days < double.Epsilon) && days % 1 < double.Epsilon)
 			{
-				_clause.Operator = Operators.LessThan;
-				return this;
+				return $"\"{days}d\"";
 			}
-		}
-
-		/// <inheritDoc />
-		public IDatetimeClauseWithoutValue BeforeOrOn
-		{
-			get
+			var hours = increment.TotalHours;
+			if ((hours > double.Epsilon || hours < double.Epsilon) && hours % 1 < double.Epsilon)
 			{
-				_clause.Operator = Operators.LessThanEqualTo;
-				return this;
+				return $"\"{hours}h\"";
 			}
-		}
-
-		/// <inheritDoc />
-		public IDatetimeClauseWithoutValue After
-		{
-			get
-			{
-				_clause.Operator = Operators.GreaterThan;
-				return this;
-			}
-		}
-
-		/// <inheritDoc />
-		public IDatetimeClauseWithoutValue AfterOrOn
-		{
-			get
-			{
-				_clause.Operator = Operators.GreaterThanEqualTo;
-				return this;
-			}
+			return $"\"{(int) timeSpan.Value.TotalMinutes}m\"";
 		}
 	}
 }

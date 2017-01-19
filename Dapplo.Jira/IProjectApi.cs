@@ -21,41 +21,35 @@
 
 #region using
 
-using System.IO;
-using Dapplo.HttpExtensions;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
-using Dapplo.Log;
-using Dapplo.Log.XUnit;
-using Xunit;
-using Xunit.Abstractions;
 
 #endregion
 
-namespace Dapplo.Jira.Tests
+namespace Dapplo.Jira
 {
-	public class JsonParseTests
+	/// <summary>
+	///     The methods of the project domain
+	/// </summary>
+	public interface IProjectApi
 	{
-		public JsonParseTests(ITestOutputHelper testOutputHelper)
-		{
-			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
-		}
+		/// <summary>
+		///     Get all visible projects
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2779
+		/// </summary>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>list of ProjectDigest</returns>
+		Task<IList<ProjectDigest>> GetAllAsync(CancellationToken cancellationToken = default(CancellationToken));
 
-		[Fact]
-		public void TestParseIssue()
-		{
-			var json = File.ReadAllText("JsonTestFiles/issue.json");
-			var issue = SimpleJson.DeserializeObject<Issue>(json);
-			Assert.NotNull(issue);
-		}
-
-		[Fact]
-		public void TestParseServerInfo()
-		{
-			var json = File.ReadAllText("JsonTestFiles/serverInfo.json");
-			var serverInfo = SimpleJson.DeserializeObject<ServerInfo>(json);
-			Assert.NotNull(serverInfo);
-			Assert.Equal("http://localhost:8080/jira", serverInfo.BaseUrl.AbsoluteUri);
-			Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
-		}
+		/// <summary>
+		///     Get projects information
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2779
+		/// </summary>
+		/// <param name="projectKey">key of the project</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>ProjectDetails</returns>
+		Task<Project> GetAsync(string projectKey, CancellationToken cancellationToken = default(CancellationToken));
 	}
 }

@@ -1,17 +1,41 @@
-﻿using System.Collections.Generic;
+﻿//  Dapplo - building blocks for desktop applications
+//  Copyright (C) 2016 Dapplo
+// 
+//  For more information see: http://dapplo.net/
+//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+// 
+//  This file is part of Dapplo.Jira
+// 
+//  Dapplo.Jira is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Lesser General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+// 
+//  Dapplo.Jira is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Lesser General Public License for more details.
+// 
+//  You should have a copy of the GNU Lesser General Public License
+//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+
+#region using
+
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
 using Dapplo.Jira.Query;
 
+#endregion
+
 namespace Dapplo.Jira
 {
 	/// <summary>
-	/// The methods of the issue domain
+	///     The methods of the issue domain
 	/// </summary>
 	public interface IIssueApi
 	{
-
 		/// <summary>
 		///     Add comment to the specified issue
 		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1139
@@ -62,5 +86,15 @@ namespace Dapplo.Jira
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>SearchResult</returns>
 		Task<SearchResult> SearchAsync(IFinalClause jql, int maxResults = 20, IEnumerable<string> fields = null, CancellationToken cancellationToken = default(CancellationToken));
+
+		/// <summary>
+		///     Update comment
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1139
+		/// </summary>
+		/// <param name="issueKey">jira key to which the comment belongs</param>
+		/// <param name="comment">Comment to update</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>Attachment</returns>
+		Task UpdateCommentAsync(string issueKey, Comment comment, CancellationToken cancellationToken = default(CancellationToken));
 	}
 }

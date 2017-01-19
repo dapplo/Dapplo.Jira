@@ -1,43 +1,39 @@
-﻿#region Dapplo 2016 - GNU Lesser General Public License
+﻿//  Dapplo - building blocks for desktop applications
+//  Copyright (C) 2016 Dapplo
+// 
+//  For more information see: http://dapplo.net/
+//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+// 
+//  This file is part of Dapplo.Jira
+// 
+//  Dapplo.Jira is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Lesser General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+// 
+//  Dapplo.Jira is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Lesser General Public License for more details.
+// 
+//  You should have a copy of the GNU Lesser General Public License
+//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
-// Dapplo - building blocks for .NET applications
-// Copyright (C) 2016 Dapplo
-// 
-// For more information see: http://dapplo.net/
-// Dapplo repositories are hosted on GitHub: https://github.com/dapplo
-// 
-// This file is part of Dapplo.Jira
-// 
-// Dapplo.Jira is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Dapplo.Jira is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details.
-// 
-// You should have a copy of the GNU Lesser General Public License
-// along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
-
-#endregion
-
-#region Usings
+#region using
 
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions.ContentConverter;
+using Dapplo.HttpExtensions.Extensions;
 using Dapplo.Jira.Converters;
 using Dapplo.Jira.Entities;
+using Dapplo.Jira.Query;
 using Dapplo.Log;
 using Dapplo.Log.XUnit;
 using Xunit;
 using Xunit.Abstractions;
-using Dapplo.HttpExtensions.Extensions;
-using Dapplo.Jira.Query;
 
 #endregion
 
@@ -46,6 +42,11 @@ namespace Dapplo.Jira.Tests
 	public class JiraTests
 	{
 		private static readonly LogSource Log = new LogSource();
+
+		// Test against a well known JIRA
+		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
+
+		private readonly JiraApi _jiraApi;
 
 		public JiraTests(ITestOutputHelper testOutputHelper)
 		{
@@ -59,11 +60,6 @@ namespace Dapplo.Jira.Tests
 				_jiraApi.SetBasicAuthentication(username, password);
 			}
 		}
-
-		// Test against a well known JIRA
-		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
-
-		private readonly JiraApi _jiraApi;
 
 		[Fact]
 		public async Task TestAttachment()
@@ -84,7 +80,7 @@ namespace Dapplo.Jira.Tests
 			var returnedContent = await _jiraApi.Attachment.GetContentAsAsync<string>(attachment);
 			Assert.Equal(testContent, returnedContent);
 
-			bool hasBeenRemoved = false;
+			var hasBeenRemoved = false;
 			var issue = await _jiraApi.Issue.GetAsync("FEATURE-746");
 			foreach (var attachment2Delete in issue.Fields.Attachments.Where(x => x.Filename == filename))
 			{
@@ -125,9 +121,20 @@ namespace Dapplo.Jira.Tests
 		}
 
 		[Fact]
+		public async Task TestGetPossibleTransitionsAsync()
+		{
+			SimpleJsonHttpContentConverter.Instance.Value.LogThreshold = 0;
+			JiraConfig.ExpandGetTransitions = new[] {"transitions.fields"};
+			var transitions = await _jiraApi.Issue.GetPossibleTransitionsAsync("BUG-1845");
+			Assert.NotNull(transitions);
+			Assert.True(transitions.Count > 0);
+			Assert.NotNull(transitions[0].PossibleFields);
+		}
+
+		[Fact]
 		public async Task TestGetProjectAsync()
 		{
-			var project = await _jiraApi.GetProjectAsync("BUG");
+			var project = await _jiraApi.Project.GetAsync("BUG");
 
 			Assert.NotNull(project);
 			Assert.NotNull(project.Roles.Count > 0);
@@ -136,19 +143,19 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetProjectsAsync()
 		{
-			var projects = await _jiraApi.GetProjectsAsync();
+			var projects = await _jiraApi.Project.GetAllAsync();
 
 			Assert.NotNull(projects);
 			Assert.NotNull(projects.Count > 0);
 
-			_jiraApi.Behaviour.SetConfig(new SvgConfiguration { Width = 24, Height = 24});
+			_jiraApi.Behaviour.SetConfig(new SvgConfiguration {Width = 24, Height = 24});
 
 			foreach (var project in projects)
 			{
 				var avatar = await _jiraApi.GetAvatarAsync<Bitmap>(project.Avatar, AvatarSizes.Medium);
 				Assert.True(avatar.Width == 24);
 
-				var projectDetails = await _jiraApi.GetProjectAsync(project.Key);
+				var projectDetails = await _jiraApi.Project.GetAsync(project.Key);
 				Assert.NotNull(projectDetails);
 			}
 		}
@@ -182,7 +189,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestSearchUsersAsync()
 		{
-			var users = await _jiraApi.SearchUserAsync("Dapplo");
+			var users = await _jiraApi.User.SearchAsync("Dapplo");
 			Assert.NotNull(users);
 			Assert.True(users.Count > 0);
 		}
@@ -190,21 +197,10 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestUser()
 		{
-			var meMyselfAndI = await _jiraApi.WhoAmIAsync();
+			var meMyselfAndI = await _jiraApi.User.WhoAmIAsync();
 			Assert.NotNull(meMyselfAndI);
-			var meAgain = await _jiraApi.GetUserAsync(meMyselfAndI.Name);
+			var meAgain = await _jiraApi.User.GetAsync(meMyselfAndI.Name);
 			Assert.NotNull(meAgain);
-		}
-
-		[Fact]
-		public async Task TestGetPossibleTransitionsAsync()
-		{
-			SimpleJsonHttpContentConverter.Instance.Value.LogThreshold = 0;
-			JiraConfig.ExpandGetTransitions = new[] { "transitions.fields" };
-			var transitions = await _jiraApi.Issue.GetPossibleTransitionsAsync("BUG-1845");
-			Assert.NotNull(transitions);
-			Assert.True(transitions.Count > 0);
-			Assert.NotNull(transitions[0].PossibleFields);
 		}
 	}
 }

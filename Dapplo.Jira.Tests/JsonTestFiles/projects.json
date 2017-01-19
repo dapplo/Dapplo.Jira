@@ -25,7 +25,7 @@
 			"16x16": "https://greenshot.atlassian.net/secure/projectavatar?size=xsmall&pid=10000&avatarId=10304",
 			"32x32": "https://greenshot.atlassian.net/secure/projectavatar?size=medium&pid=10000&avatarId=10304"
 		},
-		"projectKeys": [ "GSII" ],
+		"projectKeys": ["GSII"],
 		"projectTypeKey": "software"
 	},
 	{
@@ -54,7 +54,7 @@
 			"16x16": "https://greenshot.atlassian.net/secure/projectavatar?size=xsmall&pid=10402&avatarId=10502",
 			"32x32": "https://greenshot.atlassian.net/secure/projectavatar?size=medium&pid=10402&avatarId=10502"
 		},
-		"projectKeys": [ "BUG" ],
+		"projectKeys": ["BUG"],
 		"projectCategory": {
 			"self": "https://greenshot.atlassian.net/rest/api/2/projectCategory/10000",
 			"id": "10000",
@@ -89,7 +89,7 @@
 			"16x16": "https://greenshot.atlassian.net/secure/projectavatar?size=xsmall&pid=10403&avatarId=10503",
 			"32x32": "https://greenshot.atlassian.net/secure/projectavatar?size=medium&pid=10403&avatarId=10503"
 		},
-		"projectKeys": [ "FEATURE" ],
+		"projectKeys": ["FEATURE"],
 		"projectCategory": {
 			"self": "https://greenshot.atlassian.net/rest/api/2/projectCategory/10000",
 			"id": "10000",
@@ -124,7 +124,7 @@
 			"16x16": "https://greenshot.atlassian.net/secure/projectavatar?size=xsmall&pid=10001&avatarId=10305",
 			"32x32": "https://greenshot.atlassian.net/secure/projectavatar?size=medium&pid=10001&avatarId=10305"
 		},
-		"projectKeys": [ "GSG" ],
+		"projectKeys": ["GSG"],
 		"projectTypeKey": "software"
 	},
 	{
@@ -153,7 +153,7 @@
 			"16x16": "https://greenshot.atlassian.net/secure/projectavatar?size=xsmall&pid=10404&avatarId=10504",
 			"32x32": "https://greenshot.atlassian.net/secure/projectavatar?size=medium&pid=10404&avatarId=10504"
 		},
-		"projectKeys": [ "SUPPORT" ],
+		"projectKeys": ["SUPPORT"],
 		"projectCategory": {
 			"self": "https://greenshot.atlassian.net/rest/api/2/projectCategory/10100",
 			"id": "10100",

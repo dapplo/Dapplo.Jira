@@ -1,27 +1,25 @@
-﻿#region Dapplo 2016 - GNU Lesser General Public License
+﻿//  Dapplo - building blocks for desktop applications
+//  Copyright (C) 2016 Dapplo
+// 
+//  For more information see: http://dapplo.net/
+//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+// 
+//  This file is part of Dapplo.Jira
+// 
+//  Dapplo.Jira is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Lesser General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+// 
+//  Dapplo.Jira is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Lesser General Public License for more details.
+// 
+//  You should have a copy of the GNU Lesser General Public License
+//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
-// Dapplo - building blocks for .NET applications
-// Copyright (C) 2016 Dapplo
-// 
-// For more information see: http://dapplo.net/
-// Dapplo repositories are hosted on GitHub: https://github.com/dapplo
-// 
-// This file is part of Dapplo.Jira
-// 
-// Dapplo.Jira is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Dapplo.Jira is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details.
-// 
-// You should have a copy of the GNU Lesser General Public License
-// along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.be 
-
-#endregion
+#region using
 
 using System;
 using System.Collections.Generic;
@@ -32,10 +30,12 @@ using Dapplo.Jira.Entities;
 using Dapplo.Jira.Query;
 using Dapplo.Log;
 
+#endregion
+
 namespace Dapplo.Jira.Internal
 {
 	/// <summary>
-	/// This holds all the issue related methods
+	///     This holds all the issue related methods
 	/// </summary>
 	internal class IssueApi : IIssueApi
 	{
@@ -148,5 +148,20 @@ namespace Dapplo.Jira.Internal
 			return response.Response;
 		}
 
+		/// <inheritdoc />
+		public async Task UpdateCommentAsync(string issueKey, Comment comment, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			if (issueKey == null)
+			{
+				throw new ArgumentNullException(nameof(issueKey));
+			}
+
+			Log.Debug().WriteLine("Updating comment {0} for issue {1}", comment.Id, issueKey);
+
+			_jiraApi.Behaviour.MakeCurrent();
+
+			var attachUri = _jiraApi.JiraRestUri.AppendSegments("issue", issueKey, "comment", comment.Id);
+			await attachUri.PutAsync(comment, cancellationToken).ConfigureAwait(false);
+		}
 	}
 }
