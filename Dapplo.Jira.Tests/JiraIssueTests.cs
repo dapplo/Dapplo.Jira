@@ -95,21 +95,22 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestAssign()
 		{
-			var currentUser = await _jiraApi.User.GetMyselfAsync();
-			Assert.NotNull(currentUser.Name);
+			const string issueKey = "FEATURE-746";
+			var issueBeforeChanges = await _jiraApi.Issue.GetAsync(issueKey);
+
 			// assign to nobody
-			await _jiraApi.Issue.AssignAsync("GSII-1", User.Nobody);
+			await _jiraApi.Issue.AssignAsync(issueKey, User.Nobody);
 
 			// check
-			var issueAssignedToNobody = await _jiraApi.Issue.GetAsync("GSII-1");
+			var issueAssignedToNobody = await _jiraApi.Issue.GetAsync(issueKey);
 			Assert.Null(issueAssignedToNobody.Fields.Assignee);
 
-			// Assign to the current user
-			await _jiraApi.Issue.AssignAsync("GSII-1", currentUser);
+			// Assign back to the initial user
+			await _jiraApi.Issue.AssignAsync(issueKey, issueBeforeChanges.Fields.Assignee);
 
 			// check
-			var issueAssignedToMe = await _jiraApi.Issue.GetAsync("GSII-1");
-			Assert.True(issueAssignedToMe.Fields.Assignee.Name == currentUser.Name);
+			var issueAssignedToMe = await _jiraApi.Issue.GetAsync(issueKey);
+			Assert.True(issueAssignedToMe.Fields.Assignee.Name == issueBeforeChanges.Fields.Assignee.Name);
 		}
 
 		[Fact]
