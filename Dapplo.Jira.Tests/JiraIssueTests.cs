@@ -1,0 +1,157 @@
+﻿//  Dapplo - building blocks for desktop applications
+//  Copyright (C) 2016 Dapplo
+// 
+//  For more information see: http://dapplo.net/
+//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+// 
+//  This file is part of Dapplo.Jira
+// 
+//  Dapplo.Jira is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Lesser General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+// 
+//  Dapplo.Jira is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Lesser General Public License for more details.
+// 
+//  You should have a copy of the GNU Lesser General Public License
+//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+
+#region using
+
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Dapplo.HttpExtensions.ContentConverter;
+using Dapplo.Jira.Entities;
+using Dapplo.Jira.Query;
+using Dapplo.Log;
+using Dapplo.Log.XUnit;
+using Xunit;
+using Xunit.Abstractions;
+
+#endregion
+
+namespace Dapplo.Jira.Tests
+{
+	public class JiraIssueTests
+	{
+		// Test against a well known JIRA
+		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
+
+		private readonly JiraApi _jiraApi;
+
+		public JiraIssueTests(ITestOutputHelper testOutputHelper)
+		{
+			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
+			_jiraApi = new JiraApi(TestJiraUri);
+			var username = Environment.GetEnvironmentVariable("jira_test_username");
+			var password = Environment.GetEnvironmentVariable("jira_test_password");
+
+			if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+			{
+				_jiraApi.SetBasicAuthentication(username, password);
+			}
+		}
+
+		[Fact]
+		public async Task TestGetIssue()
+		{
+			var issue = await _jiraApi.Issue.GetAsync("BUG-1845");
+			Assert.NotNull(issue);
+			Assert.NotNull(issue.Fields.IssueType);
+			Assert.NotNull(issue.Fields.Comments.Elements);
+			Assert.True(issue.Fields.CustomFields.Count > 0);
+			Assert.True(issue.Fields.Comments.Elements.Count > 0);
+		}
+
+		[Fact]
+		public async Task TestGetPossibleTransitions()
+		{
+			DefaultJsonHttpContentConverter.Instance.Value.LogThreshold = 0;
+			JiraConfig.ExpandGetTransitions = new[] {"transitions.fields"};
+			var transitions = await _jiraApi.Issue.GetPossibleTransitionsAsync("BUG-1845");
+			Assert.NotNull(transitions);
+			Assert.True(transitions.Count > 0);
+			Assert.NotNull(transitions[0].PossibleFields);
+		}
+
+		[Fact]
+		public async Task TestSearch()
+		{
+			var searchResult = await _jiraApi.Issue.SearchAsync(Where.Text.Contains("robin"));
+
+			Assert.NotNull(searchResult);
+			Assert.NotNull(searchResult.Issues.Count > 0);
+
+			foreach (var issue in searchResult.Issues)
+			{
+				Assert.NotNull(issue.Fields.Project);
+			}
+		}
+
+		[Fact]
+		public async Task TestAssign()
+		{
+			var currentUser = await _jiraApi.User.GetMyselfAsync();
+			Assert.NotNull(currentUser.Name);
+			// assign to nobody
+			await _jiraApi.Issue.AssignAsync("GSII-1", User.Nobody);
+
+			// check
+			var issueAssignedToNobody = await _jiraApi.Issue.GetAsync("GSII-1");
+			Assert.Null(issueAssignedToNobody.Fields.Assignee);
+
+			// Assign to the current user
+			await _jiraApi.Issue.AssignAsync("GSII-1", currentUser);
+
+			// check
+			var issueAssignedToMe = await _jiraApi.Issue.GetAsync("GSII-1");
+			Assert.True(issueAssignedToMe.Fields.Assignee.Name == currentUser.Name);
+		}
+
+		[Fact]
+		public async Task GetIssueTypes()
+		{
+			var issueTypes = await _jiraApi.Issue.GetIssueTypesAsync();
+			Assert.NotNull(issueTypes);
+		}
+
+		//[Fact]
+		public async Task DeleteIssue()
+		{
+			// Remove again
+			await _jiraApi.Issue.DeleteAsync("BUG-2118");
+		}
+
+		//[Fact]
+		public async Task CreateIssue()
+		{
+			var issueTypes = await _jiraApi.Issue.GetIssueTypesAsync();
+			var projects = await _jiraApi.Project.GetAllAsync();
+
+			var bugIssueType = issueTypes.First(type => type.Name == "Bug");
+			var projectForIssue = projects.First(digest => digest.Key == "BUG");
+			var issueToCreate = new Issue
+			{
+				Fields = new IssueFields
+				{
+					IssueType = bugIssueType,
+					Summary = "Some summary, this is a test",
+					Description = "Some description, this is a test",
+					Project = new Project
+					{
+						Id = projectForIssue.Id
+					}
+				}
+			};
+			var createdIssue = await _jiraApi.Issue.CreateAsync(issueToCreate);
+			Assert.NotNull(createdIssue);
+			Assert.NotNull(createdIssue.Key);
+			// Remove again
+			await _jiraApi.Issue.DeleteAsync(createdIssue.Key);
+		}
+	}
+}

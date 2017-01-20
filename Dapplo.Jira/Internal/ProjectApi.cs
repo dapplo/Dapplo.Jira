@@ -70,11 +70,15 @@ namespace Dapplo.Jira.Internal
 		}
 
 		/// <inheritdoc />
-		public async Task<IList<ProjectDigest>> GetAllAsync(CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<IList<ProjectDigest>> GetAllAsync(int? recent = null, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			Log.Debug().WriteLine("Retrieving projects");
 
 			var projectsUri = _jiraApi.JiraRestUri.AppendSegments("project");
+			if (recent.HasValue)
+			{
+				projectsUri = projectsUri.ExtendQuery("recent", recent);
+			}
 
 			// Add the configurable expand values, if the value is not null or empty
 			if (JiraConfig.ExpandGetProjects?.Length > 0)

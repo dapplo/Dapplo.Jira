@@ -55,9 +55,9 @@ namespace Dapplo.Jira.Tests
 			LoginInfo loginInfo = null;
 			if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
 			{
-				loginInfo = await _jiraApi.StartSessionAsync(username, password);
+				loginInfo = await _jiraApi.Session.StartAsync(username, password);
 			}
-			var me = await _jiraApi.User.WhoAmIAsync();
+			var me = await _jiraApi.User.GetMyselfAsync();
 			Assert.Equal(me.Name, username);
 
 			var avatar = await _avatarCache.GetOrCreateAsync(me.Avatars);
@@ -75,7 +75,7 @@ namespace Dapplo.Jira.Tests
 
 			if (loginInfo != null)
 			{
-				await _jiraApi.EndSessionAsync();
+				await _jiraApi.Session.EndAsync();
 			}
 		}
 	}

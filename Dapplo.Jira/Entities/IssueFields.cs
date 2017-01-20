@@ -34,42 +34,42 @@ namespace Dapplo.Jira.Entities
 	///     Container for the fields
 	/// </summary>
 	[DataContract]
-	public class Fields
+	public class IssueFields
 	{
 		/// <summary>
 		///     The summary of the time spend on this issue
 		/// </summary>
-		[DataMember(Name = "aggregatetimespent")]
+		[DataMember(Name = "aggregatetimespent", EmitDefaultValue = false)]
 		public long AggregateTimeSpent { get; set; }
 
 		/// <summary>
 		///     User who this issue is assigned to
 		/// </summary>
-		[DataMember(Name = "assignee")]
+		[DataMember(Name = "assignee", EmitDefaultValue = false)]
 		public User Assignee { get; set; }
 
 		/// <summary>
 		///     Attachments for this issue
 		/// </summary>
-		[DataMember(Name = "attachment")]
+		[DataMember(Name = "attachment", EmitDefaultValue = false)]
 		public IList<Attachment> Attachments { get; set; }
 
 		/// <summary>
 		///     Container for the comments for this issue
 		/// </summary>
-		[DataMember(Name = "comment")]
+		[DataMember(Name = "comment", EmitDefaultValue = false)]
 		public Comments Comments { get; set; }
 
 		/// <summary>
 		///     When was this issue created
 		/// </summary>
-		[DataMember(Name = "created")]
+		[DataMember(Name = "created", EmitDefaultValue = false)]
 		public DateTimeOffset Created { get; set; }
 
 		/// <summary>
 		///     User who created this issue
 		/// </summary>
-		[DataMember(Name = "creator")]
+		[DataMember(Name = "creator", EmitDefaultValue = false)]
 		public User Creator { get; set; }
 
 		/// <summary>
@@ -82,109 +82,109 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Description of this issue
 		/// </summary>
-		[DataMember(Name = "description")]
+		[DataMember(Name = "description", EmitDefaultValue = false)]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     Versions where this issue is fixed
 		/// </summary>
-		[DataMember(Name = "fixVersions")]
+		[DataMember(Name = "fixVersions", EmitDefaultValue = false)]
 		public IList<Version> FixVersions { get; set; }
 
 		/// <summary>
 		///     Type of the issue
 		/// </summary>
-		[DataMember(Name = "issuetype")]
+		[DataMember(Name = "issuetype", EmitDefaultValue = false)]
 		public IssueType IssueType { get; set; }
 
 		/// <summary>
 		///     Labels for this issue
 		/// </summary>
-		[DataMember(Name = "labels")]
+		[DataMember(Name = "labels", EmitDefaultValue = false)]
 		public IList<string> Labels { get; set; }
 
 		/// <summary>
 		///     When was this issue viewed (by whom??)
 		/// </summary>
-		[DataMember(Name = "lastViewed")]
+		[DataMember(Name = "lastViewed", EmitDefaultValue = false)]
 		public DateTimeOffset LastViewed { get; set; }
 
 		/// <summary>
 		///     Priority for this issue
 		/// </summary>
-		[DataMember(Name = "priority")]
+		[DataMember(Name = "priority", EmitDefaultValue = false)]
 		public Priority Priority { get; set; }
 
 		/// <summary>
 		///     Progress for this issue
 		/// </summary>
-		[DataMember(Name = "progress")]
+		[DataMember(Name = "progress", EmitDefaultValue = false)]
 		public ProgressInfo Progress { get; set; }
 
 		/// <summary>
 		///     Project to which this issue belongs
 		/// </summary>
-		[DataMember(Name = "project")]
+		[DataMember(Name = "project", EmitDefaultValue = false)]
 		public Project Project { get; set; }
 
 		/// <summary>
 		///     What user reported the issue?
 		/// </summary>
-		[DataMember(Name = "reporter")]
+		[DataMember(Name = "reporter", EmitDefaultValue = false)]
 		public User Reporter { get; set; }
 
 		/// <summary>
 		///     The resolution for this issue
 		/// </summary>
-		[DataMember(Name = "resolution")]
+		[DataMember(Name = "resolution", EmitDefaultValue = false)]
 		public Resolution Resolution { get; set; }
 
 		/// <summary>
 		///     Resolution date for this issue
 		/// </summary>
-		[DataMember(Name = "resolutiondate")]
+		[DataMember(Name = "resolutiondate", EmitDefaultValue = false)]
 		public DateTimeOffset ResolutionData { get; set; }
 
 		/// <summary>
 		///     Current status of the issue
 		/// </summary>
-		[DataMember(Name = "status")]
+		[DataMember(Name = "status", EmitDefaultValue = false)]
 		public Status Status { get; set; }
 
 		/// <summary>
 		///     Summary for the issue
 		/// </summary>
-		[DataMember(Name = "summary")]
+		[DataMember(Name = "summary", EmitDefaultValue = false)]
 		public string Summary { get; set; }
 
 		/// <summary>
 		///     How much time is spent on this issue
 		/// </summary>
-		[DataMember(Name = "timespent")]
+		[DataMember(Name = "timespent", EmitDefaultValue = false)]
 		public long TimeSpent { get; set; }
 
 		/// <summary>
 		///     When was the last update
 		/// </summary>
-		[DataMember(Name = "updated")]
+		[DataMember(Name = "updated", EmitDefaultValue = false)]
 		public DateTimeOffset Updated { get; set; }
 
 		/// <summary>
 		///     Version for which this ticket is
 		/// </summary>
-		[DataMember(Name = "versions")]
+		[DataMember(Name = "versions", EmitDefaultValue = false)]
 		public IList<Version> Versions { get; set; }
 
 		/// <summary>
 		///     Information on the watches for the ticket
 		/// </summary>
-		[DataMember(Name = "watches")]
+		[DataMember(Name = "watches", EmitDefaultValue = false)]
 		public Watches Watches { get; set; }
 
 		/// <summary>
 		///     The worklog entries
 		/// </summary>
-		[DataMember(Name = "worklog")]
+		[DataMember(Name = "worklog", EmitDefaultValue = false)]
 		public Worklogs Worklogs { get; set; }
 	}
 }

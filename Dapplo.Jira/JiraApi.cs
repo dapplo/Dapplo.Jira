@@ -120,6 +120,8 @@ namespace Dapplo.Jira
 			Attachment = new AttachmentApi(this);
 			Project = new ProjectApi(this);
 			User = new UserApi(this);
+			Session = new SessionApi(this);
+			Filter = new FilterApi(this);
 		}
 
 		/// <summary>
@@ -191,14 +193,23 @@ namespace Dapplo.Jira
 		/// </summary>
 		public IProjectApi Project { get; }
 
-
 		/// <summary>
 		///     User domain
 		/// </summary>
 		public IUserApi User { get; }
 
 		/// <summary>
-		///     Returns the content, specified by the Urim from the JIRA server.
+		///     Session domain
+		/// </summary>
+		public ISessionApi Session { get; }
+
+		/// <summary>
+		///     Filter domain
+		/// </summary>
+		public IFilterApi Filter { get; }
+
+		/// <summary>
+		///     Returns the content, specified by the Uri from the JIRA server.
 		///     This is used internally, but can also be used to get e.g. the icon for an issue type.
 		/// </summary>
 		/// <typeparam name="TResponse"></typeparam>
@@ -290,158 +301,5 @@ namespace Dapplo.Jira
 			throw new Exception($"Status: {response.StatusCode} Message: {message}");
 		}
 
-		#region filter
-
-		/// <summary>
-		///     Get filter favorites
-		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1388
-		/// </summary>
-		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>List of filter</returns>
-		public async Task<IList<Filter>> GetFavoriteFiltersAsync(CancellationToken cancellationToken = default(CancellationToken))
-		{
-			Log.Debug().WriteLine("Retrieving favorite filters");
-
-			Behaviour.MakeCurrent();
-			var filterFavouriteUri = JiraRestUri.AppendSegments("filter", "favourite");
-
-			// Add the configurable expand values, if the value is not null or empty
-			if (JiraConfig.ExpandGetFavoriteFilters?.Length > 0)
-			{
-				filterFavouriteUri = filterFavouriteUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetFavoriteFilters));
-			}
-
-			var response = await filterFavouriteUri.GetAsAsync<HttpResponse<IList<Filter>, Error>>(cancellationToken).ConfigureAwait(false);
-			return HandleErrors(response);
-		}
-
-		/// <summary>
-		///     Get filter
-		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1388
-		/// </summary>
-		/// <param name="id">filter id</param>
-		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>Filter</returns>
-		public async Task<Filter> GetFilterAsync(long id, CancellationToken cancellationToken = default(CancellationToken))
-		{
-			Log.Debug().WriteLine("Retrieving filter {0}", id);
-
-			Behaviour.MakeCurrent();
-			var filterUri = JiraRestUri.AppendSegments("filter", id);
-
-			// Add the configurable expand values, if the value is not null or empty
-			if (JiraConfig.ExpandGetFilter?.Length > 0)
-			{
-				filterUri = filterUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetFilter));
-			}
-
-			var response = await filterUri.GetAsAsync<HttpResponse<Filter, Error>>(cancellationToken).ConfigureAwait(false);
-			return HandleErrors(response);
-		}
-
-		/// <summary>
-		///     Delete filter
-		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1388
-		/// </summary>
-		/// <param name="id">filter id</param>
-		/// <param name="cancellationToken">CancellationToken</param>
-		public async Task DeleteFilterAsync(long id, CancellationToken cancellationToken = default(CancellationToken))
-		{
-			Log.Debug().WriteLine("Deleting filter {0}", id);
-
-			Behaviour.MakeCurrent();
-			var filterUri = JiraRestUri.AppendSegments("filter", id);
-
-			var response = await filterUri.DeleteAsync<HttpResponse<string, Error>>(cancellationToken).ConfigureAwait(false);
-			if (response.StatusCode != HttpStatusCode.NoContent)
-			{
-				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
-			}
-		}
-
-		#endregion
-
-		#region Session
-
-		/// <summary>
-		///     Starts new session. No additional authorization requered.
-		/// </summary>
-		/// <remarks>
-		///     Please be aware that although cookie-based authentication has many benefits, such as performance (not having to
-		///     make multiple authentication calls), the session cookie can expire..
-		/// </remarks>
-		/// <param name="username">User username</param>
-		/// <param name="password">User password</param>
-		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>LoginInfo</returns>
-		public async Task<LoginInfo> StartSessionAsync(string username, string password, CancellationToken cancellationToken = default(CancellationToken))
-		{
-			if (username == null)
-			{
-				throw new ArgumentNullException(nameof(username));
-			}
-			if (password == null)
-			{
-				throw new ArgumentNullException(nameof(password));
-			}
-			if (!Behaviour.HttpSettings.UseCookies)
-			{
-				throw new ArgumentException("Cookies need to be enabled", nameof(IHttpSettings.UseCookies));
-			}
-			Log.Debug().WriteLine("Starting a session for {0}", username);
-
-			var sessionUri = JiraAuthUri.AppendSegments("session");
-
-			Behaviour.MakeCurrent();
-
-			var content = new StringContent($"{{ \"username\": \"{username}\", \"password\": \"{password}\"}}");
-			content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-
-			var response = await sessionUri.PostAsync<HttpResponse<SessionResponse, Error>>(content, cancellationToken);
-
-			HandleErrors(response);
-
-			return response.Response.LoginInfo;
-		}
-
-		/// <summary>
-		///     Ends session. No additional authorization required.
-		/// </summary>
-		public async Task EndSessionAsync(CancellationToken cancellationToken = default(CancellationToken))
-		{
-			// Find the cookie to expire
-			var sessionCookies = Behaviour.CookieContainer.GetCookies(JiraBaseUri).Cast<Cookie>().ToList();
-
-			Log.Debug().WriteLine("Ending session");
-
-			// check if a cookie was found, if not skip the end session
-			if (sessionCookies.Any())
-			{
-				if (Log.IsDebugEnabled())
-				{
-					Log.Debug().WriteLine("Found {0} cookies to invalidate", sessionCookies.Count);
-					foreach (var sessionCookie in sessionCookies)
-					{
-						Log.Debug().WriteLine("Found cookie {0} for domain {1} which expires on {2}", sessionCookie.Name, sessionCookie.Domain, sessionCookie.Expires);
-					}
-				}
-				var sessionUri = JiraAuthUri.AppendSegments("session");
-
-				Behaviour.MakeCurrent();
-				var response = await sessionUri.DeleteAsync<HttpResponseMessage>(cancellationToken);
-
-				if (response.StatusCode != HttpStatusCode.NoContent)
-				{
-					Log.Warn().WriteLine("Failed to close jira session. Status code: {0} ", response.StatusCode);
-				}
-				// Expire the cookie, no mather what the return code was.
-				foreach (var sessionCookie in sessionCookies)
-				{
-					sessionCookie.Expired = true;
-				}
-			}
-		}
-
-		#endregion
 	}
 }

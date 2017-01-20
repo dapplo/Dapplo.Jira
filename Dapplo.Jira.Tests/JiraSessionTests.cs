@@ -52,14 +52,14 @@ namespace Dapplo.Jira.Tests
 			var password = Environment.GetEnvironmentVariable("jira_test_password");
 			if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
 			{
-				await _jiraApi.StartSessionAsync(username, password);
+				await _jiraApi.Session.StartAsync(username, password);
 			}
-			var me = await _jiraApi.User.WhoAmIAsync();
+			var me = await _jiraApi.User.GetMyselfAsync();
 			Assert.Equal(me.Name, username);
-			await _jiraApi.EndSessionAsync();
+			await _jiraApi.Session.EndAsync();
 
 			// WhoAmI should give an exception if there is no login
-			await Assert.ThrowsAsync<Exception>(async () => await _jiraApi.User.WhoAmIAsync());
+			await Assert.ThrowsAsync<Exception>(async () => await _jiraApi.User.GetMyselfAsync());
 		}
 	}
 }

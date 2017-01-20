@@ -103,7 +103,7 @@ ZMUZaDWF58d3otc23mCzwh3YcUWFu09KnMpzZsK59OfyjtkS44EDWpbE=</D></RSAKeyValue>";
 		public async Task TestOauthRequest()
 		{
 			// Check "who am I" so we can see that the user who authenticated is really logged in
-			var user = await _jiraApi.User.WhoAmIAsync();
+			var user = await _jiraApi.User.GetMyselfAsync();
 			Assert.NotNull(user);
 			Assert.NotEmpty(OAuthToken);
 			Assert.NotEmpty(OAuthTokenSecret);

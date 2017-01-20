@@ -23,6 +23,7 @@
 
 using System;
 using System.Linq;
+using Dapplo.Jira.Entities;
 
 #endregion
 
@@ -46,6 +47,11 @@ namespace Dapplo.Jira.Query
 		IFinalClause In(params string[] users);
 
 		/// <summary>
+		///     This allows fluent constructs like Creator.In(user1, user2)
+		/// </summary>
+		IFinalClause In(params User[] users);
+
+		/// <summary>
 		///     This allows fluent constructs like Creator.InCurrentUserAnd("smith", "squarepants")
 		/// </summary>
 		/// <param name="users"></param>
@@ -53,9 +59,22 @@ namespace Dapplo.Jira.Query
 		IFinalClause InCurrentUserAnd(params string[] users);
 
 		/// <summary>
+		///     This allows fluent constructs like Creator.InCurrentUserAnd(user)
+		/// </summary>
+		/// <param name="users"></param>
+		/// <returns></returns>
+		IFinalClause InCurrentUserAnd(params User[] users);
+
+		/// <summary>
 		///     This allows fluent constructs like Creator.Is("smith")
 		/// </summary>
 		IFinalClause Is(string user);
+
+
+		/// <summary>
+		///     This allows fluent constructs like Creator.Is(user)
+		/// </summary>
+		IFinalClause Is(User user);
 	}
 
 	///
@@ -115,6 +134,12 @@ namespace Dapplo.Jira.Query
 		}
 
 		/// <inheritDoc />
+		public IFinalClause Is(User user)
+		{
+			return Is(user.Name);
+		}
+
+		/// <inheritDoc />
 		public IFinalClause In(params string[] users)
 		{
 			_clause.Operator = Operators.In;
@@ -127,6 +152,12 @@ namespace Dapplo.Jira.Query
 		}
 
 		/// <inheritDoc />
+		public IFinalClause In(params User[] users)
+		{
+			return In(users.Select(user => user.Name).ToArray());
+		}
+
+		/// <inheritDoc />
 		public IFinalClause InCurrentUserAnd(params string[] users)
 		{
 			_clause.Operator = Operators.In;
@@ -136,6 +167,12 @@ namespace Dapplo.Jira.Query
 				_clause.Negate();
 			}
 			return _clause;
+		}
+
+		/// <inheritDoc />
+		public IFinalClause InCurrentUserAnd(params User[] users)
+		{
+			return InCurrentUserAnd(users.Select(user => user.Name).ToArray());
 		}
 	}
 }

@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
@@ -162,6 +163,72 @@ namespace Dapplo.Jira.Internal
 
 			var attachUri = _jiraApi.JiraRestUri.AppendSegments("issue", issueKey, "comment", comment.Id);
 			await attachUri.PutAsync(comment, cancellationToken).ConfigureAwait(false);
+		}
+
+		/// <inheritdoc />
+		public async Task<IList<IssueType>> GetIssueTypesAsync(CancellationToken cancellationToken = new CancellationToken())
+		{
+			var issueTypesUri = _jiraApi.JiraRestUri.AppendSegments("issuetype");
+			_jiraApi.Behaviour.MakeCurrent();
+			var response = await issueTypesUri.GetAsAsync<HttpResponse<IList<IssueType>, Error>>(cancellationToken).ConfigureAwait(false);
+			_jiraApi.HandleErrors(response);
+			return response.Response;
+		}
+
+		/// <inheritdoc />
+		public async Task<Issue> CreateAsync(Issue issue, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			if (issue == null)
+			{
+				throw new ArgumentNullException(nameof(issue));
+			}
+			Log.Debug().WriteLine("Creating issue {0}", issue);
+			_jiraApi.Behaviour.MakeCurrent();
+			var issueUri = _jiraApi.JiraRestUri.AppendSegments("issue");
+			var response = await issueUri.PostAsync<HttpResponse<Issue, Error>>(issue, cancellationToken).ConfigureAwait(false);
+			_jiraApi.HandleErrors(response);
+			return response.Response;
+		}
+
+		/// <inheritdoc />
+		public async Task DeleteAsync(string issueKey, bool deleteSubtasks = false, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			if (issueKey == null)
+			{
+				throw new ArgumentNullException(nameof(issueKey));
+			}
+			_jiraApi.Behaviour.MakeCurrent();
+			var issueUri = _jiraApi.JiraRestUri.AppendSegments("issue", issueKey);
+			if (deleteSubtasks)
+			{
+				issueUri = issueUri.ExtendQuery("deleteSubtasks", true);
+			}
+			var response = await issueUri.DeleteAsync<HttpResponse>(cancellationToken).ConfigureAwait(false);
+			if (response.StatusCode != HttpStatusCode.NoContent)
+			{
+				var message = response.StatusCode.ToString();
+				Log.Warn().WriteLine("Http status code: {0}. Response from server: {1}", response.StatusCode, message);
+				throw new Exception($"Status: {response.StatusCode} Message: {message}");
+			}
+		}
+
+		/// <inheritdoc />
+		public async Task AssignAsync(string issueKey, User user, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			if (user == null)
+			{
+				user = User.Nobody;
+			}
+
+			_jiraApi.Behaviour.MakeCurrent();
+			var issueUri = _jiraApi.JiraRestUri.AppendSegments("issue", issueKey, "assignee");
+			var response = await issueUri.PutAsync<HttpResponse>(user, cancellationToken).ConfigureAwait(false);
+			if (response.StatusCode != HttpStatusCode.NoContent)
+			{
+				var message = response.StatusCode.ToString();
+				Log.Warn().WriteLine("Http status code: {0}. Response from server: {1}", response.StatusCode, message);
+				throw new Exception($"Status: {response.StatusCode} Message: {message}");
+			}
 		}
 	}
 }

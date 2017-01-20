@@ -23,6 +23,9 @@
 
 #endregion
 
+using Dapplo.Jira.Entities;
+using System.Linq;
+
 namespace Dapplo.Jira.Query
 {
 	/// <summary>
@@ -40,6 +43,10 @@ namespace Dapplo.Jira.Query
 		/// </summary>
 		IFinalClause In(params string[] issueKeys);
 
+		/// <summary>
+		///     This allows fluent constructs like IssueKey.In(issue1, issue2)
+		/// </summary>
+		IFinalClause In(params Issue[] issues);
 
 		/// <summary>
 		///     This allows fluent constructs like IssueKey.InIssueHistory()
@@ -50,6 +57,11 @@ namespace Dapplo.Jira.Query
 		///     This allows fluent constructs like IssueKey.InLinkedIssues(BUG-12345)
 		/// </summary>
 		IFinalClause InLinkedIssues(string issueKey, string linkType = null);
+
+		/// <summary>
+		///     This allows fluent constructs like IssueKey.InLinkedIssues(issue1)
+		/// </summary>
+		IFinalClause InLinkedIssues(Issue issue, string linkType = null);
 
 		/// <summary>
 		///     This allows fluent constructs like IssueKey.InVotedIssues()
@@ -67,6 +79,11 @@ namespace Dapplo.Jira.Query
 		///     This allows fluent constructs like Id.Is(12345)
 		/// </summary>
 		IFinalClause Is(string issueKey);
+
+		/// <summary>
+		///     This allows fluent constructs like Id.Is(issue1)
+		/// </summary>
+		IFinalClause Is(Issue issue);
 	}
 
 	/// <summary>
@@ -104,6 +121,12 @@ namespace Dapplo.Jira.Query
 		}
 
 		/// <inheritDoc />
+		public IFinalClause Is(Issue issue)
+		{
+			return Is(issue.Key);
+		}
+
+		/// <inheritDoc />
 		public IFinalClause In(params string[] issueKeys)
 		{
 			_clause.Operator = Operators.In;
@@ -115,6 +138,13 @@ namespace Dapplo.Jira.Query
 			return _clause;
 		}
 
+		/// <inheritDoc />
+		public IFinalClause In(params Issue[] issues)
+		{
+			return In(issues.Select(issue => issue.Key).ToArray());
+		}
+
+		/// <inheritDoc />
 		public IFinalClause InIssueHistory()
 		{
 			_clause.Operator = Operators.In;
@@ -126,6 +156,7 @@ namespace Dapplo.Jira.Query
 			return _clause;
 		}
 
+		/// <inheritDoc />
 		public IFinalClause InLinkedIssues(string issueKey, string linkType = null)
 		{
 			_clause.Operator = Operators.In;
@@ -139,6 +170,13 @@ namespace Dapplo.Jira.Query
 			return _clause;
 		}
 
+		/// <inheritDoc />
+		public IFinalClause InLinkedIssues(Issue issue, string linkType = null)
+		{
+			return InLinkedIssues(issue.Key, linkType);
+		}
+
+		/// <inheritDoc />
 		public IFinalClause InVotedIssues()
 		{
 			_clause.Operator = Operators.In;
@@ -150,6 +188,7 @@ namespace Dapplo.Jira.Query
 			return _clause;
 		}
 
+		/// <inheritDoc />
 		public IFinalClause InWatchedIssues()
 		{
 			_clause.Operator = Operators.In;

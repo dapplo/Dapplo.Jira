@@ -18,9 +18,9 @@
 		}
 	},
 	"supports": {},
-	"dependencies": {
-		"Dapplo.HttpExtensions": "0.6.7"
-	},
+    "dependencies": {
+        "Dapplo.HttpExtensions": "0.6.10"
+    },
 	"frameworks": {
 		"netstandard1.3": {
 			"dependencies": {

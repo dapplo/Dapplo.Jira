@@ -36,6 +36,18 @@ namespace Dapplo.Jira.Entities
 	public class User
 	{
 		/// <summary>
+		/// Use this to specify nobody
+		/// </summary>
+		/// <returns>A User which can be used in e.g. AssignAsync to remove the assignee</returns>
+		public static User Nobody { get; } = new User{Name = null};
+
+		/// <summary>
+		/// Default assignee
+		/// </summary>
+		/// <returns>A User which can be used in e.g. AssignAsync to assign to the default user</returns>
+		public static User Default { get; } = new User { Name = "-1" };
+
+		/// <summary>
 		///     true if the user is active (license count)
 		/// </summary>
 		[DataMember(Name = "active")]

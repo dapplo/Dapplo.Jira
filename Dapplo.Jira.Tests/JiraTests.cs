@@ -101,34 +101,12 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetFavoriteFiltersAsync()
 		{
-			var filters = await _jiraApi.GetFavoriteFiltersAsync();
+			var filters = await _jiraApi.Filter.GetFavoritesAsync();
 			Assert.NotNull(filters);
 			foreach (var filter in filters)
 			{
-				await _jiraApi.GetFilterAsync(filter.Id);
+				await _jiraApi.Filter.GetAsync(filter.Id);
 			}
-		}
-
-		[Fact]
-		public async Task TestGetIssueAsync()
-		{
-			var issue = await _jiraApi.Issue.GetAsync("BUG-1845");
-			Assert.NotNull(issue);
-			Assert.NotNull(issue.Fields.IssueType);
-			Assert.NotNull(issue.Fields.Comments.Elements);
-			Assert.True(issue.Fields.CustomFields.Count > 0);
-			Assert.True(issue.Fields.Comments.Elements.Count > 0);
-		}
-
-		[Fact]
-		public async Task TestGetPossibleTransitionsAsync()
-		{
-			SimpleJsonHttpContentConverter.Instance.Value.LogThreshold = 0;
-			JiraConfig.ExpandGetTransitions = new[] {"transitions.fields"};
-			var transitions = await _jiraApi.Issue.GetPossibleTransitionsAsync("BUG-1845");
-			Assert.NotNull(transitions);
-			Assert.True(transitions.Count > 0);
-			Assert.NotNull(transitions[0].PossibleFields);
 		}
 
 		[Fact]
@@ -173,20 +151,6 @@ namespace Dapplo.Jira.Tests
 		}
 
 		[Fact]
-		public async Task TestSearch()
-		{
-			var searchResult = await _jiraApi.Issue.SearchAsync(Where.Text.Contains("robin"));
-
-			Assert.NotNull(searchResult);
-			Assert.NotNull(searchResult.Issues.Count > 0);
-
-			foreach (var issue in searchResult.Issues)
-			{
-				Assert.NotNull(issue.Fields.Project);
-			}
-		}
-
-		[Fact]
 		public async Task TestSearchUsersAsync()
 		{
 			var users = await _jiraApi.User.SearchAsync("Dapplo");
@@ -197,7 +161,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestUser()
 		{
-			var meMyselfAndI = await _jiraApi.User.WhoAmIAsync();
+			var meMyselfAndI = await _jiraApi.User.GetMyselfAsync();
 			Assert.NotNull(meMyselfAndI);
 			var meAgain = await _jiraApi.User.GetAsync(meMyselfAndI.Name);
 			Assert.NotNull(meAgain);

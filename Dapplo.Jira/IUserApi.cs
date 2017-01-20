@@ -65,6 +65,6 @@ namespace Dapplo.Jira
 		/// </summary>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>User</returns>
-		Task<User> WhoAmIAsync(CancellationToken cancellationToken = default(CancellationToken));
+		Task<User> GetMyselfAsync(CancellationToken cancellationToken = default(CancellationToken));
 	}
 }

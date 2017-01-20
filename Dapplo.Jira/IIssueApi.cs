@@ -96,5 +96,38 @@ namespace Dapplo.Jira
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Attachment</returns>
 		Task UpdateCommentAsync(string issueKey, Comment comment, CancellationToken cancellationToken = default(CancellationToken));
+
+
+		/// <summary>
+		///     Get a list of all possible issue types
+		/// </summary>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>List with IssueType elements</returns>
+		Task<IList<IssueType>> GetIssueTypesAsync(CancellationToken cancellationToken = default(CancellationToken));
+
+		/// <summary>
+		///     Create an issue
+		/// </summary>
+		/// <param name="issue">the issue to create</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>Issue</returns>
+		Task<Issue> CreateAsync(Issue issue, CancellationToken cancellationToken = default(CancellationToken));
+
+		/// <summary>
+		///     Delete an issue
+		/// </summary>
+		/// <param name="issueKey">the key of the issue to delete</param>
+		/// <param name="deleteSubtasks">true or false (default) indicating that any subtasks should also be deleted.
+		/// If the issue has no subtasks this parameter is ignored. If the issue has subtasks and this parameter is missing or false, then the issue will not be deleted and an error will be returned</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		Task DeleteAsync(string issueKey, bool deleteSubtasks = false, CancellationToken cancellationToken = default(CancellationToken));
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="issueKey">Key for the issue to assign</param>
+		/// <param name="user">User to assign to, use User.Nobody to remove the assignee or User.Default to automaticly assign</param>
+		/// <param name="cancellationToken"></param>
+		Task AssignAsync(string issueKey, User user, CancellationToken cancellationToken = default(CancellationToken));
 	}
 }

@@ -21,36 +21,36 @@
 
 #region using
 
-using System.Runtime.Serialization;
+using System.Threading;
+using System.Threading.Tasks;
+using Dapplo.Jira.Entities;
 
 #endregion
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira
 {
 	/// <summary>
-	///     Issue information
-	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
+	///     The methods of the session domain
 	/// </summary>
-	[DataContract]
-	public class Issue : BaseProperties<string>
+	public interface ISessionApi
 	{
 		/// <summary>
-		///     Fields for the issue
+		///     Starts new session. No additional authorization requered.
 		/// </summary>
-		[DataMember(Name = "fields")]
-		public IssueFields Fields { get; set; }
+		/// <remarks>
+		///     Please be aware that although cookie-based authentication has many benefits, such as performance (not having to
+		///     make multiple authentication calls), the session cookie can expire..
+		/// </remarks>
+		/// <param name="username">User username</param>
+		/// <param name="password">User password</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>LoginInfo</returns>
+		Task<LoginInfo> StartAsync(string username, string password, CancellationToken cancellationToken = default(CancellationToken));
 
 		/// <summary>
-		///     Key of the issue
+		///     Ends session. No additional authorization required.
 		/// </summary>
-		[DataMember(Name = "key")]
-		public string Key { get; set; }
-
-		/// <summary>
-		///     Fields for the issue, but wiki markup is now rendered to HTML
-		///     This will be in the response when expand=renderedFields
-		/// </summary>
-		[DataMember(Name = "renderedFields")]
-		public IssueFields RenderedFields { get; set; }
+		/// <param name="cancellationToken">CancellationToken</param>
+		Task EndAsync(CancellationToken cancellationToken = default(CancellationToken));
 	}
 }

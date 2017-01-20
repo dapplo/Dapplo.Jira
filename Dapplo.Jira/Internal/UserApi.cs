@@ -97,7 +97,7 @@ namespace Dapplo.Jira.Internal
 		}
 
 		/// <inheritdoc />
-		public async Task<User> WhoAmIAsync(CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<User> GetMyselfAsync(CancellationToken cancellationToken = default(CancellationToken))
 		{
 			Log.Debug().WriteLine("Retieving who I am");
 

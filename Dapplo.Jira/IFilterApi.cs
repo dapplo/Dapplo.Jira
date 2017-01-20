@@ -31,26 +31,34 @@ using Dapplo.Jira.Entities;
 namespace Dapplo.Jira
 {
 	/// <summary>
-	///     The methods of the project domain
+	///     The methods of the filter domain
 	/// </summary>
-	public interface IProjectApi
+	public interface IFilterApi
 	{
-		/// <summary>
-		///     Get all visible projects
-		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2779
-		/// </summary>
-		/// <param name="recent">if this parameter is set then only projects recently accessed by the current user (if not logged in then based on HTTP session) will be returned (maximum count limited to the specified number but no more than 20).</param>
-		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>list of ProjectDigest</returns>
-		Task<IList<ProjectDigest>> GetAllAsync(int? recent = null, CancellationToken cancellationToken = default(CancellationToken));
 
 		/// <summary>
-		///     Get projects information
-		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2779
+		///     Get filter favorites
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1388
 		/// </summary>
-		/// <param name="projectKey">key of the project</param>
 		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>ProjectDetails</returns>
-		Task<Project> GetAsync(string projectKey, CancellationToken cancellationToken = default(CancellationToken));
+		/// <returns>List of filter</returns>
+		Task<IList<Filter>> GetFavoritesAsync(CancellationToken cancellationToken = default(CancellationToken));
+
+		/// <summary>
+		///     Get filter
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1388
+		/// </summary>
+		/// <param name="id">filter id</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>Filter</returns>
+		Task<Filter> GetAsync(long id, CancellationToken cancellationToken = default(CancellationToken));
+
+		/// <summary>
+		///     Delete filter
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1388
+		/// </summary>
+		/// <param name="id">filter id</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		Task DeleteAsync(long id, CancellationToken cancellationToken = default(CancellationToken));
 	}
 }

@@ -23,6 +23,9 @@
 
 #endregion
 
+using Dapplo.Jira.Entities;
+using System.Linq;
+
 namespace Dapplo.Jira.Query
 {
 	/// <summary>
@@ -36,15 +39,30 @@ namespace Dapplo.Jira.Query
 		ITypeClause Not { get; }
 
 		/// <summary>
-		///     Check if the type is on of the supplied ones
+		///     Test if the type of the content is one of the specified types
 		/// </summary>
-		/// <param name="types">array of types</param>
+		/// <param name="types">Types</param>
+		/// <returns>IFinalClause</returns>
 		IFinalClause In(params string[] types);
+
+		/// <summary>
+		///     Test if the type of the content is one of the specified types
+		/// </summary>
+		/// <param name="types">IssueType array</param>
+		/// <returns>IFinalClause</returns>
+		IFinalClause In(params IssueType[] types);
 
 		/// <summary>
 		///     This allows fluent constructs like Type.Is("Feature")
 		/// </summary>
 		IFinalClause Is(string type);
+
+		/// <summary>
+		///     Test if the type of the content is the specified type
+		/// </summary>
+		/// <param name="type">IssueType</param>
+		/// <returns>IFinalClause</returns>
+		IFinalClause Is(IssueType type);
 	}
 
 	///
@@ -66,11 +84,7 @@ namespace Dapplo.Jira.Query
 			}
 		}
 
-		/// <summary>
-		///     Test if the type of the content is one of the specified types
-		/// </summary>
-		/// <param name="types">Types</param>
-		/// <returns>IFinalClause</returns>
+		/// <inheritDoc />
 		public IFinalClause In(params string[] types)
 		{
 			_clause.Operator = Operators.In;
@@ -82,11 +96,20 @@ namespace Dapplo.Jira.Query
 			return _clause;
 		}
 
-		/// <summary>
-		///     Test if the type of the content is the specified type
-		/// </summary>
-		/// <param name="type">Type</param>
-		/// <returns>IFinalClause</returns>
+		/// <inheritDoc />
+		public IFinalClause In(params IssueType[] issueTypes)
+		{
+			return In(issueTypes.Select(issueType => issueType.Id).ToArray());
+		}
+
+		/// <inheritDoc />
+		public IFinalClause In(params long[] issueTypeIds)
+		{
+			return In(issueTypeIds.Select(issueTypeId => issueTypeId.ToString()).ToArray());
+		}
+
+
+		/// <inheritDoc />
 		public IFinalClause Is(string type)
 		{
 			_clause.Operator = Operators.EqualTo;
@@ -96,6 +119,18 @@ namespace Dapplo.Jira.Query
 				_clause.Negate();
 			}
 			return _clause;
+		}
+
+		/// <inheritDoc />
+		public IFinalClause Is(long issueTypeId)
+		{
+			return Is(issueTypeId.ToString());
+		}
+
+		/// <inheritDoc />
+		public IFinalClause Is(IssueType type)
+		{
+			return Is(type.Id);
 		}
 	}
 }
