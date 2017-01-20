@@ -6,11 +6,13 @@ This is a simple REST based JIRA client, written for Greenshot, by using Dapplo.
 - NuGet package: [![NuGet package](https://badge.fury.io/nu/Dapplo.Jira.svg)](https://badge.fury.io/nu/Dapplo.Jira)
 
 This client has support for:
-* Issue (get / comment)
+* Issue (get / comment, create, delete, assign, issue types)
 * Attachments (delete, upload & download)
 * Basic authorization, OAuth & session (via cookie)
 * Search
 * Information on projects, transitions and users
-* Avatar & Issue type 
+* getting Avatars of users and icons for Issue type 
 
 More to come.
+
+For examples on how to use this library, I advice you to look at the test cases.
