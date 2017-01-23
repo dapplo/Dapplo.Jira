@@ -21,9 +21,7 @@
 
 #region using
 
-using System;
 using System.Threading.Tasks;
-using Dapplo.Log;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -31,28 +29,27 @@ using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests
 {
-	public class JiraTests : TestBase
+	public class UserTests : TestBase
 	{
-		public JiraTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+		public UserTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
 		{
 		}
 
 		[Fact]
-		public void TestConstructor()
+		public async Task TestSearchUsersAsync()
 		{
-			Assert.Throws<ArgumentNullException>(() => new JiraApi(null));
+			var users = await _jiraApi.User.SearchAsync("Dapplo");
+			Assert.NotNull(users);
+			Assert.True(users.Count > 0);
 		}
 
 		[Fact]
-		public async Task TestGetServerInfoAsync()
+		public async Task TestUser()
 		{
-			Assert.NotNull(_jiraApi);
-			var serverInfo = await _jiraApi.GetServerInfoAsync();
-			Assert.NotNull(serverInfo.Version);
-			Assert.NotNull(serverInfo.ServerTitle);
-			// This should be changed when the title changes
-			Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
-			Log.Debug().WriteLine($"Version {serverInfo.Version} - Title: {serverInfo.ServerTitle}");
+			var meMyselfAndI = await _jiraApi.User.GetMyselfAsync();
+			Assert.NotNull(meMyselfAndI);
+			var meAgain = await _jiraApi.User.GetAsync(meMyselfAndI.Name);
+			Assert.NotNull(meAgain);
 		}
 	}
 }

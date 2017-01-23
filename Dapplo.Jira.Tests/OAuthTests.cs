@@ -46,13 +46,13 @@ namespace Dapplo.Jira.Tests
 	///     5) At the first connect, the authentication challenge is started if there wasn't any token information
 	///     6) Store the OAuthToken / OAuthTokenSecret / OAuthTokenVerifier for later usage...
 	/// </summary>
-	public class JiraOAuthTests : IOAuth1Token
+	public class OAuthTests : IOAuth1Token
 	{
 		// Test against a well known JIRA
 		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
 		private readonly JiraApi _jiraApi;
 
-		public JiraOAuthTests(ITestOutputHelper testOutputHelper)
+		public OAuthTests(ITestOutputHelper testOutputHelper)
 		{
 			// A demo Private key, to create a RSACryptoServiceProvider.
 			// This was created from a .pem via a tool here http://www.jensign.com/opensslkey/index.html

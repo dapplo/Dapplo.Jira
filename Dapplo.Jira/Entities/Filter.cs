@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Dapplo.Jira.Query;
 
 #endregion
 
@@ -35,6 +36,22 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class Filter : BaseProperties<long>
 	{
+		public Filter()
+		{
+			
+		}
+
+		public Filter(IFinalClause jql)
+		{
+			Jql = jql.ToString();
+		}
+
+		public Filter(string name, IFinalClause jql)
+		{
+			Name = name;
+			Jql = jql.ToString();
+		}
+
 		/// <summary>
 		///     Description of the filter
 		/// </summary>

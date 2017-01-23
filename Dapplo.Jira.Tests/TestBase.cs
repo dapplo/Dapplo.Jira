@@ -22,37 +22,36 @@
 #region using
 
 using System;
-using System.Threading.Tasks;
 using Dapplo.Log;
-using Xunit;
+using Dapplo.Log.XUnit;
 using Xunit.Abstractions;
 
 #endregion
 
 namespace Dapplo.Jira.Tests
 {
-	public class JiraTests : TestBase
+	public class TestBase
 	{
-		public JiraTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
-		{
-		}
+		protected static readonly LogSource Log = new LogSource();
 
-		[Fact]
-		public void TestConstructor()
-		{
-			Assert.Throws<ArgumentNullException>(() => new JiraApi(null));
-		}
+		// Test against a well known JIRA
+		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
 
-		[Fact]
-		public async Task TestGetServerInfoAsync()
+		protected readonly JiraApi _jiraApi;
+		protected readonly string _username;
+		protected readonly string _password;
+
+		public TestBase(ITestOutputHelper testOutputHelper, bool autoLogin = true)
 		{
-			Assert.NotNull(_jiraApi);
-			var serverInfo = await _jiraApi.GetServerInfoAsync();
-			Assert.NotNull(serverInfo.Version);
-			Assert.NotNull(serverInfo.ServerTitle);
-			// This should be changed when the title changes
-			Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
-			Log.Debug().WriteLine($"Version {serverInfo.Version} - Title: {serverInfo.ServerTitle}");
+			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
+			_jiraApi = new JiraApi(TestJiraUri);
+			_username = Environment.GetEnvironmentVariable("jira_test_username");
+			_password = Environment.GetEnvironmentVariable("jira_test_password");
+
+			if (!string.IsNullOrEmpty(_username) && !string.IsNullOrEmpty(_password))
+			{
+				_jiraApi.SetBasicAuthentication(_username, _password);
+			}
 		}
 	}
 }

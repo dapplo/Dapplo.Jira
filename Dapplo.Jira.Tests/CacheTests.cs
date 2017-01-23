@@ -21,11 +21,8 @@
 
 #region using
 
-using System;
 using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
-using Dapplo.Log;
-using Dapplo.Log.XUnit;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -33,32 +30,24 @@ using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests
 {
-	public class JiraCacheTests
+	public class CacheTests : TestBase
 	{
-		// Test against a well known JIRA
-		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
 		private readonly AvatarCache _avatarCache;
-		private readonly JiraApi _jiraApi;
-
-		public JiraCacheTests(ITestOutputHelper testOutputHelper)
+		public CacheTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper, false)
 		{
-			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
-			_jiraApi = new JiraApi(TestJiraUri);
 			_avatarCache = new AvatarCache(_jiraApi);
 		}
 
 		[Fact]
 		public async Task TestCache()
 		{
-			var username = Environment.GetEnvironmentVariable("jira_test_username");
-			var password = Environment.GetEnvironmentVariable("jira_test_password");
 			LoginInfo loginInfo = null;
-			if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+			if (!string.IsNullOrEmpty(_username) && !string.IsNullOrEmpty(_password))
 			{
-				loginInfo = await _jiraApi.Session.StartAsync(username, password);
+				loginInfo = await _jiraApi.Session.StartAsync(_username, _password);
 			}
 			var me = await _jiraApi.User.GetMyselfAsync();
-			Assert.Equal(me.Name, username);
+			Assert.Equal(me.Name, _username);
 
 			var avatar = await _avatarCache.GetOrCreateAsync(me.Avatars);
 			Assert.NotNull(avatar);

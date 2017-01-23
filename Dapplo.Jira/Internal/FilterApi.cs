@@ -84,17 +84,76 @@ namespace Dapplo.Jira.Internal
 		}
 
 		/// <inheritdoc />
-		public async Task DeleteAsync(long id, CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<Filter> CreateAsync(Filter filter, CancellationToken cancellationToken = default(CancellationToken))
 		{
-			Log.Debug().WriteLine("Deleting filter {0}", id);
+			if (filter == null)
+			{
+				throw new ArgumentNullException(nameof(filter));
+			}
+			var filterCopy = new Filter
+			{
+				Name = filter.Name,
+				Jql = filter.Jql,
+				Description = filter.Description,
+				IsFavorite = filter.IsFavorite
+			};
+			_jiraApi.Behaviour.MakeCurrent();
+			var filterUri = _jiraApi.JiraRestUri.AppendSegments("filter");
+
+			// Add the configurable expand values, if the value is not null or empty
+			if (JiraConfig.ExpandGetFilter?.Length > 0)
+			{
+				filterUri = filterUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetFilter));
+			}
+
+			var response = await filterUri.PostAsync<HttpResponse<Filter, Error>>(filterCopy, cancellationToken).ConfigureAwait(false);
+			return _jiraApi.HandleErrors(response);
+		}
+
+		/// <inheritdoc />
+		public async Task<Filter> UpdateAsync(Filter filter, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			if (filter == null)
+			{
+				throw new ArgumentNullException(nameof(filter));
+			}
+			var filterCopy = new Filter
+			{
+				Name = filter.Name,
+				Jql = filter.Jql,
+				Description = filter.Description,
+				IsFavorite = filter.IsFavorite
+			};
 
 			_jiraApi.Behaviour.MakeCurrent();
-			var filterUri = _jiraApi.JiraRestUri.AppendSegments("filter", id);
+			var filterUri = _jiraApi.JiraRestUri.AppendSegments("filter", filter.Id);
 
-			var response = await filterUri.DeleteAsync<HttpResponse<string, Error>>(cancellationToken).ConfigureAwait(false);
+			// Add the configurable expand values, if the value is not null or empty
+			if (JiraConfig.ExpandGetFilter?.Length > 0)
+			{
+				filterUri = filterUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetFilter));
+			}
+
+			var response = await filterUri.PutAsync<HttpResponse<Filter, Error>>(filterCopy, cancellationToken).ConfigureAwait(false);
+			return _jiraApi.HandleErrors(response);
+		}
+
+		/// <inheritdoc />
+		public async Task DeleteAsync(Filter filter, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			if (filter == null)
+			{
+				throw new ArgumentNullException(nameof(filter));
+			}
+			Log.Debug().WriteLine("Deleting filter {0}", filter.Id);
+
+			_jiraApi.Behaviour.MakeCurrent();
+			var filterUri = _jiraApi.JiraRestUri.AppendSegments("filter", filter.Id);
+
+			var response = await filterUri.DeleteAsync<HttpResponse>(cancellationToken).ConfigureAwait(false);
 			if (response.StatusCode != HttpStatusCode.NoContent)
 			{
-				throw new Exception(string.Join(", ", response.ErrorResponse.ErrorMessages));
+				throw new Exception(response.StatusCode.ToString());
 			}
 		}
 	}

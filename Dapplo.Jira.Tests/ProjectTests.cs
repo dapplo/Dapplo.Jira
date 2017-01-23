@@ -21,9 +21,11 @@
 
 #region using
 
-using System;
+using System.Drawing;
 using System.Threading.Tasks;
-using Dapplo.Log;
+using Dapplo.HttpExtensions.Extensions;
+using Dapplo.Jira.Converters;
+using Dapplo.Jira.Entities;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -31,28 +33,39 @@ using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests
 {
-	public class JiraTests : TestBase
+	public class ProjectTests : TestBase
 	{
-		public JiraTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+		public ProjectTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
 		{
 		}
 
 		[Fact]
-		public void TestConstructor()
+		public async Task TestGetProjectAsync()
 		{
-			Assert.Throws<ArgumentNullException>(() => new JiraApi(null));
+			var project = await _jiraApi.Project.GetAsync("BUG");
+
+			Assert.NotNull(project);
+			Assert.NotNull(project.Roles.Count > 0);
 		}
 
 		[Fact]
-		public async Task TestGetServerInfoAsync()
+		public async Task TestGetProjectsAsync()
 		{
-			Assert.NotNull(_jiraApi);
-			var serverInfo = await _jiraApi.GetServerInfoAsync();
-			Assert.NotNull(serverInfo.Version);
-			Assert.NotNull(serverInfo.ServerTitle);
-			// This should be changed when the title changes
-			Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
-			Log.Debug().WriteLine($"Version {serverInfo.Version} - Title: {serverInfo.ServerTitle}");
+			var projects = await _jiraApi.Project.GetAllAsync();
+
+			Assert.NotNull(projects);
+			Assert.NotNull(projects.Count > 0);
+
+			_jiraApi.Behaviour.SetConfig(new SvgConfiguration {Width = 24, Height = 24});
+
+			foreach (var project in projects)
+			{
+				var avatar = await _jiraApi.GetAvatarAsync<Bitmap>(project.Avatar, AvatarSizes.Medium);
+				Assert.True(avatar.Width == 24);
+
+				var projectDetails = await _jiraApi.Project.GetAsync(project.Key);
+				Assert.NotNull(projectDetails);
+			}
 		}
 	}
 }

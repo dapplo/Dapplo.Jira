@@ -45,7 +45,7 @@ namespace Dapplo.Jira
 		///     When "manual" is selected for adjustEstimate the amount to reduce the remaining estimate by.
 		/// </param>
 		/// <param name="cancellationToken">CancellationToken</param>
-		Task LogWorkAsync(string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto, string adjustValue = null, CancellationToken cancellationToken = default(CancellationToken));
+		Task<Worklog> CreateAsync(string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto, string adjustValue = null, CancellationToken cancellationToken = default(CancellationToken));
 
 		/// <summary>
 		///     Update work log for the specified issue
@@ -58,7 +58,7 @@ namespace Dapplo.Jira
 		///     When "manual" is selected for adjustEstimate the amount to reduce the remaining estimate by.
 		/// </param>
 		/// <param name="cancellationToken">CancellationToken</param>
-		Task UpdateLoggedWorkAsync(string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto, string adjustValue = null, CancellationToken cancellationToken = default(CancellationToken));
+		Task UpdateAsync(string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto, string adjustValue = null, CancellationToken cancellationToken = default(CancellationToken));
 
 		/// <summary>
 		///     Get worklogs information
@@ -67,5 +67,18 @@ namespace Dapplo.Jira
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Worklogs</returns>
 		Task<Worklogs> GetAsync(string issueKey, CancellationToken cancellationToken = default(CancellationToken));
+
+		/// <summary>
+		/// Delete the spefified Worklog
+		/// </summary>
+		/// <param name="issueKey">Key of the issue to delete to worklog for</param>
+		/// <param name="worklog">Worklog to delete</param>
+		/// <param name="adjustEstimate">allows you to provide specific instructions to update the remaining time estimate of the issue.</param>
+		/// <param name="adjustValue">e.g. "2d".
+		///     When "new" is selected for adjustEstimate the new value for the remaining estimate field.
+		///     When "manual" is selected for adjustEstimate the amount to reduce the remaining estimate by.
+		/// </param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		Task DeleteAsync(string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto, string adjustValue = null, CancellationToken cancellationToken = default(CancellationToken));
 	}
 }

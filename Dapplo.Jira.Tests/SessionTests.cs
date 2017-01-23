@@ -23,7 +23,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Dapplo.Log;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -31,28 +30,25 @@ using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests
 {
-	public class JiraTests : TestBase
+	public class SessionTests : TestBase
 	{
-		public JiraTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+		public SessionTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper, false)
 		{
 		}
 
 		[Fact]
-		public void TestConstructor()
+		public async Task TestSession()
 		{
-			Assert.Throws<ArgumentNullException>(() => new JiraApi(null));
-		}
+			if (!string.IsNullOrEmpty(_username) && !string.IsNullOrEmpty(_password))
+			{
+				await _jiraApi.Session.StartAsync(_username, _password);
+			}
+			var me = await _jiraApi.User.GetMyselfAsync();
+			Assert.Equal(me.Name, _username);
+			await _jiraApi.Session.EndAsync();
 
-		[Fact]
-		public async Task TestGetServerInfoAsync()
-		{
-			Assert.NotNull(_jiraApi);
-			var serverInfo = await _jiraApi.GetServerInfoAsync();
-			Assert.NotNull(serverInfo.Version);
-			Assert.NotNull(serverInfo.ServerTitle);
-			// This should be changed when the title changes
-			Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
-			Log.Debug().WriteLine($"Version {serverInfo.Version} - Title: {serverInfo.ServerTitle}");
+			// WhoAmI should give an exception if there is no login
+			await Assert.ThrowsAsync<Exception>(async () => await _jiraApi.User.GetMyselfAsync());
 		}
 	}
 }

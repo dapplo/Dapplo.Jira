@@ -35,7 +35,6 @@ namespace Dapplo.Jira
 	/// </summary>
 	public interface IFilterApi
 	{
-
 		/// <summary>
 		///     Get filter favorites
 		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1388
@@ -43,6 +42,22 @@ namespace Dapplo.Jira
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>List of filter</returns>
 		Task<IList<Filter>> GetFavoritesAsync(CancellationToken cancellationToken = default(CancellationToken));
+
+		/// <summary>
+		///     Create a filter
+		/// </summary>
+		/// <param name="filter">Filter to create</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>Filter</returns>
+		Task<Filter> CreateAsync(Filter filter, CancellationToken cancellationToken = default(CancellationToken));
+
+		/// <summary>
+		///     Update a filter
+		/// </summary>
+		/// <param name="filter">Filter to update</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>Filter</returns>
+		Task<Filter> UpdateAsync(Filter filter, CancellationToken cancellationToken = default(CancellationToken));
 
 		/// <summary>
 		///     Get filter
@@ -57,8 +72,8 @@ namespace Dapplo.Jira
 		///     Delete filter
 		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1388
 		/// </summary>
-		/// <param name="id">filter id</param>
+		/// <param name="filter">Filter to delete</param>
 		/// <param name="cancellationToken">CancellationToken</param>
-		Task DeleteAsync(long id, CancellationToken cancellationToken = default(CancellationToken));
+		Task DeleteAsync(Filter filter, CancellationToken cancellationToken = default(CancellationToken));
 	}
 }

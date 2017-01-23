@@ -21,14 +21,11 @@
 
 #region using
 
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions.ContentConverter;
 using Dapplo.Jira.Entities;
 using Dapplo.Jira.Query;
-using Dapplo.Log;
-using Dapplo.Log.XUnit;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -36,24 +33,10 @@ using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests
 {
-	public class JiraIssueTests
+	public class IssueTests : TestBase
 	{
-		// Test against a well known JIRA
-		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
-
-		private readonly JiraApi _jiraApi;
-
-		public JiraIssueTests(ITestOutputHelper testOutputHelper)
+		public IssueTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
 		{
-			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
-			_jiraApi = new JiraApi(TestJiraUri);
-			var username = Environment.GetEnvironmentVariable("jira_test_username");
-			var password = Environment.GetEnvironmentVariable("jira_test_password");
-
-			if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
-			{
-				_jiraApi.SetBasicAuthentication(username, password);
-			}
 		}
 
 		[Fact]

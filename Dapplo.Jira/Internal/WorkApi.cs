@@ -64,7 +64,7 @@ namespace Dapplo.Jira.Internal
 		}
 
 		/// <inheritdoc />
-		public async Task LogWorkAsync(string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto, string adjustValue = null, CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<Worklog> CreateAsync(string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto, string adjustValue = null, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			if (issueKey == null)
 			{
@@ -74,6 +74,12 @@ namespace Dapplo.Jira.Internal
 			{
 				throw new ArgumentNullException(nameof(worklog));
 			}
+			var worklogCopy = new Worklog
+			{
+				Comment = worklog.Comment,
+				TimeSpentSeconds = worklog.TimeSpentSeconds,
+				Visibility = worklog.Visibility
+			};
 			var worklogUri = _jiraApi.JiraRestUri.AppendSegments("issue", issueKey, "worklog");
 			if (adjustEstimate != AdjustEstimate.Auto)
 			{
@@ -91,15 +97,16 @@ namespace Dapplo.Jira.Internal
 
 			_jiraApi.Behaviour.MakeCurrent();
 
-			var response = await worklogUri.PostAsync<HttpResponse<Error>>(worklog, cancellationToken).ConfigureAwait(false);
+			var response = await worklogUri.PostAsync<HttpResponse<Worklog>>(worklogCopy, cancellationToken).ConfigureAwait(false);
 			if (response.StatusCode != HttpStatusCode.Created)
 			{
 				throw new Exception(response.StatusCode.ToString());
 			}
+			return response.Response;
 		}
 
 		/// <inheritdoc />
-		public async Task UpdateLoggedWorkAsync(string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto, string adjustValue = null, CancellationToken cancellationToken = default(CancellationToken))
+		public async Task UpdateAsync(string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto, string adjustValue = null, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			if (issueKey == null)
 			{
@@ -109,6 +116,12 @@ namespace Dapplo.Jira.Internal
 			{
 				throw new ArgumentNullException(nameof(worklog));
 			}
+			var worklogCopy = new Worklog
+			{
+				Comment = worklog.Comment,
+				TimeSpentSeconds = worklog.TimeSpentSeconds,
+				Visibility = worklog.Visibility
+			};
 			var worklogUri = _jiraApi.JiraRestUri.AppendSegments("issue", issueKey, "worklog", worklog.Id);
 			if (adjustEstimate != AdjustEstimate.Auto)
 			{
@@ -126,15 +139,15 @@ namespace Dapplo.Jira.Internal
 
 			_jiraApi.Behaviour.MakeCurrent();
 
-			var response = await worklogUri.PutAsync<HttpResponse<Error>>(worklog, cancellationToken).ConfigureAwait(false);
-			if (response.StatusCode != HttpStatusCode.Created)
+			var response = await worklogUri.PutAsync<HttpResponse<Error>>(worklogCopy, cancellationToken).ConfigureAwait(false);
+			if (response.StatusCode != HttpStatusCode.OK)
 			{
 				throw new Exception(response.StatusCode.ToString());
 			}
 		}
 
 		/// <inheritdoc />
-		public async Task DeleteLoggedWorkAsync(string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto, string adjustValue = null, CancellationToken cancellationToken = default(CancellationToken))
+		public async Task DeleteAsync(string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto, string adjustValue = null, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			if (issueKey == null)
 			{

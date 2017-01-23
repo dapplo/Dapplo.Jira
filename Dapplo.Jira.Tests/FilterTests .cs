@@ -21,10 +21,9 @@
 
 #region using
 
-using System;
 using System.Threading.Tasks;
-using Dapplo.Log;
-using Dapplo.Log.XUnit;
+using Dapplo.Jira.Entities;
+using Dapplo.Jira.Query;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -32,34 +31,37 @@ using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests
 {
-	public class JiraSessionTests
+	public class FilterTests : TestBase
 	{
-		// Test against a well known JIRA
-		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
-
-		private readonly JiraApi _jiraApi;
-
-		public JiraSessionTests(ITestOutputHelper testOutputHelper)
+		public FilterTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
 		{
-			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
-			_jiraApi = new JiraApi(TestJiraUri);
 		}
 
 		[Fact]
-		public async Task TestSession()
+		public async Task TestGetFavoritesAsync()
 		{
-			var username = Environment.GetEnvironmentVariable("jira_test_username");
-			var password = Environment.GetEnvironmentVariable("jira_test_password");
-			if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+			var filters = await _jiraApi.Filter.GetFavoritesAsync();
+			Assert.NotNull(filters);
+			foreach (var filter in filters)
 			{
-				await _jiraApi.Session.StartAsync(username, password);
+				await _jiraApi.Filter.GetAsync(filter.Id);
 			}
-			var me = await _jiraApi.User.GetMyselfAsync();
-			Assert.Equal(me.Name, username);
-			await _jiraApi.Session.EndAsync();
+		}
 
-			// WhoAmI should give an exception if there is no login
-			await Assert.ThrowsAsync<Exception>(async () => await _jiraApi.User.GetMyselfAsync());
+		[Fact]
+		public async Task TestCreateAsync()
+		{
+			var query = Where.IssueKey.In("BUG-2104");
+			var filter = await _jiraApi.Filter.CreateAsync(new Filter("MyTestFilter",query));
+			Assert.NotNull(filter);
+			Assert.Equal(query.ToString(), filter.Jql);
+			query = Where.IssueKey.In("BUG-2104", "BUG-2105");
+			filter.Jql = query.ToString();
+			filter = await _jiraApi.Filter.UpdateAsync(filter);
+			Assert.NotNull(filter);
+			Assert.Equal(query.ToString(), filter.Jql);
+
+			await _jiraApi.Filter.DeleteAsync(filter);
 		}
 	}
 }

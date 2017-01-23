@@ -23,7 +23,6 @@
 
 using System;
 using System.Runtime.Serialization;
-using Dapplo.Jira.Extensions;
 
 #endregion
 
@@ -42,7 +41,7 @@ namespace Dapplo.Jira.Entities
 
 		public Worklog(TimeSpan timeSpent)
 		{
-			TimeSpent = timeSpent.TimeSpanToJiraTime();
+			TimeSpentSeconds = (int)timeSpent.TotalSeconds;
 		}
 
 		/// <summary>
@@ -92,5 +91,11 @@ namespace Dapplo.Jira.Entities
 		/// </summary>
 		[DataMember(Name = "updated", EmitDefaultValue = false)]
 		public DateTimeOffset Updated { get; set; }
+
+		/// <summary>
+		///     Visibility
+		/// </summary>
+		[DataMember(Name = "visibility", EmitDefaultValue = false)]
+		public Visibility Visibility { get; set; }
 	}
 }

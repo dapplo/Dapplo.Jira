@@ -23,7 +23,7 @@
 
 using System;
 using System.Threading.Tasks;
-using Dapplo.Log;
+using Dapplo.Jira.Entities;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -31,28 +31,36 @@ using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests
 {
-	public class JiraTests : TestBase
+	public class WorkTests : TestBase
 	{
-		public JiraTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+		public WorkTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper, false)
 		{
 		}
 
 		[Fact]
-		public void TestConstructor()
+		public async Task TestWorklogs()
 		{
-			Assert.Throws<ArgumentNullException>(() => new JiraApi(null));
+			var worklogs = await _jiraApi.Work.GetAsync("BUG-2104");
+			Assert.NotNull(worklogs);
+			Assert.True(worklogs.Elements.Count > 0);
 		}
 
 		[Fact]
-		public async Task TestGetServerInfoAsync()
+		public async Task TestLogWork()
 		{
-			Assert.NotNull(_jiraApi);
-			var serverInfo = await _jiraApi.GetServerInfoAsync();
-			Assert.NotNull(serverInfo.Version);
-			Assert.NotNull(serverInfo.ServerTitle);
-			// This should be changed when the title changes
-			Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
-			Log.Debug().WriteLine($"Version {serverInfo.Version} - Title: {serverInfo.ServerTitle}");
+			const string issueKey = "BUG-2104";
+			var worklog = await _jiraApi.Work.CreateAsync(issueKey, new Worklog(TimeSpan.FromHours(16))
+			{
+				Comment = "Testing the logging of work"
+			});
+
+			Assert.NotNull(worklog);
+			Assert.True(worklog.TimeSpent == "2d");
+			worklog.TimeSpent = "3d";
+			await _jiraApi.Work.UpdateAsync(issueKey, worklog);
+
+			// Delete again
+			await _jiraApi.Work.DeleteAsync(issueKey, worklog);
 		}
 	}
 }
