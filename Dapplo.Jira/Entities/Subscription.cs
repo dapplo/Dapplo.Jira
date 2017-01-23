@@ -36,7 +36,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The user which subscribed
 		/// </summary>
-		[DataMember(Name = "user")]
+		[DataMember(Name = "user", EmitDefaultValue = false)]
 		public User Subscriber { get; set; }
 	}
 }

@@ -36,19 +36,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Is this an achived version?
 		/// </summary>
-		[DataMember(Name = "archived")]
+		[DataMember(Name = "archived", EmitDefaultValue = false)]
 		public bool Archived { get; set; }
 
 		/// <summary>
 		///     Name of the version
 		/// </summary>
-		[DataMember(Name = "name")]
+		[DataMember(Name = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Is this version released?
 		/// </summary>
-		[DataMember(Name = "released")]
+		[DataMember(Name = "released", EmitDefaultValue = false)]
 		public bool Released { get; set; }
 	}
 }

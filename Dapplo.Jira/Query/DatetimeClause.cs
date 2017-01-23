@@ -22,6 +22,7 @@
 #region using
 
 using System;
+using Dapplo.Jira.Extensions;
 
 #endregion
 
@@ -190,85 +191,57 @@ namespace Dapplo.Jira.Query
 		/// <inheritDoc />
 		public IFinalClause EndOfDay(TimeSpan? timeSpan = null)
 		{
-			_clause.Value = $"endOfDay({TimeSpanToIncrement(timeSpan)})";
+			_clause.Value = $"endOfDay({timeSpan.TimeSpanToIncrement()})";
 			return _clause;
 		}
 
 		/// <inheritDoc />
 		public IFinalClause EndOfMonth(TimeSpan? timeSpan = null)
 		{
-			_clause.Value = $"endOfMonth({TimeSpanToIncrement(timeSpan)})";
+			_clause.Value = $"endOfMonth({timeSpan.TimeSpanToIncrement()})";
 			return _clause;
 		}
 
 		/// <inheritDoc />
 		public IFinalClause EndOfWeek(TimeSpan? timeSpan = null)
 		{
-			_clause.Value = $"endOfWeek({TimeSpanToIncrement(timeSpan)})";
+			_clause.Value = $"endOfWeek({timeSpan.TimeSpanToIncrement()})";
 			return _clause;
 		}
 
 		/// <inheritDoc />
 		public IFinalClause EndOfYear(TimeSpan? timeSpan = null)
 		{
-			_clause.Value = $"endOfYear({TimeSpanToIncrement(timeSpan)})";
+			_clause.Value = $"endOfYear({timeSpan.TimeSpanToIncrement()})";
 			return _clause;
 		}
 
 		/// <inheritDoc />
 		public IFinalClause StartOfDay(TimeSpan? timeSpan = null)
 		{
-			_clause.Value = $"startOfDay({TimeSpanToIncrement(timeSpan)})";
+			_clause.Value = $"startOfDay({timeSpan.TimeSpanToIncrement()})";
 			return _clause;
 		}
 
 		/// <inheritDoc />
 		public IFinalClause StartOfMonth(TimeSpan? timeSpan = null)
 		{
-			_clause.Value = $"startOfMonth({TimeSpanToIncrement(timeSpan)})";
+			_clause.Value = $"startOfMonth({timeSpan.TimeSpanToIncrement()})";
 			return _clause;
 		}
 
 		/// <inheritDoc />
 		public IFinalClause StartOfWeek(TimeSpan? timeSpan = null)
 		{
-			_clause.Value = $"startOfWeek({TimeSpanToIncrement(timeSpan)})";
+			_clause.Value = $"startOfWeek({timeSpan.TimeSpanToIncrement()})";
 			return _clause;
 		}
 
 		/// <inheritDoc />
 		public IFinalClause StartOfYear(TimeSpan? timeSpan = null)
 		{
-			_clause.Value = $"startOfYear({TimeSpanToIncrement(timeSpan)})";
+			_clause.Value = $"startOfYear({timeSpan.TimeSpanToIncrement()})";
 			return _clause;
-		}
-
-		/// <summary>
-		///     Create an increment from the timespan.
-		///     increment has of (+/-)nn(y|M|w|d|h|m)
-		///     If the plus/minus(+/-) sign is omitted, plus is assumed.
-		///     nn: number; y: year, M: month; w: week; d: day; h: hour; m: minute.
-		/// </summary>
-		/// <param name="timeSpan">TimeSpan to convert</param>
-		/// <returns>string</returns>
-		private static string TimeSpanToIncrement(TimeSpan? timeSpan = null)
-		{
-			if (!timeSpan.HasValue)
-			{
-				return "";
-			}
-			var increment = timeSpan.Value;
-			var days = increment.TotalDays;
-			if ((days > double.Epsilon || days < double.Epsilon) && days % 1 < double.Epsilon)
-			{
-				return $"\"{days}d\"";
-			}
-			var hours = increment.TotalHours;
-			if ((hours > double.Epsilon || hours < double.Epsilon) && hours % 1 < double.Epsilon)
-			{
-				return $"\"{hours}h\"";
-			}
-			return $"\"{(int) timeSpan.Value.TotalMinutes}m\"";
 		}
 	}
 }

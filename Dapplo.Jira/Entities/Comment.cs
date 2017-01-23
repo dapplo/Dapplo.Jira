@@ -38,37 +38,37 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Who created the comment
 		/// </summary>
-		[DataMember(Name = "author")]
+		[DataMember(Name = "author", EmitDefaultValue = false)]
 		public User Author { get; set; }
 
 		/// <summary>
 		///     The text of the comment
 		/// </summary>
-		[DataMember(Name = "body")]
+		[DataMember(Name = "body", EmitDefaultValue = false)]
 		public string Body { get; set; }
 
 		/// <summary>
 		///     When was the comment created
 		/// </summary>
-		[DataMember(Name = "created")]
+		[DataMember(Name = "created", EmitDefaultValue = false)]
 		public DateTimeOffset Created { get; set; }
 
 		/// <summary>
 		///     Who updated the comment
 		/// </summary>
-		[DataMember(Name = "updateAuthor")]
+		[DataMember(Name = "updateAuthor", EmitDefaultValue = false)]
 		public User UpdateAuthor { get; set; }
 
 		/// <summary>
 		///     When was the comment updated
 		/// </summary>
-		[DataMember(Name = "updated")]
+		[DataMember(Name = "updated", EmitDefaultValue = false)]
 		public DateTimeOffset Updated { get; set; }
 
 		/// <summary>
 		///     Is a comment visible
 		/// </summary>
-		[DataMember(Name = "visibility")]
+		[DataMember(Name = "visibility", EmitDefaultValue = false)]
 		public Visibility Visibility { get; set; }
 	}
 }

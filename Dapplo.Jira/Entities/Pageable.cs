@@ -36,13 +36,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Max of the results (this is the limit)
 		/// </summary>
-		[DataMember(Name = "maxResults")]
+		[DataMember(Name = "maxResults", EmitDefaultValue = false)]
 		public int MaxResults { get; set; }
 
 		/// <summary>
 		///     Where in the total this "page" is located
 		/// </summary>
-		[DataMember(Name = "startAt")]
+		[DataMember(Name = "startAt", EmitDefaultValue = false)]
 		public int StartAt { get; set; }
 	}
 }

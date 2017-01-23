@@ -37,25 +37,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Description of the priority
 		/// </summary>
-		[DataMember(Name = "description")]
+		[DataMember(Name = "description", EmitDefaultValue = false)]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     Url to the icon for this priority
 		/// </summary>
-		[DataMember(Name = "iconUrl")]
+		[DataMember(Name = "iconUrl", EmitDefaultValue = false)]
 		public Uri IconUrl { get; set; }
 
 		/// <summary>
 		///     Name of the priority
 		/// </summary>
-		[DataMember(Name = "name")]
+		[DataMember(Name = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Status color
 		/// </summary>
-		[DataMember(Name = "statusColor")]
+		[DataMember(Name = "statusColor", EmitDefaultValue = false)]
 		public string StatusColor { get; set; }
 	}
 }

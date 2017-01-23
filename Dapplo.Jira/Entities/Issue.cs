@@ -37,20 +37,20 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Fields for the issue
 		/// </summary>
-		[DataMember(Name = "fields")]
+		[DataMember(Name = "fields", EmitDefaultValue = false)]
 		public IssueFields Fields { get; set; }
 
 		/// <summary>
 		///     Key of the issue
 		/// </summary>
-		[DataMember(Name = "key")]
+		[DataMember(Name = "key", EmitDefaultValue = false)]
 		public string Key { get; set; }
 
 		/// <summary>
 		///     Fields for the issue, but wiki markup is now rendered to HTML
 		///     This will be in the response when expand=renderedFields
 		/// </summary>
-		[DataMember(Name = "renderedFields")]
+		[DataMember(Name = "renderedFields", EmitDefaultValue = false)]
 		public IssueFields RenderedFields { get; set; }
 	}
 }

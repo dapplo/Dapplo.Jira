@@ -36,19 +36,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Name of the color
 		/// </summary>
-		[DataMember(Name = "colorName")]
+		[DataMember(Name = "colorName", EmitDefaultValue = false)]
 		public string ColorName { get; set; }
 
 		/// <summary>
 		///     Key for the status category
 		/// </summary>
-		[DataMember(Name = "key")]
+		[DataMember(Name = "key", EmitDefaultValue = false)]
 		public string Key { get; set; }
 
 		/// <summary>
 		///     Name of the status category
 		/// </summary>
-		[DataMember(Name = "name")]
+		[DataMember(Name = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
 	}
 }

@@ -37,7 +37,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The worklog items
 		/// </summary>
-		[DataMember(Name = "worklogs")]
+		[DataMember(Name = "worklogs", EmitDefaultValue = false)]
 		public IList<Worklog> Elements { get; set; }
 	}
 }

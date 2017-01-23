@@ -30,10 +30,10 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	internal class JiraSession
 	{
-		[DataMember(Name = "name")]
+		[DataMember(Name = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
 
-		[DataMember(Name = "value")]
+		[DataMember(Name = "value", EmitDefaultValue = false)]
 		public string Value { get; set; }
 
 		public override string ToString()

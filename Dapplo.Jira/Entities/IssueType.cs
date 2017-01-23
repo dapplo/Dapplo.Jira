@@ -37,25 +37,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Description of the issue type
 		/// </summary>
-		[DataMember(Name = "description")]
+		[DataMember(Name = "description", EmitDefaultValue = false)]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     URL to the icon for the issue type
 		/// </summary>
-		[DataMember(Name = "iconUrl")]
+		[DataMember(Name = "iconUrl", EmitDefaultValue = false)]
 		public Uri IconUri { get; set; }
 
 		/// <summary>
 		///     Is the issue type a sub task?
 		/// </summary>
-		[DataMember(Name = "subtask")]
+		[DataMember(Name = "subtask", EmitDefaultValue = false)]
 		public bool IsSubTask { get; set; }
 
 		/// <summary>
 		///     Name of the issue type
 		/// </summary>
-		[DataMember(Name = "name")]
+		[DataMember(Name = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
 	}
 }

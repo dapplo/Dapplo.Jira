@@ -37,7 +37,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     TODO: Needs comment
 		/// </summary>
-		[DataMember(Name = "isAssigneeTypeValid")]
+		[DataMember(Name = "isAssigneeTypeValid", EmitDefaultValue = false)]
 		public bool IsAssigneeTypeValid { get; set; }
 	}
 }

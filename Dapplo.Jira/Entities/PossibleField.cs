@@ -38,31 +38,31 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Allowed values
 		/// </summary>
-		[DataMember(Name = "allowedValues")]
+		[DataMember(Name = "allowedValues", EmitDefaultValue = false)]
 		public IList<AllowedValue> AllowedValues { get; set; }
 
 		/// <summary>
 		///     TODO: Describe
 		/// </summary>
-		[DataMember(Name = "autoCompleteUrl")]
+		[DataMember(Name = "autoCompleteUrl", EmitDefaultValue = false)]
 		public Uri AutoCompleteUrl { get; set; }
 
 		/// <summary>
 		///     Name of the field
 		/// </summary>
-		[DataMember(Name = "name")]
+		[DataMember(Name = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Possible operations
 		/// </summary>
-		[DataMember(Name = "operations")]
+		[DataMember(Name = "operations", EmitDefaultValue = false)]
 		public IList<string> Operations { get; set; }
 
 		/// <summary>
 		///     The summary of the time spend on this issue
 		/// </summary>
-		[DataMember(Name = "required")]
+		[DataMember(Name = "required", EmitDefaultValue = false)]
 		public bool Required { get; set; }
 	}
 }

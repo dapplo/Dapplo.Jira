@@ -33,10 +33,10 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	internal class SessionResponse
 	{
-		[DataMember(Name = "loginInfo")]
+		[DataMember(Name = "loginInfo", EmitDefaultValue = false)]
 		public LoginInfo LoginInfo { get; set; }
 
-		[DataMember(Name = "session")]
+		[DataMember(Name = "session", EmitDefaultValue = false)]
 		public JiraSession Session { get; set; }
 	}
 }

@@ -36,13 +36,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Type for the visibility
 		/// </summary>
-		[DataMember(Name = "type")]
+		[DataMember(Name = "type", EmitDefaultValue = false)]
 		public string Type { get; set; }
 
 		/// <summary>
 		///     Value of the visibility
 		/// </summary>
-		[DataMember(Name = "value")]
+		[DataMember(Name = "value", EmitDefaultValue = false)]
 		public string Value { get; set; }
 	}
 }

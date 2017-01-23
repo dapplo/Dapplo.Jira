@@ -38,7 +38,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The actual commits
 		/// </summary>
-		[DataMember(Name = "comments")]
+		[DataMember(Name = "comments", EmitDefaultValue = false)]
 		public IList<Comment> Elements { get; set; }
 	}
 }

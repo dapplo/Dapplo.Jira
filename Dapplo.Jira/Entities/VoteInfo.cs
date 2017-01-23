@@ -38,25 +38,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Does the issue have votes?
 		/// </summary>
-		[DataMember(Name = "hasVoted")]
+		[DataMember(Name = "hasVoted", EmitDefaultValue = false)]
 		public bool HasVoted { get; set; }
 
 		/// <summary>
 		///     Link to itself
 		/// </summary>
-		[DataMember(Name = "self")]
+		[DataMember(Name = "self", EmitDefaultValue = false)]
 		public Uri Self { get; set; }
 
 		/// <summary>
 		///     Who are the voters
 		/// </summary>
-		[DataMember(Name = "voters")]
+		[DataMember(Name = "voters", EmitDefaultValue = false)]
 		public IList<User> Voters { get; set; }
 
 		/// <summary>
 		///     How many votes does it have
 		/// </summary>
-		[DataMember(Name = "votes")]
+		[DataMember(Name = "votes", EmitDefaultValue = false)]
 		public long Votes { get; set; }
 	}
 }

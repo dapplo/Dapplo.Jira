@@ -38,37 +38,37 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Avatar for this project
 		/// </summary>
-		[DataMember(Name = "avatarUrls")]
+		[DataMember(Name = "avatarUrls", EmitDefaultValue = false)]
 		public AvatarUrls Avatar { get; set; }
 
 		/// <summary>
 		///     The projects category
 		/// </summary>
-		[DataMember(Name = "projectCategory")]
+		[DataMember(Name = "projectCategory", EmitDefaultValue = false)]
 		public ProjectCategory Category { get; set; }
 
 		/// <summary>
 		///     Key for this project (the prefix of the issues in the project)
 		/// </summary>
-		[DataMember(Name = "key")]
+		[DataMember(Name = "key", EmitDefaultValue = false)]
 		public string Key { get; set; }
 
 		/// <summary>
 		///     User who is the lead for the project
 		/// </summary>
-		[DataMember(Name = "lead")]
+		[DataMember(Name = "lead", EmitDefaultValue = false)]
 		public User Lead { get; set; }
 
 		/// <summary>
 		///     Name of the project
 		/// </summary>
-		[DataMember(Name = "name")]
+		[DataMember(Name = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     All project keys associated with the project
 		/// </summary>
-		[DataMember(Name = "projectKeys")]
+		[DataMember(Name = "projectKeys", EmitDefaultValue = false)]
 		public IList<string> ProjectKeys { get; set; }
 	}
 }

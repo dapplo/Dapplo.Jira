@@ -37,31 +37,31 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Does this transition have a screen?
 		/// </summary>
-		[DataMember(Name = "hasScreen")]
+		[DataMember(Name = "hasScreen", EmitDefaultValue = false)]
 		public bool HasScreen { get; set; }
 
 		/// <summary>
 		///     Name for this transition
 		/// </summary>
-		[DataMember(Name = "name")]
+		[DataMember(Name = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Possible fields for the transation
 		/// </summary>
-		[DataMember(Name = "fields")]
+		[DataMember(Name = "fields", EmitDefaultValue = false)]
 		public IDictionary<string, PossibleField> PossibleFields { get; set; }
 
 		/// <summary>
 		///     Schema for the transation
 		/// </summary>
-		[DataMember(Name = "schema")]
+		[DataMember(Name = "schema", EmitDefaultValue = false)]
 		public Schema Schema { get; set; }
 
 		/// <summary>
 		///     To status for the transation
 		/// </summary>
-		[DataMember(Name = "to")]
+		[DataMember(Name = "to", EmitDefaultValue = false)]
 		public Status To { get; set; }
 	}
 }

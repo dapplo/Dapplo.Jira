@@ -37,7 +37,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The actual list of transitions
 		/// </summary>
-		[DataMember(Name = "transitions")]
+		[DataMember(Name = "transitions", EmitDefaultValue = false)]
 		public IList<Transition> Items { get; set; }
 	}
 }

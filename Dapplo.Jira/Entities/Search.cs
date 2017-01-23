@@ -37,25 +37,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Expand values
 		/// </summary>
-		[DataMember(Name = "expand")]
+		[DataMember(Name = "expand", EmitDefaultValue = false)]
 		public string Expand { get; set; }
 
 		/// <summary>
 		///     Fields for this query
 		/// </summary>
-		[DataMember(Name = "fields")]
+		[DataMember(Name = "fields", EmitDefaultValue = false)]
 		public IEnumerable<string> Fields { get; set; }
 
 		/// <summary>
 		///     The JQL for this search
 		/// </summary>
-		[DataMember(Name = "jql")]
+		[DataMember(Name = "jql", EmitDefaultValue = false)]
 		public string Jql { get; set; }
 
 		/// <summary>
 		///     Does the query (JQL) need to be validated?
 		/// </summary>
-		[DataMember(Name = "validateQuery")]
+		[DataMember(Name = "validateQuery", EmitDefaultValue = false)]
 		public bool ValidateQuery { get; set; } = true;
 	}
 }

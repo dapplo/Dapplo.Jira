@@ -36,13 +36,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Progress for the issue
 		/// </summary>
-		[DataMember(Name = "progress")]
+		[DataMember(Name = "progress", EmitDefaultValue = false)]
 		public long Progress { get; set; }
 
 		/// <summary>
 		///     The total progress
 		/// </summary>
-		[DataMember(Name = "total")]
+		[DataMember(Name = "total", EmitDefaultValue = false)]
 		public long Total { get; set; }
 	}
 }

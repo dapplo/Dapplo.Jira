@@ -36,19 +36,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Type for the item
 		/// </summary>
-		[DataMember(Name = "items")]
+		[DataMember(Name = "items", EmitDefaultValue = false)]
 		public string Items { get; set; }
 
 		/// <summary>
 		///     System for this schema
 		/// </summary>
-		[DataMember(Name = "system")]
+		[DataMember(Name = "system", EmitDefaultValue = false)]
 		public string System { get; set; }
 
 		/// <summary>
 		///     Type for this schema
 		/// </summary>
-		[DataMember(Name = "type")]
+		[DataMember(Name = "type", EmitDefaultValue = false)]
 		public string Type { get; set; }
 	}
 }

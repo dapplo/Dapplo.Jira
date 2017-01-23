@@ -38,55 +38,55 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Description of the filter
 		/// </summary>
-		[DataMember(Name = "description")]
+		[DataMember(Name = "description", EmitDefaultValue = false)]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     Is the filter a favorite?
 		/// </summary>
-		[DataMember(Name = "favorite")]
+		[DataMember(Name = "favorite", EmitDefaultValue = false)]
 		public bool IsFavorite { get; set; }
 
 		/// <summary>
 		///     The JQL (query) for the filter
 		/// </summary>
-		[DataMember(Name = "jql")]
+		[DataMember(Name = "jql", EmitDefaultValue = false)]
 		public string Jql { get; set; }
 
 		/// <summary>
 		///     Name for the filter
 		/// </summary>
-		[DataMember(Name = "name")]
+		[DataMember(Name = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     User who owns the filter
 		/// </summary>
-		[DataMember(Name = "owner")]
+		[DataMember(Name = "owner", EmitDefaultValue = false)]
 		public User Owner { get; set; }
 
 		/// <summary>
 		///     The URL to show the search results
 		/// </summary>
-		[DataMember(Name = "searchUrl")]
+		[DataMember(Name = "searchUrl", EmitDefaultValue = false)]
 		public Uri SearchUri { get; set; }
 
 		/// <summary>
 		///     The permissions for sharing
 		/// </summary>
-		[DataMember(Name = "sharePermissions")]
+		[DataMember(Name = "sharePermissions", EmitDefaultValue = false)]
 		public IList<SharePermission> SharePermissions { get; set; }
 
 		/// <summary>
 		///     The subscriptions for this filter
 		/// </summary>
-		[DataMember(Name = "subscriptions")]
+		[DataMember(Name = "subscriptions", EmitDefaultValue = false)]
 		public Subscriptions Subscriptions { get; set; }
 
 		/// <summary>
 		///     The url to view the filter
 		/// </summary>
-		[DataMember(Name = "viewUrl")]
+		[DataMember(Name = "viewUrl", EmitDefaultValue = false)]
 		public Uri ViewUri { get; set; }
 	}
 }

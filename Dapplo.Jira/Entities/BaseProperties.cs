@@ -37,7 +37,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Link to itself
 		/// </summary>
-		[DataMember(Name = "self")]
+		[DataMember(Name = "self", EmitDefaultValue = false)]
 		public Uri Self { get; set; }
 	}
 }

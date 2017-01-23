@@ -36,7 +36,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The total results
 		/// </summary>
-		[DataMember(Name = "total")]
+		[DataMember(Name = "total", EmitDefaultValue = false)]
 		public int Total { get; set; }
 	}
 }

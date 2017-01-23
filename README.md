@@ -9,9 +9,9 @@ This client has support for:
 * Issue (get / comment, create, delete, assign, issue types)
 * Attachments (delete, upload & download)
 * Basic authorization, OAuth & session (via cookie)
-* Search
+* Search, with a JQL builder e.g. Where.And(Where.User.IsCurrentUser,Where.Text.Contains("Urgent"))
 * Information on projects, transitions and users
-* getting Avatars of users and icons for Issue type 
+* getting Avatars of users/projects and icons for Issue type 
 
 More to come.
 

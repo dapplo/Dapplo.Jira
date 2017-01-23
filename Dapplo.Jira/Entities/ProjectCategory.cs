@@ -36,13 +36,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Description for the category
 		/// </summary>
-		[DataMember(Name = "description")]
+		[DataMember(Name = "description", EmitDefaultValue = false)]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     Name of the category
 		/// </summary>
-		[DataMember(Name = "name")]
+		[DataMember(Name = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
 	}
 }

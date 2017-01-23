@@ -36,19 +36,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Id for the share permission
 		/// </summary>
-		[DataMember(Name = "id")]
+		[DataMember(Name = "id", EmitDefaultValue = false)]
 		public string Id { get; set; }
 
 		/// <summary>
 		///     Project for the permissions
 		/// </summary>
-		[DataMember(Name = "project")]
+		[DataMember(Name = "project", EmitDefaultValue = false)]
 		public ProjectDigest Project { get; set; }
 
 		/// <summary>
 		///     Share type can be project
 		/// </summary>
-		[DataMember(Name = "type")]
+		[DataMember(Name = "type", EmitDefaultValue = false)]
 		public string Type { get; set; }
 	}
 }

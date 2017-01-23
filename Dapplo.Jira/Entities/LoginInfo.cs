@@ -36,25 +36,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Failed login count
 		/// </summary>
-		[DataMember(Name = "failedLoginCount")]
+		[DataMember(Name = "failedLoginCount", EmitDefaultValue = false)]
 		public int FailedLoginCount { get; set; }
 
 		/// <summary>
 		///     Last failed login time
 		/// </summary>
-		[DataMember(Name = "lastFailedLoginTime")]
+		[DataMember(Name = "lastFailedLoginTime", EmitDefaultValue = false)]
 		public string LastFailedLoginTime { get; set; }
 
 		/// <summary>
 		///     Login count
 		/// </summary>
-		[DataMember(Name = "loginCount")]
+		[DataMember(Name = "loginCount", EmitDefaultValue = false)]
 		public int LoginCount { get; set; }
 
 		/// <summary>
 		///     Previous login time
 		/// </summary>
-		[DataMember(Name = "previousLoginTime")]
+		[DataMember(Name = "previousLoginTime", EmitDefaultValue = false)]
 		public string PreviousLoginTime { get; set; }
 	}
 }

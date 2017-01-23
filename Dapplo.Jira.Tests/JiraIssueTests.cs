@@ -59,7 +59,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetIssue()
 		{
-			var issue = await _jiraApi.Issue.GetAsync("BUG-1845");
+			var issue = await _jiraApi.Issue.GetAsync("BUG-2104");
 			Assert.NotNull(issue);
 			Assert.NotNull(issue.Fields.IssueType);
 			Assert.NotNull(issue.Fields.Comments.Elements);

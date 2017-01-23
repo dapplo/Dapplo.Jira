@@ -23,6 +23,7 @@
 
 using System;
 using System.Runtime.Serialization;
+using Dapplo.Jira.Extensions;
 
 #endregion
 
@@ -34,52 +35,62 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class Worklog : BaseProperties<string>
 	{
+		public Worklog()
+		{
+			
+		}
+
+		public Worklog(TimeSpan timeSpent)
+		{
+			TimeSpent = timeSpent.TimeSpanToJiraTime();
+		}
+
 		/// <summary>
 		///     Author of this worklog
 		/// </summary>
-		[DataMember(Name = "author")]
+		[DataMember(Name = "author", EmitDefaultValue = false)]
 		public User Author { get; set; }
 
 		/// <summary>
 		///     Comment for this worklog
 		/// </summary>
-		[DataMember(Name = "comment")]
+		[DataMember(Name = "comment", EmitDefaultValue = false)]
 		public string Comment { get; set; }
 
 		/// <summary>
 		///     When was the worklog created
 		/// </summary>
-		[DataMember(Name = "created")]
-		public DateTimeOffset Create { get; set; }
+		[DataMember(Name = "created", EmitDefaultValue = false)]
+		public DateTimeOffset Created { get; set; }
 
 		/// <summary>
 		///     When was the worklog started
 		/// </summary>
-		[DataMember(Name = "started")]
+		[DataMember(Name = "started", EmitDefaultValue = false)]
 		public DateTimeOffset Started { get; set; }
 
 		/// <summary>
 		///     Time spent in this worklog, this is a number and qualifier (h = hour, d = day etc)
 		/// </summary>
-		[DataMember(Name = "timeSpent")]
+		[DataMember(Name = "timeSpent", EmitDefaultValue = false)]
 		public string TimeSpent { get; set; }
 
 		/// <summary>
 		///     Time spent in this worklog, in seconds
 		/// </summary>
-		[DataMember(Name = "timeSpentSeconds")]
+		[DataMember(Name = "timeSpentSeconds", EmitDefaultValue = false)]
 		public long TimeSpentSeconds { get; set; }
 
 		/// <summary>
 		///     Who updated this worklog
 		/// </summary>
-		[DataMember(Name = "updateAuthor")]
+		[DataMember(Name = "updateAuthor", EmitDefaultValue = false)]
 		public User UpdateAuthor { get; set; }
 
 		/// <summary>
 		///     When was the worklog updated
 		/// </summary>
-		[DataMember(Name = "updated")]
+		[DataMember(Name = "updated", EmitDefaultValue = false)]
 		public DateTimeOffset Updated { get; set; }
 	}
 }

@@ -22,11 +22,6 @@
 #region using
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
@@ -34,6 +29,9 @@ using Dapplo.Jira.Entities;
 using Dapplo.Jira.Internal;
 using Dapplo.Log;
 #if NET45 || NET46
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Linq;
 using Dapplo.HttpExtensions.Extensions;
 using Dapplo.HttpExtensions.OAuth;
 using Dapplo.Jira.Converters;
@@ -122,6 +120,7 @@ namespace Dapplo.Jira
 			User = new UserApi(this);
 			Session = new SessionApi(this);
 			Filter = new FilterApi(this);
+			Work = new WorkApi(this);
 		}
 
 		/// <summary>
@@ -207,6 +206,11 @@ namespace Dapplo.Jira
 		///     Filter domain
 		/// </summary>
 		public IFilterApi Filter { get; }
+
+		/// <summary>
+		///     Work domain
+		/// </summary>
+		public IWorkApi Work { get; }
 
 		/// <summary>
 		///     Returns the content, specified by the Uri from the JIRA server.

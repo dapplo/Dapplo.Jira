@@ -37,19 +37,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Where does this "page" end?
 		/// </summary>
-		[DataMember(Name = "end-index")]
+		[DataMember(Name = "end-index", EmitDefaultValue = false)]
 		public long EndIndex { get; set; }
 
 		/// <summary>
 		///     The actual list of subscriptions
 		/// </summary>
-		[DataMember(Name = "items")]
+		[DataMember(Name = "items", EmitDefaultValue = false)]
 		public IList<Subscription> Items { get; set; }
 
 		/// <summary>
 		///     How many results are given back
 		/// </summary>
-		[DataMember(Name = "max-results")]
+		[DataMember(Name = "max-results", EmitDefaultValue = false)]
 		public long MaxResults { get; set; }
 
 		/// <summary>
@@ -57,13 +57,13 @@ namespace Dapplo.Jira.Entities
 		///     This could be more than the amount of items, not only due to rights (maybe the subscriber is not visible) but also
 		///     as the value is not expanded.
 		/// </summary>
-		[DataMember(Name = "size")]
+		[DataMember(Name = "size", EmitDefaultValue = false)]
 		public long Size { get; set; }
 
 		/// <summary>
 		///     Where does this page start?
 		/// </summary>
-		[DataMember(Name = "start-index")]
+		[DataMember(Name = "start-index", EmitDefaultValue = false)]
 		public long StartIndex { get; set; }
 	}
 }

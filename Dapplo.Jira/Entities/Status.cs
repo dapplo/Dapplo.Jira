@@ -37,25 +37,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Category for this status
 		/// </summary>
-		[DataMember(Name = "statusCategory")]
+		[DataMember(Name = "statusCategory", EmitDefaultValue = false)]
 		public StatusCategory Category { get; set; }
 
 		/// <summary>
 		///     Description for this status
 		/// </summary>
-		[DataMember(Name = "description")]
+		[DataMember(Name = "description", EmitDefaultValue = false)]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     Url to the icon for this status
 		/// </summary>
-		[DataMember(Name = "iconUrl")]
+		[DataMember(Name = "iconUrl", EmitDefaultValue = false)]
 		public Uri IconUri { get; set; }
 
 		/// <summary>
 		///     Name of the status
 		/// </summary>
-		[DataMember(Name = "name")]
+		[DataMember(Name = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
 	}
 }

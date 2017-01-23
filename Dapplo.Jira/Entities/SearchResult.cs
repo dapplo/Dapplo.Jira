@@ -38,13 +38,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Expand values
 		/// </summary>
-		[DataMember(Name = "expand")]
+		[DataMember(Name = "expand", EmitDefaultValue = false)]
 		public string Expand { get; set; }
 
 		/// <summary>
 		///     List of issues
 		/// </summary>
-		[DataMember(Name = "issues")]
+		[DataMember(Name = "issues", EmitDefaultValue = false)]
 		public IList<Issue> Issues { get; set; }
 
 		IEnumerator IEnumerable.GetEnumerator()

@@ -38,43 +38,43 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Who created the attachment
 		/// </summary>
-		[DataMember(Name = "author")]
+		[DataMember(Name = "author", EmitDefaultValue = false)]
 		public User Author { get; set; }
 
 		/// <summary>
 		///     Url which can be used to download the attachment
 		/// </summary>
-		[DataMember(Name = "content")]
+		[DataMember(Name = "content", EmitDefaultValue = false)]
 		public Uri ContentUri { get; set; }
 
 		/// <summary>
 		///     When was the attachment created
 		/// </summary>
-		[DataMember(Name = "created")]
+		[DataMember(Name = "created", EmitDefaultValue = false)]
 		public DateTimeOffset Created { get; set; }
 
 		/// <summary>
 		///     Filename of the attachment
 		/// </summary>
-		[DataMember(Name = "filename")]
+		[DataMember(Name = "filename", EmitDefaultValue = false)]
 		public string Filename { get; set; }
 
 		/// <summary>
 		///     Mimetype for the attachment
 		/// </summary>
-		[DataMember(Name = "mimeType")]
+		[DataMember(Name = "mimeType", EmitDefaultValue = false)]
 		public string MimeType { get; set; }
 
 		/// <summary>
 		///     Size (in bytes) of the attachment
 		/// </summary>
-		[DataMember(Name = "size")]
+		[DataMember(Name = "size", EmitDefaultValue = false)]
 		public long Size { get; set; }
 
 		/// <summary>
 		///     An URL to the thumbnail for this attachment
 		/// </summary>
-		[DataMember(Name = "thumbnail")]
+		[DataMember(Name = "thumbnail", EmitDefaultValue = false)]
 		public Uri ThumbnailUri { get; set; }
 	}
 }

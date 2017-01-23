@@ -36,7 +36,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Id of this entity
 		/// </summary>
-		[DataMember(Name = "id")]
+		[DataMember(Name = "id", EmitDefaultValue = false)]
 		public TId Id { get; set; }
 	}
 }

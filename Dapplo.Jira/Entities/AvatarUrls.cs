@@ -38,25 +38,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Url to the 48x48 Avatar
 		/// </summary>
-		[DataMember(Name = "48x48")]
+		[DataMember(Name = "48x48", EmitDefaultValue = false)]
 		public Uri ExtraLarge { get; set; }
 
 		/// <summary>
 		///     Url to the 32x32 Avatar
 		/// </summary>
-		[DataMember(Name = "32x32")]
+		[DataMember(Name = "32x32", EmitDefaultValue = false)]
 		public Uri Large { get; set; }
 
 		/// <summary>
 		///     Url to the 24x24 Avatar
 		/// </summary>
-		[DataMember(Name = "24x24")]
+		[DataMember(Name = "24x24", EmitDefaultValue = false)]
 		public Uri Medium { get; set; }
 
 		/// <summary>
 		///     Url to the 16x16 Avatar
 		/// </summary>
-		[DataMember(Name = "16x16")]
+		[DataMember(Name = "16x16", EmitDefaultValue = false)]
 		public Uri Small { get; set; }
 
 		/// <summary>

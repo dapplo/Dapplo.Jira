@@ -38,37 +38,37 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The base URL for this server
 		/// </summary>
-		[DataMember(Name = "baseUrl")]
+		[DataMember(Name = "baseUrl", EmitDefaultValue = false)]
 		public Uri BaseUrl { get; set; }
 
 		/// <summary>
 		///     Date of the build
 		/// </summary>
-		[DataMember(Name = "buildDate")]
+		[DataMember(Name = "buildDate", EmitDefaultValue = false)]
 		public DateTimeOffset BuildDate { get; set; }
 
 		/// <summary>
 		///     Build number (internal information)
 		/// </summary>
-		[DataMember(Name = "buildNumber")]
+		[DataMember(Name = "buildNumber", EmitDefaultValue = false)]
 		public int BuildNumber { get; set; }
 
 		/// <summary>
 		///     Git commit id (at lease until the SCM is changed)
 		/// </summary>
-		[DataMember(Name = "scmInfo")]
+		[DataMember(Name = "scmInfo", EmitDefaultValue = false)]
 		public string ScmInfo { get; set; }
 
 		/// <summary>
 		///     Title of the server
 		/// </summary>
-		[DataMember(Name = "serverTitle")]
+		[DataMember(Name = "serverTitle", EmitDefaultValue = false)]
 		public string ServerTitle { get; set; }
 
 		/// <summary>
 		///     Version of the software
 		/// </summary>
-		[DataMember(Name = "version")]
+		[DataMember(Name = "version", EmitDefaultValue = false)]
 		public string Version { get; set; }
 	}
 }

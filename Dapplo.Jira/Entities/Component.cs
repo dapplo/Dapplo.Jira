@@ -37,13 +37,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     TODO: Needs comment
 		/// </summary>
-		[DataMember(Name = "assignee")]
+		[DataMember(Name = "assignee", EmitDefaultValue = false)]
 		public User Assignee { get; set; }
 
 		/// <summary>
 		///     TODO: Needs comment
 		/// </summary>
-		[DataMember(Name = "assigneeType")]
+		[DataMember(Name = "assigneeType", EmitDefaultValue = false)]
 		public string AssigneeType { get; set; }
 
 		/// <summary>
@@ -55,37 +55,37 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Lead for this component
 		/// </summary>
-		[DataMember(Name = "lead")]
+		[DataMember(Name = "lead", EmitDefaultValue = false)]
 		public User Lead { get; set; }
 
 		/// <summary>
 		///     Name of the component
 		/// </summary>
-		[DataMember(Name = "name")]
+		[DataMember(Name = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Project key where this component belongs to
 		/// </summary>
-		[DataMember(Name = "project")]
+		[DataMember(Name = "project", EmitDefaultValue = false)]
 		public string Project { get; set; }
 
 		/// <summary>
 		///     Id of the project where this component belongs to
 		/// </summary>
-		[DataMember(Name = "projectId")]
+		[DataMember(Name = "projectId", EmitDefaultValue = false)]
 		public int ProjectId { get; set; }
 
 		/// <summary>
 		///     TODO: Needs comment
 		/// </summary>
-		[DataMember(Name = "realAssignee")]
+		[DataMember(Name = "realAssignee", EmitDefaultValue = false)]
 		public User RealAssignee { get; set; }
 
 		/// <summary>
 		///     TODO: Needs comment
 		/// </summary>
-		[DataMember(Name = "realAssigneeType")]
+		[DataMember(Name = "realAssigneeType", EmitDefaultValue = false)]
 		public string RealAssigneeType { get; set; }
 	}
 }

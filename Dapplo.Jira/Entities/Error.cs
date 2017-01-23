@@ -37,13 +37,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The list of error messages
 		/// </summary>
-		[DataMember(Name = "errorMessages")]
+		[DataMember(Name = "errorMessages", EmitDefaultValue = false)]
 		public IList<string> ErrorMessages { get; set; }
 
 		/// <summary>
 		///     The message
 		/// </summary>
-		[DataMember(Name = "message")]
+		[DataMember(Name = "message", EmitDefaultValue = false)]
 		public string Message { get; set; }
 	}
 }
