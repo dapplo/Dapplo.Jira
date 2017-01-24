@@ -22,6 +22,7 @@
 #region using
 
 using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 #endregion
@@ -50,37 +51,37 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     true if the user is active (license count)
 		/// </summary>
-		[DataMember(Name = "active", EmitDefaultValue = false)]
+		[DataMember(Name = "active", EmitDefaultValue = false), ReadOnly(true)]
 		public bool Active { get; set; }
 
 		/// <summary>
 		///     Avatar urls (links to 16x16, 24x24, 32x32, 48x48 icons) for this user
 		/// </summary>
-		[DataMember(Name = "avatarUrls", EmitDefaultValue = false)]
+		[DataMember(Name = "avatarUrls", EmitDefaultValue = false), ReadOnly(true)]
 		public AvatarUrls Avatars { get; set; }
 
 		/// <summary>
 		///     Display name for the user
 		/// </summary>
-		[DataMember(Name = "displayName", EmitDefaultValue = false)]
+		[DataMember(Name = "displayName", EmitDefaultValue = false), ReadOnly(true)]
 		public string DisplayName { get; set; }
 
 		/// <summary>
 		///     Email address of the user
 		/// </summary>
-		[DataMember(Name = "emailAddress", EmitDefaultValue = false)]
+		[DataMember(Name = "emailAddress", EmitDefaultValue = false), ReadOnly(true)]
 		public string EmailAddress { get; set; }
 
 		/// <summary>
 		///     Name of the user
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[DataMember(Name = "name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Link to this item (self)
 		/// </summary>
-		[DataMember(Name = "self", EmitDefaultValue = false)]
+		[DataMember(Name = "self", EmitDefaultValue = false), ReadOnly(true)]
 		public Uri Self { get; set; }
 	}
 }

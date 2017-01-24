@@ -274,12 +274,12 @@ namespace Dapplo.Jira
 		}
 
 		/// <summary>
-		/// 
+		/// Assign an issue to a user
 		/// </summary>
 		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
 		/// <param name="issueKey">Key for the issue to assign</param>
 		/// <param name="user">User to assign to, use User.Nobody to remove the assignee or User.Default to automaticly assign</param>
-		/// <param name="cancellationToken"></param>
+		/// <param name="cancellationToken">CancellationToken</param>
 		public static async Task AssignAsync(this IIssueDomain jiraClient, string issueKey, User user, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			if (user == null)
@@ -290,12 +290,7 @@ namespace Dapplo.Jira
 			jiraClient.Behaviour.MakeCurrent();
 			var issueUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "assignee");
 			var response = await issueUri.PutAsync<HttpResponse>(user, cancellationToken).ConfigureAwait(false);
-			if (response.StatusCode != HttpStatusCode.NoContent)
-			{
-				var message = response.StatusCode.ToString();
-				Log.Warn().WriteLine("Http status code: {0}. Response from server: {1}", response.StatusCode, message);
-				throw new Exception($"Status: {response.StatusCode} Message: {message}");
-			}
+			response.HandleStatusCode(HttpStatusCode.NoContent);
 		}
 	}
 }
