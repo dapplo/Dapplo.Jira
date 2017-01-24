@@ -33,7 +33,7 @@ namespace Dapplo.Jira.Tests
 {
 	public class WorkTests : TestBase
 	{
-		public WorkTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper, false)
+		public WorkTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
 		{
 		}
 

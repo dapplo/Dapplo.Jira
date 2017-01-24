@@ -47,7 +47,7 @@ namespace Dapplo.Jira.Tests
 		public async Task TestGetServerInfoAsync()
 		{
 			Assert.NotNull(Client);
-			var serverInfo = await Client.GetServerInfoAsync();
+			var serverInfo = await Client.Server.GetInfoAsync();
 			Assert.NotNull(serverInfo.Version);
 			Assert.NotNull(serverInfo.ServerTitle);
 			// This should be changed when the title changes

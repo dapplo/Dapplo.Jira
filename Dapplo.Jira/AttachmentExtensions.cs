@@ -82,9 +82,8 @@ namespace Dapplo.Jira
 			jiraClient.Behaviour.MakeCurrent();
 			var attachUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "attachments");
 			var response = await attachUri.PostAsync<HttpResponse<IList<Attachment>, Error>>(attachment, cancellationToken).ConfigureAwait(false);
-			jiraClient.HandleErrors(response);
 			// Return the attachment, should be only one!
-			return response.Response[0];
+			return response.HandleErrors()[0];
 		}
 
 		/// <summary>
@@ -140,7 +139,7 @@ namespace Dapplo.Jira
 
 			Log.Debug().WriteLine("Getting attachment content for {0}", attachment.Id);
 
-			return await jiraClient.GetUriContentAsync<TResponse>(attachment.ContentUri, cancellationToken).ConfigureAwait(false);
+			return await jiraClient.Server.GetUriContentAsync<TResponse>(attachment.ContentUri, cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -168,7 +167,7 @@ namespace Dapplo.Jira
 
 			Log.Debug().WriteLine("Deleting attachment  thumbnail {0}", attachment.Id);
 
-			return await jiraClient.GetUriContentAsync<TResponse>(attachment.ThumbnailUri, cancellationToken).ConfigureAwait(false);
+			return await jiraClient.Server.GetUriContentAsync<TResponse>(attachment.ThumbnailUri, cancellationToken).ConfigureAwait(false);
 		}
 	}
 }

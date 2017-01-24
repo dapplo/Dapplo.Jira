@@ -67,7 +67,7 @@ namespace Dapplo.Jira
 			jiraClient.Behaviour.MakeCurrent();
 
 			var response = await userUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
-			return jiraClient.HandleErrors(response);
+			return response.HandleErrors();
 		}
 
 		/// <summary>
@@ -113,7 +113,7 @@ namespace Dapplo.Jira
 			});
 
 			var response = await searchUri.GetAsAsync<HttpResponse<IList<User>, Error>>(cancellationToken).ConfigureAwait(false);
-			return jiraClient.HandleErrors(response);
+			return response.HandleErrors();
 		}
 
 		/// <summary>
@@ -130,7 +130,7 @@ namespace Dapplo.Jira
 			var myselfUri = jiraClient.JiraRestUri.AppendSegments("myself");
 			jiraClient.Behaviour.MakeCurrent();
 			var response = await myselfUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
-			return jiraClient.HandleErrors(response);
+			return response.HandleErrors();
 		}
 	}
 }

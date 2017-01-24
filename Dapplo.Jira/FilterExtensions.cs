@@ -70,7 +70,32 @@ namespace Dapplo.Jira
 			}
 
 			var response = await filterFavouriteUri.GetAsAsync<HttpResponse<IList<Filter>, Error>>(cancellationToken).ConfigureAwait(false);
-			return jiraClient.HandleErrors(response);
+			return response.HandleErrors();
+		}
+
+		/// <summary>
+		///     Get my filters
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1388
+		/// </summary>
+		/// <param name="jiraClient">IFilterDomain to bind the extension method to</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>List of filter</returns>
+
+		public static async Task<IList<Filter>> GetFiltersAsync(this IFilterDomain jiraClient, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			Log.Debug().WriteLine("Retrieving filters for current user");
+
+			jiraClient.Behaviour.MakeCurrent();
+			var filtersUri = jiraClient.JiraRestUri.AppendSegments("filter", "my");
+
+			// Add the configurable expand values, if the value is not null or empty
+			if (JiraConfig.ExpandGetFavoriteFilters?.Length > 0)
+			{
+				filtersUri = filtersUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetFavoriteFilters));
+			}
+
+			var response = await filtersUri.GetAsAsync<HttpResponse<IList<Filter>, Error>>(cancellationToken).ConfigureAwait(false);
+			return response.HandleErrors();
 		}
 
 		/// <summary>
@@ -95,7 +120,7 @@ namespace Dapplo.Jira
 			}
 
 			var response = await filterUri.GetAsAsync<HttpResponse<Filter, Error>>(cancellationToken).ConfigureAwait(false);
-			return jiraClient.HandleErrors(response);
+			return response.HandleErrors();
 		}
 
 		/// <summary>
@@ -128,7 +153,7 @@ namespace Dapplo.Jira
 			}
 
 			var response = await filterUri.PostAsync<HttpResponse<Filter, Error>>(filterCopy, cancellationToken).ConfigureAwait(false);
-			return jiraClient.HandleErrors(response);
+			return response.HandleErrors();
 		}
 
 		/// <summary>
@@ -162,7 +187,7 @@ namespace Dapplo.Jira
 			}
 
 			var response = await filterUri.PutAsync<HttpResponse<Filter, Error>>(filterCopy, cancellationToken).ConfigureAwait(false);
-			return jiraClient.HandleErrors(response);
+			return response.HandleErrors();
 		}
 
 		/// <summary>
@@ -184,10 +209,7 @@ namespace Dapplo.Jira
 			var filterUri = jiraClient.JiraRestUri.AppendSegments("filter", filter.Id);
 
 			var response = await filterUri.DeleteAsync<HttpResponse>(cancellationToken).ConfigureAwait(false);
-			if (response.StatusCode != HttpStatusCode.NoContent)
-			{
-				throw new Exception(response.StatusCode.ToString());
-			}
+			response.HandleStatusCode(HttpStatusCode.NoContent);
 		}
 	}
 }

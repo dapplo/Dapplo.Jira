@@ -74,7 +74,7 @@ namespace Dapplo.Jira
 
 			jiraClient.Behaviour.MakeCurrent();
 			var response = await projectUri.GetAsAsync<HttpResponse<Project, Error>>(cancellationToken).ConfigureAwait(false);
-			return jiraClient.HandleErrors(response);
+			return response.HandleErrors();
 		}
 
 		/// <summary>
@@ -103,7 +103,7 @@ namespace Dapplo.Jira
 
 			jiraClient.Behaviour.MakeCurrent();
 			var response = await projectsUri.GetAsAsync<HttpResponse<IList<ProjectDigest>, Error>>(cancellationToken).ConfigureAwait(false);
-			return jiraClient.HandleErrors(response);
+			return response.HandleErrors();
 		}
 	}
 }

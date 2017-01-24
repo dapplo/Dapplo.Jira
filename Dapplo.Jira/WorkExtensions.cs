@@ -49,19 +49,6 @@ namespace Dapplo.Jira
 		private static readonly LogSource Log = new LogSource();
 
 		/// <summary>
-		///     Clone a worklog to tran
-		/// </summary>
-		public static Worklog CloneForTransport(this Worklog worklog)
-		{
-			var worklogCopy = new Worklog
-			{
-				Comment = worklog.Comment,
-				TimeSpentSeconds = worklog.TimeSpentSeconds,
-				Visibility = worklog.Visibility
-			};
-			return worklogCopy;
-		}
-		/// <summary>
 		///     Get worklogs information
 		/// </summary>
 		/// <param name="jiraClient">IWorkDomain to bind the extension method to</param>
@@ -79,8 +66,7 @@ namespace Dapplo.Jira
 			jiraClient.Behaviour.MakeCurrent();
 
 			var response = await worklogUri.GetAsAsync<HttpResponse<Worklogs, Error>>(cancellationToken).ConfigureAwait(false);
-			jiraClient.HandleErrors(response);
-			return response.Response;
+			return response.HandleErrors();
 		}
 
 		/// <summary>
@@ -123,12 +109,8 @@ namespace Dapplo.Jira
 
 			jiraClient.Behaviour.MakeCurrent();
 
-			var response = await worklogUri.PostAsync<HttpResponse<Worklog>>(worklog.CloneForTransport(), cancellationToken).ConfigureAwait(false);
-			if (response.StatusCode != HttpStatusCode.Created)
-			{
-				throw new Exception(response.StatusCode.ToString());
-			}
-			return response.Response;
+			var response = await worklogUri.PostAsync<HttpResponse<Worklog, Error>>(worklog, cancellationToken).ConfigureAwait(false);
+			return response.HandleErrors(HttpStatusCode.Created);
 		}
 
 		/// <summary>
@@ -171,11 +153,8 @@ namespace Dapplo.Jira
 
 			jiraClient.Behaviour.MakeCurrent();
 
-			var response = await worklogUri.PutAsync<HttpResponse<Error>>(worklog.CloneForTransport(), cancellationToken).ConfigureAwait(false);
-			if (response.StatusCode != HttpStatusCode.OK)
-			{
-				throw new Exception(response.StatusCode.ToString());
-			}
+			var response = await worklogUri.PutAsync<HttpResponseWithError<Error>>(worklog, cancellationToken).ConfigureAwait(false);
+			response.HandleStatusCode();
 		}
 
 		/// <summary>
@@ -218,10 +197,7 @@ namespace Dapplo.Jira
 			jiraClient.Behaviour.MakeCurrent();
 
 			var response = await worklogUri.DeleteAsync<HttpResponse>(cancellationToken).ConfigureAwait(false);
-			if (response.StatusCode != HttpStatusCode.NoContent)
-			{
-				throw new Exception(response.StatusCode.ToString());
-			}
+			response.HandleStatusCode(HttpStatusCode.NoContent);
 		}
 	}
 

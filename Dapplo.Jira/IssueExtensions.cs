@@ -103,8 +103,7 @@ namespace Dapplo.Jira
 			jiraClient.Behaviour.MakeCurrent();
 
 			var response = await issueUri.GetAsAsync<HttpResponse<Issue, Error>>(cancellationToken).ConfigureAwait(false);
-			jiraClient.HandleErrors(response);
-			return response.Response;
+			return response.HandleErrors();
 		}
 
 		/// <summary>
@@ -129,8 +128,7 @@ namespace Dapplo.Jira
 			}
 			jiraClient.Behaviour.MakeCurrent();
 			var response = await transitionsUri.GetAsAsync<HttpResponse<Transitions, Error>>(cancellationToken).ConfigureAwait(false);
-			jiraClient.HandleErrors(response);
-			return response.Response.Items;
+			return response.HandleErrors().Items;
 		}
 
 		/// <summary>
@@ -186,8 +184,7 @@ namespace Dapplo.Jira
 			}
 
 			var response = await searchUri.PostAsync<HttpResponse<SearchResult, Error>>(search, cancellationToken).ConfigureAwait(false);
-			jiraClient.HandleErrors(response);
-			return response.Response;
+			return response.HandleErrors();
 		}
 
 		/// <summary>
@@ -224,8 +221,7 @@ namespace Dapplo.Jira
 			var issueTypesUri = jiraClient.JiraRestUri.AppendSegments("issuetype");
 			jiraClient.Behaviour.MakeCurrent();
 			var response = await issueTypesUri.GetAsAsync<HttpResponse<IList<IssueType>, Error>>(cancellationToken).ConfigureAwait(false);
-			jiraClient.HandleErrors(response);
-			return response.Response;
+			return response.HandleErrors();
 		}
 
 		/// <summary>
@@ -245,8 +241,7 @@ namespace Dapplo.Jira
 			jiraClient.Behaviour.MakeCurrent();
 			var issueUri = jiraClient.JiraRestUri.AppendSegments("issue");
 			var response = await issueUri.PostAsync<HttpResponse<Issue, Error>>(issue, cancellationToken).ConfigureAwait(false);
-			jiraClient.HandleErrors(response);
-			return response.Response;
+			return response.HandleErrors();
 		}
 
 		/// <summary>

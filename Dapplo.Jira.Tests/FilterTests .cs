@@ -21,6 +21,7 @@
 
 #region using
 
+using System.Linq;
 using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
 using Dapplo.Jira.Query;
@@ -51,17 +52,24 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestCreateAsync()
 		{
+			const string testFilterName = "MyTestFilter";
+			var filters = await Client.Filter.GetFiltersAsync();
+			var myTestFilter = filters.FirstOrDefault(filter => filter.Name == testFilterName);
+			if (myTestFilter != null)
+			{
+				await Client.Filter.DeleteAsync(myTestFilter);
+			}
 			var query = Where.IssueKey.In("BUG-2104");
-			var filter = await Client.Filter.CreateAsync(new Filter("MyTestFilter",query));
-			Assert.NotNull(filter);
-			Assert.Equal(query.ToString(), filter.Jql);
+			var createdFilter = await Client.Filter.CreateAsync(new Filter(testFilterName,query));
+			Assert.NotNull(createdFilter);
+			Assert.Equal(query.ToString(), createdFilter.Jql);
 			query = Where.IssueKey.In("BUG-2104", "BUG-2105");
-			filter.Jql = query.ToString();
-			filter = await Client.Filter.UpdateAsync(filter);
-			Assert.NotNull(filter);
-			Assert.Equal(query.ToString(), filter.Jql);
+			createdFilter.Jql = query.ToString();
+			var updatedFilter = await Client.Filter.UpdateAsync(createdFilter);
+			Assert.NotNull(updatedFilter);
+			Assert.Equal(query.ToString(), updatedFilter.Jql);
 
-			await Client.Filter.DeleteAsync(filter);
+			await Client.Filter.DeleteAsync(createdFilter);
 		}
 	}
 }

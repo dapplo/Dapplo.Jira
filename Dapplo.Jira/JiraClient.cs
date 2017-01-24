@@ -43,7 +43,7 @@ namespace Dapplo.Jira
 	/// <summary>
 	///     A client for accessing the Atlassian JIRA Api via REST, using Dapplo.HttpExtensions
 	/// </summary>
-	public class JiraClient : IProjectDomain, IWorkDomain, IUserDomain, ISessionDomain, IIssueDomain, IFilterDomain, IAttachmentDomain
+	public class JiraClient : IProjectDomain, IWorkDomain, IUserDomain, ISessionDomain, IIssueDomain, IFilterDomain, IAttachmentDomain, IServerDomain
 	{
 		private static readonly LogSource Log = new LogSource();
 
@@ -213,90 +213,10 @@ namespace Dapplo.Jira
 		/// </summary>
 		public IWorkDomain Work => this;
 
-		/// <summary>
-		///     Returns the content, specified by the Uri from the JIRA server.
-		///     This is used internally, but can also be used to get e.g. the icon for an issue type.
-		/// </summary>
-		/// <typeparam name="TResponse"></typeparam>
-		/// <param name="contentUri">Uri</param>
-		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>TResponse</returns>
-		public async Task<TResponse> GetUriContentAsync<TResponse>(Uri contentUri, CancellationToken cancellationToken = default(CancellationToken))
-			where TResponse : class
-		{
-			Log.Debug().WriteLine("Retrieving content from {0}", contentUri);
-
-			Behaviour.MakeCurrent();
-
-			var response = await contentUri.GetAsAsync<HttpResponse<TResponse, string>>(cancellationToken).ConfigureAwait(false);
-			if (response.HasError)
-			{
-				throw new Exception($"Status: {response.StatusCode} Message: {response.ErrorResponse}");
-			}
-			return response.Response;
-		}
 
 		/// <summary>
-		///     Retrieve the Avatar for the supplied avatarUrls object
+		///     Server domain
 		/// </summary>
-		/// <typeparam name="TResponse">the type to return the result into. e.g. Bitmap,BitmapSource or MemoryStream</typeparam>
-		/// <param name="avatarUrls">AvatarUrls object from User or Myself method, or a project from the projects</param>
-		/// <param name="avatarSize">Use one of the AvatarSizes to specify the size you want to have</param>
-		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>Bitmap,BitmapSource or MemoryStream (etc) depending on TResponse</returns>
-		public async Task<TResponse> GetAvatarAsync<TResponse>(AvatarUrls avatarUrls, AvatarSizes avatarSize = AvatarSizes.ExtraLarge,
-			CancellationToken cancellationToken = default(CancellationToken))
-			where TResponse : class
-		{
-			var avatarUri = avatarUrls.GetUri(avatarSize);
-
-			Behaviour.MakeCurrent();
-
-			return await GetUriContentAsync<TResponse>(avatarUri, cancellationToken).ConfigureAwait(false);
-		}
-
-		/// <summary>
-		///     Get server information
-		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e3828
-		/// </summary>
-		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>ServerInfo</returns>
-		public async Task<ServerInfo> GetServerInfoAsync(CancellationToken cancellationToken = default(CancellationToken))
-		{
-			Log.Debug().WriteLine("Retrieving server information");
-
-			var serverInfoUri = JiraRestUri.AppendSegments("serverInfo");
-			Behaviour.MakeCurrent();
-
-			var response = await serverInfoUri.GetAsAsync<HttpResponse<ServerInfo, Error>>(cancellationToken).ConfigureAwait(false);
-
-			if (response.HasError)
-			{
-				return HandleErrors(response);
-			}
-			var serverInfo = response.Response;
-			Log.Debug().WriteLine("Server title {0}, version {1}, uri {2}, build date {3}, build number {4}, scm info {5}", serverInfo.ServerTitle, serverInfo.Version, serverInfo.BaseUrl, serverInfo.BuildDate, serverInfo.BuildNumber, serverInfo.ScmInfo);
-			return HandleErrors(response);
-		}
-
-		public TResponse HandleErrors<TResponse, TError>(HttpResponse<TResponse, TError> response) where TResponse : class where TError : Error
-		{
-			if (!response.HasError)
-			{
-				return response.Response;
-			}
-			var message = response.StatusCode.ToString();
-			if (response.ErrorResponse.ErrorMessages != null)
-			{
-				message = string.Join(", ", response.ErrorResponse.ErrorMessages);
-			}
-			else if (response.ErrorResponse?.Message != null)
-			{
-				message = response.ErrorResponse?.Message;
-			}
-			Log.Warn().WriteLine("Http status code: {0}. Response from server: {1}", response.StatusCode, message);
-			throw new Exception($"Status: {response.StatusCode} Message: {message}");
-		}
-
+		public IServerDomain Server => this;
 	}
 }

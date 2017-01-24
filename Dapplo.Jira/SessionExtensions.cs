@@ -86,10 +86,7 @@ namespace Dapplo.Jira
 			content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
 
 			var response = await sessionUri.PostAsync<HttpResponse<SessionResponse, Error>>(content, cancellationToken);
-
-			jiraClient.HandleErrors(response);
-
-			return response.Response.LoginInfo;
+			return response.HandleErrors().LoginInfo;
 		}
 
 		/// <summary>

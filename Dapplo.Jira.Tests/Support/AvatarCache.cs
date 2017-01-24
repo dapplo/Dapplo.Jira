@@ -60,7 +60,7 @@ namespace Dapplo.Jira.Tests.Support
 		/// <returns>BitmapSource</returns>
 		protected override async Task<BitmapSource> CreateAsync(AvatarUrls key, CancellationToken cancellationToken = new CancellationToken())
 		{
-			return await _jiraClient.GetAvatarAsync<BitmapSource>(key, AvatarSize, cancellationToken);
+			return await _jiraClient.Server.GetAvatarAsync<BitmapSource>(key, AvatarSize, cancellationToken);
 		}
 
 		/// <summary>
