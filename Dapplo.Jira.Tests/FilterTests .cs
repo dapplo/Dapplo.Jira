@@ -40,11 +40,11 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetFavoritesAsync()
 		{
-			var filters = await _jiraApi.Filter.GetFavoritesAsync();
+			var filters = await Client.Filter.GetFavoritesAsync();
 			Assert.NotNull(filters);
 			foreach (var filter in filters)
 			{
-				await _jiraApi.Filter.GetAsync(filter.Id);
+				await Client.Filter.GetAsync(filter.Id);
 			}
 		}
 
@@ -52,16 +52,16 @@ namespace Dapplo.Jira.Tests
 		public async Task TestCreateAsync()
 		{
 			var query = Where.IssueKey.In("BUG-2104");
-			var filter = await _jiraApi.Filter.CreateAsync(new Filter("MyTestFilter",query));
+			var filter = await Client.Filter.CreateAsync(new Filter("MyTestFilter",query));
 			Assert.NotNull(filter);
 			Assert.Equal(query.ToString(), filter.Jql);
 			query = Where.IssueKey.In("BUG-2104", "BUG-2105");
 			filter.Jql = query.ToString();
-			filter = await _jiraApi.Filter.UpdateAsync(filter);
+			filter = await Client.Filter.UpdateAsync(filter);
 			Assert.NotNull(filter);
 			Assert.Equal(query.ToString(), filter.Jql);
 
-			await _jiraApi.Filter.DeleteAsync(filter);
+			await Client.Filter.DeleteAsync(filter);
 		}
 	}
 }

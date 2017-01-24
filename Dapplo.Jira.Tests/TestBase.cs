@@ -30,27 +30,39 @@ using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests
 {
-	public class TestBase
+	/// <summary>
+	/// Abstract base class for all tests
+	/// </summary>
+	public abstract class TestBase
 	{
 		protected static readonly LogSource Log = new LogSource();
 
 		// Test against a well known JIRA
 		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
 
-		protected readonly JiraApi _jiraApi;
-		protected readonly string _username;
-		protected readonly string _password;
+		/// <summary>
+		/// The instance of the JiraClient
+		/// </summary>
+		protected IJiraClient Client { get; }
 
-		public TestBase(ITestOutputHelper testOutputHelper, bool autoLogin = true)
+		protected string Username { get; }
+		protected string Password { get; }
+
+		/// <summary>
+		/// Default test setup, can also take care of setting the authentication
+		/// </summary>
+		/// <param name="testOutputHelper"></param>
+		/// <param name="doLogin"></param>
+		protected TestBase(ITestOutputHelper testOutputHelper, bool doLogin = true)
 		{
 			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
-			_jiraApi = new JiraApi(TestJiraUri);
-			_username = Environment.GetEnvironmentVariable("jira_test_username");
-			_password = Environment.GetEnvironmentVariable("jira_test_password");
+			Client = JiraClient.Create(TestJiraUri);
+			Username = Environment.GetEnvironmentVariable("jira_test_username");
+			Password = Environment.GetEnvironmentVariable("jira_test_password");
 
-			if (!string.IsNullOrEmpty(_username) && !string.IsNullOrEmpty(_password))
+			if (doLogin && !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
 			{
-				_jiraApi.SetBasicAuthentication(_username, _password);
+				Client.SetBasicAuthentication(Username, Password);
 			}
 		}
 	}

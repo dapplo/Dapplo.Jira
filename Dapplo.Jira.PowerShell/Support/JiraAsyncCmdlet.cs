@@ -19,8 +19,6 @@
 //  You should have a copy of the GNU Lesser General Public License
 //  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
-#if NET45 || NET46
-
 #region using
 
 using System;
@@ -40,7 +38,7 @@ namespace Dapplo.Jira.PowerShell.Support
 		/// <summary>
 		///     The Jira API which should be used to get information
 		/// </summary>
-		protected JiraApi JiraApi;
+		protected IJiraClient JiraApi;
 
 		/// <summary>
 		///     Url to the Jira system
@@ -65,7 +63,7 @@ namespace Dapplo.Jira.PowerShell.Support
 		/// </summary>
 		protected override Task BeginProcessingAsync()
 		{
-			JiraApi = new JiraApi(JiraUri);
+			JiraApi = JiraClient.Create(JiraUri);
 			if (Username != null)
 			{
 				JiraApi.SetBasicAuthentication(Username, Password);
@@ -74,5 +72,3 @@ namespace Dapplo.Jira.PowerShell.Support
 		}
 	}
 }
-
-#endif

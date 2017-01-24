@@ -26,7 +26,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
 using Dapplo.Jira.Entities;
-using Dapplo.Jira.Internal;
 using Dapplo.Log;
 #if NET45 || NET46
 using System.Collections.Generic;
@@ -42,9 +41,9 @@ using Dapplo.Jira.Converters;
 namespace Dapplo.Jira
 {
 	/// <summary>
-	///     Jira API, using Dapplo.HttpExtensions
+	///     A client for accessing the Atlassian JIRA Api via REST, using Dapplo.HttpExtensions
 	/// </summary>
-	public class JiraApi
+	public class JiraClient : IProjectDomain, IWorkDomain, IUserDomain, ISessionDomain, IIssueDomain, IFilterDomain, IAttachmentDomain
 	{
 		private static readonly LogSource Log = new LogSource();
 
@@ -55,28 +54,36 @@ namespace Dapplo.Jira
 		///     Store the specific HttpBehaviour, which contains a IHttpSettings and also some additional logic for making a
 		///     HttpClient which works with Jira
 		/// </summary>
-		public IHttpBehaviour Behaviour { get; }
+		public IHttpBehaviour Behaviour { get; set; }
 
+		/// <summary>
+		///     Factory method to create the jira client
+		/// </summary>
+		public static IJiraClient Create(Uri baseUri, IHttpSettings httpSettings = null)
+		{
+			return new JiraClient(baseUri, httpSettings);
+		}
 		/// <summary>
 		///     Create the JiraApi object, here the HttpClient is configured
 		/// </summary>
 		/// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
 		/// <param name="httpSettings">IHttpSettings or null for default</param>
-		public JiraApi(Uri baseUri, IHttpSettings httpSettings = null) : this(baseUri)
+		private JiraClient(Uri baseUri, IHttpSettings httpSettings = null) : this(baseUri)
 		{
 			Behaviour = ConfigureBehaviour(new HttpBehaviour(), httpSettings);
 		}
 
 #if NET45 || NET45
-/// <summary>
-///     Create the JiraApi, using OAuth 1 for the communication, here the HttpClient is configured
-/// </summary>
-/// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
-/// <param name="jiraOAuthSettings">JiraOAuthSettings</param>
-/// <param name="httpSettings">IHttpSettings or null for default</param>
-		public JiraApi(Uri baseUri, JiraOAuthSettings jiraOAuthSettings, IHttpSettings httpSettings = null) : this(baseUri)
+		/// <summary>
+		///     Create the JiraApi, using OAuth 1 for the communication, here the HttpClient is configured
+		/// </summary>
+		/// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
+		/// <param name="jiraOAuthSettings">JiraOAuthSettings</param>
+		/// <param name="httpSettings">IHttpSettings or null for default</param>
+		public static IJiraClient Create(Uri baseUri, JiraOAuthSettings jiraOAuthSettings, IHttpSettings httpSettings = null)
 		{
-			var jiraOAuthUri = JiraBaseUri.AppendSegments("plugins", "servlet", "oauth");
+			JiraClient client = new JiraClient(baseUri, httpSettings);
+			var jiraOAuthUri = client.JiraBaseUri.AppendSegments("plugins", "servlet", "oauth");
 
 			var oAuthSettings = new OAuth1Settings
 			{
@@ -101,7 +108,8 @@ namespace Dapplo.Jira
 
 			// Configure the OAuth1Settings
 
-			Behaviour = ConfigureBehaviour(OAuth1HttpBehaviourFactory.Create(oAuthSettings), httpSettings);
+			client.Behaviour = client.ConfigureBehaviour(OAuth1HttpBehaviourFactory.Create(oAuthSettings), httpSettings);
+			return client;
 		}
 #endif
 
@@ -109,18 +117,11 @@ namespace Dapplo.Jira
 		///     Constructor for only the Uri, used internally
 		/// </summary>
 		/// <param name="baseUri"></param>
-		private JiraApi(Uri baseUri)
+		private JiraClient(Uri baseUri)
 		{
 			JiraBaseUri = baseUri;
 			JiraRestUri = baseUri.AppendSegments("rest", "api", "2");
 			JiraAuthUri = baseUri.AppendSegments("rest", "auth", "1");
-			Issue = new IssueApi(this);
-			Attachment = new AttachmentApi(this);
-			Project = new ProjectApi(this);
-			User = new UserApi(this);
-			Session = new SessionApi(this);
-			Filter = new FilterApi(this);
-			Work = new WorkApi(this);
 		}
 
 		/// <summary>
@@ -159,12 +160,12 @@ namespace Dapplo.Jira
 		/// <summary>
 		///     The rest URI for your JIRA server
 		/// </summary>
-		internal Uri JiraRestUri { get; }
+		public Uri JiraRestUri { get; }
 
 		/// <summary>
 		///     The base URI for JIRA auth api
 		/// </summary>
-		internal Uri JiraAuthUri { get; }
+		public Uri JiraAuthUri { get; }
 
 		/// <summary>
 		///     Set Basic Authentication for the current client
@@ -180,37 +181,37 @@ namespace Dapplo.Jira
 		/// <summary>
 		///     Issue domain
 		/// </summary>
-		public IIssueApi Issue { get; }
+		public IIssueDomain Issue => this;
 
 		/// <summary>
 		///     Attachment domain
 		/// </summary>
-		public IAttachmentApi Attachment { get; }
+		public IAttachmentDomain Attachment => this;
 
 		/// <summary>
 		///     Project domain
 		/// </summary>
-		public IProjectApi Project { get; }
+		public IProjectDomain Project => this;
 
 		/// <summary>
 		///     User domain
 		/// </summary>
-		public IUserApi User { get; }
+		public IUserDomain User => this;
 
 		/// <summary>
 		///     Session domain
 		/// </summary>
-		public ISessionApi Session { get; }
+		public ISessionDomain Session => this;
 
 		/// <summary>
 		///     Filter domain
 		/// </summary>
-		public IFilterApi Filter { get; }
+		public IFilterDomain Filter => this;
 
 		/// <summary>
 		///     Work domain
 		/// </summary>
-		public IWorkApi Work { get; }
+		public IWorkDomain Work => this;
 
 		/// <summary>
 		///     Returns the content, specified by the Uri from the JIRA server.
@@ -278,15 +279,7 @@ namespace Dapplo.Jira
 			return HandleErrors(response);
 		}
 
-		/// <summary>
-		///     Helper method for handling errors in the response, if the response has an error an exception is thrown.
-		///     Else the real response is returned.
-		/// </summary>
-		/// <typeparam name="TResponse">Type for the ok content</typeparam>
-		/// <typeparam name="TError">Type for the error content</typeparam>
-		/// <param name="response">TResponse</param>
-		/// <returns></returns>
-		internal TResponse HandleErrors<TResponse, TError>(HttpResponse<TResponse, TError> response) where TResponse : class where TError : Error
+		public TResponse HandleErrors<TResponse, TError>(HttpResponse<TResponse, TError> response) where TResponse : class where TError : Error
 		{
 			if (!response.HasError)
 			{

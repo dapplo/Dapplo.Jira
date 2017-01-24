@@ -56,7 +56,6 @@ namespace Dapplo.Jira.Query
 		/// </summary>
 		IFinalClause InLatestReleasedVersion(string project);
 
-
 		/// <summary>
 		///     This allows fluent constructs like IssueKey.InReleasedVersions()
 		/// </summary>

@@ -50,7 +50,7 @@ namespace Dapplo.Jira.Tests
 	{
 		// Test against a well known JIRA
 		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
-		private readonly JiraApi _jiraApi;
+		private readonly IJiraClient _jiraApi;
 
 		public OAuthTests(ITestOutputHelper testOutputHelper)
 		{
@@ -87,7 +87,7 @@ ZMUZaDWF58d3otc23mCzwh3YcUWFu09KnMpzZsK59OfyjtkS44EDWpbE=</D></RSAKeyValue>";
 				Token = this
 			};
 			// Create the JiraApi for the Uri and the settings
-			_jiraApi = new JiraApi(TestJiraUri, oAuthSettings);
+			_jiraApi = JiraClient.Create(TestJiraUri, oAuthSettings);
 		}
 
 		public string OAuthToken { get; set; }

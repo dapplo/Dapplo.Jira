@@ -31,23 +31,31 @@ using Dapplo.Log;
 
 #endregion
 
-namespace Dapplo.Jira.Internal
+namespace Dapplo.Jira
 {
 	/// <summary>
-	///     This holds all the project related methods
+	///     The marker interface of the project domain
 	/// </summary>
-	internal class ProjectApi : IProjectApi
+	public interface IProjectDomain : IJiraDomain
+	{
+	}
+
+	/// <summary>
+	///     This holds all the project related extensions methods
+	/// </summary>
+	public static class ProjectExtensions
 	{
 		private static readonly LogSource Log = new LogSource();
-		private readonly JiraApi _jiraApi;
 
-		internal ProjectApi(JiraApi jiraApi)
-		{
-			_jiraApi = jiraApi;
-		}
-
-		/// <inheritdoc />
-		public async Task<Project> GetAsync(string projectKey, CancellationToken cancellationToken = default(CancellationToken))
+		/// <summary>
+		///     Get projects information
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2779
+		/// </summary>
+		/// <param name="jiraClient">IProjectDomain to bind the extension method to</param>
+		/// <param name="projectKey">key of the project</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>ProjectDetails</returns>
+		public static async Task<Project> GetAsync(this IProjectDomain jiraClient, string projectKey, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			if (projectKey == null)
 			{
@@ -56,7 +64,7 @@ namespace Dapplo.Jira.Internal
 
 			Log.Debug().WriteLine("Retrieving project {0}", projectKey);
 
-			var projectUri = _jiraApi.JiraRestUri.AppendSegments("project", projectKey);
+			var projectUri = jiraClient.JiraRestUri.AppendSegments("project", projectKey);
 
 			// Add the configurable expand values, if the value is not null or empty
 			if (JiraConfig.ExpandGetProject?.Length > 0)
@@ -64,17 +72,24 @@ namespace Dapplo.Jira.Internal
 				projectUri = projectUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetProject));
 			}
 
-			_jiraApi.Behaviour.MakeCurrent();
+			jiraClient.Behaviour.MakeCurrent();
 			var response = await projectUri.GetAsAsync<HttpResponse<Project, Error>>(cancellationToken).ConfigureAwait(false);
-			return _jiraApi.HandleErrors(response);
+			return jiraClient.HandleErrors(response);
 		}
 
-		/// <inheritdoc />
-		public async Task<IList<ProjectDigest>> GetAllAsync(int? recent = null, CancellationToken cancellationToken = default(CancellationToken))
+		/// <summary>
+		///     Get all visible projects
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2779
+		/// </summary>
+		/// <param name="jiraClient">IProjectDomain to bind the extension method to</param>
+		/// <param name="recent">if this parameter is set then only projects recently accessed by the current user (if not logged in then based on HTTP session) will be returned (maximum count limited to the specified number but no more than 20).</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>list of ProjectDigest</returns>
+		public static async Task<IList<ProjectDigest>> GetAllAsync(this IProjectDomain jiraClient, int? recent = null, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			Log.Debug().WriteLine("Retrieving projects");
 
-			var projectsUri = _jiraApi.JiraRestUri.AppendSegments("project");
+			var projectsUri = jiraClient.JiraRestUri.AppendSegments("project");
 			if (recent.HasValue)
 			{
 				projectsUri = projectsUri.ExtendQuery("recent", recent);
@@ -86,9 +101,9 @@ namespace Dapplo.Jira.Internal
 				projectsUri = projectsUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetProjects));
 			}
 
-			_jiraApi.Behaviour.MakeCurrent();
+			jiraClient.Behaviour.MakeCurrent();
 			var response = await projectsUri.GetAsAsync<HttpResponse<IList<ProjectDigest>, Error>>(cancellationToken).ConfigureAwait(false);
-			return _jiraApi.HandleErrors(response);
+			return jiraClient.HandleErrors(response);
 		}
 	}
 }

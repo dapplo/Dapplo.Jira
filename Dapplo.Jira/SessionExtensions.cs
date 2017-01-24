@@ -22,8 +22,8 @@
 #region using
 
 using System;
-using System.Net;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
@@ -34,24 +34,35 @@ using Dapplo.Log;
 
 #endregion
 
-namespace Dapplo.Jira.Internal
+namespace Dapplo.Jira
 {
 	/// <summary>
-	///     Session API
+	///     The marker interface of the session domain
 	/// </summary>
-	internal class SessionApi : ISessionApi
+	public interface ISessionDomain : IJiraDomain
+	{
+	}
+
+	/// <summary>
+	///     This holds all the user session extension methods
+	/// </summary>
+	public static class SessionExtensions
 	{
 		private static readonly LogSource Log = new LogSource();
 
-		private readonly JiraApi _jiraApi;
-
-		internal SessionApi(JiraApi jiraApi)
-		{
-			_jiraApi = jiraApi;
-		}
-
-		/// <inheritdoc />
-		public async Task<LoginInfo> StartAsync(string username, string password, CancellationToken cancellationToken = default(CancellationToken))
+		/// <summary>
+		///     Starts new session. No additional authorization requered.
+		/// </summary>
+		/// <remarks>
+		///     Please be aware that although cookie-based authentication has many benefits, such as performance (not having to
+		///     make multiple authentication calls), the session cookie can expire..
+		/// </remarks>
+		/// <param name="jiraClient">ISessionDomain to bind the extension method to</param>
+		/// <param name="username">User username</param>
+		/// <param name="password">User password</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>LoginInfo</returns>
+		public static async Task<LoginInfo> StartAsync(this ISessionDomain jiraClient, string username, string password, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			if (username == null)
 			{
@@ -61,31 +72,35 @@ namespace Dapplo.Jira.Internal
 			{
 				throw new ArgumentNullException(nameof(password));
 			}
-			if (!_jiraApi.Behaviour.HttpSettings.UseCookies)
+			if (!jiraClient.Behaviour.HttpSettings.UseCookies)
 			{
 				throw new ArgumentException("Cookies need to be enabled", nameof(IHttpSettings.UseCookies));
 			}
 			Log.Debug().WriteLine("Starting a session for {0}", username);
 
-			var sessionUri = _jiraApi.JiraAuthUri.AppendSegments("session");
+			var sessionUri = jiraClient.JiraAuthUri.AppendSegments("session");
 
-			_jiraApi.Behaviour.MakeCurrent();
+			jiraClient.Behaviour.MakeCurrent();
 
 			var content = new StringContent($"{{ \"username\": \"{username}\", \"password\": \"{password}\"}}");
 			content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
 
 			var response = await sessionUri.PostAsync<HttpResponse<SessionResponse, Error>>(content, cancellationToken);
 
-			_jiraApi.HandleErrors(response);
+			jiraClient.HandleErrors(response);
 
 			return response.Response.LoginInfo;
 		}
 
-		/// <inheritdoc />
-		public async Task EndAsync(CancellationToken cancellationToken = default(CancellationToken))
+		/// <summary>
+		///     Ends session. No additional authorization required.
+		/// </summary>
+		/// <param name="jiraClient">ISessionDomain to bind the extension method to</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		public static async Task EndAsync(this ISessionDomain jiraClient, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			// Find the cookie to expire
-			var sessionCookies = _jiraApi.Behaviour.CookieContainer.GetCookies(_jiraApi.JiraBaseUri).Cast<Cookie>().ToList();
+			var sessionCookies = jiraClient.Behaviour.CookieContainer.GetCookies(jiraClient.JiraBaseUri).Cast<Cookie>().ToList();
 
 			Log.Debug().WriteLine("Ending session");
 
@@ -100,9 +115,9 @@ namespace Dapplo.Jira.Internal
 						Log.Debug().WriteLine("Found cookie {0} for domain {1} which expires on {2}", sessionCookie.Name, sessionCookie.Domain, sessionCookie.Expires);
 					}
 				}
-				var sessionUri = _jiraApi.JiraAuthUri.AppendSegments("session");
+				var sessionUri = jiraClient.JiraAuthUri.AppendSegments("session");
 
-				_jiraApi.Behaviour.MakeCurrent();
+				jiraClient.Behaviour.MakeCurrent();
 				var response = await sessionUri.DeleteAsync<HttpResponseMessage>(cancellationToken);
 
 				if (response.StatusCode != HttpStatusCode.NoContent)
@@ -117,4 +132,5 @@ namespace Dapplo.Jira.Internal
 			}
 		}
 	}
+
 }

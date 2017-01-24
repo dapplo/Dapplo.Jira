@@ -38,7 +38,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestSearchUsersAsync()
 		{
-			var users = await _jiraApi.User.SearchAsync("Dapplo");
+			var users = await Client.User.SearchAsync("Dapplo");
 			Assert.NotNull(users);
 			Assert.True(users.Count > 0);
 		}
@@ -46,9 +46,9 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestUser()
 		{
-			var meMyselfAndI = await _jiraApi.User.GetMyselfAsync();
+			var meMyselfAndI = await Client.User.GetMyselfAsync();
 			Assert.NotNull(meMyselfAndI);
-			var meAgain = await _jiraApi.User.GetAsync(meMyselfAndI.Name);
+			var meAgain = await Client.User.GetAsync(meMyselfAndI.Name);
 			Assert.NotNull(meAgain);
 		}
 	}

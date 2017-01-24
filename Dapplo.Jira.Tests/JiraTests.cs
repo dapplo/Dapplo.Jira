@@ -40,14 +40,14 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public void TestConstructor()
 		{
-			Assert.Throws<ArgumentNullException>(() => new JiraApi(null));
+			Assert.Throws<ArgumentNullException>(() => JiraClient.Create(null));
 		}
 
 		[Fact]
 		public async Task TestGetServerInfoAsync()
 		{
-			Assert.NotNull(_jiraApi);
-			var serverInfo = await _jiraApi.GetServerInfoAsync();
+			Assert.NotNull(Client);
+			var serverInfo = await Client.GetServerInfoAsync();
 			Assert.NotNull(serverInfo.Version);
 			Assert.NotNull(serverInfo.ServerTitle);
 			// This should be changed when the title changes

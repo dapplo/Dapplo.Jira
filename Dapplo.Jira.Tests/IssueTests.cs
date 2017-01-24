@@ -42,7 +42,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetIssue()
 		{
-			var issue = await _jiraApi.Issue.GetAsync("BUG-2104");
+			var issue = await Client.Issue.GetAsync("BUG-2104");
 			Assert.NotNull(issue);
 			Assert.NotNull(issue.Fields.IssueType);
 			Assert.NotNull(issue.Fields.Comments.Elements);
@@ -55,7 +55,7 @@ namespace Dapplo.Jira.Tests
 		{
 			DefaultJsonHttpContentConverter.Instance.Value.LogThreshold = 0;
 			JiraConfig.ExpandGetTransitions = new[] {"transitions.fields"};
-			var transitions = await _jiraApi.Issue.GetPossibleTransitionsAsync("BUG-1845");
+			var transitions = await Client.Issue.GetPossibleTransitionsAsync("BUG-1845");
 			Assert.NotNull(transitions);
 			Assert.True(transitions.Count > 0);
 			Assert.NotNull(transitions[0].PossibleFields);
@@ -64,7 +64,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestSearch()
 		{
-			var searchResult = await _jiraApi.Issue.SearchAsync(Where.Text.Contains("robin"));
+			var searchResult = await Client.Issue.SearchAsync(Where.Text.Contains("robin"));
 
 			Assert.NotNull(searchResult);
 			Assert.NotNull(searchResult.Issues.Count > 0);
@@ -79,27 +79,27 @@ namespace Dapplo.Jira.Tests
 		public async Task TestAssign()
 		{
 			const string issueKey = "FEATURE-746";
-			var issueBeforeChanges = await _jiraApi.Issue.GetAsync(issueKey);
+			var issueBeforeChanges = await Client.Issue.GetAsync(issueKey);
 
 			// assign to nobody
-			await _jiraApi.Issue.AssignAsync(issueKey, User.Nobody);
+			await Client.Issue.AssignAsync(issueKey, User.Nobody);
 
 			// check
-			var issueAssignedToNobody = await _jiraApi.Issue.GetAsync(issueKey);
+			var issueAssignedToNobody = await Client.Issue.GetAsync(issueKey);
 			Assert.Null(issueAssignedToNobody.Fields.Assignee);
 
 			// Assign back to the initial user
-			await _jiraApi.Issue.AssignAsync(issueKey, issueBeforeChanges.Fields.Assignee);
+			await Client.Issue.AssignAsync(issueKey, issueBeforeChanges.Fields.Assignee);
 
 			// check
-			var issueAssignedToMe = await _jiraApi.Issue.GetAsync(issueKey);
+			var issueAssignedToMe = await Client.Issue.GetAsync(issueKey);
 			Assert.True(issueAssignedToMe.Fields.Assignee.Name == issueBeforeChanges.Fields.Assignee.Name);
 		}
 
 		[Fact]
 		public async Task GetIssueTypes()
 		{
-			var issueTypes = await _jiraApi.Issue.GetIssueTypesAsync();
+			var issueTypes = await Client.Issue.GetIssueTypesAsync();
 			Assert.NotNull(issueTypes);
 		}
 
@@ -107,14 +107,14 @@ namespace Dapplo.Jira.Tests
 		public async Task DeleteIssue()
 		{
 			// Remove again
-			await _jiraApi.Issue.DeleteAsync("BUG-2118");
+			await Client.Issue.DeleteAsync("BUG-2118");
 		}
 
 		//[Fact]
 		public async Task CreateIssue()
 		{
-			var issueTypes = await _jiraApi.Issue.GetIssueTypesAsync();
-			var projects = await _jiraApi.Project.GetAllAsync();
+			var issueTypes = await Client.Issue.GetIssueTypesAsync();
+			var projects = await Client.Project.GetAllAsync();
 
 			var bugIssueType = issueTypes.First(type => type.Name == "Bug");
 			var projectForIssue = projects.First(digest => digest.Key == "BUG");
@@ -131,11 +131,11 @@ namespace Dapplo.Jira.Tests
 					}
 				}
 			};
-			var createdIssue = await _jiraApi.Issue.CreateAsync(issueToCreate);
+			var createdIssue = await Client.Issue.CreateAsync(issueToCreate);
 			Assert.NotNull(createdIssue);
 			Assert.NotNull(createdIssue.Key);
 			// Remove again
-			await _jiraApi.Issue.DeleteAsync(createdIssue.Key);
+			await Client.Issue.DeleteAsync(createdIssue.Key);
 		}
 	}
 }

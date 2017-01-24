@@ -42,7 +42,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetProjectAsync()
 		{
-			var project = await _jiraApi.Project.GetAsync("BUG");
+			var project = await Client.Project.GetAsync("BUG");
 
 			Assert.NotNull(project);
 			Assert.NotNull(project.Roles.Count > 0);
@@ -51,19 +51,19 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetProjectsAsync()
 		{
-			var projects = await _jiraApi.Project.GetAllAsync();
+			var projects = await Client.Project.GetAllAsync();
 
 			Assert.NotNull(projects);
 			Assert.NotNull(projects.Count > 0);
 
-			_jiraApi.Behaviour.SetConfig(new SvgConfiguration {Width = 24, Height = 24});
+			Client.Behaviour.SetConfig(new SvgConfiguration {Width = 24, Height = 24});
 
 			foreach (var project in projects)
 			{
-				var avatar = await _jiraApi.GetAvatarAsync<Bitmap>(project.Avatar, AvatarSizes.Medium);
+				var avatar = await Client.GetAvatarAsync<Bitmap>(project.Avatar, AvatarSizes.Medium);
 				Assert.True(avatar.Width == 24);
 
-				var projectDetails = await _jiraApi.Project.GetAsync(project.Key);
+				var projectDetails = await Client.Project.GetAsync(project.Key);
 				Assert.NotNull(projectDetails);
 			}
 		}

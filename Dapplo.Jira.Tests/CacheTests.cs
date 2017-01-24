@@ -23,6 +23,7 @@
 
 using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
+using Dapplo.Jira.Tests.Support;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -35,19 +36,19 @@ namespace Dapplo.Jira.Tests
 		private readonly AvatarCache _avatarCache;
 		public CacheTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper, false)
 		{
-			_avatarCache = new AvatarCache(_jiraApi);
+			_avatarCache = new AvatarCache(Client);
 		}
 
 		[Fact]
 		public async Task TestCache()
 		{
 			LoginInfo loginInfo = null;
-			if (!string.IsNullOrEmpty(_username) && !string.IsNullOrEmpty(_password))
+			if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
 			{
-				loginInfo = await _jiraApi.Session.StartAsync(_username, _password);
+				loginInfo = await Client.Session.StartAsync(Username, Password);
 			}
-			var me = await _jiraApi.User.GetMyselfAsync();
-			Assert.Equal(me.Name, _username);
+			var me = await Client.User.GetMyselfAsync();
+			Assert.Equal(me.Name, Username);
 
 			var avatar = await _avatarCache.GetOrCreateAsync(me.Avatars);
 			Assert.NotNull(avatar);
@@ -64,7 +65,7 @@ namespace Dapplo.Jira.Tests
 
 			if (loginInfo != null)
 			{
-				await _jiraApi.Session.EndAsync();
+				await Client.Session.EndAsync();
 			}
 		}
 	}

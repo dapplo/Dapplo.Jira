@@ -39,16 +39,16 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestSession()
 		{
-			if (!string.IsNullOrEmpty(_username) && !string.IsNullOrEmpty(_password))
+			if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
 			{
-				await _jiraApi.Session.StartAsync(_username, _password);
+				await Client.Session.StartAsync(Username, Password);
 			}
-			var me = await _jiraApi.User.GetMyselfAsync();
-			Assert.Equal(me.Name, _username);
-			await _jiraApi.Session.EndAsync();
+			var me = await Client.User.GetMyselfAsync();
+			Assert.Equal(me.Name, Username);
+			await Client.Session.EndAsync();
 
 			// WhoAmI should give an exception if there is no login
-			await Assert.ThrowsAsync<Exception>(async () => await _jiraApi.User.GetMyselfAsync());
+			await Assert.ThrowsAsync<Exception>(async () => await Client.User.GetMyselfAsync());
 		}
 	}
 }

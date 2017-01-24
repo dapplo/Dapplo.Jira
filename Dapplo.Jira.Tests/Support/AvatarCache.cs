@@ -29,22 +29,22 @@ using Dapplo.Utils;
 
 #endregion
 
-namespace Dapplo.Jira.Tests
+namespace Dapplo.Jira.Tests.Support
 {
 	/// <summary>
 	///     An example of a AvatarCache
 	/// </summary>
 	public class AvatarCache : AsyncMemoryCache<AvatarUrls, BitmapSource>
 	{
-		private readonly JiraApi _jiraApi;
+		private readonly IJiraClient _jiraClient;
 
 		/// <summary>
 		///     Constructor
 		/// </summary>
-		/// <param name="jiraApi"></param>
-		public AvatarCache(JiraApi jiraApi)
+		/// <param name="jiraClient"></param>
+		public AvatarCache(IJiraClient jiraClient)
 		{
-			_jiraApi = jiraApi;
+			_jiraClient = jiraClient;
 		}
 
 		/// <summary>
@@ -60,7 +60,7 @@ namespace Dapplo.Jira.Tests
 		/// <returns>BitmapSource</returns>
 		protected override async Task<BitmapSource> CreateAsync(AvatarUrls key, CancellationToken cancellationToken = new CancellationToken())
 		{
-			return await _jiraApi.GetAvatarAsync<BitmapSource>(key, AvatarSize, cancellationToken);
+			return await _jiraClient.GetAvatarAsync<BitmapSource>(key, AvatarSize, cancellationToken);
 		}
 
 		/// <summary>
