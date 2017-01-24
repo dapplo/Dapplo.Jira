@@ -22,6 +22,7 @@
 #region using
 
 using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 #endregion
@@ -38,7 +39,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Who created the comment
 		/// </summary>
-		[DataMember(Name = "author", EmitDefaultValue = false)]
+		[DataMember(Name = "author", EmitDefaultValue = false), ReadOnly(true)]
 		public User Author { get; set; }
 
 		/// <summary>
@@ -50,19 +51,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     When was the comment created
 		/// </summary>
-		[DataMember(Name = "created", EmitDefaultValue = false)]
+		[DataMember(Name = "created", EmitDefaultValue = false), ReadOnly(true)]
 		public DateTimeOffset Created { get; set; }
 
 		/// <summary>
 		///     Who updated the comment
 		/// </summary>
-		[DataMember(Name = "updateAuthor", EmitDefaultValue = false)]
+		[DataMember(Name = "updateAuthor", EmitDefaultValue = false), ReadOnly(true)]
 		public User UpdateAuthor { get; set; }
 
 		/// <summary>
 		///     When was the comment updated
 		/// </summary>
-		[DataMember(Name = "updated", EmitDefaultValue = false)]
+		[DataMember(Name = "updated", EmitDefaultValue = false), ReadOnly(true)]
 		public DateTimeOffset Updated { get; set; }
 
 		/// <summary>

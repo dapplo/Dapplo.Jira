@@ -58,7 +58,8 @@ namespace Dapplo.Jira
 		/// <param name="body">the body of the comment</param>
 		/// <param name="visibility">optional visibility role</param>
 		/// <param name="cancellationToken">CancellationToken</param>
-		public static async Task AddCommentAsync(this IIssueDomain jiraClient, string issueKey, string body, string visibility = null, CancellationToken cancellationToken = default(CancellationToken))
+		/// <returns>Comment</returns>
+		public static async Task<Comment> AddCommentAsync(this IIssueDomain jiraClient, string issueKey, string body, string visibility = null, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			if (issueKey == null)
 			{
@@ -76,7 +77,8 @@ namespace Dapplo.Jira
 			};
 			jiraClient.Behaviour.MakeCurrent();
 			var attachUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "comment");
-			await attachUri.PostAsync(comment, cancellationToken).ConfigureAwait(false);
+			var response = await attachUri.PostAsync<HttpResponse<Comment, Error>>(comment, cancellationToken).ConfigureAwait(false);
+			return response.HandleErrors(HttpStatusCode.Created);
 		}
 
 		/// <summary>
@@ -195,7 +197,8 @@ namespace Dapplo.Jira
 		/// <param name="issueKey">jira key to which the comment belongs</param>
 		/// <param name="comment">Comment to update</param>
 		/// <param name="cancellationToken">CancellationToken</param>
-		public static async Task UpdateCommentAsync(this IIssueDomain jiraClient, string issueKey, Comment comment, CancellationToken cancellationToken = default(CancellationToken))
+		/// <returns>Comment</returns>
+		public static async Task<Comment> UpdateCommentAsync(this IIssueDomain jiraClient, string issueKey, Comment comment, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			if (issueKey == null)
 			{
@@ -207,7 +210,8 @@ namespace Dapplo.Jira
 			jiraClient.Behaviour.MakeCurrent();
 
 			var attachUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "comment", comment.Id);
-			await attachUri.PutAsync(comment, cancellationToken).ConfigureAwait(false);
+			var response = await attachUri.PutAsync<HttpResponse<Comment, Error>>(comment, cancellationToken).ConfigureAwait(false);
+			return response.HandleErrors();
 		}
 
 		/// <summary>
@@ -241,7 +245,7 @@ namespace Dapplo.Jira
 			jiraClient.Behaviour.MakeCurrent();
 			var issueUri = jiraClient.JiraRestUri.AppendSegments("issue");
 			var response = await issueUri.PostAsync<HttpResponse<Issue, Error>>(issue, cancellationToken).ConfigureAwait(false);
-			return response.HandleErrors();
+			return response.HandleErrors(HttpStatusCode.Created);
 		}
 
 		/// <summary>
@@ -265,12 +269,7 @@ namespace Dapplo.Jira
 				issueUri = issueUri.ExtendQuery("deleteSubtasks", true);
 			}
 			var response = await issueUri.DeleteAsync<HttpResponse>(cancellationToken).ConfigureAwait(false);
-			if (response.StatusCode != HttpStatusCode.NoContent)
-			{
-				var message = response.StatusCode.ToString();
-				Log.Warn().WriteLine("Http status code: {0}. Response from server: {1}", response.StatusCode, message);
-				throw new Exception($"Status: {response.StatusCode} Message: {message}");
-			}
+			response.HandleStatusCode(HttpStatusCode.NoContent);
 		}
 
 		/// <summary>

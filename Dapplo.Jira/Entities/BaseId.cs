@@ -21,6 +21,7 @@
 
 #region using
 
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 #endregion
@@ -36,7 +37,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Id of this entity
 		/// </summary>
-		[DataMember(Name = "id", EmitDefaultValue = false)]
+		[DataMember(Name = "id", EmitDefaultValue = false), ReadOnly(true)]
 		public TId Id { get; set; }
 	}
 }

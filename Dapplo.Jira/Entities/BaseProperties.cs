@@ -22,6 +22,7 @@
 #region using
 
 using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 #endregion
@@ -37,7 +38,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Link to itself
 		/// </summary>
-		[DataMember(Name = "self", EmitDefaultValue = false)]
+		[DataMember(Name = "self", EmitDefaultValue = false), ReadOnly(true)]
 		public Uri Self { get; set; }
 	}
 }
