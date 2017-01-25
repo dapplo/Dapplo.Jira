@@ -142,7 +142,7 @@ namespace Dapplo.Jira
 			behaviour.HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings;
 			behaviour.OnHttpRequestMessageCreated = httpMessage =>
 			{
-				httpMessage?.Headers.TryAddWithoutValidation("X-Atlassian-Token", "no-check");
+				httpMessage?.Headers.TryAddWithoutValidation("X-Atlassian-Token", "nocheck");
 				if (!string.IsNullOrEmpty(_user) && _password != null)
 				{
 					httpMessage?.SetBasicAuthorization(_user, _password);
