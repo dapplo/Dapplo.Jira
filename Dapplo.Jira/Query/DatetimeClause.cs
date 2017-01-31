@@ -22,7 +22,6 @@
 #region using
 
 using System;
-using Dapplo.Jira.Extensions;
 
 #endregion
 

@@ -25,7 +25,7 @@ using System;
 
 #endregion
 
-namespace Dapplo.Jira.Extensions
+namespace Dapplo.Jira
 {
 	public static class TimeSpanExtensions
 	{

@@ -46,6 +46,7 @@ namespace Dapplo.Jira.Tests
 			Assert.NotNull(issue);
 			Assert.NotNull(issue.Fields.IssueType);
 			Assert.NotNull(issue.Fields.Comments.Elements);
+			Assert.True(issue.Fields.Timetracking.TimeSpentSeconds > 0);
 			Assert.True(issue.Fields.CustomFields.Count > 0);
 			Assert.True(issue.Fields.Comments.Elements.Count > 0);
 		}
