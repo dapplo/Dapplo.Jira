@@ -167,7 +167,7 @@ namespace Dapplo.Jira.Entities
 		///     Time tracking information
 		/// </summary>
 		[DataMember(Name = "timetracking", EmitDefaultValue = false)]
-		public Timetracking Timetracking { get; set; }
+		public TimeTracking TimeTracking { get; set; }
 
 		/// <summary>
 		///     When was the last update

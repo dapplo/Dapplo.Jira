@@ -113,5 +113,23 @@ namespace Dapplo.Jira
 			}
 			return response.HandleErrors();
 		}
+
+		/// <summary>
+		///     Get server configuration 
+		///     See <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/configuration-getConfiguration">get configuration</a>
+		/// </summary>
+		/// <param name="jiraClient">IServerDomain to bind the extension method to</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>Configuration</returns>
+		public static async Task<Configuration> GetConfigurationAsync(this IServerDomain jiraClient, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			Log.Debug().WriteLine("Retrieving server configuration");
+
+			var serverConfigurationUri = jiraClient.JiraRestUri.AppendSegments("configuration");
+			jiraClient.Behaviour.MakeCurrent();
+
+			var response = await serverConfigurationUri.GetAsAsync<HttpResponse<Configuration>>(cancellationToken).ConfigureAwait(false);
+			return response.HandleErrors();
+		}
 	}
 }

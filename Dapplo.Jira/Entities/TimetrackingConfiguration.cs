@@ -28,46 +28,33 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Timetracking information
+	///     Time tracking configuration
 	/// </summary>
 	[DataContract]
-	public class TimeTracking
+	public class TimeTrackingConfiguration
 	{
 		/// <summary>
-		///     The originaly estimated time for this issue
+		///     The number of working hours per day 
 		/// </summary>
-		[DataMember(Name = "originalEstimate", EmitDefaultValue = false)]
-		public string OriginalEstimate { get; set; }
+		[DataMember(Name = "workingHoursPerDay")]
+		public int WorkingHoursPerDay { get; set; }
 
 		/// <summary>
-		///     The originaly estimated time for this issue
+		///     The number of working days per week 
 		/// </summary>
-		[DataMember(Name = "originalEstimateSeconds", EmitDefaultValue = false)]
-		public long OriginalEstimateSeconds { get; set; }
+		[DataMember(Name = "workingDaysPerWeek")]
+		public int WorkingDaysPerWeek { get; set; }
 
 		/// <summary>
-		///     The remaining estimated time for this issue
+		///     The time format used
 		/// </summary>
-		[DataMember(Name = "remainingEstimate", EmitDefaultValue = false)]
-		public string RemainingEstimate { get; set; }
-
-
-		/// <summary>
-		///     The remaining estimated time, in seconds, for this issue
-		/// </summary>
-		[DataMember(Name = "remainingEstimateSeconds", EmitDefaultValue = false)]
-		public long RemainingEstimateSeconds { get; set; }
+		[DataMember(Name = "timeFormat")]
+		public string TimeFormat  { get; set; }
 
 		/// <summary>
-		///     Time spent in form of "4w 4d 2h"
+		///     The default unit
 		/// </summary>
-		[DataMember(Name = "timeSpent", EmitDefaultValue = false)]
-		public string TimeSpent { get; set; }
-
-		/// <summary>
-		///     Time spent in seconds
-		/// </summary>
-		[DataMember(Name = "timeSpentSeconds", EmitDefaultValue = false)]
-		public long TimeSpentSeconds { get; set; }
+		[DataMember(Name = "defaultUnit")]
+		public string DefaultUnit { get; set; }
 	}
 }

@@ -54,5 +54,13 @@ namespace Dapplo.Jira.Tests
 			Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
 			Log.Debug().WriteLine($"Version {serverInfo.Version} - Title: {serverInfo.ServerTitle}");
 		}
+
+		[Fact]
+		public async Task TestGetServerConfigurationAsync()
+		{
+			Assert.NotNull(Client);
+			var configuration = await Client.Server.GetConfigurationAsync();
+			Assert.NotNull(configuration.TimeTrackingConfiguration.TimeFormat);
+		}
 	}
 }

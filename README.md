@@ -5,7 +5,11 @@ This is a simple REST based JIRA client, written for Greenshot, by using Dapplo.
 - Coverage Status: [![Coverage Status](https://coveralls.io/repos/github/dapplo/Dapplo.Jira/badge.svg?branch=master)](https://coveralls.io/github/dapplo/Dapplo.Jira?branch=master)
 - NuGet package: [![NuGet package](https://badge.fury.io/nu/Dapplo.Jira.svg)](https://badge.fury.io/nu/Dapplo.Jira)
 
+If you like this project, maybe it saves you time or money, and want to support me to continue the development?
+You can donate something via Paypal: https://www.paypal.me/dapplo
+
 This client has support for:
+
 * Issue (CRUD, comment, assign, issue types)
 * Attachments (CRUD)
 * Basic authorization, OAuth & session (via cookie)
@@ -15,7 +19,7 @@ This client has support for:
 * CRUD methods for the work-log (time spend on issues)
 * CRUD methods for filters
 
-More to come.
+More to come, agile information on sprints and boards is planned.
 
 For examples on how to use this library, I advice you to look at the test cases.
 
