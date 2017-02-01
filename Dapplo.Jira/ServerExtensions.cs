@@ -131,5 +131,43 @@ namespace Dapplo.Jira
 			var response = await serverConfigurationUri.GetAsAsync<HttpResponse<Configuration>>(cancellationToken).ConfigureAwait(false);
 			return response.HandleErrors();
 		}
+
+		/// <summary>
+		///		Admin ONLY!!! Use GetConfigurationAsync instead, which funny enough supplies you with the same information.
+		///     Get time tracking configuration (sub-set of the configuration)
+		///     See <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/configuration/timetracking-getSharedTimeTrackingConfiguration">get shared timetracking configuration</a>
+		/// </summary>
+		/// <param name="jiraClient">IServerDomain to bind the extension method to</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>TimeTrackingConfiguration</returns>
+		public static async Task<TimeTrackingConfiguration> GetTimeTrackingConfigurationAsync(this IServerDomain jiraClient, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			Log.Debug().WriteLine("Retrieving time tracking configuration");
+
+			var timeTrackingConfigurationUri = jiraClient.JiraRestUri.AppendSegments("configuration", "timetracking", "options");
+			jiraClient.Behaviour.MakeCurrent();
+
+			var response = await timeTrackingConfigurationUri.GetAsAsync<HttpResponse<TimeTrackingConfiguration>>(cancellationToken).ConfigureAwait(false);
+			return response.HandleErrors();
+		}
+
+		///  <summary>
+		/// 	 Admin ONLY!!!
+		///      Set time tracking configuration (sub-set of the configuration)
+		///      See <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/configuration/timetracking-getSharedTimeTrackingConfiguration">get shared timetracking configuration</a>
+		///  </summary>
+		///  <param name="jiraClient">IServerDomain to bind the extension method to</param>
+		/// <param name="timeTrackingConfiguration">TimeTrackingConfiguration to use</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		public static async Task SetTimeTrackingConfigurationAsync(this IServerDomain jiraClient, TimeTrackingConfiguration timeTrackingConfiguration, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			Log.Debug().WriteLine("Retrieving time tracking configuration");
+
+			var timeTrackingConfigurationUri = jiraClient.JiraRestUri.AppendSegments("configuration", "timetracking", "options");
+			jiraClient.Behaviour.MakeCurrent();
+
+			var response = await timeTrackingConfigurationUri.PutAsync<HttpResponse>(timeTrackingConfiguration, cancellationToken).ConfigureAwait(false);
+			response.HandleStatusCode();
+		}
 	}
 }
