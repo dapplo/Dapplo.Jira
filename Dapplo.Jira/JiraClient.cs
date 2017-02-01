@@ -43,7 +43,7 @@ namespace Dapplo.Jira
 	/// <summary>
 	///     A client for accessing the Atlassian JIRA Api via REST, using Dapplo.HttpExtensions
 	/// </summary>
-	public class JiraClient : IProjectDomain, IWorkDomain, IUserDomain, ISessionDomain, IIssueDomain, IFilterDomain, IAttachmentDomain, IServerDomain
+	public class JiraClient : IProjectDomain, IWorkDomain, IUserDomain, ISessionDomain, IIssueDomain, IFilterDomain, IAttachmentDomain, IServerDomain, IAgileDomain
 	{
 		private static readonly LogSource Log = new LogSource();
 
@@ -122,6 +122,7 @@ namespace Dapplo.Jira
 			JiraBaseUri = baseUri;
 			JiraRestUri = baseUri.AppendSegments("rest", "api", "2");
 			JiraAuthUri = baseUri.AppendSegments("rest", "auth", "1");
+			JiraAgileRestUri = baseUri.AppendSegments("rest", "agile", "1.0");
 		}
 
 		/// <summary>
@@ -161,6 +162,12 @@ namespace Dapplo.Jira
 		///     The rest URI for your JIRA server
 		/// </summary>
 		public Uri JiraRestUri { get; }
+
+
+		/// <summary>
+		///     The agile rest URI for your JIRA server
+		/// </summary>
+		public Uri JiraAgileRestUri { get; }
 
 		/// <summary>
 		///     The base URI for JIRA auth api
@@ -213,10 +220,15 @@ namespace Dapplo.Jira
 		/// </summary>
 		public IWorkDomain Work => this;
 
-
 		/// <summary>
 		///     Server domain
 		/// </summary>
 		public IServerDomain Server => this;
+
+
+		/// <summary>
+		///     Agile domain
+		/// </summary>
+		public IAgileDomain Agile => this;
 	}
 }

@@ -21,41 +21,61 @@
 
 #region using
 
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Dapplo.Jira.Query;
 
 #endregion
 
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Transition information
+	///     Filter information
 	/// </summary>
 	[DataContract]
-	public class Transition : BaseId<long>
+	public class Field : BaseProperties<string>
 	{
 		/// <summary>
-		///     Does this transition have a screen?
-		/// </summary>
-		[DataMember(Name = "hasScreen", EmitDefaultValue = false)]
-		public bool HasScreen { get; set; }
-
-		/// <summary>
-		///     Name for this transition
+		///     Name of the field
 		/// </summary>
 		[DataMember(Name = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
 
 		/// <summary>
-		///     Possible fields for the transation
+		///     Is this field a custom field?
 		/// </summary>
-		[DataMember(Name = "fields", EmitDefaultValue = false)]
-		public IDictionary<string, PossibleField> PossibleFields { get; set; }
+		[DataMember(Name = "custom", EmitDefaultValue = false)]
+		public bool IsCustom { get; set; }
 
 		/// <summary>
-		///     To status for the transation
+		///     Is this field orderable?
 		/// </summary>
-		[DataMember(Name = "to", EmitDefaultValue = false)]
-		public Status To { get; set; }
+		[DataMember(Name = "orderable", EmitDefaultValue = false)]
+		public bool IsOrderable { get; set; }
+
+		/// <summary>
+		///     Is this field navigable?
+		/// </summary>
+		[DataMember(Name = "navigable", EmitDefaultValue = false)]
+		public bool IsNavigable { get; set; }
+
+		/// <summary>
+		///     Is this field searchable?
+		/// </summary>
+		[DataMember(Name = "searchable", EmitDefaultValue = false)]
+		public bool IsSearchable { get; set; }
+
+		/// <summary>
+		///     Aliases in where clauses
+		/// </summary>
+		[DataMember(Name = "clauseNames", EmitDefaultValue = false)]
+		public IList<string> ClauseNames { get; set; }
+
+		/// <summary>
+		///     Schema for the field
+		/// </summary>
+		[DataMember(Name = "schema", EmitDefaultValue = false)]
+		public Schema Schema { get; set; }
 	}
 }

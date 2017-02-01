@@ -21,6 +21,7 @@
 
 #region using
 
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
@@ -28,27 +29,15 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Container for pagable information in a request, also the base for the PageableResult
+	///     Container for the fields of an agile issue
 	/// </summary>
 	[DataContract]
-	public class Pageable
+	public class AgileIssueFields : IssueFields
 	{
 		/// <summary>
-		///     Max of the results (this is the limit)
+		///     The closed sprint information
 		/// </summary>
-		[DataMember(Name = "maxResults", EmitDefaultValue = false)]
-		public int MaxResults { get; set; }
-
-		/// <summary>
-		///     Where in the total this "page" is located
-		/// </summary>
-		[DataMember(Name = "startAt", EmitDefaultValue = false)]
-		public int StartAt { get; set; }
-
-		/// <summary>
-		///     Is this the last page?
-		/// </summary>
-		[DataMember(Name = "isLast", EmitDefaultValue = false)]
-		public bool IsLast { get; set; }
+		[DataMember(Name = "closedSprints", EmitDefaultValue = false)]
+		public IList<Sprint> ClosedSprints { get; set; }
 	}
 }

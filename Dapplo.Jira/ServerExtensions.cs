@@ -22,6 +22,7 @@
 #region using
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
@@ -88,6 +89,24 @@ namespace Dapplo.Jira
 			jiraClient.Behaviour.MakeCurrent();
 
 			return await jiraClient.GetUriContentAsync<TResponse>(avatarUri, cancellationToken).ConfigureAwait(false);
+		}
+
+		/// <summary>
+		///     Get all the available fields
+		///     See <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/field-getFields">get fields</a>
+		/// </summary>
+		/// <param name="jiraClient">IServerDomain to bind the extension method to</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>IList of Field objects</returns>
+		public static async Task<IList<Field>> GetFieldsAsync(this IServerDomain jiraClient, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			Log.Debug().WriteLine("Retrieving fields");
+
+			var fieldsUri = jiraClient.JiraRestUri.AppendSegments("field");
+			jiraClient.Behaviour.MakeCurrent();
+
+			var response = await fieldsUri.GetAsAsync<HttpResponse<IList<Field>>>(cancellationToken).ConfigureAwait(false);
+			return response.HandleErrors();
 		}
 
 		/// <summary>

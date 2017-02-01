@@ -63,6 +63,11 @@ namespace Dapplo.Jira
 		IServerDomain Server { get; }
 
 		/// <summary>
+		///     Agile domain
+		/// </summary>
+		IAgileDomain Agile { get; }
+
+		/// <summary>
 		///     Set Basic Authentication for the current client
 		/// </summary>
 		/// <param name="user">username</param>
@@ -79,6 +84,11 @@ namespace Dapplo.Jira
 		///     The rest URI for your JIRA server
 		/// </summary>
 		Uri JiraRestUri { get; }
+
+		/// <summary>
+		///     The agile rest URI for your JIRA server
+		/// </summary>
+		Uri JiraAgileRestUri { get; }
 
 		/// <summary>
 		///     The base URI for JIRA auth api

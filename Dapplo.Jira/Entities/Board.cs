@@ -21,6 +21,8 @@
 
 #region using
 
+using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 #endregion
@@ -28,27 +30,21 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Container for pagable information in a request, also the base for the PageableResult
+	///     Board information
 	/// </summary>
 	[DataContract]
-	public class Pageable
+	public class Board : BaseProperties<long>
 	{
 		/// <summary>
-		///     Max of the results (this is the limit)
+		///     Name of the Board
 		/// </summary>
-		[DataMember(Name = "maxResults", EmitDefaultValue = false)]
-		public int MaxResults { get; set; }
+		[DataMember(Name = "name", EmitDefaultValue = false)]
+		public string Name { get; set; }
 
 		/// <summary>
-		///     Where in the total this "page" is located
+		///     Board type
 		/// </summary>
-		[DataMember(Name = "startAt", EmitDefaultValue = false)]
-		public int StartAt { get; set; }
-
-		/// <summary>
-		///     Is this the last page?
-		/// </summary>
-		[DataMember(Name = "isLast", EmitDefaultValue = false)]
-		public bool IsLast { get; set; }
+		[DataMember(Name = "type", EmitDefaultValue = false)]
+		public string Type { get; set; }
 	}
 }

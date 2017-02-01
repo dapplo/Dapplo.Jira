@@ -39,7 +39,9 @@ namespace Dapplo.Jira.Query
 		[EnumMember(Value = "created")] Created,
 		[EnumMember(Value = "creator")] Creator,
 		[EnumMember(Value = "cf")] CustomField,
-		// Jira Service Desk only
+		/// <summary>
+		/// This field is only available when Jira Service Desk is installed
+		/// </summary>
 		[EnumMember(Value = "\"Customer Request Type\"")] CustomerRequestType,
 		[EnumMember(Value = "description")] Description,
 		[EnumMember(Value = "due")] Due,

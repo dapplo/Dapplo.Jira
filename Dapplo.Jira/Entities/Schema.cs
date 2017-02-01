@@ -28,17 +28,11 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Schema information, used in transition
+	///     Schema information of a field
 	/// </summary>
 	[DataContract]
 	public class Schema
 	{
-		/// <summary>
-		///     Type for the item
-		/// </summary>
-		[DataMember(Name = "items", EmitDefaultValue = false)]
-		public string Items { get; set; }
-
 		/// <summary>
 		///     System for this schema
 		/// </summary>

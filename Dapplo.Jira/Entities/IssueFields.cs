@@ -77,7 +77,7 @@ namespace Dapplo.Jira.Entities
 		///     A custom field must match the reg-ex pattern "customfield_.*", otherwise it's ignored.
 		/// </summary>
 		[ExtensionData(Pattern = "customfield_.*")]
-		public IDictionary<string, string> CustomFields { get; } = new Dictionary<string, string>();
+		public IDictionary<string, object> CustomFields { get; } = new Dictionary<string, object>();
 
 		/// <summary>
 		///     Description of this issue

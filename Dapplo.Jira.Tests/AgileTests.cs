@@ -21,10 +21,8 @@
 
 #region using
 
-using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Dapplo.Log;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -32,45 +30,42 @@ using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests
 {
-	public class JiraTests : TestBase
+	/// <summary>
+	/// Tests for the Agile domain
+	/// </summary>
+	public class AgileTests : TestBase
 	{
-		public JiraTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+		public AgileTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
 		{
 		}
 
 		[Fact]
-		public void TestConstructor()
+		public async Task TestGetIssue()
 		{
-			Assert.Throws<ArgumentNullException>(() => JiraClient.Create(null));
+			var issue = await Client.Agile.GetIssueAsync("BUG-2125");
+			Assert.NotNull(issue);
+			Assert.NotNull(issue.Fields);
+			Assert.NotNull(issue.Fields.ClosedSprints);
+			Assert.NotNull(issue.Sprint);
+			Assert.NotNull(issue.Fields.ClosedSprints.Count > 0);
 		}
 
 		[Fact]
-		public async Task TestGetServerInfoAsync()
+		public async Task TestGetBoards()
 		{
-			Assert.NotNull(Client);
-			var serverInfo = await Client.Server.GetInfoAsync();
-			Assert.NotNull(serverInfo.Version);
-			Assert.NotNull(serverInfo.ServerTitle);
-			// This should be changed when the title changes
-			Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
-			Log.Debug().WriteLine($"Version {serverInfo.Version} - Title: {serverInfo.ServerTitle}");
+			var boards = await Client.Agile.GetBoardsAsync();
+			Assert.NotNull(boards);
+			Assert.True(boards.Any(board => board.Type == "scrum"));
 		}
 
 		[Fact]
-		public async Task TestGetServerConfigurationAsync()
+		public async Task TestGetSprints()
 		{
-			Assert.NotNull(Client);
-			var configuration = await Client.Server.GetConfigurationAsync();
-			Assert.NotNull(configuration.TimeTrackingConfiguration.TimeFormat);
-		}
-
-
-		[Fact]
-		public async Task TestGetFieldsAsync()
-		{
-			var fields = await Client.Server.GetFieldsAsync();
-			Assert.True(fields.Count > 0);
-			Assert.True(fields.Any(field => field.Id == "issuetype"));
+			var boards = await Client.Agile.GetBoardsAsync();
+			var scrumboard = boards.First(board => board.Type == "scrum");
+			var sprints = await Client.Agile.GetSprintsAsync(scrumboard.Id);
+			Assert.NotNull(sprints);
+			Assert.True(sprints.Any());
 		}
 	}
 }
