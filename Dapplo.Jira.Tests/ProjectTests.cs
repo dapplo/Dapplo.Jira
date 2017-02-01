@@ -29,7 +29,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions.Extensions;
 using Dapplo.Jira.Converters;
-using Dapplo.Jira.Entities;
+using Dapplo.Jira.Enums;
 using Xunit;
 using Xunit.Abstractions;
 

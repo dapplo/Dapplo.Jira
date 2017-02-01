@@ -204,5 +204,11 @@ namespace Dapplo.Jira.Query
 		public static ISimpleValueClause Labels => new SimpleValueClause(Fields.Labels);
 
 		#endregion
+
+		/// <summary>
+		///     Create a clause for the Project field
+		/// </summary>
+		public static IProjectClause Project => new ProjectClause();
+
 	}
 }

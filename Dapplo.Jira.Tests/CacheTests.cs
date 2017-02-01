@@ -27,6 +27,7 @@
 
 using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
+using Dapplo.Jira.Enums;
 using Dapplo.Jira.Tests.Support;
 using Xunit;
 using Xunit.Abstractions;

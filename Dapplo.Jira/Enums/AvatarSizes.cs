@@ -23,37 +23,31 @@
 
 #endregion
 
-#region Usings
-
-using System.ComponentModel;
-
-#endregion
-
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Enums
 {
 	/// <summary>
-	///     allows you to provide specific instructions to update the remaining time estimate of the issue. Valid values are
+	///     Used to specify the size for the avatar
 	/// </summary>
-	public enum AdjustEstimate
+	public enum AvatarSizes
 	{
 		/// <summary>
-		///     Default option. Will automatically adjust the value based on the new timeSpent specified on the worklog
+		///     Used to specify the 48x48 avatar
 		/// </summary>
-		[Description("auto")] Auto,
+		ExtraLarge,
 
 		/// <summary>
-		///     sets the estimate to a specific value
+		///     Used to specify the 16x16 avatar
 		/// </summary>
-		[Description("new")] New,
+		Small,
 
 		/// <summary>
-		///     leaves the estimate as is
+		///     Used to specify the 24x24 avatar
 		/// </summary>
-		[Description("leave")] Leave,
+		Medium,
 
 		/// <summary>
-		///     specify a specific amount to increase remaining estimate by
+		///     Used to specify the 32x32 avatar
 		/// </summary>
-		[Description("manual")] Manual
+		Large
 	}
 }

@@ -32,6 +32,7 @@ using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.Extensions;
 using Dapplo.Jira.Entities;
+using Dapplo.Jira.Enums;
 using Dapplo.Log;
 
 #endregion

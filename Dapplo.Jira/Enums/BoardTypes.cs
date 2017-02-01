@@ -25,35 +25,21 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
-using Dapplo.Jira.Enums;
+using System.ComponentModel;
 
 #endregion
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Enums
 {
 	/// <summary>
-	///     Board information
+	/// Types of an agile board
 	/// </summary>
-	[DataContract]
-	public class Board : BaseProperties<long>
+	public enum BoardTypes
 	{
-		/// <summary>
-		///     Name of the Board
-		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
-		public string Name { get; set; }
+		[Description("Kanban")]
+		Kanban,
 
-		/// <summary>
-		///     Board type
-		/// </summary>
-		[DataMember(Name = "type", EmitDefaultValue = false)]
-		public BoardTypes Type { get; set; }
-
-		/// <summary>
-		///     Filter for the board, used when creating
-		/// </summary>
-		[DataMember(Name = "filterId", EmitDefaultValue = false)]
-		public long FilterId { get; set; }
+		[Description("Scrum")]
+		Scrum,
 	}
 }

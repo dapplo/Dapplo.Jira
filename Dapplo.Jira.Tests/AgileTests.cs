@@ -27,6 +27,9 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using Dapplo.Jira.Entities;
+using Dapplo.Jira.Enums;
+using Dapplo.Jira.Query;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -47,25 +50,71 @@ namespace Dapplo.Jira.Tests
 		public async Task TestGetBacklog()
 		{
 			var boards = await Client.Agile.GetBoardsAsync();
-			var scrumboard = boards.First(board => board.Type == "scrum");
+			var scrumboard = boards.First(board => board.Type == BoardTypes.Scrum);
 			var backlog = await Client.Agile.GetBacklogAsync(scrumboard.Id);
 			Assert.NotNull(backlog);
 			Assert.True(backlog.Any());
 		}
 
 		[Fact]
+		public async Task TestCreateBoard()
+		{
+			// Preparations
+			var boards = await Client.Agile.GetBoardsAsync();
+			foreach (var board in boards.Where(board => board.Name.Contains("DapploTest")))
+			{
+				await Client.Agile.DeleteBoardAsync(board.Id);
+			}
+
+			var filters = await Client.Filter.GetFiltersAsync();
+			foreach (var testFilter in filters.Where(filter => filter.Name.Contains("DapploTest")))
+			{
+				await Client.Filter.DeleteAsync(testFilter);
+			}
+
+			var boardFilter = new Filter
+			{
+				Jql = Where.Project.Is("DIT").ToString(),
+				Name = "DapploTest"
+			};
+			boardFilter = await Client.Filter.CreateAsync(boardFilter);
+
+			var testBoard = new Board
+			{
+				Name = "DapploTestBoard",
+				FilterId = boardFilter.Id,
+				Type = BoardTypes.Scrum
+			};
+
+			testBoard = await Client.Agile.CreateBoardAsync(testBoard);
+			try
+			{
+				var issues = await Client.Agile.GetIssuesOnBoardAsync(testBoard.Id);
+				Assert.True(issues.Any());
+
+
+				//var sprint = await Client.Agile.CreateSprint();
+			}
+			finally
+			{
+				await Client.Agile.DeleteBoardAsync(testBoard.Id);
+			}
+		}
+
+
+		[Fact]
 		public async Task TestGetBoards()
 		{
 			var boards = await Client.Agile.GetBoardsAsync();
 			Assert.NotNull(boards);
-			Assert.True(boards.Any(board => board.Type == "scrum"));
+			Assert.True(boards.Any(board => board.Type == BoardTypes.Scrum));
 		}
 
 		[Fact]
 		public async Task TestGetIssue()
 		{
 			var boards = await Client.Agile.GetBoardsAsync();
-			var scrumboard = boards.First(board => board.Type == "scrum");
+			var scrumboard = boards.First(board => board.Type == BoardTypes.Scrum);
 			var boardConfiguration = await Client.Agile.GetBoardConfigurationAsync(scrumboard.Id);
 			var issue = await Client.Agile.GetIssueAsync("BUG-2125");
 			Assert.NotNull(issue);
@@ -82,7 +131,7 @@ namespace Dapplo.Jira.Tests
 		public async Task TestGetIssues()
 		{
 			var boards = await Client.Agile.GetBoardsAsync();
-			var scrumboard = boards.First(board => board.Type == "scrum");
+			var scrumboard = boards.First(board => board.Type == BoardTypes.Scrum);
 			var issuesOnBoard = await Client.Agile.GetIssuesOnBoardAsync(scrumboard.Id);
 			Assert.NotNull(issuesOnBoard);
 			Assert.True(issuesOnBoard.Any());
@@ -92,7 +141,7 @@ namespace Dapplo.Jira.Tests
 		public async Task TestGetIssuesInSprint()
 		{
 			var boards = await Client.Agile.GetBoardsAsync();
-			var scrumboard = boards.First(board => board.Type == "scrum");
+			var scrumboard = boards.First(board => board.Type == BoardTypes.Scrum);
 			var sprints = await Client.Agile.GetSprintsAsync(scrumboard.Id);
 			Assert.NotNull(sprints);
 			Assert.True(sprints.Any());
@@ -104,7 +153,7 @@ namespace Dapplo.Jira.Tests
 		public async Task TestGetSprints()
 		{
 			var boards = await Client.Agile.GetBoardsAsync();
-			var scrumboard = boards.First(board => board.Type == "scrum");
+			var scrumboard = boards.First(board => board.Type == BoardTypes.Scrum);
 			var sprints = await Client.Agile.GetSprintsAsync(scrumboard.Id);
 			Assert.NotNull(sprints);
 			Assert.True(sprints.Any());

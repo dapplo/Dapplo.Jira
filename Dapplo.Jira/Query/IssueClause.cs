@@ -37,7 +37,7 @@ using Dapplo.Jira.Entities;
 namespace Dapplo.Jira.Query
 {
 	/// <summary>
-	///     An interface for an issue based clauses
+	///     An interface for issue based clauses
 	/// </summary>
 	public interface IIssueClause
 	{

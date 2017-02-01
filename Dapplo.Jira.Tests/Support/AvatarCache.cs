@@ -29,6 +29,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Dapplo.Jira.Entities;
+using Dapplo.Jira.Enums;
 using Dapplo.Utils;
 
 #endregion
