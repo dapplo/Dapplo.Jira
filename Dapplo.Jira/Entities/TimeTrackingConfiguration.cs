@@ -37,24 +37,24 @@ namespace Dapplo.Jira.Entities
 		///     The number of working hours per day 
 		/// </summary>
 		[DataMember(Name = "workingHoursPerDay")]
-		public int WorkingHoursPerDay { get; set; }
+		public int WorkingHoursPerDay { get; set; } = 8;
 
 		/// <summary>
 		///     The number of working days per week 
 		/// </summary>
 		[DataMember(Name = "workingDaysPerWeek")]
-		public int WorkingDaysPerWeek { get; set; }
+		public int WorkingDaysPerWeek { get; set; } = 5;
 
 		/// <summary>
 		///     The time format used
 		/// </summary>
 		[DataMember(Name = "timeFormat")]
-		public string TimeFormat  { get; set; }
+		public string TimeFormat { get; set; } = "pretty";
 
 		/// <summary>
 		///     The default unit
 		/// </summary>
 		[DataMember(Name = "defaultUnit")]
-		public string DefaultUnit { get; set; }
+		public string DefaultUnit { get; set; } = "hour";
 	}
 }

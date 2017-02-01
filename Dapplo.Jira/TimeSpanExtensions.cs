@@ -22,13 +22,57 @@
 #region using
 
 using System;
+using System.Text;
+using System.Text.RegularExpressions;
+using Dapplo.Jira.Entities;
 
 #endregion
 
 namespace Dapplo.Jira
 {
+	/// <summary>
+	/// These methods help to convert jira working time to real time and back
+	/// </summary>
 	public static class TimeSpanExtensions
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="workingTime">string from Jira</param>
+		/// <param name="timeTrackingConfiguration">TimeTrackingConfiguration</param>
+		/// <returns></returns>
+		public static TimeSpan FromWorkingTime(string workingTime, TimeTrackingConfiguration timeTrackingConfiguration = null)
+		{
+			timeTrackingConfiguration = timeTrackingConfiguration ?? new TimeTrackingConfiguration();
+			var result = TimeSpan.Zero;
+			var weeksMatch = Regex.Match(workingTime, "(\\d+)w");
+			if (weeksMatch.Success)
+			{
+				int weeks = int.Parse(weeksMatch.Groups[1].Value);
+				int realHours = (weeks * timeTrackingConfiguration.WorkingDaysPerWeek) * timeTrackingConfiguration.WorkingHoursPerDay;
+				result = result.Add(TimeSpan.FromHours(realHours));
+			}
+			var daysMatch = Regex.Match(workingTime, "(\\d+)d");
+			if (daysMatch.Success)
+			{
+				int days = int.Parse(daysMatch.Groups[1].Value);
+				int realHours = days * timeTrackingConfiguration.WorkingHoursPerDay;
+				result = result.Add(TimeSpan.FromHours(realHours));
+			}
+			var hoursMatch = Regex.Match(workingTime, "(\\d+)h");
+			if (hoursMatch.Success)
+			{
+				int hours = int.Parse(hoursMatch.Groups[1].Value);
+				result = result.Add(TimeSpan.FromHours(hours));
+			}
+			var minutesMatch = Regex.Match(workingTime, "(\\d+)m");
+			if (minutesMatch.Success)
+			{
+				int minutes = int.Parse(minutesMatch.Groups[1].Value);
+				result = result.Add(TimeSpan.FromMinutes(minutes));
+			}
+			return result;
+		}
 		/// <summary>
 		///     Create an increment from the timespan.
 		///     increment has of (+/-)nn(y|M|w|d|h|m)
@@ -57,36 +101,62 @@ namespace Dapplo.Jira
 		///     nn: number; y: year, M: month; w: week; d: day; h: hour; m: minute.
 		/// </summary>
 		/// <param name="timeSpan">TimeSpan to convert</param>
+		/// <param name="timeTrackingConfiguration">TimeTrackingConfiguration for calculating the values</param>
 		/// <returns>string</returns>
-		public static string TimeSpanToJiraTime(this TimeSpan? timeSpan)
+		public static string ToWorkingTime(this TimeSpan? timeSpan, TimeTrackingConfiguration timeTrackingConfiguration = null)
 		{
 			if (!timeSpan.HasValue)
 			{
 				return "";
 			}
-			return timeSpan.Value.TimeSpanToJiraTime();
+			return timeSpan.Value.ToWorkingTime(timeTrackingConfiguration);
 		}
 
 		/// <summary>
-		///     Create an jira time range.
+		///     Create something that represents the jira working time format
 		///     (+/-)nn(y|M|w|d|h|m)
 		///     nn: number; y: year, M: month; w: week; d: day; h: hour; m: minute.
 		/// </summary>
 		/// <param name="timeSpan">TimeSpan to convert</param>
+		/// <param name="timeTrackingConfiguration">TimeTrackingConfiguration for calculating the values</param>
 		/// <returns>string</returns>
-		public static string TimeSpanToJiraTime(this TimeSpan timeSpan)
+		public static string ToWorkingTime(this TimeSpan timeSpan, TimeTrackingConfiguration timeTrackingConfiguration = null)
 		{
-			var days = timeSpan.TotalDays;
-			if ((days > double.Epsilon || days < double.Epsilon) && days % 1 < double.Epsilon)
+			timeTrackingConfiguration = timeTrackingConfiguration ?? new TimeTrackingConfiguration();
+
+			int hours = timeSpan.Hours + timeSpan.Days * 24;
+			int minutes = timeSpan.Minutes;
+
+			// Calculate the days from the hours (one normal day has 24 hours, working hours can be 8 -> 3 working days)
+			int workingDays = hours / timeTrackingConfiguration.WorkingHoursPerDay;
+
+			// Calculate the working hours, by using the rest of the devision e.g 9 hours with 8 hour working day -> 1 hour leftover
+			int workingHours = hours % timeTrackingConfiguration.WorkingHoursPerDay;
+
+			// Calculate the weeks from the working days (5 days a week)
+			int workingWeeks = workingDays / timeTrackingConfiguration.WorkingDaysPerWeek;
+
+			// Modify the workingDays to the rest -> 6 working days, 1w and 1d
+			workingDays = workingDays % timeTrackingConfiguration.WorkingDaysPerWeek;
+
+			var jiraTimeRange = new StringBuilder();
+			if (workingWeeks > 0)
 			{
-				return $"\"{days}d\"";
+				jiraTimeRange.AppendFormat("{0}w ", workingWeeks);
 			}
-			var hours = timeSpan.TotalHours;
-			if ((hours > double.Epsilon || hours < double.Epsilon) && hours % 1 < double.Epsilon)
+			if (workingDays > 0)
 			{
-				return $"\"{hours}h\"";
+				jiraTimeRange.AppendFormat("{0}d ", workingDays);
 			}
-			return $"\"{(int) timeSpan.TotalMinutes}m\"";
+			if (workingHours > 0)
+			{
+				jiraTimeRange.AppendFormat("{0}h ", workingHours);
+			}
+			if (minutes > 0)
+			{
+				jiraTimeRange.AppendFormat("{0}m ", minutes);
+			}
+			return jiraTimeRange.ToString().Trim();
 		}
 	}
 }
