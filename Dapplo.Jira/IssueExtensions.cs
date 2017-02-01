@@ -1,25 +1,29 @@
-﻿//  Dapplo - building blocks for desktop applications
-//  Copyright (C) 2016 Dapplo
-// 
-//  For more information see: http://dapplo.net/
-//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
-// 
-//  This file is part of Dapplo.Jira
-// 
-//  Dapplo.Jira is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Lesser General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-// 
-//  Dapplo.Jira is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Lesser General Public License for more details.
-// 
-//  You should have a copy of the GNU Lesser General Public License
-//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+﻿#region Dapplo 2017 - GNU Lesser General Public License
 
-#region using
+// Dapplo - building blocks for .NET applications
+// Copyright (C) 2017 Dapplo
+// 
+// For more information see: http://dapplo.net/
+// Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+// 
+// This file is part of Dapplo.Jira
+// 
+// Dapplo.Jira is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// Dapplo.Jira is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+// 
+// You should have a copy of the GNU Lesser General Public License
+// along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+
+#endregion
+
+#region Usings
 
 using System;
 using System.Collections.Generic;
@@ -59,7 +63,8 @@ namespace Dapplo.Jira
 		/// <param name="visibility">optional visibility role</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Comment</returns>
-		public static async Task<Comment> AddCommentAsync(this IIssueDomain jiraClient, string issueKey, string body, string visibility = null, CancellationToken cancellationToken = default(CancellationToken))
+		public static async Task<Comment> AddCommentAsync(this IIssueDomain jiraClient, string issueKey, string body, string visibility = null,
+			CancellationToken cancellationToken = default(CancellationToken))
 		{
 			if (issueKey == null)
 			{
@@ -69,11 +74,13 @@ namespace Dapplo.Jira
 			var comment = new Comment
 			{
 				Body = body,
-				Visibility = visibility == null ? null : new Visibility
-				{
-					Type = "role",
-					Value = visibility
-				}
+				Visibility = visibility == null
+					? null
+					: new Visibility
+					{
+						Type = "role",
+						Value = visibility
+					}
 			};
 			jiraClient.Behaviour.MakeCurrent();
 			var attachUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "comment");
@@ -116,7 +123,8 @@ namespace Dapplo.Jira
 		/// <param name="issueKey">the issue key</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>List of Transition</returns>
-		public static async Task<IList<Transition>> GetPossibleTransitionsAsync(this IIssueDomain jiraClient, string issueKey, CancellationToken cancellationToken = default(CancellationToken))
+		public static async Task<IList<Transition>> GetPossibleTransitionsAsync(this IIssueDomain jiraClient, string issueKey,
+			CancellationToken cancellationToken = default(CancellationToken))
 		{
 			if (issueKey == null)
 			{
@@ -143,7 +151,7 @@ namespace Dapplo.Jira
 		/// <param name="fields">Jira fields to include, if null the defaults from the JiraConfig.SearchFields are taken</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>SearchResult</returns>
-		public static async Task<SearchResult> SearchAsync(this IIssueDomain jiraClient, IFinalClause jql, int maxResults = 20, IEnumerable<string> fields = null,
+		public static async Task<SearchResult<Issue>> SearchAsync(this IIssueDomain jiraClient, IFinalClause jql, int maxResults = 20, IEnumerable<string> fields = null,
 			CancellationToken cancellationToken = default(CancellationToken))
 		{
 			return await jiraClient.SearchAsync(jql.ToString(), maxResults, fields, cancellationToken);
@@ -159,7 +167,7 @@ namespace Dapplo.Jira
 		/// <param name="fields">Jira fields to include, if null the defaults from the JiraConfig.SearchFields are taken</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>SearchResult</returns>
-		public static async Task<SearchResult> SearchAsync(this IIssueDomain jiraClient, string jql, int maxResults = 20, IEnumerable<string> fields = null,
+		public static async Task<SearchResult<Issue>> SearchAsync(this IIssueDomain jiraClient, string jql, int maxResults = 20, IEnumerable<string> fields = null,
 			CancellationToken cancellationToken = default(CancellationToken))
 		{
 			if (jql == null)
@@ -185,7 +193,7 @@ namespace Dapplo.Jira
 				searchUri = searchUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandSearch));
 			}
 
-			var response = await searchUri.PostAsync<HttpResponse<SearchResult, Error>>(search, cancellationToken).ConfigureAwait(false);
+			var response = await searchUri.PostAsync<HttpResponse<SearchResult<Issue>, Error>>(search, cancellationToken).ConfigureAwait(false);
 			return response.HandleErrors();
 		}
 
@@ -198,7 +206,8 @@ namespace Dapplo.Jira
 		/// <param name="comment">Comment to update</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Comment</returns>
-		public static async Task<Comment> UpdateCommentAsync(this IIssueDomain jiraClient, string issueKey, Comment comment, CancellationToken cancellationToken = default(CancellationToken))
+		public static async Task<Comment> UpdateCommentAsync(this IIssueDomain jiraClient, string issueKey, Comment comment,
+			CancellationToken cancellationToken = default(CancellationToken))
 		{
 			if (issueKey == null)
 			{
@@ -253,10 +262,14 @@ namespace Dapplo.Jira
 		/// </summary>
 		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
 		/// <param name="issueKey">the key of the issue to delete</param>
-		/// <param name="deleteSubtasks">true or false (default) indicating that any subtasks should also be deleted.
-		/// If the issue has no subtasks this parameter is ignored. If the issue has subtasks and this parameter is missing or false, then the issue will not be deleted and an error will be returned</param>
+		/// <param name="deleteSubtasks">
+		///     true or false (default) indicating that any subtasks should also be deleted.
+		///     If the issue has no subtasks this parameter is ignored. If the issue has subtasks and this parameter is missing or
+		///     false, then the issue will not be deleted and an error will be returned
+		/// </param>
 		/// <param name="cancellationToken">CancellationToken</param>
-		public static async Task DeleteAsync(this IIssueDomain jiraClient, string issueKey, bool deleteSubtasks = false, CancellationToken cancellationToken = default(CancellationToken))
+		public static async Task DeleteAsync(this IIssueDomain jiraClient, string issueKey, bool deleteSubtasks = false,
+			CancellationToken cancellationToken = default(CancellationToken))
 		{
 			if (issueKey == null)
 			{
@@ -273,7 +286,7 @@ namespace Dapplo.Jira
 		}
 
 		/// <summary>
-		/// Assign an issue to a user
+		///     Assign an issue to a user
 		/// </summary>
 		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
 		/// <param name="issueKey">Key for the issue to assign</param>

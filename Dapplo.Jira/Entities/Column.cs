@@ -1,4 +1,4 @@
-﻿#region Dapplo 2017 - GNU Lesser General Public License
+#region Dapplo 2017 - GNU Lesser General Public License
 
 // Dapplo - building blocks for .NET applications
 // Copyright (C) 2017 Dapplo
@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -34,27 +33,21 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Possible field information
+	///     Column for the Board column config
 	/// </summary>
 	[DataContract]
-	public class AllowedValue : BaseProperties<long>
+	public class Column
 	{
 		/// <summary>
-		///     TODO: Describe
-		/// </summary>
-		[DataMember(Name = "autoCompleteUrl", EmitDefaultValue = false)]
-		public Uri AutoCompleteUrl { get; set; }
-
-		/// <summary>
-		///     Name of the allowd value
+		///     Name for the column
 		/// </summary>
 		[DataMember(Name = "name", EmitDefaultValue = false)]
 		public string Name { get; set; }
 
 		/// <summary>
-		///     Possible operations
+		///     States for the column
 		/// </summary>
-		[DataMember(Name = "operations", EmitDefaultValue = false)]
-		public IList<string> Operations { get; set; }
+		[DataMember(Name = "statuses", EmitDefaultValue = false)]
+		public IList<Status> States { get; set; }
 	}
 }

@@ -1,25 +1,29 @@
-﻿//  Dapplo - building blocks for desktop applications
-//  Copyright (C) 2016 Dapplo
-// 
-//  For more information see: http://dapplo.net/
-//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
-// 
-//  This file is part of Dapplo.Jira
-// 
-//  Dapplo.Jira is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Lesser General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-// 
-//  Dapplo.Jira is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Lesser General Public License for more details.
-// 
-//  You should have a copy of the GNU Lesser General Public License
-//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+﻿#region Dapplo 2017 - GNU Lesser General Public License
 
-#region using
+// Dapplo - building blocks for .NET applications
+// Copyright (C) 2017 Dapplo
+// 
+// For more information see: http://dapplo.net/
+// Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+// 
+// This file is part of Dapplo.Jira
+// 
+// Dapplo.Jira is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// Dapplo.Jira is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+// 
+// You should have a copy of the GNU Lesser General Public License
+// along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+
+#endregion
+
+#region Usings
 
 using System;
 using System.Collections.Generic;
@@ -82,10 +86,15 @@ namespace Dapplo.Jira
 		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2779
 		/// </summary>
 		/// <param name="jiraClient">IProjectDomain to bind the extension method to</param>
-		/// <param name="recent">if this parameter is set then only projects recently accessed by the current user (if not logged in then based on HTTP session) will be returned (maximum count limited to the specified number but no more than 20).</param>
+		/// <param name="recent">
+		///     if this parameter is set then only projects recently accessed by the current user (if not logged
+		///     in then based on HTTP session) will be returned (maximum count limited to the specified number but no more than
+		///     20).
+		/// </param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>list of ProjectDigest</returns>
-		public static async Task<IList<ProjectDigest>> GetAllAsync(this IProjectDomain jiraClient, int? recent = null, CancellationToken cancellationToken = default(CancellationToken))
+		public static async Task<IList<ProjectDigest>> GetAllAsync(this IProjectDomain jiraClient, int? recent = null,
+			CancellationToken cancellationToken = default(CancellationToken))
 		{
 			Log.Debug().WriteLine("Retrieving projects");
 

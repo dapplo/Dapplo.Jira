@@ -1,25 +1,29 @@
-﻿//  Dapplo - building blocks for desktop applications
-//  Copyright (C) 2016 Dapplo
-// 
-//  For more information see: http://dapplo.net/
-//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
-// 
-//  This file is part of Dapplo.Jira
-// 
-//  Dapplo.Jira is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Lesser General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-// 
-//  Dapplo.Jira is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Lesser General Public License for more details.
-// 
-//  You should have a copy of the GNU Lesser General Public License
-//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+﻿#region Dapplo 2017 - GNU Lesser General Public License
 
-#region using
+// Dapplo - building blocks for .NET applications
+// Copyright (C) 2017 Dapplo
+// 
+// For more information see: http://dapplo.net/
+// Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+// 
+// This file is part of Dapplo.Jira
+// 
+// Dapplo.Jira is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// Dapplo.Jira is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+// 
+// You should have a copy of the GNU Lesser General Public License
+// along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+
+#endregion
+
+#region Usings
 
 using System;
 using System.Collections.Generic;
@@ -56,7 +60,8 @@ namespace Dapplo.Jira
 		/// <param name="contentUri">Uri</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>TResponse</returns>
-		public static async Task<TResponse> GetUriContentAsync<TResponse>(this IServerDomain jiraClient, Uri contentUri, CancellationToken cancellationToken = default(CancellationToken))
+		public static async Task<TResponse> GetUriContentAsync<TResponse>(this IServerDomain jiraClient, Uri contentUri,
+			CancellationToken cancellationToken = default(CancellationToken))
 			where TResponse : class
 		{
 			Log.Debug().WriteLine("Retrieving content from {0}", contentUri);
@@ -128,14 +133,17 @@ namespace Dapplo.Jira
 			if (Log.IsDebugEnabled() && !response.HasError)
 			{
 				var serverInfo = response.Response;
-				Log.Debug().WriteLine("Server title {0}, version {1}, uri {2}, build date {3}, build number {4}, scm info {5}", serverInfo.ServerTitle, serverInfo.Version, serverInfo.BaseUrl, serverInfo.BuildDate, serverInfo.BuildNumber, serverInfo.ScmInfo);
+				Log.Debug()
+					.WriteLine("Server title {0}, version {1}, uri {2}, build date {3}, build number {4}, scm info {5}", serverInfo.ServerTitle, serverInfo.Version, serverInfo.BaseUrl,
+						serverInfo.BuildDate, serverInfo.BuildNumber, serverInfo.ScmInfo);
 			}
 			return response.HandleErrors();
 		}
 
 		/// <summary>
-		///     Get server configuration 
-		///     See <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/configuration-getConfiguration">get configuration</a>
+		///     Get server configuration
+		///     See
+		///     <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/configuration-getConfiguration">get configuration</a>
 		/// </summary>
 		/// <param name="jiraClient">IServerDomain to bind the extension method to</param>
 		/// <param name="cancellationToken">CancellationToken</param>
@@ -152,14 +160,20 @@ namespace Dapplo.Jira
 		}
 
 		/// <summary>
-		///		Admin ONLY!!! Use GetConfigurationAsync instead, which funny enough supplies you with the same information.
+		///     Admin ONLY!!! Use GetConfigurationAsync instead, which funny enough supplies you with the same information.
 		///     Get time tracking configuration (sub-set of the configuration)
-		///     See <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/configuration/timetracking-getSharedTimeTrackingConfiguration">get shared timetracking configuration</a>
+		///     See
+		///     <a
+		///         href="https://docs.atlassian.com/jira/REST/cloud/#api/2/configuration/timetracking-getSharedTimeTrackingConfiguration">
+		///         get
+		///         shared timetracking configuration
+		///     </a>
 		/// </summary>
 		/// <param name="jiraClient">IServerDomain to bind the extension method to</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>TimeTrackingConfiguration</returns>
-		public static async Task<TimeTrackingConfiguration> GetTimeTrackingConfigurationAsync(this IServerDomain jiraClient, CancellationToken cancellationToken = default(CancellationToken))
+		public static async Task<TimeTrackingConfiguration> GetTimeTrackingConfigurationAsync(this IServerDomain jiraClient,
+			CancellationToken cancellationToken = default(CancellationToken))
 		{
 			Log.Debug().WriteLine("Retrieving time tracking configuration");
 
@@ -170,15 +184,21 @@ namespace Dapplo.Jira
 			return response.HandleErrors();
 		}
 
-		///  <summary>
-		/// 	 Admin ONLY!!!
-		///      Set time tracking configuration (sub-set of the configuration)
-		///      See <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/configuration/timetracking-getSharedTimeTrackingConfiguration">get shared timetracking configuration</a>
-		///  </summary>
-		///  <param name="jiraClient">IServerDomain to bind the extension method to</param>
+		/// <summary>
+		///     Admin ONLY!!!
+		///     Set time tracking configuration (sub-set of the configuration)
+		///     See
+		///     <a
+		///         href="https://docs.atlassian.com/jira/REST/cloud/#api/2/configuration/timetracking-getSharedTimeTrackingConfiguration">
+		///         get
+		///         shared timetracking configuration
+		///     </a>
+		/// </summary>
+		/// <param name="jiraClient">IServerDomain to bind the extension method to</param>
 		/// <param name="timeTrackingConfiguration">TimeTrackingConfiguration to use</param>
 		/// <param name="cancellationToken">CancellationToken</param>
-		public static async Task SetTimeTrackingConfigurationAsync(this IServerDomain jiraClient, TimeTrackingConfiguration timeTrackingConfiguration, CancellationToken cancellationToken = default(CancellationToken))
+		public static async Task SetTimeTrackingConfigurationAsync(this IServerDomain jiraClient, TimeTrackingConfiguration timeTrackingConfiguration,
+			CancellationToken cancellationToken = default(CancellationToken))
 		{
 			Log.Debug().WriteLine("Retrieving time tracking configuration");
 

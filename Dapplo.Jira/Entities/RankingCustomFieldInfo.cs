@@ -1,4 +1,4 @@
-﻿#region Dapplo 2017 - GNU Lesser General Public License
+#region Dapplo 2017 - GNU Lesser General Public License
 
 // Dapplo - building blocks for .NET applications
 // Copyright (C) 2017 Dapplo
@@ -25,8 +25,6 @@
 
 #region Usings
 
-using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
@@ -34,27 +32,15 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Possible field information
+	///     Information on the custom field id for the ranking information
 	/// </summary>
 	[DataContract]
-	public class AllowedValue : BaseProperties<long>
+	public class RankingCustomFieldInfo
 	{
 		/// <summary>
-		///     TODO: Describe
+		///     Id of the Rank custom field
 		/// </summary>
-		[DataMember(Name = "autoCompleteUrl", EmitDefaultValue = false)]
-		public Uri AutoCompleteUrl { get; set; }
-
-		/// <summary>
-		///     Name of the allowd value
-		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
-		public string Name { get; set; }
-
-		/// <summary>
-		///     Possible operations
-		/// </summary>
-		[DataMember(Name = "operations", EmitDefaultValue = false)]
-		public IList<string> Operations { get; set; }
+		[DataMember(Name = "rankCustomFieldId", EmitDefaultValue = false)]
+		public long RankCustomFieldId { get; set; }
 	}
 }

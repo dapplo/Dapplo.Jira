@@ -1,25 +1,29 @@
-﻿//  Dapplo - building blocks for desktop applications
-//  Copyright (C) 2016 Dapplo
-// 
-//  For more information see: http://dapplo.net/
-//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
-// 
-//  This file is part of Dapplo.Jira
-// 
-//  Dapplo.Jira is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Lesser General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-// 
-//  Dapplo.Jira is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Lesser General Public License for more details.
-// 
-//  You should have a copy of the GNU Lesser General Public License
-//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+﻿#region Dapplo 2017 - GNU Lesser General Public License
 
-#region using
+// Dapplo - building blocks for .NET applications
+// Copyright (C) 2017 Dapplo
+// 
+// For more information see: http://dapplo.net/
+// Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+// 
+// This file is part of Dapplo.Jira
+// 
+// Dapplo.Jira is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// Dapplo.Jira is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+// 
+// You should have a copy of the GNU Lesser General Public License
+// along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+
+#endregion
+
+#region Usings
 
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,6 +41,69 @@ namespace Dapplo.Jira.Tests
 	{
 		public IssueTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
 		{
+		}
+
+		//[Fact]
+		public async Task DeleteIssue()
+		{
+			// Remove again
+			await Client.Issue.DeleteAsync("BUG-2118");
+		}
+
+		//[Fact]
+		public async Task CreateIssue()
+		{
+			var issueTypes = await Client.Issue.GetIssueTypesAsync();
+			var projects = await Client.Project.GetAllAsync();
+
+			var bugIssueType = issueTypes.First(type => type.Name == "Bug");
+			var projectForIssue = projects.First(digest => digest.Key == "BUG");
+			var issueToCreate = new Issue
+			{
+				Fields = new IssueFields
+				{
+					IssueType = bugIssueType,
+					Summary = "Some summary, this is a test",
+					Description = "Some description, this is a test",
+					Project = new Project
+					{
+						Id = projectForIssue.Id
+					}
+				}
+			};
+			var createdIssue = await Client.Issue.CreateAsync(issueToCreate);
+			Assert.NotNull(createdIssue);
+			Assert.NotNull(createdIssue.Key);
+			// Remove again
+			await Client.Issue.DeleteAsync(createdIssue.Key);
+		}
+
+		[Fact]
+		public async Task GetIssueTypes()
+		{
+			var issueTypes = await Client.Issue.GetIssueTypesAsync();
+			Assert.NotNull(issueTypes);
+		}
+
+		[Fact]
+		public async Task TestAssign()
+		{
+			const string issueKey = "FEATURE-746";
+			var issueBeforeChanges = await Client.Issue.GetAsync(issueKey);
+
+			// assign to nobody
+			await Client.Issue.AssignAsync(issueKey, User.Nobody);
+
+			// check
+			var issueAssignedToNobody = await Client.Issue.GetAsync(issueKey);
+			Assert.Null(issueAssignedToNobody.Fields.Assignee);
+
+			// Assign back to the initial user
+			await Client.Issue.AssignAsync(issueKey, issueBeforeChanges.Fields.Assignee);
+
+			// check
+			var issueAssignedToMe = await Client.Issue.GetAsync(issueKey);
+			Assert.True(issueAssignedToMe.Fields.Assignee.Name == issueBeforeChanges.Fields.Assignee.Name);
 		}
 
 		[Fact]
@@ -74,69 +141,6 @@ namespace Dapplo.Jira.Tests
 			{
 				Assert.NotNull(issue.Fields.Project);
 			}
-		}
-
-		[Fact]
-		public async Task TestAssign()
-		{
-			const string issueKey = "FEATURE-746";
-			var issueBeforeChanges = await Client.Issue.GetAsync(issueKey);
-
-			// assign to nobody
-			await Client.Issue.AssignAsync(issueKey, User.Nobody);
-
-			// check
-			var issueAssignedToNobody = await Client.Issue.GetAsync(issueKey);
-			Assert.Null(issueAssignedToNobody.Fields.Assignee);
-
-			// Assign back to the initial user
-			await Client.Issue.AssignAsync(issueKey, issueBeforeChanges.Fields.Assignee);
-
-			// check
-			var issueAssignedToMe = await Client.Issue.GetAsync(issueKey);
-			Assert.True(issueAssignedToMe.Fields.Assignee.Name == issueBeforeChanges.Fields.Assignee.Name);
-		}
-
-		[Fact]
-		public async Task GetIssueTypes()
-		{
-			var issueTypes = await Client.Issue.GetIssueTypesAsync();
-			Assert.NotNull(issueTypes);
-		}
-
-		//[Fact]
-		public async Task DeleteIssue()
-		{
-			// Remove again
-			await Client.Issue.DeleteAsync("BUG-2118");
-		}
-
-		//[Fact]
-		public async Task CreateIssue()
-		{
-			var issueTypes = await Client.Issue.GetIssueTypesAsync();
-			var projects = await Client.Project.GetAllAsync();
-
-			var bugIssueType = issueTypes.First(type => type.Name == "Bug");
-			var projectForIssue = projects.First(digest => digest.Key == "BUG");
-			var issueToCreate = new Issue
-			{
-				Fields = new IssueFields
-				{
-					IssueType = bugIssueType,
-					Summary = "Some summary, this is a test",
-					Description = "Some description, this is a test",
-					Project = new Project
-					{
-						Id = projectForIssue.Id
-					}
-				}
-			};
-			var createdIssue = await Client.Issue.CreateAsync(issueToCreate);
-			Assert.NotNull(createdIssue);
-			Assert.NotNull(createdIssue.Key);
-			// Remove again
-			await Client.Issue.DeleteAsync(createdIssue.Key);
 		}
 	}
 }

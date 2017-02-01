@@ -1,32 +1,33 @@
-﻿//  Dapplo - building blocks for desktop applications
-//  Copyright (C) 2016 Dapplo
-// 
-//  For more information see: http://dapplo.net/
-//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
-// 
-//  This file is part of Dapplo.Jira
-// 
-//  Dapplo.Jira is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Lesser General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-// 
-//  Dapplo.Jira is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Lesser General Public License for more details.
-// 
-//  You should have a copy of the GNU Lesser General Public License
-//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+﻿#region Dapplo 2017 - GNU Lesser General Public License
 
-#region using
+// Dapplo - building blocks for .NET applications
+// Copyright (C) 2017 Dapplo
+// 
+// For more information see: http://dapplo.net/
+// Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+// 
+// This file is part of Dapplo.Jira
+// 
+// Dapplo.Jira is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// Dapplo.Jira is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+// 
+// You should have a copy of the GNU Lesser General Public License
+// along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+
+#endregion
+
+#region Usings
 
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
-using Dapplo.Jira.Entities;
-using Dapplo.Log;
+
 #if NET45 || NET46
 using System.Collections.Generic;
 using System.Net.Http;
@@ -45,8 +46,6 @@ namespace Dapplo.Jira
 	/// </summary>
 	public class JiraClient : IProjectDomain, IWorkDomain, IUserDomain, ISessionDomain, IIssueDomain, IFilterDomain, IAttachmentDomain, IServerDomain, IAgileDomain
 	{
-		private static readonly LogSource Log = new LogSource();
-
 		private string _password;
 		private string _user;
 
@@ -63,6 +62,7 @@ namespace Dapplo.Jira
 		{
 			return new JiraClient(baseUri, httpSettings);
 		}
+
 		/// <summary>
 		///     Create the JiraApi object, here the HttpClient is configured
 		/// </summary>
@@ -74,12 +74,12 @@ namespace Dapplo.Jira
 		}
 
 #if NET45 || NET45
-		/// <summary>
-		///     Create the JiraApi, using OAuth 1 for the communication, here the HttpClient is configured
-		/// </summary>
-		/// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
-		/// <param name="jiraOAuthSettings">JiraOAuthSettings</param>
-		/// <param name="httpSettings">IHttpSettings or null for default</param>
+/// <summary>
+///     Create the JiraApi, using OAuth 1 for the communication, here the HttpClient is configured
+/// </summary>
+/// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
+/// <param name="jiraOAuthSettings">JiraOAuthSettings</param>
+/// <param name="httpSettings">IHttpSettings or null for default</param>
 		public static IJiraClient Create(Uri baseUri, JiraOAuthSettings jiraOAuthSettings, IHttpSettings httpSettings = null)
 		{
 			JiraClient client = new JiraClient(baseUri, httpSettings);

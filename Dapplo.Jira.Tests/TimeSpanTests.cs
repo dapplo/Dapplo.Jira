@@ -1,4 +1,4 @@
-﻿#region Dapplo 2016 - GNU Lesser General Public License
+﻿#region Dapplo 2017 - GNU Lesser General Public License
 
 // Dapplo - building blocks for .NET applications
 // Copyright (C) 2017 Dapplo
@@ -60,7 +60,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public void TestTimeSpan_ToJiraTimeRange_RealWeekInMinutes_ToWorkingTime()
 		{
-			var testTimeSpan = TimeSpan.FromMinutes(7*24*60);
+			var testTimeSpan = TimeSpan.FromMinutes(7 * 24 * 60);
 			var jiraTimeRange = testTimeSpan.ToWorkingTime();
 			Assert.Equal("4w 1d", jiraTimeRange);
 		}

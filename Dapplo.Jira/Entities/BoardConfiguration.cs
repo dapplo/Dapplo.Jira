@@ -25,8 +25,6 @@
 
 #region Usings
 
-using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
@@ -34,27 +32,33 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Possible field information
+	///     Board configuration
 	/// </summary>
 	[DataContract]
-	public class AllowedValue : BaseProperties<long>
+	public class BoardConfiguration : Board
 	{
 		/// <summary>
-		///     TODO: Describe
+		///     Filter for the Board
 		/// </summary>
-		[DataMember(Name = "autoCompleteUrl", EmitDefaultValue = false)]
-		public Uri AutoCompleteUrl { get; set; }
+		[DataMember(Name = "filter", EmitDefaultValue = false)]
+		public Filter Filter { get; set; }
 
 		/// <summary>
-		///     Name of the allowd value
+		///     Configuration for the columns of the Board
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
-		public string Name { get; set; }
+		[DataMember(Name = "columnConfig", EmitDefaultValue = false)]
+		public ColumnConfig ColumnConfig { get; set; }
 
 		/// <summary>
-		///     Possible operations
+		///     The custom field id for the ranking information
 		/// </summary>
-		[DataMember(Name = "operations", EmitDefaultValue = false)]
-		public IList<string> Operations { get; set; }
+		[DataMember(Name = "ranking", EmitDefaultValue = false)]
+		public RankingCustomFieldInfo Ranking { get; set; }
+
+		/// <summary>
+		///     The custom field info for the estimation information
+		/// </summary>
+		[DataMember(Name = "estimation", EmitDefaultValue = false)]
+		public EstimationCustomFieldInfo Estimation { get; set; }
 	}
 }

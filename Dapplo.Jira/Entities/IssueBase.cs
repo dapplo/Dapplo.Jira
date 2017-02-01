@@ -25,8 +25,6 @@
 
 #region Usings
 
-using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
@@ -34,27 +32,16 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Possible field information
+	///     Issue information
+	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
 	/// </summary>
 	[DataContract]
-	public class AllowedValue : BaseProperties<long>
+	public class IssueBase : BaseProperties<string>
 	{
 		/// <summary>
-		///     TODO: Describe
+		///     Key of the issue
 		/// </summary>
-		[DataMember(Name = "autoCompleteUrl", EmitDefaultValue = false)]
-		public Uri AutoCompleteUrl { get; set; }
-
-		/// <summary>
-		///     Name of the allowd value
-		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
-		public string Name { get; set; }
-
-		/// <summary>
-		///     Possible operations
-		/// </summary>
-		[DataMember(Name = "operations", EmitDefaultValue = false)]
-		public IList<string> Operations { get; set; }
+		[DataMember(Name = "key", EmitDefaultValue = false)]
+		public string Key { get; set; }
 	}
 }

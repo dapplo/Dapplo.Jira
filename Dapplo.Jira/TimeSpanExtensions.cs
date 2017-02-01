@@ -1,25 +1,29 @@
-﻿//  Dapplo - building blocks for desktop applications
-//  Copyright (C) 2016 Dapplo
-// 
-//  For more information see: http://dapplo.net/
-//  Dapplo repositories are hosted on GitHub: https://github.com/dapplo
-// 
-//  This file is part of Dapplo.Jira
-// 
-//  Dapplo.Jira is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Lesser General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-// 
-//  Dapplo.Jira is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Lesser General Public License for more details.
-// 
-//  You should have a copy of the GNU Lesser General Public License
-//  along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+﻿#region Dapplo 2017 - GNU Lesser General Public License
 
-#region using
+// Dapplo - building blocks for .NET applications
+// Copyright (C) 2017 Dapplo
+// 
+// For more information see: http://dapplo.net/
+// Dapplo repositories are hosted on GitHub: https://github.com/dapplo
+// 
+// This file is part of Dapplo.Jira
+// 
+// Dapplo.Jira is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// Dapplo.Jira is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+// 
+// You should have a copy of the GNU Lesser General Public License
+// along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
+
+#endregion
+
+#region Usings
 
 using System;
 using System.Text;
@@ -31,12 +35,11 @@ using Dapplo.Jira.Entities;
 namespace Dapplo.Jira
 {
 	/// <summary>
-	/// These methods help to convert jira working time to real time and back
+	///     These methods help to convert jira working time to real time and back
 	/// </summary>
 	public static class TimeSpanExtensions
 	{
 		/// <summary>
-		/// 
 		/// </summary>
 		/// <param name="workingTime">string from Jira</param>
 		/// <param name="timeTrackingConfiguration">TimeTrackingConfiguration</param>
@@ -48,31 +51,32 @@ namespace Dapplo.Jira
 			var weeksMatch = Regex.Match(workingTime, "(\\d+)w");
 			if (weeksMatch.Success)
 			{
-				int weeks = int.Parse(weeksMatch.Groups[1].Value);
-				int realHours = (weeks * timeTrackingConfiguration.WorkingDaysPerWeek) * timeTrackingConfiguration.WorkingHoursPerDay;
+				var weeks = int.Parse(weeksMatch.Groups[1].Value);
+				var realHours = weeks * timeTrackingConfiguration.WorkingDaysPerWeek * timeTrackingConfiguration.WorkingHoursPerDay;
 				result = result.Add(TimeSpan.FromHours(realHours));
 			}
 			var daysMatch = Regex.Match(workingTime, "(\\d+)d");
 			if (daysMatch.Success)
 			{
-				int days = int.Parse(daysMatch.Groups[1].Value);
-				int realHours = days * timeTrackingConfiguration.WorkingHoursPerDay;
+				var days = int.Parse(daysMatch.Groups[1].Value);
+				var realHours = days * timeTrackingConfiguration.WorkingHoursPerDay;
 				result = result.Add(TimeSpan.FromHours(realHours));
 			}
 			var hoursMatch = Regex.Match(workingTime, "(\\d+)h");
 			if (hoursMatch.Success)
 			{
-				int hours = int.Parse(hoursMatch.Groups[1].Value);
+				var hours = int.Parse(hoursMatch.Groups[1].Value);
 				result = result.Add(TimeSpan.FromHours(hours));
 			}
 			var minutesMatch = Regex.Match(workingTime, "(\\d+)m");
 			if (minutesMatch.Success)
 			{
-				int minutes = int.Parse(minutesMatch.Groups[1].Value);
+				var minutes = int.Parse(minutesMatch.Groups[1].Value);
 				result = result.Add(TimeSpan.FromMinutes(minutes));
 			}
 			return result;
 		}
+
 		/// <summary>
 		///     Create an increment from the timespan.
 		///     increment has of (+/-)nn(y|M|w|d|h|m)
@@ -124,17 +128,17 @@ namespace Dapplo.Jira
 		{
 			timeTrackingConfiguration = timeTrackingConfiguration ?? new TimeTrackingConfiguration();
 
-			int hours = timeSpan.Hours + timeSpan.Days * 24;
-			int minutes = timeSpan.Minutes;
+			var hours = timeSpan.Hours + timeSpan.Days * 24;
+			var minutes = timeSpan.Minutes;
 
 			// Calculate the days from the hours (one normal day has 24 hours, working hours can be 8 -> 3 working days)
-			int workingDays = hours / timeTrackingConfiguration.WorkingHoursPerDay;
+			var workingDays = hours / timeTrackingConfiguration.WorkingHoursPerDay;
 
 			// Calculate the working hours, by using the rest of the devision e.g 9 hours with 8 hour working day -> 1 hour leftover
-			int workingHours = hours % timeTrackingConfiguration.WorkingHoursPerDay;
+			var workingHours = hours % timeTrackingConfiguration.WorkingHoursPerDay;
 
 			// Calculate the weeks from the working days (5 days a week)
-			int workingWeeks = workingDays / timeTrackingConfiguration.WorkingDaysPerWeek;
+			var workingWeeks = workingDays / timeTrackingConfiguration.WorkingDaysPerWeek;
 
 			// Modify the workingDays to the rest -> 6 working days, 1w and 1d
 			workingDays = workingDays % timeTrackingConfiguration.WorkingDaysPerWeek;

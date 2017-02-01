@@ -25,8 +25,6 @@
 
 #region Usings
 
-using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
@@ -34,27 +32,23 @@ using System.Runtime.Serialization;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Possible field information
+	///     Issue information
+	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
 	/// </summary>
 	[DataContract]
-	public class AllowedValue : BaseProperties<long>
+	public class IssueWithFields<TFields> : IssueBase
 	{
 		/// <summary>
-		///     TODO: Describe
+		///     Fields for the issue
 		/// </summary>
-		[DataMember(Name = "autoCompleteUrl", EmitDefaultValue = false)]
-		public Uri AutoCompleteUrl { get; set; }
+		[DataMember(Name = "fields", EmitDefaultValue = false)]
+		public TFields Fields { get; set; }
 
 		/// <summary>
-		///     Name of the allowd value
+		///     Fields for the issue, but wiki markup is now rendered to HTML
+		///     This will be in the response when expand=renderedFields
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
-		public string Name { get; set; }
-
-		/// <summary>
-		///     Possible operations
-		/// </summary>
-		[DataMember(Name = "operations", EmitDefaultValue = false)]
-		public IList<string> Operations { get; set; }
+		[DataMember(Name = "renderedFields", EmitDefaultValue = false)]
+		public TFields RenderedFields { get; set; }
 	}
 }
