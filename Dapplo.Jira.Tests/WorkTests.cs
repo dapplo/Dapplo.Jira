@@ -44,8 +44,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestLogWork()
 		{
-			const string issueKey = "BUG-2104";
-			var worklog = await Client.Work.CreateAsync(issueKey, new Worklog(TimeSpan.FromHours(16))
+			var worklog = await Client.Work.CreateAsync(TestIssueKey, new Worklog(TimeSpan.FromHours(16))
 			{
 				Comment = "Testing the logging of work"
 			});
@@ -53,16 +52,16 @@ namespace Dapplo.Jira.Tests
 			Assert.NotNull(worklog);
 			Assert.True(worklog.TimeSpent == "2d");
 			worklog.TimeSpent = "3d";
-			await Client.Work.UpdateAsync(issueKey, worklog);
+			await Client.Work.UpdateAsync(TestIssueKey, worklog);
 
 			// Delete again
-			await Client.Work.DeleteAsync(issueKey, worklog);
+			await Client.Work.DeleteAsync(TestIssueKey, worklog);
 		}
 
 		[Fact]
 		public async Task TestWorklogs()
 		{
-			var worklogs = await Client.Work.GetAsync("BUG-2104");
+			var worklogs = await Client.Work.GetAsync(TestIssueKey);
 			Assert.NotNull(worklogs);
 			Assert.True(worklogs.Elements.Count > 0);
 		}

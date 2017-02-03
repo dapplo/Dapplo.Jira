@@ -36,7 +36,7 @@ namespace Dapplo.Jira.Entities
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
 	/// </summary>
 	[DataContract]
-	public class IssueWithFields<TFields> : IssueBase
+	public class IssueWithFields<TFields> : IssueBase where TFields : IssueFields
 	{
 		/// <summary>
 		///     Fields for the issue

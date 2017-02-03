@@ -40,6 +40,7 @@ namespace Dapplo.Jira.Tests
 	public abstract class TestBase
 	{
 		protected static readonly LogSource Log = new LogSource();
+		protected static readonly string TestIssueKey = "DIT-1";
 
 		// Test against a well known JIRA
 		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");

@@ -47,7 +47,7 @@ namespace Dapplo.Jira.Tests
 		{
 			const string filename = "test.txt";
 			const string testContent = "Testing 1 2 3";
-			var attachment = await Client.Attachment.AttachAsync("FEATURE-746", testContent, filename);
+			var attachment = await Client.Attachment.AttachAsync(TestIssueKey, testContent, filename);
 			Assert.NotNull(attachment);
 			Assert.StartsWith("text/plain", attachment.MimeType);
 
@@ -62,7 +62,7 @@ namespace Dapplo.Jira.Tests
 			Assert.Equal(testContent, returnedContent);
 
 			var hasBeenRemoved = false;
-			var issue = await Client.Issue.GetAsync("FEATURE-746");
+			var issue = await Client.Issue.GetAsync(TestIssueKey);
 			foreach (var attachment2Delete in issue.Fields.Attachments.Where(x => x.Filename == filename))
 			{
 				Log.Info().WriteLine("Deleting {0} from {1}", attachment2Delete.Filename, attachment2Delete.Created);

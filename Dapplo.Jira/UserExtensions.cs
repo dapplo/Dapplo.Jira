@@ -94,7 +94,7 @@ namespace Dapplo.Jira
 			{
 				throw new ArgumentNullException(nameof(query));
 			}
-			Log.Debug().WriteLine("Search user via {0}", query);
+			Log.Debug().WriteLine("Search user {0}", query);
 
 			jiraClient.Behaviour.MakeCurrent();
 			var searchUri = jiraClient.JiraRestUri.AppendSegments("user", "search").ExtendQuery(new Dictionary<string, object>

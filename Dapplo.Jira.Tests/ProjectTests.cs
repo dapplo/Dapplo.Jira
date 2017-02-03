@@ -46,7 +46,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetProjectAsync()
 		{
-			var project = await Client.Project.GetAsync("BUG");
+			var project = await Client.Project.GetAsync("DIT");
 
 			Assert.NotNull(project);
 			Assert.NotNull(project.Roles.Count > 0);

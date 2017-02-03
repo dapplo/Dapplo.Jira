@@ -62,7 +62,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The description of the project
 		/// </summary>
-		[DataMember(Name = "description")]
+		[DataMember(Name = "description", EmitDefaultValue = false)]
 		public string Description { get; set; }
 
 		/// <summary>
