@@ -18,8 +18,7 @@ This client has support for:
 * getting Avatars of users/projects and icons for Issue type 
 * CRUD methods for the work-log (time spend on issues)
 * CRUD methods for filters
-
-More to come, agile information on sprints and boards is planned.
+* Some Agile methods, to get sprints/boards/issues. (work in progress)
 
 For examples on how to use this library, I advice you to look at the test cases.
 
