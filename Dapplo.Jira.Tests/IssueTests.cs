@@ -42,7 +42,6 @@ namespace Dapplo.Jira.Tests
 {
 	public class IssueTests : TestBase
 	{
-		private static readonly LogSource Log = new LogSource();
 		public IssueTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
 		{
 		}
