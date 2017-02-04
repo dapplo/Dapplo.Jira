@@ -96,7 +96,9 @@ namespace Dapplo.Jira
 		/// <param name="issueKey">the issue key</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Issue</returns>
-		public static async Task<Issue> GetAsync(this IIssueDomain jiraClient, string issueKey, CancellationToken cancellationToken = default(CancellationToken))
+		public static async Task<TIssue> GetAsync<TIssue, TFields>(this IIssueDomain jiraClient, string issueKey, CancellationToken cancellationToken = default(CancellationToken))
+			where TIssue : IssueWithFields<TFields>
+			where TFields : IssueFields
 		{
 			if (issueKey == null)
 			{
@@ -111,8 +113,21 @@ namespace Dapplo.Jira
 			}
 			jiraClient.Behaviour.MakeCurrent();
 
-			var response = await issueUri.GetAsAsync<HttpResponse<Issue, Error>>(cancellationToken).ConfigureAwait(false);
+			var response = await issueUri.GetAsAsync<HttpResponse<TIssue, Error>>(cancellationToken).ConfigureAwait(false);
 			return response.HandleErrors();
+		}
+
+		/// <summary>
+		///     Get issue information
+		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e4539
+		/// </summary>
+		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+		/// <param name="issueKey">the issue key</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>Issue</returns>
+		public static Task<Issue> GetAsync(this IIssueDomain jiraClient, string issueKey, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			return jiraClient.GetAsync<Issue, IssueFields>(issueKey, cancellationToken: cancellationToken);
 		}
 
 		/// <summary>
@@ -240,11 +255,13 @@ namespace Dapplo.Jira
 		/// <summary>
 		///     Create an issue
 		/// </summary>
+		/// <typeparam name="TFields">The type of the issue fields</typeparam>
 		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
 		/// <param name="issue">the issue to create</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Issue</returns>
-		public static async Task<Issue> CreateAsync(this IIssueDomain jiraClient, Issue issue, CancellationToken cancellationToken = default(CancellationToken))
+		public static async Task<IssueWithFields<TFields>> CreateAsync<TFields>(this IIssueDomain jiraClient, IssueWithFields<TFields> issue, CancellationToken cancellationToken = default(CancellationToken))
+			where TFields : IssueFields
 		{
 			if (issue == null)
 			{
@@ -253,8 +270,34 @@ namespace Dapplo.Jira
 			Log.Debug().WriteLine("Creating issue {0}", issue);
 			jiraClient.Behaviour.MakeCurrent();
 			var issueUri = jiraClient.JiraRestUri.AppendSegments("issue");
-			var response = await issueUri.PostAsync<HttpResponse<Issue, Error>>(issue, cancellationToken).ConfigureAwait(false);
+			var response = await issueUri.PostAsync<HttpResponse<IssueWithFields<TFields>, Error>>(issue, cancellationToken).ConfigureAwait(false);
 			return response.HandleErrors(HttpStatusCode.Created);
+		}
+
+		/// <summary>
+		///     Update an issue
+		/// </summary>
+		/// <typeparam name="TFields">The type of the issue</typeparam>
+		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+		/// <param name="issue">the issue to update</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>TIssue</returns>
+		public static async Task UpdateAsync<TFields>(this IIssueDomain jiraClient, IssueWithFields<TFields> issue, CancellationToken cancellationToken = default(CancellationToken))
+			where TFields : IssueFields
+		{
+			if (issue == null)
+			{
+				throw new ArgumentNullException(nameof(issue));
+			}
+			Log.Debug().WriteLine("Creating issue {0}", issue);
+			jiraClient.Behaviour.MakeCurrent();
+			var issueToUpdate = new IssueWithFields<TFields>
+			{
+				Fields = issue.Fields
+			};
+			var issueUri = jiraClient.JiraRestUri.AppendSegments("issue", issue.Key);
+			var response = await issueUri.PutAsync<HttpResponse>(issueToUpdate, cancellationToken).ConfigureAwait(false);
+			response.HandleStatusCode(HttpStatusCode.NoContent);
 		}
 
 		/// <summary>

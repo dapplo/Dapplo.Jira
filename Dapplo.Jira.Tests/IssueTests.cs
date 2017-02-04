@@ -25,14 +25,12 @@
 
 #region Usings
 
-using System.Diagnostics;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.ContentConverter;
 using Dapplo.Jira.Entities;
 using Dapplo.Jira.Query;
-using Dapplo.Log;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -44,6 +42,21 @@ namespace Dapplo.Jira.Tests
 	{
 		public IssueTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
 		{
+		}
+
+		[Fact]
+		public async Task UpdateIssue()
+		{
+			var issue = await Client.Issue.GetAsync(TestIssueKey);
+			var updateIssue = new Issue
+			{
+				Key = issue.Key,
+				Fields = new IssueFields
+				{
+					Description = "Test run at " + DateTime.Now.ToLocalTime()
+				}
+			};
+			await Client.Issue.UpdateAsync(updateIssue);
 		}
 
 		[Fact]
@@ -68,8 +81,6 @@ namespace Dapplo.Jira.Tests
 				}
 			};
 
-			var json = SimpleJson.SerializeObject(issueToCreate);
-			Log.Info().WriteLine(json);
 			var createdIssue = await Client.Issue.CreateAsync(issueToCreate);
 			Assert.NotNull(createdIssue);
 			Assert.NotNull(createdIssue.Key);
