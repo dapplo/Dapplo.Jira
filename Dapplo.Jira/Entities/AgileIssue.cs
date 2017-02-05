@@ -28,7 +28,7 @@
 using System;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
-using Dapplo.HttpExtensions;
+using Dapplo.HttpExtensions.Json;
 
 #endregion
 

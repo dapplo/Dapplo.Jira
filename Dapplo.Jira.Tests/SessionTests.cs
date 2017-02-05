@@ -52,7 +52,7 @@ namespace Dapplo.Jira.Tests
 			await Client.Session.EndAsync();
 
 			// WhoAmI should give an exception if there is no login
-			await Assert.ThrowsAsync<Exception>(async () => await Client.User.GetMyselfAsync());
+			await Assert.ThrowsAsync<JiraException>(async () => await Client.User.GetMyselfAsync());
 		}
 	}
 }

@@ -26,7 +26,7 @@
 #region Usings
 
 using System.IO;
-using Dapplo.HttpExtensions;
+using Dapplo.HttpExtensions.Json;
 using Dapplo.Jira.Entities;
 using Dapplo.Log;
 using Dapplo.Log.XUnit;

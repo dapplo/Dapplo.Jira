@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System;
 using System.Net;
 using Dapplo.HttpExtensions;
 using Dapplo.Jira.Entities;
@@ -38,6 +37,33 @@ namespace Dapplo.Jira
 	public static class HttpResponseExtensions
 	{
 		private static readonly LogSource Log = new LogSource();
+
+		/// <summary>
+		/// Helper method to log the error
+		/// </summary>
+		/// <param name="httpStatusCode">HttpStatusCode</param>
+		/// <param name="error">Error</param>
+		private static void LogError(HttpStatusCode httpStatusCode, Error error = null)
+		{
+			// Log all error information
+			Log.Warn().WriteLine("Http status code: {0}. Response from server: {1}", httpStatusCode, error?.Message ?? httpStatusCode.ToString());
+			if (error?.ErrorMessages != null)
+			{
+				Log.Warn().WriteLine("Error messages:");
+				foreach (var errorMessage in error.ErrorMessages)
+				{
+					Log.Warn().WriteLine(errorMessage);
+				}
+			}
+			if (error?.Errors != null)
+			{
+				Log.Warn().WriteLine("Following errors were encountered:");
+				foreach (var errorKey in error.Errors.Keys)
+				{
+					Log.Warn().WriteLine("{0} : {1}", errorKey, error.Errors[errorKey]);
+				}
+			}
+		}
 
 		/// <summary>
 		///     Helper method for handling errors in the response, if the response has an error an exception is thrown.
@@ -63,17 +89,9 @@ namespace Dapplo.Jira
 				return response.Response;
 			}
 
-			var message = response.StatusCode.ToString();
-			if (response.ErrorResponse.ErrorMessages != null)
-			{
-				message = string.Join(", ", response.ErrorResponse.ErrorMessages);
-			}
-			else if (response.ErrorResponse?.Message != null)
-			{
-				message = response.ErrorResponse?.Message;
-			}
-			Log.Warn().WriteLine("Http status code: {0}. Response from server: {1}", response.StatusCode, message);
-			throw new Exception($"Status: {response.StatusCode} Message: {message}");
+			// Log all error information
+			LogError(response.StatusCode, response.ErrorResponse);
+			throw new JiraException(response.StatusCode, response.ErrorResponse);
 		}
 
 		/// <summary>
@@ -88,13 +106,12 @@ namespace Dapplo.Jira
 		public static TResponse HandleErrors<TResponse>(this HttpResponse<TResponse> response, HttpStatusCode expectedHttpStatusCode = HttpStatusCode.OK)
 			where TResponse : class
 		{
-			if (response.StatusCode != expectedHttpStatusCode)
+			if (response.StatusCode == expectedHttpStatusCode)
 			{
-				var message = response.StatusCode.ToString();
-				Log.Warn().WriteLine("Http status code: {0}. Response from server: {1}", response.StatusCode, message);
-				throw new Exception($"Status: {response.StatusCode} Message: {message}");
+				return response.Response;
 			}
-			return response.Response;
+			LogError(response.StatusCode);
+			throw new JiraException(response.StatusCode);
 		}
 
 		/// <summary>
@@ -105,12 +122,12 @@ namespace Dapplo.Jira
 		/// <param name="response">TResponse</param>
 		public static void HandleStatusCode(this HttpResponse response, HttpStatusCode expectedHttpStatusCode = HttpStatusCode.OK)
 		{
-			if (response.StatusCode != expectedHttpStatusCode)
+			if (response.StatusCode == expectedHttpStatusCode)
 			{
-				var message = response.StatusCode.ToString();
-				Log.Warn().WriteLine("Http status code: {0}. Response from server: {1}", response.StatusCode, message);
-				throw new Exception($"Status: {response.StatusCode} Message: {message}");
+				return;
 			}
+			LogError(response.StatusCode);
+			throw new JiraException(response.StatusCode);
 		}
 
 		/// <summary>
@@ -122,20 +139,28 @@ namespace Dapplo.Jira
 		/// <param name="response">TResponse</param>
 		public static void HandleStatusCode<TError>(this HttpResponseWithError<TError> response, HttpStatusCode expectedHttpStatusCode = HttpStatusCode.OK) where TError : Error
 		{
-			if (response.StatusCode != expectedHttpStatusCode)
+			if (response.StatusCode == expectedHttpStatusCode)
 			{
-				var message = response.StatusCode.ToString();
-				if (response.ErrorResponse.ErrorMessages != null)
-				{
-					message = string.Join(", ", response.ErrorResponse.ErrorMessages);
-				}
-				else if (response.ErrorResponse?.Message != null)
-				{
-					message = response.ErrorResponse?.Message;
-				}
-				Log.Warn().WriteLine("Http status code: {0}. Response from server: {1}", response.StatusCode, message);
-				throw new Exception($"Status: {response.StatusCode} Message: {message}");
+				return;
 			}
+			LogError(response.StatusCode, response.ErrorResponse);
+			throw new JiraException(response.StatusCode, response.ErrorResponse);
+		}
+
+		/// <summary>
+		///     Helper method for handling errors in the response, if the response doesn't have the expected status code an
+		///     exception is thrown.
+		/// </summary>
+		/// <param name="expectedHttpStatusCode">HttpStatusCode to expect</param>
+		/// <param name="response">TResponse</param>
+		public static void HandleStatusCode(this HttpResponseWithError<string> response, HttpStatusCode expectedHttpStatusCode = HttpStatusCode.OK)
+		{
+			if (response.StatusCode == expectedHttpStatusCode)
+			{
+				return;
+			}
+			Log.Warn().WriteLine("Http status code: {0}. Response from server: {1}", response.StatusCode, response.ErrorResponse);
+			throw new JiraException(response.StatusCode, response.ErrorResponse);
 		}
 	}
 }

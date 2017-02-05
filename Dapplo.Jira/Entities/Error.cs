@@ -42,12 +42,18 @@ namespace Dapplo.Jira.Entities
 		///     The list of error messages
 		/// </summary>
 		[DataMember(Name = "errorMessages", EmitDefaultValue = false)]
-		public IList<string> ErrorMessages { get; set; }
+		public IList<string> ErrorMessages { get; set; } = new List<string>();
 
 		/// <summary>
 		///     The message
 		/// </summary>
 		[DataMember(Name = "message", EmitDefaultValue = false)]
 		public string Message { get; set; }
+
+		/// <summary>
+		/// A list of errors
+		/// </summary>
+		[DataMember(Name = "errors", EmitDefaultValue = false)]
+		public IDictionary<string, string> Errors { get; set; } = new Dictionary<string, string>();
 	}
 }
