@@ -280,22 +280,30 @@ namespace Dapplo.Jira
 		/// <typeparam name="TFields">The type of the issue</typeparam>
 		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
 		/// <param name="issue">the issue to update</param>
+		/// <param name="notifyUsers">send the email with notification that the issue was updated to users that watch it. Admin or project admin permissions are required to disable the notification. default = true</param>
+		/// <param name="overrideScreenSecurity">allows to update fields that are not on the screen. Only connect add-on users with admin scope permission are allowed to use this flag. default = false</param>
+		/// <param name="overrideEditableFlag">Updates the issue even if the issue is not editable due to being in a status with jira.issue.editable set to false or missing. Only connect add-on users with admin scope permission are allowed to use this flag. default = false</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>TIssue</returns>
-		public static async Task UpdateAsync<TFields>(this IIssueDomain jiraClient, IssueWithFields<TFields> issue, CancellationToken cancellationToken = default(CancellationToken))
+		public static async Task UpdateAsync<TFields>(this IIssueDomain jiraClient, IssueWithFields<TFields> issue, bool notifyUsers = true, bool overrideScreenSecurity = false,  bool overrideEditableFlag= false, CancellationToken cancellationToken = default(CancellationToken))
 			where TFields : IssueFields
 		{
 			if (issue == null)
 			{
 				throw new ArgumentNullException(nameof(issue));
 			}
-			Log.Debug().WriteLine("Creating issue {0}", issue);
+			Log.Debug().WriteLine("Updating issue {0}", issue.Key);
 			jiraClient.Behaviour.MakeCurrent();
 			var issueToUpdate = new IssueWithFields<TFields>
 			{
 				Fields = issue.Fields
 			};
-			var issueUri = jiraClient.JiraRestUri.AppendSegments("issue", issue.Key);
+			var issueUri = jiraClient.JiraRestUri.AppendSegments("issue", issue.Key).ExtendQuery(new Dictionary<string, bool>
+			{
+				{ "notifyUsers", notifyUsers},
+				{ "overrideScreenSecurity", overrideScreenSecurity},
+				{ "overrideEditableFlag", overrideEditableFlag}
+			});
 			var response = await issueUri.PutAsync<HttpResponse>(issueToUpdate, cancellationToken).ConfigureAwait(false);
 			response.HandleStatusCode(HttpStatusCode.NoContent);
 		}
