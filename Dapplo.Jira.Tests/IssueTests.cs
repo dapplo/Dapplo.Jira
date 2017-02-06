@@ -62,6 +62,9 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task CreateIssue()
 		{
+			var meMyselfAndI = await Client.User.GetMyselfAsync();
+			Assert.NotNull(meMyselfAndI);
+
 			var issueTypes = await Client.Issue.GetIssueTypesAsync();
 			var projects = await Client.Project.GetAllAsync();
 
@@ -74,10 +77,6 @@ namespace Dapplo.Jira.Tests
 					IssueType = bugIssueType,
 					Summary = "Some summary, this is a test",
 					Description = "Some description, this is a test",
-					Project = new Project
-					{
-						Key = projectForIssue.Key
-					}
 				}
 			};
 

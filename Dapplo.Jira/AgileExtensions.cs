@@ -337,5 +337,96 @@ namespace Dapplo.Jira
 			var response = await boardsUri.GetAsAsync<HttpResponse<Results<Board>, Error>>(cancellationToken).ConfigureAwait(false);
 			return response.HandleErrors();
 		}
+
+		/// <summary>
+		///     Get all epics for a board
+		///     See <a href="https://docs.atlassian.com/jira-software/REST/cloud/#agile/1.0/board/{boardId}/epic">get epics on board</a>
+		/// </summary>
+		/// <param name="jiraClient">IAgileDomain to bind the extension method to</param>
+		/// <param name="boardId">Id of the board to get the epics for</param>
+		/// <param name="page">optional Pageable</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>Results with Epic objects</returns>
+		public static async Task<Results<Epic>> GetEpicsAsync(this IAgileDomain jiraClient, long boardId, Pageable page = null,
+			CancellationToken cancellationToken = default(CancellationToken))
+		{
+			jiraClient.Behaviour.MakeCurrent();
+			var epicsUri = jiraClient.JiraAgileRestUri.AppendSegments("board", boardId, "epic");
+			if (page != null)
+			{
+				epicsUri = epicsUri.ExtendQuery(new Dictionary<string, object>
+				{
+					{
+						"startAt", page.StartAt
+					},
+					{
+						"maxResults", page.MaxResults
+					}
+				});
+			}
+			var response = await epicsUri.GetAsAsync<HttpResponse<Results<Epic>, Error>>(cancellationToken).ConfigureAwait(false);
+			return response.HandleErrors();
+		}
+
+		/// <summary>
+		///     Get all issues for an Epic
+		///     See <a href="https://docs.atlassian.com/jira-software/REST/cloud/#agile/1.0/board/{boardId}/epic-getIssuesForEpic">get issues for epic</a>
+		/// </summary>
+		/// <param name="jiraClient">IAgileDomain to bind the extension method to</param>
+		/// <param name="boardId">Id of the board to get the issues for</param>
+		/// <param name="epicId">Id of the epic to get the issues for</param>
+		/// <param name="page">optional Pageable</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>SearchResult with AgileIssue objects</returns>
+		public static async Task<SearchResult<AgileIssue>> GetIssuesForEpicAsync(this IAgileDomain jiraClient, long boardId, long epicId, Pageable page = null,
+			CancellationToken cancellationToken = default(CancellationToken))
+		{
+			jiraClient.Behaviour.MakeCurrent();
+			var epicIssuesUri = jiraClient.JiraAgileRestUri.AppendSegments("board", boardId, "epic", epicId, "issue");
+			if (page != null)
+			{
+				epicIssuesUri = epicIssuesUri.ExtendQuery(new Dictionary<string, object>
+				{
+					{
+						"startAt", page.StartAt
+					},
+					{
+						"maxResults", page.MaxResults
+					}
+				});
+			}
+			var response = await epicIssuesUri.GetAsAsync<HttpResponse<SearchResult<AgileIssue>, Error>>(cancellationToken).ConfigureAwait(false);
+			return response.HandleErrors();
+		}
+
+		/// <summary>
+		///     Get all issues without an Epic
+		///     See <a href="https://docs.atlassian.com/jira-software/REST/cloud/#agile/1.0/board/{boardId}/epic-getIssuesWithoutEpic">get issues without epic</a>
+		/// </summary>
+		/// <param name="jiraClient">IAgileDomain to bind the extension method to</param>
+		/// <param name="boardId">Id of the board to get the issues for</param>
+		/// <param name="page">optional Pageable</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>SearchResult with AgileIssue objects</returns>
+		public static async Task<SearchResult<AgileIssue>> GetIssuesWithoutEpicAsync(this IAgileDomain jiraClient, long boardId, Pageable page = null,
+			CancellationToken cancellationToken = default(CancellationToken))
+		{
+			jiraClient.Behaviour.MakeCurrent();
+			var epicLessIssuesUri = jiraClient.JiraAgileRestUri.AppendSegments("board", boardId, "epic", "none", "issue");
+			if (page != null)
+			{
+				epicLessIssuesUri = epicLessIssuesUri.ExtendQuery(new Dictionary<string, object>
+				{
+					{
+						"startAt", page.StartAt
+					},
+					{
+						"maxResults", page.MaxResults
+					}
+				});
+			}
+			var response = await epicLessIssuesUri.GetAsAsync<HttpResponse<SearchResult<AgileIssue>, Error>>(cancellationToken).ConfigureAwait(false);
+			return response.HandleErrors();
+		}
 	}
 }
