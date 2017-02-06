@@ -47,21 +47,20 @@ namespace Dapplo.Jira
 		{
 			// Log all error information
 			Log.Warn().WriteLine("Http status code: {0} ({1}). Response from server: {2}", httpStatusCode.ToString(), (int)httpStatusCode, error?.Message ?? httpStatusCode.ToString());
-			if (error?.ErrorMessages != null)
+			if (error?.ErrorMessages.Count > 0)
 			{
-				Log.Warn().WriteLine("Error messages:");
 				foreach (var errorMessage in error.ErrorMessages)
 				{
-					Log.Warn().WriteLine(errorMessage);
+					Log.Warn().WriteLine("JIRA server error message: {0}", errorMessage);
 				}
 			}
-			if (error?.Errors != null)
+			if (!(error?.Errors?.Keys.Count > 0))
 			{
-				Log.Warn().WriteLine("Following errors were encountered:");
-				foreach (var errorKey in error.Errors.Keys)
-				{
-					Log.Warn().WriteLine("{0} : {1}", errorKey, error.Errors[errorKey]);
-				}
+				return;
+			}
+			foreach (var errorKey in error.Errors.Keys)
+			{
+				Log.Warn().WriteLine("JIRA server reports the following error: {0} -> {1}", errorKey, error.Errors[errorKey]);
 			}
 		}
 
