@@ -39,10 +39,16 @@ namespace Dapplo.Jira.Entities
 	public class Error
 	{
 		/// <summary>
+		///     The HTTP status code of the error
+		/// </summary>
+		[DataMember(Name = "status-code", EmitDefaultValue = false)]
+		public int StatusCode { get; set; }
+
+		/// <summary>
 		///     The list of error messages
 		/// </summary>
 		[DataMember(Name = "errorMessages", EmitDefaultValue = false)]
-		public IList<string> ErrorMessages { get; set; } = new List<string>();
+		public IList<string> ErrorMessages { get; set; }
 
 		/// <summary>
 		///     The message
@@ -54,6 +60,6 @@ namespace Dapplo.Jira.Entities
 		/// A list of errors
 		/// </summary>
 		[DataMember(Name = "errors", EmitDefaultValue = false)]
-		public IDictionary<string, string> Errors { get; set; } = new Dictionary<string, string>();
+		public IDictionary<string, string> Errors { get; set; }
 	}
 }
