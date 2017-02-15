@@ -37,6 +37,7 @@ namespace Dapplo.Jira.Tests
 {
 	public class IssueQueryTests
 	{
+		private const string TestIssueKey = "DIT-1";
 		public IssueQueryTests(ITestOutputHelper testOutputHelper)
 		{
 			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
@@ -52,8 +53,8 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public void TestIssueKeyInLinkedIssues()
 		{
-			var whereClause = Where.IssueKey.InLinkedIssues("BUG-12345");
-			Assert.Equal("issueKey in linkedIssues(BUG-12345)", whereClause.ToString());
+			var whereClause = Where.IssueKey.InLinkedIssues(TestIssueKey);
+			Assert.Equal($"issueKey in linkedIssues({TestIssueKey})", whereClause.ToString());
 		}
 
 		[Fact]
@@ -80,8 +81,8 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public void TestIssueKeyNotInLinkedIssues()
 		{
-			var whereClause = Where.IssueKey.Not.InLinkedIssues("BUG-12345");
-			Assert.Equal("issueKey not in linkedIssues(BUG-12345)", whereClause.ToString());
+			var whereClause = Where.IssueKey.Not.InLinkedIssues(TestIssueKey);
+			Assert.Equal($"issueKey not in linkedIssues({TestIssueKey})", whereClause.ToString());
 		}
 
 		[Fact]

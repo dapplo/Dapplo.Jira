@@ -52,11 +52,11 @@ namespace Dapplo.Jira.Tests
 			{
 				await Client.Filter.DeleteAsync(myTestFilter);
 			}
-			var query = Where.IssueKey.In("BUG-2104");
+			var query = Where.IssueKey.In(TestIssueKey);
 			var createdFilter = await Client.Filter.CreateAsync(new Filter(testFilterName, query));
 			Assert.NotNull(createdFilter);
 			Assert.Equal(query.ToString(), createdFilter.Jql);
-			query = Where.IssueKey.In("BUG-2104", "BUG-2105");
+			query = Where.IssueKey.In(TestIssueKey, TestIssueKey);
 			createdFilter.Jql = query.ToString();
 			var updatedFilter = await Client.Filter.UpdateAsync(createdFilter);
 			Assert.NotNull(updatedFilter);

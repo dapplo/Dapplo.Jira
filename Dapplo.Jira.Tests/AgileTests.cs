@@ -116,7 +116,7 @@ namespace Dapplo.Jira.Tests
 			var boards = await Client.Agile.GetBoardsAsync();
 			var scrumboard = boards.First(board => board.Type == BoardTypes.Scrum);
 			var boardConfiguration = await Client.Agile.GetBoardConfigurationAsync(scrumboard.Id);
-			var issue = await Client.Agile.GetIssueAsync("BUG-2125");
+			var issue = await Client.Agile.GetIssueAsync(TestIssueKey);
 			Assert.NotNull(issue);
 			Assert.NotNull(issue.Fields);
 			Assert.NotNull(issue.Fields.ClosedSprints);
