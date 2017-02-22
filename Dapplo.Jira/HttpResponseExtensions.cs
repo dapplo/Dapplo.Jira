@@ -47,7 +47,7 @@ namespace Dapplo.Jira
 		{
 			// Log all error information
 			Log.Warn().WriteLine("Http status code: {0} ({1}). Response from server: {2}", httpStatusCode.ToString(), (int)httpStatusCode, error?.Message ?? httpStatusCode.ToString());
-			if (error?.ErrorMessages.Count > 0)
+			if (error?.ErrorMessages?.Count > 0)
 			{
 				foreach (var errorMessage in error.ErrorMessages)
 				{
