@@ -70,10 +70,7 @@ namespace Dapplo.Jira
 			jiraClient.Behaviour.MakeCurrent();
 
 			var response = await contentUri.GetAsAsync<HttpResponse<TResponse, string>>(cancellationToken).ConfigureAwait(false);
-			if (response.HasError)
-			{
-				throw new Exception($"Status: {response.StatusCode} Message: {response.ErrorResponse}");
-			}
+			response.HandleStatusCode();
 			return response.Response;
 		}
 

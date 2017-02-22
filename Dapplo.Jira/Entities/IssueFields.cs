@@ -64,16 +64,16 @@ namespace Dapplo.Jira.Entities
 		[DataMember(Name = "comment", EmitDefaultValue = false)]
 		public Comments Comments { get; set; }
 
-        /// <summary>
-        ///     Components for this issue
-        /// </summary>
-        [DataMember(Name = "components", EmitDefaultValue = false)]
-        public IList<Component> Components { get; set; }
+		/// <summary>
+		///     Components for this issue
+		/// </summary>
+		[DataMember(Name = "components", EmitDefaultValue = false)]
+		public IList<Component> Components { get; set; }
 
-        /// <summary>
-        ///     When was this issue created
-        /// </summary>
-        [DataMember(Name = "created", EmitDefaultValue = false)]
+		/// <summary>
+		///     When was this issue created
+		/// </summary>
+		[DataMember(Name = "created", EmitDefaultValue = false)]
 		public DateTimeOffset Created { get; set; }
 
 		/// <summary>
