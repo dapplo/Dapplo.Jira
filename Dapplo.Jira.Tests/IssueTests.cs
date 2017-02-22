@@ -70,10 +70,12 @@ namespace Dapplo.Jira.Tests
 
 			var bugIssueType = issueTypes.First(type => type.Name == "Bug");
 			var projectForIssue = projects.First(digest => digest.Key == "DIT");
+
 			var issueToCreate = new Issue
 			{
 				Fields = new IssueFields
 				{
+					Project = new Project {Key = projectForIssue.Key},
 					IssueType = bugIssueType,
 					Summary = "Some summary, this is a test",
 					Description = "Some description, this is a test",
