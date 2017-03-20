@@ -46,16 +46,16 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestLogWork()
 		{
-			var created = DateTimeOffset.ParseExact(@"30/10/2007", "dd/MM/yyyy", CultureInfo.GetCultureInfo("en-US"));
+			var started = DateTimeOffset.ParseExact(@"30/10/2007", "dd/MM/yyyy", CultureInfo.GetCultureInfo("en-US"));
 			var worklog = await Client.Work.CreateAsync(TestIssueKey, new Worklog {
 				TimeSpentSeconds = (long)TimeSpan.FromHours(16).TotalSeconds,
 				Comment = "Testing the logging of work",
-				Created = created
+				Started = started
 			});
 
 			Assert.NotNull(worklog);
 			Assert.Equal("2d", worklog.TimeSpent);
-			Assert.Equal(created, worklog.Created);
+			Assert.Equal(started, worklog.Started);
 			worklog.TimeSpent = "3d";
 			await Client.Work.UpdateAsync(TestIssueKey, worklog);
 			var worklogs = await Client.Work.GetAsync(TestIssueKey);
