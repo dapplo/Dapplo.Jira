@@ -45,7 +45,7 @@ namespace Dapplo.Jira.PowerShell.Support
 		protected override void BeginProcessing()
 		{
 			base.BeginProcessing();
-			AsyncPump.Run(async () => await BeginProcessingAsync());
+			AsyncPump.Run(async () => await BeginProcessingAsync().ConfigureAwait(false));
 		}
 
 		/// <summary>
@@ -61,7 +61,7 @@ namespace Dapplo.Jira.PowerShell.Support
 		/// </summary>
 		protected sealed override void EndProcessing()
 		{
-			AsyncPump.Run(async () => await EndProcessingAsync());
+			AsyncPump.Run(async () => await EndProcessingAsync().ConfigureAwait(false));
 		}
 
 		/// <summary>
@@ -77,7 +77,7 @@ namespace Dapplo.Jira.PowerShell.Support
 		/// </summary>
 		protected sealed override void ProcessRecord()
 		{
-			AsyncPump.Run(async () => await ProcessRecordAsync());
+			AsyncPump.Run(async () => await ProcessRecordAsync().ConfigureAwait(false));
 		}
 
 		/// <summary>

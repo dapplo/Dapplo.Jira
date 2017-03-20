@@ -40,15 +40,27 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class Filter : BaseProperties<long>
 	{
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public Filter()
 		{
 		}
 
+		/// <summary>
+		/// Constructor with a JQL clause
+		/// </summary>
+		/// <param name="jql">IFinalClause</param>
 		public Filter(IFinalClause jql)
 		{
 			Jql = jql.ToString();
 		}
 
+		/// <summary>
+		/// Constructor with a JQL clause and name
+		/// </summary>
+		/// <param name="name">Name</param>
+		/// <param name="jql">IFinalClause</param>
 		public Filter(string name, IFinalClause jql)
 		{
 			Name = name;

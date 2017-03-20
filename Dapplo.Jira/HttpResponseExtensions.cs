@@ -34,6 +34,9 @@ using Dapplo.Log;
 
 namespace Dapplo.Jira
 {
+	/// <summary>
+	/// Extensions for the HttpResponse object
+	/// </summary>
 	public static class HttpResponseExtensions
 	{
 		private static readonly LogSource Log = new LogSource();

@@ -33,55 +33,9 @@ using Dapplo.Jira.Entities;
 
 namespace Dapplo.Jira.Query
 {
-	public interface IUserClause
-	{
-		/// <summary>
-		///     This allows fluent constructs like Creator.IsCurrentUser
-		/// </summary>
-		IFinalClause IsCurrentUser { get; }
-
-		/// <summary>
-		///     Negates the expression
-		/// </summary>
-		IUserClause Not { get; }
-
-		/// <summary>
-		///     This allows fluent constructs like Creator.In("smith", "squarepants")
-		/// </summary>
-		IFinalClause In(params string[] users);
-
-		/// <summary>
-		///     This allows fluent constructs like Creator.In(user1, user2)
-		/// </summary>
-		IFinalClause In(params User[] users);
-
-		/// <summary>
-		///     This allows fluent constructs like Creator.InCurrentUserAnd("smith", "squarepants")
-		/// </summary>
-		/// <param name="users"></param>
-		/// <returns></returns>
-		IFinalClause InCurrentUserAnd(params string[] users);
-
-		/// <summary>
-		///     This allows fluent constructs like Creator.InCurrentUserAnd(user)
-		/// </summary>
-		/// <param name="users"></param>
-		/// <returns></returns>
-		IFinalClause InCurrentUserAnd(params User[] users);
-
-		/// <summary>
-		///     This allows fluent constructs like Creator.Is("smith")
-		/// </summary>
-		IFinalClause Is(string user);
-
-
-		/// <summary>
-		///     This allows fluent constructs like Creator.Is(user)
-		/// </summary>
-		IFinalClause Is(User user);
-	}
-
-	///
+	/// <summary>
+	/// This is the implementation of all user based where clauses
+	/// </summary>
 	public class UserClause : IUserClause
 	{
 		private readonly Fields[] _allowedFields = {Fields.Approvals, Fields.Assignee, Fields.Creator, Fields.Reporter, Fields.Voter, Fields.Watcher, Fields.WorkLogAuthor};

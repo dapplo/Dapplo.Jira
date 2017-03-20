@@ -39,10 +39,17 @@ namespace Dapplo.Jira.Entities
 	[DataContract]
 	public class Worklog : BaseProperties<string>
 	{
+		/// <summary>
+		/// Default constructor for a work log
+		/// </summary>
 		public Worklog()
 		{
 		}
 
+		/// <summary>
+		/// Default constructor with a TimeSpan for the TimeSpentSeconds
+		/// </summary>
+		/// <param name="timeSpent">TimeSpan</param>
 		public Worklog(TimeSpan timeSpent)
 		{
 			TimeSpentSeconds = (int) timeSpent.TotalSeconds;

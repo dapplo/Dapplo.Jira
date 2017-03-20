@@ -25,6 +25,7 @@
 
 #region Usings
 
+using System;
 using System.Linq;
 
 #endregion
@@ -126,13 +127,31 @@ namespace Dapplo.Jira.Query
 
 		#region BooleanLogic
 
+		/// <summary>
+		/// Create an And of two or more where clauses
+		/// </summary>
+		/// <param name="clauses">Two or more IFinalClause</param>
+		/// <returns>A new IFinalClause with an "and" of the specified IFinalClause</returns>
 		public static IFinalClause And(params IFinalClause[] clauses)
 		{
+			if (clauses.Length < 2)
+			{
+				throw new ArgumentException("And needs two or more clauses.", nameof(clauses));
+			}
 			return new Clause("(" + string.Join(" and ", clauses.ToList()) + ")");
 		}
 
+		/// <summary>
+		/// Create an Or of two or more where clauses
+		/// </summary>
+		/// <param name="clauses">Two or more IFinalClause</param>
+		/// <returns>A new IFinalClause with an "or" of the specified IFinalClause</returns>
 		public static IFinalClause Or(params IFinalClause[] clauses)
 		{
+			if (clauses.Length < 2)
+			{
+				throw new ArgumentException("Or needs two or more clauses.", nameof(clauses));
+			}
 			return new Clause("(" + string.Join(" or ", clauses.ToList()) + ")");
 		}
 

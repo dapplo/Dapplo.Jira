@@ -120,7 +120,7 @@ namespace Dapplo.Jira
 				var sessionUri = jiraClient.JiraAuthUri.AppendSegments("session");
 
 				jiraClient.Behaviour.MakeCurrent();
-				var response = await sessionUri.DeleteAsync<HttpResponseMessage>(cancellationToken);
+				var response = await sessionUri.DeleteAsync<HttpResponseMessage>(cancellationToken).ConfigureAwait(false);
 
 				if (response.StatusCode != HttpStatusCode.NoContent)
 				{

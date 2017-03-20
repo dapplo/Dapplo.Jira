@@ -37,10 +37,6 @@ namespace Dapplo.Jira.Converters
 	/// </summary>
 	public class SvgConfiguration : IHttpRequestConfiguration
 	{
-		public SvgConfiguration()
-		{
-			Name = nameof(SvgConfiguration);
-		}
 		/// <summary>
 		///     Specify the supported content types
 		/// </summary>

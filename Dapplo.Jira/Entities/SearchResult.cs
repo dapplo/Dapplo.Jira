@@ -56,6 +56,10 @@ namespace Dapplo.Jira.Entities
 			return GetEnumerator();
 		}
 
+		/// <summary>
+		/// Generic IEnumerator implementation
+		/// </summary>
+		/// <returns>IEnumerator with TIssue</returns>
 		public IEnumerator<TIssue> GetEnumerator()
 		{
 			return Issues.GetEnumerator();

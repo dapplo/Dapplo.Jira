@@ -48,7 +48,7 @@ namespace Dapplo.Jira.PowerShell
 		/// </summary>
 		protected override async Task ProcessRecordAsync()
 		{
-			var projects = await JiraApi.Project.GetAllAsync();
+			var projects = await JiraApi.Project.GetAllAsync().ConfigureAwait(false);
 			foreach (var projectDigest in projects)
 			{
 				WriteObject(projectDigest);

@@ -36,9 +36,14 @@ namespace Dapplo.Jira.Enums
 	/// </summary>
 	public enum BoardTypes
 	{
+		/// <summary>
+		/// Identifies the board to be of type Kanban
+		/// </summary>
 		[Description("Kanban")]
 		Kanban,
-
+		/// <summary>
+		/// Identifies the board to be of type Scrum
+		/// </summary>
 		[Description("Scrum")]
 		Scrum,
 	}

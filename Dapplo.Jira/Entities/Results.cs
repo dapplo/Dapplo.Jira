@@ -36,6 +36,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Pagable results
 	/// </summary>
+	/// <typeparam name="TResultType">The type for the results</typeparam>
 	[DataContract]
 	public class Results<TResultType> : PageableResult, IEnumerable<TResultType>
 	{
@@ -56,6 +57,10 @@ namespace Dapplo.Jira.Entities
 			return GetEnumerator();
 		}
 
+		/// <summary>
+		/// IEnumerator implementation
+		/// </summary>
+		/// <returns>IEnumerator of type TResultType</returns>
 		public IEnumerator<TResultType> GetEnumerator()
 		{
 			return Values.GetEnumerator();
