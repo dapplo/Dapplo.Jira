@@ -70,21 +70,39 @@ namespace Dapplo.Jira.Entities
 
 		/// <summary>
 		///     Retrieve the estimation (story points) from the issue, this only works by using the BoardConfiguration
+		///     This is a conveniance method for the generic GetEstimation and assumes a long
 		/// </summary>
 		/// <param name="boardConfiguration">BoardConfiguration</param>
 		/// <returns>long with estimation or 0 if nothing</returns>
 		public long GetEstimation(BoardConfiguration boardConfiguration)
 		{
+			return GetEstimation<long>(boardConfiguration);
+		}
+
+		/// <summary>
+		///     Retrieve the estimation (story points) from the issue, this only works by using the BoardConfiguration
+		/// </summary>
+		/// <typeparam name="T">Type for the estimation</typeparam>
+		/// <param name="boardConfiguration">BoardConfiguration</param>
+		/// <returns>T or default(T) if there is no value</returns>
+		public T GetEstimation<T>(BoardConfiguration boardConfiguration)
+		{
 			if (boardConfiguration == null)
 			{
 				throw new ArgumentNullException(nameof(boardConfiguration));
 			}
+			// Get the custom estimation field ID
 			var estimationCustomField = boardConfiguration.Estimation.Field.FieldId;
+			// check if there is a custom field for the ID
 			if (!Fields.CustomFields.ContainsKey(estimationCustomField))
 			{
-				return 0;
+				return default(T);
 			}
-			return (long) Fields.CustomFields[estimationCustomField];
+
+			// We have a custom field, get it
+			var result = Fields.CustomFields[estimationCustomField];
+			// Return the custom field, as the supplied type
+			return result == null ? default(T) : (T)result;
 		}
 
 		/// <summary>
