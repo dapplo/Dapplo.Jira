@@ -26,6 +26,7 @@
 #region Usings
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
 using Xunit;
@@ -44,15 +45,22 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestLogWork()
 		{
-			var worklog = await Client.Work.CreateAsync(TestIssueKey, new Worklog(TimeSpan.FromHours(16))
-			{
-				Comment = "Testing the logging of work"
+			var created = DateTimeOffset.Parse("30/10/2007");
+			var worklog = await Client.Work.CreateAsync(TestIssueKey, new Worklog {
+				TimeSpentSeconds = (long)TimeSpan.FromHours(16).TotalSeconds,
+				Comment = "Testing the logging of work",
+				Created = created
 			});
 
 			Assert.NotNull(worklog);
-			Assert.True(worklog.TimeSpent == "2d");
+			Assert.Equal("2d", worklog.TimeSpent);
+			Assert.Equal(created, worklog.Created);
 			worklog.TimeSpent = "3d";
 			await Client.Work.UpdateAsync(TestIssueKey, worklog);
+			var worklogs = await Client.Work.GetAsync(TestIssueKey);
+			var retrievedWorklog = worklogs.FirstOrDefault(worklogItem => string.Equals(worklog.Id, worklogItem.Id));
+			Assert.NotNull(retrievedWorklog);
+			Assert.Equal("3d", retrievedWorklog.TimeSpent);
 
 			// Delete again
 			await Client.Work.DeleteAsync(TestIssueKey, worklog);

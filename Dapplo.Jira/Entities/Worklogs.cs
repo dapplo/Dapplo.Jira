@@ -25,6 +25,7 @@
 
 #region Usings
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -36,12 +37,26 @@ namespace Dapplo.Jira.Entities
 	///     Worklog information
 	/// </summary>
 	[DataContract]
-	public class Worklogs : PageableResult
+	public class Worklogs : PageableResult, IEnumerable<Worklog>
 	{
 		/// <summary>
 		///     The worklog items
 		/// </summary>
 		[DataMember(Name = "worklogs", EmitDefaultValue = false)]
 		public IList<Worklog> Elements { get; set; }
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
+		}
+
+		/// <summary>
+		/// IEnumerator implementation
+		/// </summary>
+		/// <returns>IEnumerator of type TResultType</returns>
+		public IEnumerator<Worklog> GetEnumerator()
+		{
+			return Elements.GetEnumerator();
+		}
 	}
 }

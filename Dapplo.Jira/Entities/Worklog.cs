@@ -52,7 +52,6 @@ namespace Dapplo.Jira.Entities
 		///     Author of this worklog
 		/// </summary>
 		[DataMember(Name = "author", EmitDefaultValue = false)]
-		[ReadOnly(true)]
 		public User Author { get; set; }
 
 		/// <summary>
@@ -72,14 +71,12 @@ namespace Dapplo.Jira.Entities
 		///     When was the worklog started
 		/// </summary>
 		[DataMember(Name = "started", EmitDefaultValue = false)]
-		[ReadOnly(true)]
 		public DateTimeOffset Started { get; set; }
 
 		/// <summary>
 		///     Time spent in this worklog, this is a number and qualifier (h = hour, d = day etc)
 		/// </summary>
 		[DataMember(Name = "timeSpent", EmitDefaultValue = false)]
-		[ReadOnly(true)]
 		public string TimeSpent { get; set; }
 
 		/// <summary>
@@ -89,14 +86,14 @@ namespace Dapplo.Jira.Entities
 		public long TimeSpentSeconds { get; set; }
 
 		/// <summary>
-		///     Who updated this worklog
+		///     Who updated this worklog, this cannot be updated
 		/// </summary>
 		[DataMember(Name = "updateAuthor", EmitDefaultValue = false)]
 		[ReadOnly(true)]
 		public User UpdateAuthor { get; set; }
 
 		/// <summary>
-		///     When was the worklog updated
+		///     When was the worklog updated, this cannot be updated
 		/// </summary>
 		[DataMember(Name = "updated", EmitDefaultValue = false)]
 		[ReadOnly(true)]
