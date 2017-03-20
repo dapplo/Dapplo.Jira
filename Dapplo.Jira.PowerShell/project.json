@@ -32,7 +32,8 @@
 		},
 		"net46": {
 			"frameworkAssemblies": {
-				"System.Threading.Tasks": "4.0.10.0"
+				"System.Threading.Tasks": "4.0.10.0",
+				"System.Runtime": "4.0.20.0"
 			},
 			"dependencies": {
 				"System.Management.Automation.dll": "10.0.10586"

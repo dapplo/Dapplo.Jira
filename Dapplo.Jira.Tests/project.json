@@ -5,19 +5,19 @@
 	"copyright": "Copyright © Dapplo 2016",
 	"description": "Tests for Dapplo.Jira",
 	"supports": {},
-	"dependencies": {
-		"Dapplo.Jira": "*",
-		"xunit.runner.visualstudio": "2.1.0",
-		"Xunit.StaFact": "0.1.36-beta",
-		"ReportGenerator": "2.5.2",
-		"Dapplo.Utils": "1.0.131",
-		"Dapplo.Log": "1.0.23",
-		"Dapplo.Log.XUnit": "1.0.23"
-	},
+    "dependencies": {
+        "Dapplo.Jira": "*",
+        "xunit.runner.visualstudio": "2.1.0",
+        "Xunit.StaFact": "0.1.36-beta",
+        "Dapplo.Log": "1.0.23",
+        "Dapplo.Log.XUnit": "1.0.23",
+        "Dapplo.Utils": "1.0.132",
+        "ReportGenerator": "2.5.6"
+    },
 	"frameworks": {
 		"net45": {
 			"dependencies": {
-				"NETStandard.Library": "1.6.0"
+				"NETStandard.Library": "1.6.1"
 			},
 			"frameworkAssemblies": {
 				"PresentationCore": "4.0.0.0",

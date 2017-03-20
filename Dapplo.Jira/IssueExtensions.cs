@@ -169,7 +169,7 @@ namespace Dapplo.Jira
 		public static async Task<SearchResult<Issue>> SearchAsync(this IIssueDomain jiraClient, IFinalClause jql, int maxResults = 20, IEnumerable<string> fields = null,
 			CancellationToken cancellationToken = default(CancellationToken))
 		{
-			return await jiraClient.SearchAsync(jql.ToString(), maxResults, fields, cancellationToken);
+			return await jiraClient.SearchAsync(jql.ToString(), maxResults, fields, cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -304,7 +304,8 @@ namespace Dapplo.Jira
 				{ "overrideScreenSecurity", overrideScreenSecurity},
 				{ "overrideEditableFlag", overrideEditableFlag}
 			});
-			var response = await issueUri.PutAsync<HttpResponse>(issueToUpdate, cancellationToken).ConfigureAwait(false);
+			var response = await issueUri.PutAsync<HttpResponseWithError<Error>>(issueToUpdate, cancellationToken).ConfigureAwait(false);
+			// Expect HttpStatusCode.NoContent throw error if not
 			response.HandleStatusCode(HttpStatusCode.NoContent);
 		}
 
