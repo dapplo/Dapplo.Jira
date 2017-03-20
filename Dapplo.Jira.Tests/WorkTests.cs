@@ -26,6 +26,7 @@
 #region Usings
 
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
@@ -45,7 +46,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestLogWork()
 		{
-			var created = DateTimeOffset.Parse("30/10/2007");
+			var created = DateTimeOffset.ParseExact(@"30/10/2007", "dd/MM/yyyy", CultureInfo.GetCultureInfo("en-US"));
 			var worklog = await Client.Work.CreateAsync(TestIssueKey, new Worklog {
 				TimeSpentSeconds = (long)TimeSpan.FromHours(16).TotalSeconds,
 				Comment = "Testing the logging of work",
