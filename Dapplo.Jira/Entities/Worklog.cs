@@ -28,6 +28,9 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using Dapplo.Jira.Json;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 #endregion
 
@@ -78,6 +81,7 @@ namespace Dapplo.Jira.Entities
 		///     When was the worklog started
 		/// </summary>
 		[DataMember(Name = "started", EmitDefaultValue = false)]
+		[JsonConverter(typeof(CustomDateTimeOffsetConverter))]
 		public DateTimeOffset Started { get; set; }
 
 		/// <summary>

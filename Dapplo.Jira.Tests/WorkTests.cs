@@ -26,10 +26,13 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
+using Dapplo.Jira.Json;
+using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -46,12 +49,22 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestLogWork()
 		{
-			var started = DateTimeOffset.ParseExact(@"30/10/2007", "dd/MM/yyyy", CultureInfo.GetCultureInfo("en-US"));
-			var worklog = await Client.Work.CreateAsync(TestIssueKey, new Worklog {
-				TimeSpentSeconds = (long)TimeSpan.FromHours(16).TotalSeconds,
+			var started = DateTimeOffset.Now;
+
+			var newWorkLog = new Worklog
+			{
+				TimeSpentSeconds = (long) TimeSpan.FromHours(16).TotalSeconds,
 				Comment = "Testing the logging of work",
 				Started = started
-			});
+			};
+			var settings = new JsonSerializerSettings
+			{
+				DateParseHandling = DateParseHandling.None
+			};
+			var testString = JsonConvert.SerializeObject(newWorkLog, Formatting.Indented, settings);
+			var testWorkLog = JsonConvert.DeserializeObject<Worklog>(testString, settings);
+
+			var worklog = await Client.Work.CreateAsync(TestIssueKey, newWorkLog);
 
 			Assert.NotNull(worklog);
 			Assert.Equal("2d", worklog.TimeSpent);

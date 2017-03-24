@@ -27,6 +27,7 @@
 
 using System;
 using Dapplo.HttpExtensions;
+using Dapplo.Jira.Json;
 
 #if NET45 || NET46
 using System.Collections.Generic;
@@ -141,6 +142,7 @@ namespace Dapplo.Jira
 			}
 #endif
 			behaviour.HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings;
+			behaviour.JsonSerializer = new JsonNetJsonSerializer();
 			behaviour.OnHttpRequestMessageCreated = httpMessage =>
 			{
 				httpMessage?.Headers.TryAddWithoutValidation("X-Atlassian-Token", "nocheck");
