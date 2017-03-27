@@ -41,13 +41,13 @@ namespace Dapplo.Jira.Entities
 		///     The number of working hours per day
 		/// </summary>
 		[JsonProperty(PropertyName = "workingHoursPerDay")]
-		public int WorkingHoursPerDay { get; set; } = 8;
+		public float WorkingHoursPerDay { get; set; } = 8;
 
 		/// <summary>
 		///     The number of working days per week
 		/// </summary>
 		[JsonProperty(PropertyName = "workingDaysPerWeek")]
-		public int WorkingDaysPerWeek { get; set; } = 5;
+		public float WorkingDaysPerWeek { get; set; } = 5;
 
 		/// <summary>
 		///     The time format used

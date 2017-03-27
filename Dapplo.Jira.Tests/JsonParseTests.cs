@@ -93,5 +93,14 @@ namespace Dapplo.Jira.Tests
 			Assert.NotNull(transitions);
 			Assert.True(transitions.Items.Count > 0);
 		}
+
+		[Fact]
+		public void TestParseServerConfiguration()
+		{
+			var json = File.ReadAllText("JsonTestFiles/configuration.json");
+			var configuration = (Configuration)_jsonSerializer.Deserialize(typeof(Configuration), json);
+			Assert.NotNull(configuration);
+			Assert.NotNull(configuration.TimeTrackingConfiguration);
+		}
 	}
 }
