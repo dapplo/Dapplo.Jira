@@ -63,7 +63,7 @@ namespace Dapplo.Jira.Tests
 
 			if (doLogin && !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
 			{
-				Client.SetBasicAuthentication("robin.krom@gmail.com", Password);
+				Client.SetBasicAuthentication(Username, Password);
 			}
 		}
 
