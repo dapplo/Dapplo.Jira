@@ -26,12 +26,13 @@
 #region Usings
 
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
 namespace Dapplo.Jira.Entities
 {
-	[DataContract]
+	[JsonObject]
 	internal class JiraSession
 	{
 		[DataMember(Name = "name", EmitDefaultValue = false)]

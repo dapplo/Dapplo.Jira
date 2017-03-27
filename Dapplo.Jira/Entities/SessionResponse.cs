@@ -26,6 +26,7 @@
 #region Usings
 
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -34,7 +35,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Response to the session login
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	internal class SessionResponse
 	{
 		[DataMember(Name = "loginInfo", EmitDefaultValue = false)]

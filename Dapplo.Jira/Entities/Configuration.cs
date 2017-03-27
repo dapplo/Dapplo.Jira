@@ -26,6 +26,7 @@
 #region Usings
 
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -36,7 +37,7 @@ namespace Dapplo.Jira.Entities
 	///     See
 	///     <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/configuration-getConfiguration">get configuration</a>
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class Configuration
 	{
 		/// <summary>

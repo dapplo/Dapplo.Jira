@@ -26,13 +26,9 @@
 #region Usings
 
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
-using Dapplo.Jira.Json;
-using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 

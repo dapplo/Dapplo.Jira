@@ -28,7 +28,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Dapplo.HttpExtensions.Json;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -37,7 +37,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Container for the fields
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class IssueFields
 	{
 		/// <summary>
@@ -86,7 +86,7 @@ namespace Dapplo.Jira.Entities
 		///     All custom field values.
 		///     A custom field must match the reg-ex pattern "customfield_.*", otherwise it's ignored.
 		/// </summary>
-		[JsonExtensionData(Pattern = "customfield_.*")]
+		[HttpExtensions.Json.JsonExtensionData(Pattern = "customfield_.*")]
 		public IDictionary<string, object> CustomFields { get; } = new Dictionary<string, object>();
 
 		/// <summary>

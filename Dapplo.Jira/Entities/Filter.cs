@@ -29,6 +29,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Dapplo.Jira.Query;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -37,7 +38,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Filter information
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class Filter : BaseProperties<long>
 	{
 		/// <summary>

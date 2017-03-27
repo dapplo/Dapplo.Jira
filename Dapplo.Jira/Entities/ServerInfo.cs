@@ -27,6 +27,7 @@
 
 using System;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -36,7 +37,7 @@ namespace Dapplo.Jira.Entities
 	///     Server Info is used for the version and title
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/serverInfo
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class ServerInfo
 	{
 		/// <summary>

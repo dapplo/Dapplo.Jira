@@ -28,6 +28,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -36,7 +37,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Vote information
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class VoteInfo
 	{
 		/// <summary>

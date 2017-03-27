@@ -27,6 +27,7 @@
 
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -35,7 +36,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Search request information, see <a href="https://docs.atlassian.com/jira/REST/latest/#api/2/search-search">here</a>
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class Search : Pageable
 	{
 		/// <summary>

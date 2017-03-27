@@ -27,6 +27,7 @@
 
 using System;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -35,7 +36,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Priority information
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class Priority : BaseProperties<int>
 	{
 		/// <summary>

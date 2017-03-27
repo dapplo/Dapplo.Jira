@@ -28,6 +28,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -36,7 +37,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Sprint information
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class Sprint : BaseProperties<long>
 	{
 		/// <summary>

@@ -28,6 +28,7 @@
 using System;
 using System.Runtime.Serialization;
 using Dapplo.Jira.Enums;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -37,7 +38,7 @@ namespace Dapplo.Jira.Entities
 	///     Avatar information, has 16x16,24x24,32x32,48x48 Urls
 	///     See: <a href="https://docs.atlassian.com/jira/REST/latest/#api/2/project">Jira project</a>
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class AvatarUrls
 	{
 		/// <summary>

@@ -1,0 +1,67 @@
+﻿{
+	"id": 2,
+	"name": "Greenshot releases",
+	"type": "scrum",
+	"self": "https://greenshot.atlassian.net/rest/agile/1.0/board/2/configuration",
+	"filter": {
+		"id": "10100",
+		"self": "https://greenshot.atlassian.net/rest/api/2/filter/10100"
+	},
+	"columnConfig": {
+		"columns": [
+			{
+				"name": "To Do",
+				"statuses": [
+					{
+						"id": "4",
+						"self": "https://greenshot.atlassian.net/rest/api/2/status/4"
+					},
+					{
+						"id": "1",
+						"self": "https://greenshot.atlassian.net/rest/api/2/status/1"
+					},
+					{
+						"id": "10002",
+						"self": "https://greenshot.atlassian.net/rest/api/2/status/10002"
+					}
+				]
+			},
+			{
+				"name": "In Progress",
+				"statuses": [
+					{
+						"id": "3",
+						"self": "https://greenshot.atlassian.net/rest/api/2/status/3"
+					}
+				]
+			},
+			{
+				"name": "In Test",
+				"statuses": [
+					{
+						"id": "5",
+						"self": "https://greenshot.atlassian.net/rest/api/2/status/5"
+					}
+				]
+			},
+			{
+				"name": "Done",
+				"statuses": [
+					{
+						"id": "6",
+						"self": "https://greenshot.atlassian.net/rest/api/2/status/6"
+					}
+				]
+			}
+		],
+		"constraintType": "none"
+	},
+	"estimation": {
+		"type": "field",
+		"field": {
+			"fieldId": "customfield_10004",
+			"displayName": "Story Points"
+		}
+	},
+	"ranking": { "rankCustomFieldId": 10400 }
+}

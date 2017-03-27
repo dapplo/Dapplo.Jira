@@ -25,9 +25,13 @@
 
 #region Usings
 
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
-using Dapplo.HttpExtensions.Json;
+using System.Linq;
+using Dapplo.HttpExtensions;
 using Dapplo.Jira.Entities;
+using Dapplo.Jira.Json;
 using Dapplo.Log;
 using Dapplo.Log.XUnit;
 using Xunit;
@@ -39,16 +43,19 @@ namespace Dapplo.Jira.Tests
 {
 	public class JsonParseTests
 	{
+		private readonly IJsonSerializer _jsonSerializer;
 		public JsonParseTests(ITestOutputHelper testOutputHelper)
 		{
 			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
+			_jsonSerializer = new JsonNetJsonSerializer();
 		}
 
 		[Fact]
 		public void TestParseIssue()
 		{
 			var json = File.ReadAllText("JsonTestFiles/issue.json");
-			var issue = SimpleJson.DeserializeObject<Issue>(json);
+			
+			var issue = (Issue)_jsonSerializer.Deserialize(typeof(Issue), json);
 			Assert.NotNull(issue);
 		}
 
@@ -56,10 +63,27 @@ namespace Dapplo.Jira.Tests
 		public void TestParseServerInfo()
 		{
 			var json = File.ReadAllText("JsonTestFiles/serverInfo.json");
-			var serverInfo = SimpleJson.DeserializeObject<ServerInfo>(json);
+			var serverInfo = (ServerInfo)_jsonSerializer.Deserialize(typeof(ServerInfo), json);
 			Assert.NotNull(serverInfo);
 			Assert.Equal("http://localhost:8080/jira", serverInfo.BaseUrl.AbsoluteUri);
 			Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
+		}
+
+		[Fact]
+		public void TestParseProjects()
+		{
+			var json = File.ReadAllText("JsonTestFiles/projects.json");
+			var projects = (IList<ProjectDigest>)_jsonSerializer.Deserialize(typeof(IList<ProjectDigest>), json);
+			Assert.NotNull(projects);
+			Assert.True(projects.Count > 0);
+			Assert.True(projects.Any(digest => "Greenshot bugs".Equals(digest.Name)));
+		}
+		[Fact]
+		public void TestParseAgileIssue()
+		{
+			var json = File.ReadAllText("JsonTestFiles/agileIssue.json");
+			var issue = (AgileIssue)_jsonSerializer.Deserialize(typeof(AgileIssue), json);
+			Assert.NotNull(issue);
 		}
 	}
 }

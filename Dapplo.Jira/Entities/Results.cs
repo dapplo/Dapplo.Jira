@@ -28,6 +28,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -37,7 +38,7 @@ namespace Dapplo.Jira.Entities
 	///     Pagable results
 	/// </summary>
 	/// <typeparam name="TResultType">The type for the results</typeparam>
-	[DataContract]
+	[JsonObject]
 	public class Results<TResultType> : PageableResult, IEnumerable<TResultType>
 	{
 		/// <summary>

@@ -27,6 +27,7 @@
 
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -35,7 +36,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Column config for the Board configuration
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class ColumnConfig
 	{
 		/// <summary>

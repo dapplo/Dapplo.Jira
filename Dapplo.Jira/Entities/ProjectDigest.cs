@@ -27,6 +27,7 @@
 
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -36,7 +37,7 @@ namespace Dapplo.Jira.Entities
 	///     Project information (digest)
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/project
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class ProjectDigest : BaseProperties<long>
 	{
 		/// <summary>

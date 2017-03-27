@@ -26,9 +26,9 @@
 #region Usings
 
 using System;
-using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using Dapplo.HttpExtensions.Json;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -38,7 +38,7 @@ namespace Dapplo.Jira.Entities
 	///     Agile Issue information
 	///     See: https://docs.atlassian.com/jira-software/REST/cloud/#agile/1.0/issue-getIssue
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class AgileIssue : IssueWithFields<AgileIssueFields>
 	{
 		/// <summary>

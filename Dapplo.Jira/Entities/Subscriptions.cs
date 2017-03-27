@@ -27,6 +27,7 @@
 
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -35,7 +36,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Subscriptions information (looks more or less pagable, although I don't know how to specify the page size etc)
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class Subscriptions
 	{
 		/// <summary>

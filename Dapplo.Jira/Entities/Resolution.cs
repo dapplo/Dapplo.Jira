@@ -26,6 +26,7 @@
 #region Usings
 
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -34,7 +35,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Resolution information
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class Resolution : BaseProperties<string>
 	{
 		/// <summary>

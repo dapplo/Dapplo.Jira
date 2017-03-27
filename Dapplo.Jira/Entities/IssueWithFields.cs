@@ -26,6 +26,7 @@
 #region Usings
 
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -35,7 +36,7 @@ namespace Dapplo.Jira.Entities
 	///     Issue information
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class IssueWithFields<TFields> : IssueBase where TFields : IssueFields
 	{
 		/// <summary>

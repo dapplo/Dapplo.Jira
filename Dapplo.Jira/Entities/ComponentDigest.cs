@@ -26,6 +26,7 @@
 #region Usings
 
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -35,7 +36,7 @@ namespace Dapplo.Jira.Entities
 	///     Component information (digest)
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/component
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class ComponentDigest : BaseProperties<long>
 	{
 		/// <summary>

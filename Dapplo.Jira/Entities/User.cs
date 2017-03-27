@@ -28,6 +28,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -37,7 +38,7 @@ namespace Dapplo.Jira.Entities
 	///     User information
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/user
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class User
 	{
 		/// <summary>

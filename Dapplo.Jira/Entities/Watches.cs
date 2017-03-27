@@ -28,6 +28,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -37,7 +38,7 @@ namespace Dapplo.Jira.Entities
 	///     Container for the Watches information.
 	///     To get the details, issue/<issue-key />/watchers needs to be called, expand doesn't seem to work!
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class Watches
 	{
 		/// <summary>

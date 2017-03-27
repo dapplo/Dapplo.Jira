@@ -26,6 +26,7 @@
 #region Usings
 
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -34,7 +35,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Progress information
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class ProgressInfo
 	{
 		/// <summary>

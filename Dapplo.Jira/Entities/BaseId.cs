@@ -27,6 +27,7 @@
 
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -35,7 +36,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Base id, used in pretty much every entity
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class BaseId<TId>
 	{
 		/// <summary>

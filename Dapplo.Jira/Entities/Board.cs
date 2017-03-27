@@ -27,6 +27,7 @@
 
 using System.Runtime.Serialization;
 using Dapplo.Jira.Enums;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -35,7 +36,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Board information
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class Board : BaseProperties<long>
 	{
 		/// <summary>

@@ -30,7 +30,6 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using Dapplo.Jira.Json;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 #endregion
 
@@ -39,7 +38,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Worklog information
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class Worklog : BaseProperties<string>
 	{
 		/// <summary>

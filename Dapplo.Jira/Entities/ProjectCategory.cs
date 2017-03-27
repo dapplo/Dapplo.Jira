@@ -26,6 +26,7 @@
 #region Usings
 
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -34,7 +35,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Project category information
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class ProjectCategory : BaseProperties<long>
 	{
 		/// <summary>

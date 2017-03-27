@@ -26,6 +26,7 @@
 #region Usings
 
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -34,7 +35,7 @@ namespace Dapplo.Jira.Entities
 	/// <summary>
 	///     Container for pagable information in a result
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class PageableResult : Pageable
 	{
 		/// <summary>

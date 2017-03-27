@@ -27,6 +27,7 @@
 
 using System;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -36,7 +37,7 @@ namespace Dapplo.Jira.Entities
 	///     Attachment information
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/attachment
 	/// </summary>
-	[DataContract]
+	[JsonObject]
 	public class Attachment : BaseProperties<long>
 	{
 		/// <summary>
