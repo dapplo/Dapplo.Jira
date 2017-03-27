@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
 
 namespace Dapplo.Jira.Json
 {
@@ -13,6 +12,8 @@ namespace Dapplo.Jira.Json
     public class CustomDateTimeOffsetConverter : DateTimeConverterBase
     {
         private const string Iso8601Format = @"yyyy-MM-dd\THH:mm:ss.FFFF";
+
+        private readonly string _format;
 
         /// <summary>
         /// Default constructor with the Iso8601 format
@@ -27,14 +28,15 @@ namespace Dapplo.Jira.Json
         /// <param name="format"></param>
         public CustomDateTimeOffsetConverter(string format)
         {
-            
+            _format = format;
         }
+
         /// <inheritdoc />
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var dateTime = (DateTimeOffset)value;
             string sign = dateTime.Offset < TimeSpan.Zero ? " - " : "+";
-            var output = $"{dateTime.ToString(Iso8601Format, CultureInfo.InvariantCulture)}{sign}{Math.Abs(dateTime.Offset.Hours):00}{Math.Abs(dateTime.Offset.Minutes):00}";
+            var output = $"{dateTime.ToString(_format, CultureInfo.InvariantCulture)}{sign}{Math.Abs(dateTime.Offset.Hours):00}{Math.Abs(dateTime.Offset.Minutes):00}";
             writer.WriteValue(output);
             writer.Flush();
         }

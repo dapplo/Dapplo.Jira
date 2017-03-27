@@ -142,7 +142,10 @@ namespace Dapplo.Jira
 			}
 #endif
 			behaviour.HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings;
+
+			// Using our own Json Serializer, implemented with Json.NET
 			behaviour.JsonSerializer = new JsonNetJsonSerializer();
+
 			behaviour.OnHttpRequestMessageCreated = httpMessage =>
 			{
 				httpMessage?.Headers.TryAddWithoutValidation("X-Atlassian-Token", "nocheck");

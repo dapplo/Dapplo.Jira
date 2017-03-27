@@ -57,12 +57,6 @@ namespace Dapplo.Jira.Tests
 				Comment = "Testing the logging of work",
 				Started = started
 			};
-			var settings = new JsonSerializerSettings
-			{
-				DateParseHandling = DateParseHandling.None
-			};
-			var testString = JsonConvert.SerializeObject(newWorkLog, Formatting.Indented, settings);
-			var testWorkLog = JsonConvert.DeserializeObject<Worklog>(testString, settings);
 
 			var worklog = await Client.Work.CreateAsync(TestIssueKey, newWorkLog);
 

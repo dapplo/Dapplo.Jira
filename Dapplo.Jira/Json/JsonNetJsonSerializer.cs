@@ -14,8 +14,9 @@ namespace Dapplo.Jira.Json
         /// </summary>
         public JsonSerializerSettings Settings { get; set; } = new JsonSerializerSettings
         {
-	        DateParseHandling = DateParseHandling.None
+            DateParseHandling = DateParseHandling.None
         };
+
         /// <summary>
         /// 
         /// </summary>
