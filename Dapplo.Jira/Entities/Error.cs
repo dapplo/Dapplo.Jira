@@ -26,7 +26,6 @@
 #region Usings
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,25 +41,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The HTTP status code of the error
 		/// </summary>
-		[DataMember(Name = "status-code", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "status-code")]
 		public int StatusCode { get; set; }
 
 		/// <summary>
 		///     The list of error messages
 		/// </summary>
-		[DataMember(Name = "errorMessages", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "errorMessages")]
 		public IList<string> ErrorMessages { get; set; }
 
 		/// <summary>
 		///     The message
 		/// </summary>
-		[DataMember(Name = "message", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "message")]
 		public string Message { get; set; }
 
 		/// <summary>
 		/// A list of errors
 		/// </summary>
-		[DataMember(Name = "errors", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "errors")]
 		public IDictionary<string, string> Errors { get; set; }
 	}
 }

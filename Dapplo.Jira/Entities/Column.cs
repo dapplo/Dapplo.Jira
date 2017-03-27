@@ -26,7 +26,6 @@
 #region Usings
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,13 +41,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Name for the column
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     States for the column
 		/// </summary>
-		[DataMember(Name = "statuses", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "statuses")]
 		public IList<Status> States { get; set; }
 	}
 }

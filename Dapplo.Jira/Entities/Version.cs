@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -41,19 +40,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Is this an achived version?
 		/// </summary>
-		[DataMember(Name = "archived", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "archived")]
 		public bool Archived { get; set; }
 
 		/// <summary>
 		///     Name of the version
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Is this version released?
 		/// </summary>
-		[DataMember(Name = "released", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "released")]
 		public bool Released { get; set; }
 	}
 }

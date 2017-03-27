@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -35,10 +34,10 @@ namespace Dapplo.Jira.Entities
 	[JsonObject]
 	internal class JiraSession
 	{
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
-		[DataMember(Name = "value", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "value")]
 		public string Value { get; set; }
 
 		public override string ToString()

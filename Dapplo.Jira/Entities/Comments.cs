@@ -26,7 +26,6 @@
 #region Usings
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -43,7 +42,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The actual commits
 		/// </summary>
-		[DataMember(Name = "comments", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "comments")]
 		public IList<Comment> Elements { get; set; }
 	}
 }

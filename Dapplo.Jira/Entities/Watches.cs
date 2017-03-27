@@ -27,7 +27,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -44,25 +43,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Is "current user" watching?
 		/// </summary>
-		[DataMember(Name = "isWatching", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "isWatching")]
 		public bool IsWatching { get; set; }
 
 		/// <summary>
 		///     Link to the watch info itself
 		/// </summary>
-		[DataMember(Name = "self", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "self")]
 		public Uri Self { get; set; }
 
 		/// <summary>
 		///     Amount of users watching
 		/// </summary>
-		[DataMember(Name = "watchCount", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "watchCount")]
 		public int WatchCount { get; set; }
 
 		/// <summary>
 		///     The list of users who are watching
 		/// </summary>
-		[DataMember(Name = "watchers", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "watchers")]
 		public IList<User> Watchers { get; set; }
 	}
 }

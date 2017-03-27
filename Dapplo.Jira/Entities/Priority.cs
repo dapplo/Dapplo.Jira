@@ -26,7 +26,6 @@
 #region Usings
 
 using System;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,25 +41,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Description of the priority
 		/// </summary>
-		[DataMember(Name = "description", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "description")]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     Url to the icon for this priority
 		/// </summary>
-		[DataMember(Name = "iconUrl", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "iconUrl")]
 		public Uri IconUrl { get; set; }
 
 		/// <summary>
 		///     Name of the priority
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Status color
 		/// </summary>
-		[DataMember(Name = "statusColor", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "statusColor")]
 		public string StatusColor { get; set; }
 	}
 }

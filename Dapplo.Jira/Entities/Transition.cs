@@ -26,7 +26,6 @@
 #region Usings
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,25 +41,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Does this transition have a screen?
 		/// </summary>
-		[DataMember(Name = "hasScreen", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "hasScreen")]
 		public bool HasScreen { get; set; }
 
 		/// <summary>
 		///     Name for this transition
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Possible fields for the transation
 		/// </summary>
-		[DataMember(Name = "fields", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "fields")]
 		public IDictionary<string, PossibleField> PossibleFields { get; set; }
 
 		/// <summary>
 		///     To status for the transation
 		/// </summary>
-		[DataMember(Name = "to", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "to")]
 		public Status To { get; set; }
 	}
 }

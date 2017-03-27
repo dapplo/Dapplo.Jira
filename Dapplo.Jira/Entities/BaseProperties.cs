@@ -27,7 +27,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -43,7 +42,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Link to itself
 		/// </summary>
-		[DataMember(Name = "self", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "self")]
 		[ReadOnly(true)]
 		public Uri Self { get; set; }
 	}

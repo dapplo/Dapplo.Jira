@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -41,13 +40,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Type for the visibility
 		/// </summary>
-		[DataMember(Name = "type", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "type")]
 		public string Type { get; set; }
 
 		/// <summary>
 		///     Value of the visibility
 		/// </summary>
-		[DataMember(Name = "value", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "value")]
 		public string Value { get; set; }
 	}
 }

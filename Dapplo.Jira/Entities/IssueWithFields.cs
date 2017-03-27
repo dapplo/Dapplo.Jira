@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,14 +41,14 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Fields for the issue
 		/// </summary>
-		[DataMember(Name = "fields", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "fields")]
 		public TFields Fields { get; set; }
 
 		/// <summary>
 		///     Fields for the issue, but wiki markup is now rendered to HTML
 		///     This will be in the response when expand=renderedFields
 		/// </summary>
-		[DataMember(Name = "renderedFields", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "renderedFields")]
 		public TFields RenderedFields { get; set; }
 	}
 }

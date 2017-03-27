@@ -26,7 +26,6 @@
 #region Usings
 
 using System;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -43,43 +42,43 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Who created the attachment
 		/// </summary>
-		[DataMember(Name = "author", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "author")]
 		public User Author { get; set; }
 
 		/// <summary>
 		///     Url which can be used to download the attachment
 		/// </summary>
-		[DataMember(Name = "content", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "content")]
 		public Uri ContentUri { get; set; }
 
 		/// <summary>
 		///     When was the attachment created
 		/// </summary>
-		[DataMember(Name = "created", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "created")]
 		public DateTimeOffset Created { get; set; }
 
 		/// <summary>
 		///     Filename of the attachment
 		/// </summary>
-		[DataMember(Name = "filename", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "filename")]
 		public string Filename { get; set; }
 
 		/// <summary>
 		///     Mimetype for the attachment
 		/// </summary>
-		[DataMember(Name = "mimeType", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "mimeType")]
 		public string MimeType { get; set; }
 
 		/// <summary>
 		///     Size (in bytes) of the attachment
 		/// </summary>
-		[DataMember(Name = "size", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "size")]
 		public long Size { get; set; }
 
 		/// <summary>
 		///     An URL to the thumbnail for this attachment
 		/// </summary>
-		[DataMember(Name = "thumbnail", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "thumbnail")]
 		public Uri ThumbnailUri { get; set; }
 	}
 }

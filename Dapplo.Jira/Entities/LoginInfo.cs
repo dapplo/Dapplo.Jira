@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -41,25 +40,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Failed login count
 		/// </summary>
-		[DataMember(Name = "failedLoginCount", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "failedLoginCount")]
 		public int FailedLoginCount { get; set; }
 
 		/// <summary>
 		///     Last failed login time
 		/// </summary>
-		[DataMember(Name = "lastFailedLoginTime", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "lastFailedLoginTime")]
 		public string LastFailedLoginTime { get; set; }
 
 		/// <summary>
 		///     Login count
 		/// </summary>
-		[DataMember(Name = "loginCount", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "loginCount")]
 		public int LoginCount { get; set; }
 
 		/// <summary>
 		///     Previous login time
 		/// </summary>
-		[DataMember(Name = "previousLoginTime", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "previousLoginTime")]
 		public string PreviousLoginTime { get; set; }
 	}
 }

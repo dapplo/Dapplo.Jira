@@ -26,7 +26,6 @@
 #region Usings
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,13 +41,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Columns for the Board configuration
 		/// </summary>
-		[DataMember(Name = "columns", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "columns")]
 		public IList<Column> Columns { get; set; }
 
 		/// <summary>
 		///     ConstraintType for the Board configuration, whatever this means
 		/// </summary>
-		[DataMember(Name = "constraintType", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "constraintType")]
 		public string ConstraintType { get; set; }
 	}
 }

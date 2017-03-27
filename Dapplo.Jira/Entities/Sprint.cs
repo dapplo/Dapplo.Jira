@@ -27,7 +27,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -43,45 +42,45 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Name of the Sprint
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Goal of the Sprint
 		/// </summary>
-		[DataMember(Name = "goal", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "goal")]
 		public string Goal { get; set; }
 
 		/// <summary>
 		///     From what board is this sprint?
 		/// </summary>
-		[DataMember(Name = "originBoardId", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "originBoardId")]
 		public int OriginBoardId { get; set; }
 
 		/// <summary>
 		///     State of the Sprint
 		/// </summary>
-		[DataMember(Name = "state", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "state")]
 		public string State { get; set; }
 
 		/// <summary>
 		///     When was the sprint started
 		/// </summary>
-		[DataMember(Name = "startDate", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "startDate")]
 		[ReadOnly(true)]
 		public DateTimeOffset StartDate { get; set; }
 
 		/// <summary>
 		///     When was the sprint ended
 		/// </summary>
-		[DataMember(Name = "endDate", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "endDate")]
 		[ReadOnly(true)]
 		public DateTimeOffset EndDate { get; set; }
 
 		/// <summary>
 		///     When was the sprint completed
 		/// </summary>
-		[DataMember(Name = "completeDate", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "completeDate")]
 		[ReadOnly(true)]
 		public DateTimeOffset CompleteDate { get; set; }
 	}

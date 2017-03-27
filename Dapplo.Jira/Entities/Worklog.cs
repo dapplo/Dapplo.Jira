@@ -27,7 +27,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Runtime.Serialization;
 using Dapplo.Jira.Json;
 using Newtonsoft.Json;
 
@@ -60,59 +59,59 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Author of this worklog
 		/// </summary>
-		[DataMember(Name = "author", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "author")]
 		public User Author { get; set; }
 
 		/// <summary>
 		///     Comment for this worklog
 		/// </summary>
-		[DataMember(Name = "comment", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "comment")]
 		public string Comment { get; set; }
 
 		/// <summary>
 		///     When was the worklog created
 		/// </summary>
-		[DataMember(Name = "created", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "created")]
 		[ReadOnly(true)]
 		public DateTimeOffset Created { get; set; }
 
 		/// <summary>
 		///     When was the worklog started
 		/// </summary>
-		[DataMember(Name = "started", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "started")]
 		[JsonConverter(typeof(CustomDateTimeOffsetConverter))]
 		public DateTimeOffset Started { get; set; }
 
 		/// <summary>
 		///     Time spent in this worklog, this is a number and qualifier (h = hour, d = day etc)
 		/// </summary>
-		[DataMember(Name = "timeSpent", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "timeSpent")]
 		public string TimeSpent { get; set; }
 
 		/// <summary>
 		///     Time spent in this worklog, in seconds
 		/// </summary>
-		[DataMember(Name = "timeSpentSeconds", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "timeSpentSeconds")]
 		public long TimeSpentSeconds { get; set; }
 
 		/// <summary>
 		///     Who updated this worklog, this cannot be updated
 		/// </summary>
-		[DataMember(Name = "updateAuthor", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "updateAuthor")]
 		[ReadOnly(true)]
 		public User UpdateAuthor { get; set; }
 
 		/// <summary>
 		///     When was the worklog updated, this cannot be updated
 		/// </summary>
-		[DataMember(Name = "updated", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "updated")]
 		[ReadOnly(true)]
 		public DateTimeOffset Updated { get; set; }
 
 		/// <summary>
 		///     Visibility
 		/// </summary>
-		[DataMember(Name = "visibility", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "visibility")]
 		public Visibility Visibility { get; set; }
 	}
 }

@@ -27,7 +27,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -56,41 +55,41 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     true if the user is active (license count)
 		/// </summary>
-		[DataMember(Name = "active", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "active")]
 		[ReadOnly(true)]
 		public bool Active { get; set; }
 
 		/// <summary>
 		///     Avatar urls (links to 16x16, 24x24, 32x32, 48x48 icons) for this user
 		/// </summary>
-		[DataMember(Name = "avatarUrls", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "avatarUrls")]
 		[ReadOnly(true)]
 		public AvatarUrls Avatars { get; set; }
 
 		/// <summary>
 		///     Display name for the user
 		/// </summary>
-		[DataMember(Name = "displayName", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "displayName")]
 		[ReadOnly(true)]
 		public string DisplayName { get; set; }
 
 		/// <summary>
 		///     Email address of the user
 		/// </summary>
-		[DataMember(Name = "emailAddress", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "emailAddress")]
 		[ReadOnly(true)]
 		public string EmailAddress { get; set; }
 
 		/// <summary>
 		///     Name of the user
 		/// </summary>
-		[DataMember(Name = "name")]
+		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Link to this item (self)
 		/// </summary>
-		[DataMember(Name = "self", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "self")]
 		[ReadOnly(true)]
 		public Uri Self { get; set; }
 	}

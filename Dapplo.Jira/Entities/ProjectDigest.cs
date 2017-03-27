@@ -26,7 +26,6 @@
 #region Usings
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -43,37 +42,37 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Avatar for this project
 		/// </summary>
-		[DataMember(Name = "avatarUrls", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "avatarUrls")]
 		public AvatarUrls Avatar { get; set; }
 
 		/// <summary>
 		///     The projects category
 		/// </summary>
-		[DataMember(Name = "projectCategory", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "projectCategory")]
 		public ProjectCategory Category { get; set; }
 
 		/// <summary>
 		///     Key for this project (the prefix of the issues in the project)
 		/// </summary>
-		[DataMember(Name = "key", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "key")]
 		public string Key { get; set; }
 
 		/// <summary>
 		///     User who is the lead for the project
 		/// </summary>
-		[DataMember(Name = "lead", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "lead")]
 		public User Lead { get; set; }
 
 		/// <summary>
 		///     Name of the project
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     All project keys associated with the project
 		/// </summary>
-		[DataMember(Name = "projectKeys", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "projectKeys")]
 		public IList<string> ProjectKeys { get; set; }
 	}
 }

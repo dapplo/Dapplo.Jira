@@ -26,7 +26,6 @@
 #region Usings
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,7 +41,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The actual list of transitions
 		/// </summary>
-		[DataMember(Name = "transitions", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "transitions")]
 		public IList<Transition> Items { get; set; }
 	}
 }

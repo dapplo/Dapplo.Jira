@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -41,19 +40,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Max of the results (this is the limit)
 		/// </summary>
-		[DataMember(Name = "maxResults", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "maxResults")]
 		public int MaxResults { get; set; }
 
 		/// <summary>
 		///     Where in the total this "page" is located
 		/// </summary>
-		[DataMember(Name = "startAt", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "startAt")]
 		public int StartAt { get; set; }
 
 		/// <summary>
 		///     Is this the last page?
 		/// </summary>
-		[DataMember(Name = "isLast", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "isLast")]
 		public bool IsLast { get; set; }
 	}
 }

@@ -27,7 +27,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -43,19 +42,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     TODO: Describe
 		/// </summary>
-		[DataMember(Name = "autoCompleteUrl", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "autoCompleteUrl")]
 		public Uri AutoCompleteUrl { get; set; }
 
 		/// <summary>
 		///     Name of the allowd value
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Possible operations
 		/// </summary>
-		[DataMember(Name = "operations", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "operations")]
 		public IList<string> Operations { get; set; }
 	}
 }

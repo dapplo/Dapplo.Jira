@@ -27,7 +27,6 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -43,13 +42,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Expand values
 		/// </summary>
-		[DataMember(Name = "expand", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "expand")]
 		public string Expand { get; set; }
 
 		/// <summary>
 		///     List of issues
 		/// </summary>
-		[DataMember(Name = "issues", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "issues")]
 		public IList<TIssue> Issues { get; set; }
 
 		IEnumerator IEnumerable.GetEnumerator()

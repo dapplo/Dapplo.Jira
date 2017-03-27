@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,7 +41,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Key of the issue
 		/// </summary>
-		[DataMember(Name = "key", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "key")]
 		public string Key { get; set; }
 	}
 }

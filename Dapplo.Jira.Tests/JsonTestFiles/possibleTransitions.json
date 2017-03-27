@@ -1,0 +1,85 @@
+﻿{
+	"expand": "transitions",
+	"transitions": [
+		{
+			"id": "11",
+			"name": "To Do",
+			"to": {
+				"self": "https://greenshot.atlassian.net/rest/api/2/status/10002",
+				"description": "",
+				"iconUrl": "https://greenshot.atlassian.net/images/icons/statuses/open.png",
+				"name": "To Do",
+				"id": "10002",
+				"statusCategory": {
+					"self": "https://greenshot.atlassian.net/rest/api/2/statuscategory/2",
+					"id": 2,
+					"key": "new",
+					"colorName": "blue-gray",
+					"name": "To Do"
+				}
+			},
+			"hasScreen": false,
+			"fields": {}
+		},
+		{
+			"id": "21",
+			"name": "In Progress",
+			"to": {
+				"self": "https://greenshot.atlassian.net/rest/api/2/status/3",
+				"description": "This issue is being actively worked on at the moment by the assignee.",
+				"iconUrl": "https://greenshot.atlassian.net/images/icons/statuses/inprogress.png",
+				"name": "In Progress",
+				"id": "3",
+				"statusCategory": {
+					"self": "https://greenshot.atlassian.net/rest/api/2/statuscategory/4",
+					"id": 4,
+					"key": "indeterminate",
+					"colorName": "yellow",
+					"name": "In Progress"
+				}
+			},
+			"hasScreen": false,
+			"fields": {}
+		},
+		{
+			"id": "31",
+			"name": "In Review",
+			"to": {
+				"self": "https://greenshot.atlassian.net/rest/api/2/status/10001",
+				"description": "",
+				"iconUrl": "https://greenshot.atlassian.net/images/icons/statuses/information.png",
+				"name": "In Review",
+				"id": "10001",
+				"statusCategory": {
+					"self": "https://greenshot.atlassian.net/rest/api/2/statuscategory/4",
+					"id": 4,
+					"key": "indeterminate",
+					"colorName": "yellow",
+					"name": "In Progress"
+				}
+			},
+			"hasScreen": false,
+			"fields": {}
+		},
+		{
+			"id": "41",
+			"name": "Done",
+			"to": {
+				"self": "https://greenshot.atlassian.net/rest/api/2/status/10000",
+				"description": "",
+				"iconUrl": "https://greenshot.atlassian.net/images/icons/statuses/closed.png",
+				"name": "Done",
+				"id": "10000",
+				"statusCategory": {
+					"self": "https://greenshot.atlassian.net/rest/api/2/statuscategory/4",
+					"id": 4,
+					"key": "indeterminate",
+					"colorName": "yellow",
+					"name": "In Progress"
+				}
+			},
+			"hasScreen": false,
+			"fields": {}
+		}
+	]
+}

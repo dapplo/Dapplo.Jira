@@ -26,7 +26,6 @@
 #region Usings
 
 using System;
-using System.Runtime.Serialization;
 using Dapplo.Jira.Enums;
 using Newtonsoft.Json;
 
@@ -44,25 +43,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Url to the 48x48 Avatar
 		/// </summary>
-		[DataMember(Name = "48x48", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "48x48")]
 		public Uri ExtraLarge { get; set; }
 
 		/// <summary>
 		///     Url to the 32x32 Avatar
 		/// </summary>
-		[DataMember(Name = "32x32", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "32x32")]
 		public Uri Large { get; set; }
 
 		/// <summary>
 		///     Url to the 24x24 Avatar
 		/// </summary>
-		[DataMember(Name = "24x24", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "24x24")]
 		public Uri Medium { get; set; }
 
 		/// <summary>
 		///     Url to the 16x16 Avatar
 		/// </summary>
-		[DataMember(Name = "16x16", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "16x16")]
 		public Uri Small { get; set; }
 
 		/// <summary>

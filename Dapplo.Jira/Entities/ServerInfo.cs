@@ -26,7 +26,6 @@
 #region Usings
 
 using System;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -43,37 +42,37 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The base URL for this server
 		/// </summary>
-		[DataMember(Name = "baseUrl", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "baseUrl")]
 		public Uri BaseUrl { get; set; }
 
 		/// <summary>
 		///     Date of the build
 		/// </summary>
-		[DataMember(Name = "buildDate", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "buildDate")]
 		public DateTimeOffset BuildDate { get; set; }
 
 		/// <summary>
 		///     Build number (internal information)
 		/// </summary>
-		[DataMember(Name = "buildNumber", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "buildNumber")]
 		public int BuildNumber { get; set; }
 
 		/// <summary>
 		///     Git commit id (at lease until the SCM is changed)
 		/// </summary>
-		[DataMember(Name = "scmInfo", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "scmInfo")]
 		public string ScmInfo { get; set; }
 
 		/// <summary>
 		///     Title of the server
 		/// </summary>
-		[DataMember(Name = "serverTitle", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "serverTitle")]
 		public string ServerTitle { get; set; }
 
 		/// <summary>
 		///     Version of the software
 		/// </summary>
-		[DataMember(Name = "version", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "version")]
 		public string Version { get; set; }
 	}
 }

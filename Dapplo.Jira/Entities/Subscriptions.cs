@@ -26,7 +26,6 @@
 #region Usings
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,19 +41,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Where does this "page" end?
 		/// </summary>
-		[DataMember(Name = "end-index", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "end-index")]
 		public long EndIndex { get; set; }
 
 		/// <summary>
 		///     The actual list of subscriptions
 		/// </summary>
-		[DataMember(Name = "items", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "items")]
 		public IList<Subscription> Items { get; set; }
 
 		/// <summary>
 		///     How many results are given back
 		/// </summary>
-		[DataMember(Name = "max-results", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "max-results")]
 		public long MaxResults { get; set; }
 
 		/// <summary>
@@ -62,13 +61,13 @@ namespace Dapplo.Jira.Entities
 		///     This could be more than the amount of items, not only due to rights (maybe the subscriber is not visible) but also
 		///     as the value is not expanded.
 		/// </summary>
-		[DataMember(Name = "size", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "size")]
 		public long Size { get; set; }
 
 		/// <summary>
 		///     Where does this page start?
 		/// </summary>
-		[DataMember(Name = "start-index", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "start-index")]
 		public long StartIndex { get; set; }
 	}
 }

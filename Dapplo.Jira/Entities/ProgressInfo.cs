@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -41,13 +40,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Progress for the issue
 		/// </summary>
-		[DataMember(Name = "progress", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "progress")]
 		public long Progress { get; set; }
 
 		/// <summary>
 		///     The total progress
 		/// </summary>
-		[DataMember(Name = "total", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "total")]
 		public long Total { get; set; }
 	}
 }

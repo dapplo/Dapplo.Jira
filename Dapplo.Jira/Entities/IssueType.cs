@@ -26,7 +26,6 @@
 #region Usings
 
 using System;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,25 +41,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Description of the issue type
 		/// </summary>
-		[DataMember(Name = "description", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "description")]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     URL to the icon for the issue type
 		/// </summary>
-		[DataMember(Name = "iconUrl", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "iconUrl")]
 		public Uri IconUri { get; set; }
 
 		/// <summary>
 		///     Is the issue type a sub task?
 		/// </summary>
-		[DataMember(Name = "subtask", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "subtask")]
 		public bool IsSubTask { get; set; }
 
 		/// <summary>
 		///     Name of the issue type
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 	}
 }

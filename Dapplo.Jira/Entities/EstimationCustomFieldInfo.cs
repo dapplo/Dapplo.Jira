@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -41,13 +40,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     EstimationFieldInfo
 		/// </summary>
-		[DataMember(Name = "field", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "field")]
 		public EstimationFieldInfo Field { get; set; }
 
 		/// <summary>
 		///     Type of the estimation custom field
 		/// </summary>
-		[DataMember(Name = "type", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "type")]
 		public string Type { get; set; }
 	}
 }

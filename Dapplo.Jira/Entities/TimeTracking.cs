@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -41,38 +40,38 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The originaly estimated time for this issue
 		/// </summary>
-		[DataMember(Name = "originalEstimate", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "originalEstimate")]
 		public string OriginalEstimate { get; set; }
 
 		/// <summary>
 		///     The originaly estimated time for this issue
 		/// </summary>
-		[DataMember(Name = "originalEstimateSeconds", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "originalEstimateSeconds")]
 		public long OriginalEstimateSeconds { get; set; }
 
 		/// <summary>
 		///     The remaining estimated time for this issue
 		/// </summary>
-		[DataMember(Name = "remainingEstimate", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "remainingEstimate")]
 		public string RemainingEstimate { get; set; }
 
 
 		/// <summary>
 		///     The remaining estimated time, in seconds, for this issue
 		/// </summary>
-		[DataMember(Name = "remainingEstimateSeconds", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "remainingEstimateSeconds")]
 		public long RemainingEstimateSeconds { get; set; }
 
 		/// <summary>
 		///     Time spent in form of "4w 4d 2h"
 		/// </summary>
-		[DataMember(Name = "timeSpent", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "timeSpent")]
 		public string TimeSpent { get; set; }
 
 		/// <summary>
 		///     Time spent in seconds
 		/// </summary>
-		[DataMember(Name = "timeSpentSeconds", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "timeSpentSeconds")]
 		public long TimeSpentSeconds { get; set; }
 	}
 }

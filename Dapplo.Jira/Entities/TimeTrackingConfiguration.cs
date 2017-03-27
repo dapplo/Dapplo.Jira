@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -41,25 +40,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The number of working hours per day
 		/// </summary>
-		[DataMember(Name = "workingHoursPerDay")]
+		[JsonProperty(PropertyName = "workingHoursPerDay")]
 		public int WorkingHoursPerDay { get; set; } = 8;
 
 		/// <summary>
 		///     The number of working days per week
 		/// </summary>
-		[DataMember(Name = "workingDaysPerWeek")]
+		[JsonProperty(PropertyName = "workingDaysPerWeek")]
 		public int WorkingDaysPerWeek { get; set; } = 5;
 
 		/// <summary>
 		///     The time format used
 		/// </summary>
-		[DataMember(Name = "timeFormat")]
+		[JsonProperty(PropertyName = "timeFormat")]
 		public string TimeFormat { get; set; } = "pretty";
 
 		/// <summary>
 		///     The default unit
 		/// </summary>
-		[DataMember(Name = "defaultUnit")]
+		[JsonProperty(PropertyName = "defaultUnit")]
 		public string DefaultUnit { get; set; } = "hour";
 	}
 }

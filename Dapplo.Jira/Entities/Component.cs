@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,55 +41,55 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     TODO: Needs comment
 		/// </summary>
-		[DataMember(Name = "assignee", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "assignee")]
 		public User Assignee { get; set; }
 
 		/// <summary>
 		///     TODO: Needs comment
 		/// </summary>
-		[DataMember(Name = "assigneeType", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "assigneeType")]
 		public string AssigneeType { get; set; }
 
 		/// <summary>
 		///     Description of this component
 		/// </summary>
-		[DataMember(Name = "description")]
+		[JsonProperty(PropertyName = "description")]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     Lead for this component
 		/// </summary>
-		[DataMember(Name = "lead", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "lead")]
 		public User Lead { get; set; }
 
 		/// <summary>
 		///     Name of the component
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Project key where this component belongs to
 		/// </summary>
-		[DataMember(Name = "project", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "project")]
 		public string Project { get; set; }
 
 		/// <summary>
 		///     Id of the project where this component belongs to
 		/// </summary>
-		[DataMember(Name = "projectId", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "projectId")]
 		public int ProjectId { get; set; }
 
 		/// <summary>
 		///     TODO: Needs comment
 		/// </summary>
-		[DataMember(Name = "realAssignee", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "realAssignee")]
 		public User RealAssignee { get; set; }
 
 		/// <summary>
 		///     TODO: Needs comment
 		/// </summary>
-		[DataMember(Name = "realAssigneeType", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "realAssigneeType")]
 		public string RealAssigneeType { get; set; }
 	}
 }

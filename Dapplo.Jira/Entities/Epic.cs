@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -41,25 +40,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Name of the Epic
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Epic summary
 		/// </summary>
-		[DataMember(Name = "summary", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "summary")]
 		public string Summary { get; set; }
 
 		/// <summary>
 		///     Is the epic done?
 		/// </summary>
-		[DataMember(Name = "done", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "done")]
 		public long IsDone { get; set; }
 
 		/// <summary>
 		///     Color of the Epic
 		/// </summary>
-		[DataMember(Name = "color", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "color")]
 		public EpicColor Color { get; set; }
 	}
 }

@@ -27,7 +27,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -44,41 +43,41 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Who created the comment
 		/// </summary>
-		[DataMember(Name = "author", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "author")]
 		[ReadOnly(true)]
 		public User Author { get; set; }
 
 		/// <summary>
 		///     The text of the comment
 		/// </summary>
-		[DataMember(Name = "body", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "body")]
 		public string Body { get; set; }
 
 		/// <summary>
 		///     When was the comment created
 		/// </summary>
-		[DataMember(Name = "created", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "created")]
 		[ReadOnly(true)]
 		public DateTimeOffset Created { get; set; }
 
 		/// <summary>
 		///     Who updated the comment
 		/// </summary>
-		[DataMember(Name = "updateAuthor", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "updateAuthor")]
 		[ReadOnly(true)]
 		public User UpdateAuthor { get; set; }
 
 		/// <summary>
 		///     When was the comment updated
 		/// </summary>
-		[DataMember(Name = "updated", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "updated")]
 		[ReadOnly(true)]
 		public DateTimeOffset Updated { get; set; }
 
 		/// <summary>
 		///     Is a comment visible
 		/// </summary>
-		[DataMember(Name = "visibility", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "visibility")]
 		public Visibility Visibility { get; set; }
 	}
 }

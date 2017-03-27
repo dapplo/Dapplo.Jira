@@ -26,7 +26,6 @@
 #region Usings
 
 using System.ComponentModel;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,7 +41,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Id of this entity
 		/// </summary>
-		[DataMember(Name = "id", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "id")]
 		[ReadOnly(true)]
 		public TId Id { get; set; }
 	}

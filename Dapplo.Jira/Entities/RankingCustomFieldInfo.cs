@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -41,7 +40,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Id of the Rank custom field
 		/// </summary>
-		[DataMember(Name = "rankCustomFieldId", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "rankCustomFieldId")]
 		public long RankCustomFieldId { get; set; }
 	}
 }

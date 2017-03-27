@@ -27,7 +27,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -43,25 +42,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Does the issue have votes?
 		/// </summary>
-		[DataMember(Name = "hasVoted", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "hasVoted")]
 		public bool HasVoted { get; set; }
 
 		/// <summary>
 		///     Link to itself
 		/// </summary>
-		[DataMember(Name = "self", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "self")]
 		public Uri Self { get; set; }
 
 		/// <summary>
 		///     Who are the voters
 		/// </summary>
-		[DataMember(Name = "voters", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "voters")]
 		public IList<User> Voters { get; set; }
 
 		/// <summary>
 		///     How many votes does it have
 		/// </summary>
-		[DataMember(Name = "votes", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "votes")]
 		public long Votes { get; set; }
 	}
 }

@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,7 +41,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     TODO: Needs comment
 		/// </summary>
-		[DataMember(Name = "isAssigneeTypeValid", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "isAssigneeTypeValid")]
 		public bool IsAssigneeTypeValid { get; set; }
 	}
 }

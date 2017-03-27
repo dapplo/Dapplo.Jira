@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Dapplo.Jira.Enums;
 using Newtonsoft.Json;
 
@@ -42,19 +41,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Name of the Board
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Board type
 		/// </summary>
-		[DataMember(Name = "type", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "type")]
 		public BoardTypes Type { get; set; }
 
 		/// <summary>
 		///     Filter for the board, used when creating
 		/// </summary>
-		[DataMember(Name = "filterId", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "filterId")]
 		public long FilterId { get; set; }
 	}
 }

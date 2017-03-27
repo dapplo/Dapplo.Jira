@@ -27,7 +27,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Dapplo.Jira.Query;
 using Newtonsoft.Json;
 
@@ -71,55 +70,55 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Description of the filter
 		/// </summary>
-		[DataMember(Name = "description", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "description")]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     Is the filter a favorite?
 		/// </summary>
-		[DataMember(Name = "favorite", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "favorite")]
 		public bool IsFavorite { get; set; }
 
 		/// <summary>
 		///     The JQL (query) for the filter
 		/// </summary>
-		[DataMember(Name = "jql", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "jql")]
 		public string Jql { get; set; }
 
 		/// <summary>
 		///     Name for the filter
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     User who owns the filter
 		/// </summary>
-		[DataMember(Name = "owner", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "owner")]
 		public User Owner { get; set; }
 
 		/// <summary>
 		///     The URL to show the search results
 		/// </summary>
-		[DataMember(Name = "searchUrl", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "searchUrl")]
 		public Uri SearchUri { get; set; }
 
 		/// <summary>
 		///     The permissions for sharing
 		/// </summary>
-		[DataMember(Name = "sharePermissions", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "sharePermissions")]
 		public IList<SharePermission> SharePermissions { get; set; }
 
 		/// <summary>
 		///     The subscriptions for this filter
 		/// </summary>
-		[DataMember(Name = "subscriptions", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "subscriptions")]
 		public Subscriptions Subscriptions { get; set; }
 
 		/// <summary>
 		///     The url to view the filter
 		/// </summary>
-		[DataMember(Name = "viewUrl", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "viewUrl")]
 		public Uri ViewUri { get; set; }
 	}
 }

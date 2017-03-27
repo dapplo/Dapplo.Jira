@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -84,6 +83,15 @@ namespace Dapplo.Jira.Tests
 			var json = File.ReadAllText("JsonTestFiles/agileIssue.json");
 			var issue = (AgileIssue)_jsonSerializer.Deserialize(typeof(AgileIssue), json);
 			Assert.NotNull(issue);
+		}
+
+		[Fact]
+		public void TestParsePossibleTransitions()
+		{
+			var json = File.ReadAllText("JsonTestFiles/possibleTransitions.json");
+			var transitions = (Transitions)_jsonSerializer.Deserialize(typeof(Transitions), json);
+			Assert.NotNull(transitions);
+			Assert.True(transitions.Items.Count > 0);
 		}
 	}
 }

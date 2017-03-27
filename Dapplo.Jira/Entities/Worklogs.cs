@@ -27,7 +27,6 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -43,7 +42,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The worklog items
 		/// </summary>
-		[DataMember(Name = "worklogs", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "worklogs")]
 		public IList<Worklog> Elements { get; set; }
 
 		IEnumerator IEnumerable.GetEnumerator()

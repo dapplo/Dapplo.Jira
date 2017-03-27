@@ -26,7 +26,6 @@
 #region Usings
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,7 +41,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The closed sprint information
 		/// </summary>
-		[DataMember(Name = "closedSprints", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "closedSprints")]
 		public IList<Sprint> ClosedSprints { get; set; }
 	}
 }

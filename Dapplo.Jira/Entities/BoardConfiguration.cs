@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -41,25 +40,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Filter for the Board
 		/// </summary>
-		[DataMember(Name = "filter", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "filter")]
 		public Filter Filter { get; set; }
 
 		/// <summary>
 		///     Configuration for the columns of the Board
 		/// </summary>
-		[DataMember(Name = "columnConfig", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "columnConfig")]
 		public ColumnConfig ColumnConfig { get; set; }
 
 		/// <summary>
 		///     The custom field id for the ranking information
 		/// </summary>
-		[DataMember(Name = "ranking", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "ranking")]
 		public RankingCustomFieldInfo Ranking { get; set; }
 
 		/// <summary>
 		///     The custom field info for the estimation information
 		/// </summary>
-		[DataMember(Name = "estimation", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "estimation")]
 		public EstimationCustomFieldInfo Estimation { get; set; }
 	}
 }

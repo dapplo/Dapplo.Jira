@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -43,49 +42,49 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Is voting enabled?
 		/// </summary>
-		[DataMember(Name = "votingEnabled")]
+		[JsonProperty(PropertyName = "votingEnabled")]
 		public bool IsVotingEnabled { get; set; }
 
 		/// <summary>
 		///     Is watching enabled?
 		/// </summary>
-		[DataMember(Name = "watchingEnabled")]
+		[JsonProperty(PropertyName = "watchingEnabled")]
 		public bool IsWatchingEnabled { get; set; }
 
 		/// <summary>
 		///     Are unassigned issues allowed?
 		/// </summary>
-		[DataMember(Name = "unassignedIssuesAllowed")]
+		[JsonProperty(PropertyName = "unassignedIssuesAllowed")]
 		public bool AreUnassignedIssuesAllowed { get; set; }
 
 		/// <summary>
 		///     Are sub-tasks enabled?
 		/// </summary>
-		[DataMember(Name = "subTasksEnabled")]
+		[JsonProperty(PropertyName = "subTasksEnabled")]
 		public bool AreSubTasksEnabled { get; set; }
 
 		/// <summary>
 		///     Is issue linking enabled?
 		/// </summary>
-		[DataMember(Name = "issueLinkingEnabled")]
+		[JsonProperty(PropertyName = "issueLinkingEnabled")]
 		public bool IsIssueLinkingEnabled { get; set; }
 
 		/// <summary>
 		///     Is time tracking enabled?
 		/// </summary>
-		[DataMember(Name = "timeTrackingEnabled")]
+		[JsonProperty(PropertyName = "timeTrackingEnabled")]
 		public bool IsTimeTrackingEnabled { get; set; }
 
 		/// <summary>
 		///     Are attachments enabled?
 		/// </summary>
-		[DataMember(Name = "attachmentsEnabled")]
+		[JsonProperty(PropertyName = "attachmentsEnabled")]
 		public bool AreAttachmentsEnabled { get; set; }
 
 		/// <summary>
 		///     The configuration of the time tracking
 		/// </summary>
-		[DataMember(Name = "timeTrackingConfiguration")]
+		[JsonProperty(PropertyName = "timeTrackingConfiguration")]
 		public TimeTrackingConfiguration TimeTrackingConfiguration { get; set; }
 	}
 }

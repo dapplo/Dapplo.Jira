@@ -26,7 +26,6 @@
 #region Usings
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,43 +41,43 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Name of the field
 		/// </summary>
-		[DataMember(Name = "name", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Is this field a custom field?
 		/// </summary>
-		[DataMember(Name = "custom", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "custom")]
 		public bool IsCustom { get; set; }
 
 		/// <summary>
 		///     Is this field orderable?
 		/// </summary>
-		[DataMember(Name = "orderable", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "orderable")]
 		public bool IsOrderable { get; set; }
 
 		/// <summary>
 		///     Is this field navigable?
 		/// </summary>
-		[DataMember(Name = "navigable", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "navigable")]
 		public bool IsNavigable { get; set; }
 
 		/// <summary>
 		///     Is this field searchable?
 		/// </summary>
-		[DataMember(Name = "searchable", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "searchable")]
 		public bool IsSearchable { get; set; }
 
 		/// <summary>
 		///     Aliases in where clauses
 		/// </summary>
-		[DataMember(Name = "clauseNames", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "clauseNames")]
 		public IList<string> ClauseNames { get; set; }
 
 		/// <summary>
 		///     Schema for the field
 		/// </summary>
-		[DataMember(Name = "schema", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "schema")]
 		public Schema Schema { get; set; }
 	}
 }

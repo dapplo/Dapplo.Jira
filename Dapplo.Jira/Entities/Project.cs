@@ -27,7 +27,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -45,49 +44,49 @@ namespace Dapplo.Jira.Entities
 		///     AssigneeType describes how the assignment of tickets works, if this says project-lead every ticket will be assigned
 		///     to the person which that role.
 		/// </summary>
-		[DataMember(Name = "assigneeType", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "assigneeType")]
 		public string AssigneeType { get; set; }
 
 		/// <summary>
 		///     Url to browse the tickets with
 		/// </summary>
-		[DataMember(Name = "url", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "url")]
 		public Uri BrowseUrl { get; set; }
 
 		/// <summary>
 		///     Components for this project, this is only a "digest" retrieve the component details for more information.
 		/// </summary>
-		[DataMember(Name = "components", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "components")]
 		public IList<ComponentDigest> Components { get; set; }
 
 		/// <summary>
 		///     The description of the project
 		/// </summary>
-		[DataMember(Name = "description", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "description")]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     TODO: Uncertain what this is, please comment!
 		/// </summary>
-		[DataMember(Name = "email", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "email")]
 		public string Email { get; set; }
 
 		/// <summary>
 		///     Possible issue types for this project
 		/// </summary>
-		[DataMember(Name = "issueTypes", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "issueTypes")]
 		public IList<IssueType> IssueTypes { get; set; }
 
 		/// <summary>
 		///     Urls to the possible roles for this project
 		/// </summary>
-		[DataMember(Name = "roles", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "roles")]
 		public IDictionary<string, Uri> Roles { get; set; }
 
 		/// <summary>
 		///     Possible versions for this project
 		/// </summary>
-		[DataMember(Name = "versions", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "versions")]
 		public IList<Version> Versions { get; set; }
 	}
 }

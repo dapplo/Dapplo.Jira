@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -41,19 +40,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Id for the share permission
 		/// </summary>
-		[DataMember(Name = "id", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "id")]
 		public string Id { get; set; }
 
 		/// <summary>
 		///     Project for the permissions
 		/// </summary>
-		[DataMember(Name = "project", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "project")]
 		public ProjectDigest Project { get; set; }
 
 		/// <summary>
 		///     Share type can be project
 		/// </summary>
-		[DataMember(Name = "type", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "type")]
 		public string Type { get; set; }
 	}
 }

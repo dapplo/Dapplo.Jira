@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -41,7 +40,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The user which subscribed
 		/// </summary>
-		[DataMember(Name = "user", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "user")]
 		public User Subscriber { get; set; }
 	}
 }

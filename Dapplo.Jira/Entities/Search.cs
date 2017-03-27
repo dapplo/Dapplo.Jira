@@ -26,7 +26,6 @@
 #region Usings
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 #endregion
@@ -42,25 +41,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Expand values
 		/// </summary>
-		[DataMember(Name = "expand", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "expand")]
 		public string Expand { get; set; }
 
 		/// <summary>
 		///     Fields for this query
 		/// </summary>
-		[DataMember(Name = "fields", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "fields")]
 		public IEnumerable<string> Fields { get; set; }
 
 		/// <summary>
 		///     The JQL for this search
 		/// </summary>
-		[DataMember(Name = "jql", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "jql")]
 		public string Jql { get; set; }
 
 		/// <summary>
 		///     Does the query (JQL) need to be validated?
 		/// </summary>
-		[DataMember(Name = "validateQuery", EmitDefaultValue = false)]
+		[JsonProperty(PropertyName = "validateQuery")]
 		public bool ValidateQuery { get; set; } = true;
 	}
 }
