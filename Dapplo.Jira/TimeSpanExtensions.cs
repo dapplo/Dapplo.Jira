@@ -138,7 +138,7 @@ namespace Dapplo.Jira
 			var workingHours = hours % timeTrackingConfiguration.WorkingHoursPerDay;
 
 			// Calculate the weeks from the working days (5 days a week)
-			var workingWeeks = workingDays / timeTrackingConfiguration.WorkingDaysPerWeek;
+			var workingWeeks = Math.Floor(workingDays / timeTrackingConfiguration.WorkingDaysPerWeek);
 
 			// Modify the workingDays to the rest -> 6 working days, 1w and 1d
 			workingDays = workingDays % timeTrackingConfiguration.WorkingDaysPerWeek;
