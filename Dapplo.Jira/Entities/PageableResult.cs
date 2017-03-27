@@ -41,6 +41,6 @@ namespace Dapplo.Jira.Entities
 		///     The total results
 		/// </summary>
 		[JsonProperty(PropertyName = "total")]
-		public int Total { get; set; }
+		public int? Total { get; set; }
 	}
 }

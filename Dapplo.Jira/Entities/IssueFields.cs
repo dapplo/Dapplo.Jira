@@ -43,7 +43,7 @@ namespace Dapplo.Jira.Entities
 		///     The summary of the time spend on this issue
 		/// </summary>
 		[JsonProperty(PropertyName = "aggregatetimespent")]
-		public long AggregateTimeSpent { get; set; }
+		public long? AggregateTimeSpent { get; set; }
 
 		/// <summary>
 		///     User who this issue is assigned to
@@ -73,7 +73,7 @@ namespace Dapplo.Jira.Entities
 		///     When was this issue created
 		/// </summary>
 		[JsonProperty(PropertyName = "created")]
-		public DateTimeOffset Created { get; set; }
+		public DateTimeOffset? Created { get; set; }
 
 		/// <summary>
 		///     User who created this issue
@@ -82,10 +82,9 @@ namespace Dapplo.Jira.Entities
 		public User Creator { get; set; }
 
 		/// <summary>
-		///     All custom field values.
-		///     A custom field must match the reg-ex pattern "customfield_.*", otherwise it's ignored.
+		///     All custom field values, or rather those that don't have a matching
 		/// </summary>
-		[HttpExtensions.Json.JsonExtensionData(Pattern = "customfield_.*")]
+		[JsonExtensionData]
 		public IDictionary<string, object> CustomFields { get; } = new Dictionary<string, object>();
 
 		/// <summary>
@@ -116,7 +115,7 @@ namespace Dapplo.Jira.Entities
 		///     When was this issue viewed (by whom??)
 		/// </summary>
 		[JsonProperty(PropertyName = "lastViewed")]
-		public DateTimeOffset LastViewed { get; set; }
+		public DateTimeOffset? LastViewed { get; set; }
 
 		/// <summary>
 		///     Priority for this issue
@@ -152,7 +151,7 @@ namespace Dapplo.Jira.Entities
 		///     Resolution date for this issue
 		/// </summary>
 		[JsonProperty(PropertyName = "resolutiondate")]
-		public DateTimeOffset ResolutionData { get; set; }
+		public DateTimeOffset? ResolutionData { get; set; }
 
 		/// <summary>
 		///     Current status of the issue
@@ -170,7 +169,7 @@ namespace Dapplo.Jira.Entities
 		///     How much time is spent on this issue
 		/// </summary>
 		[JsonProperty(PropertyName = "timespent")]
-		public long TimeSpent { get; set; }
+		public long? TimeSpent { get; set; }
 
 		/// <summary>
 		///     Time tracking information
@@ -182,7 +181,7 @@ namespace Dapplo.Jira.Entities
 		///     When was the last update
 		/// </summary>
 		[JsonProperty(PropertyName = "updated")]
-		public DateTimeOffset Updated { get; set; }
+		public DateTimeOffset? Updated { get; set; }
 
 		/// <summary>
 		///     Version for which this ticket is

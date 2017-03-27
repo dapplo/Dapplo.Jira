@@ -36,7 +36,7 @@ namespace Dapplo.Jira.Json
     /// </summary>
     public class CustomDateTimeOffsetConverter : DateTimeConverterBase
     {
-        private const string Iso8601Format = @"yyyy-MM-dd\THH:mm:ss.FFFF";
+        private const string Iso8601Format = @"yyyy-MM-dd\THH:mm:ss.FFF";
 
         private readonly string _format;
 
@@ -59,7 +59,11 @@ namespace Dapplo.Jira.Json
         /// <inheritdoc />
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var dateTime = (DateTimeOffset)value;
+	        if (value == null)
+	        {
+		        return;
+	        }
+            var dateTime = ((DateTimeOffset)value).ToUniversalTime();
             string sign = dateTime.Offset < TimeSpan.Zero ? " - " : "+";
             var output = $"{dateTime.ToString(_format, CultureInfo.InvariantCulture)}{sign}{Math.Abs(dateTime.Offset.Hours):00}{Math.Abs(dateTime.Offset.Minutes):00}";
             writer.WriteValue(output);
@@ -69,8 +73,11 @@ namespace Dapplo.Jira.Json
         /// <inheritdoc />
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            string dateTimeOffsetString = (string)reader.Value;
-
+			if (reader.Value == null)
+			{
+				return null;
+			}
+			string dateTimeOffsetString = (string)reader.Value;
             if (reader.TokenType != JsonToken.String)
             {
                 throw new Exception($"Unexpected token parsing date. Expected string, got {reader.TokenType}.");

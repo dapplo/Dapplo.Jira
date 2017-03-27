@@ -73,14 +73,14 @@ namespace Dapplo.Jira.Entities
 		/// </summary>
 		[JsonProperty(PropertyName = "created")]
 		[ReadOnly(true)]
-		public DateTimeOffset Created { get; set; }
+		public DateTimeOffset? Created { get; set; }
 
 		/// <summary>
 		///     When was the worklog started
 		/// </summary>
 		[JsonProperty(PropertyName = "started")]
 		[JsonConverter(typeof(CustomDateTimeOffsetConverter))]
-		public DateTimeOffset Started { get; set; }
+		public DateTimeOffset? Started { get; set; }
 
 		/// <summary>
 		///     Time spent in this worklog, this is a number and qualifier (h = hour, d = day etc)
@@ -92,7 +92,7 @@ namespace Dapplo.Jira.Entities
 		///     Time spent in this worklog, in seconds
 		/// </summary>
 		[JsonProperty(PropertyName = "timeSpentSeconds")]
-		public long TimeSpentSeconds { get; set; }
+		public long? TimeSpentSeconds { get; set; }
 
 		/// <summary>
 		///     Who updated this worklog, this cannot be updated
@@ -106,7 +106,7 @@ namespace Dapplo.Jira.Entities
 		/// </summary>
 		[JsonProperty(PropertyName = "updated")]
 		[ReadOnly(true)]
-		public DateTimeOffset Updated { get; set; }
+		public DateTimeOffset? Updated { get; set; }
 
 		/// <summary>
 		///     Visibility

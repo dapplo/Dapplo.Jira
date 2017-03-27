@@ -27,6 +27,7 @@
 
 using Dapplo.Jira.Enums;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 #endregion
 
@@ -48,6 +49,7 @@ namespace Dapplo.Jira.Entities
 		///     Board type
 		/// </summary>
 		[JsonProperty(PropertyName = "type")]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public BoardTypes Type { get; set; }
 
 		/// <summary>

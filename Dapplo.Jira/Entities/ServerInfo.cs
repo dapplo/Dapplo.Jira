@@ -49,13 +49,13 @@ namespace Dapplo.Jira.Entities
 		///     Date of the build
 		/// </summary>
 		[JsonProperty(PropertyName = "buildDate")]
-		public DateTimeOffset BuildDate { get; set; }
+		public DateTimeOffset? BuildDate { get; set; }
 
 		/// <summary>
 		///     Build number (internal information)
 		/// </summary>
 		[JsonProperty(PropertyName = "buildNumber")]
-		public int BuildNumber { get; set; }
+		public int? BuildNumber { get; set; }
 
 		/// <summary>
 		///     Git commit id (at lease until the SCM is changed)

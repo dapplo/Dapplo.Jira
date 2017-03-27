@@ -55,7 +55,7 @@ namespace Dapplo.Jira.Entities
 		///     When was the attachment created
 		/// </summary>
 		[JsonProperty(PropertyName = "created")]
-		public DateTimeOffset Created { get; set; }
+		public DateTimeOffset? Created { get; set; }
 
 		/// <summary>
 		///     Filename of the attachment
@@ -73,7 +73,7 @@ namespace Dapplo.Jira.Entities
 		///     Size (in bytes) of the attachment
 		/// </summary>
 		[JsonProperty(PropertyName = "size")]
-		public long Size { get; set; }
+		public long? Size { get; set; }
 
 		/// <summary>
 		///     An URL to the thumbnail for this attachment

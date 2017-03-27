@@ -58,8 +58,11 @@ namespace Dapplo.Jira.Tests
 
 			Assert.NotNull(worklog);
 			Assert.Equal("2d", worklog.TimeSpent);
-			Assert.Equal(started, worklog.Started);
+			Assert.NotNull(worklog.Started);
+			var worklogStarted = worklog.Started.Value;
+			Assert.Equal(started.AddTicks(-started.Ticks % TimeSpan.TicksPerSecond), worklogStarted.AddTicks(-worklogStarted.Ticks % TimeSpan.TicksPerSecond));
 			worklog.TimeSpent = "3d";
+			worklog.TimeSpentSeconds = null;
 			await Client.Work.UpdateAsync(TestIssueKey, worklog);
 			var worklogs = await Client.Work.GetAsync(TestIssueKey);
 			var retrievedWorklog = worklogs.FirstOrDefault(worklogItem => string.Equals(worklog.Id, worklogItem.Id));

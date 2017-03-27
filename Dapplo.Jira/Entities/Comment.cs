@@ -58,7 +58,7 @@ namespace Dapplo.Jira.Entities
 		/// </summary>
 		[JsonProperty(PropertyName = "created")]
 		[ReadOnly(true)]
-		public DateTimeOffset Created { get; set; }
+		public DateTimeOffset? Created { get; set; }
 
 		/// <summary>
 		///     Who updated the comment
@@ -72,7 +72,7 @@ namespace Dapplo.Jira.Entities
 		/// </summary>
 		[JsonProperty(PropertyName = "updated")]
 		[ReadOnly(true)]
-		public DateTimeOffset Updated { get; set; }
+		public DateTimeOffset? Updated { get; set; }
 
 		/// <summary>
 		///     Is a comment visible

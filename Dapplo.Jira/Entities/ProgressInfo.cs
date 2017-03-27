@@ -41,12 +41,12 @@ namespace Dapplo.Jira.Entities
 		///     Progress for the issue
 		/// </summary>
 		[JsonProperty(PropertyName = "progress")]
-		public long Progress { get; set; }
+		public long? Progress { get; set; }
 
 		/// <summary>
 		///     The total progress
 		/// </summary>
 		[JsonProperty(PropertyName = "total")]
-		public long Total { get; set; }
+		public long? Total { get; set; }
 	}
 }

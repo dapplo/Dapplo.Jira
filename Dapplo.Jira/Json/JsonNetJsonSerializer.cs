@@ -41,7 +41,8 @@ namespace Dapplo.Jira.Json
         {
             DateParseHandling = DateParseHandling.None,
             NullValueHandling = NullValueHandling.Ignore,
-            DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
+            DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate,
+            ContractResolver = new ReadOnlyConsideringContractResolver()
         };
 
         /// <summary>

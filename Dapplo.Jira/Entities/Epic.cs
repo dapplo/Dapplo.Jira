@@ -53,7 +53,7 @@ namespace Dapplo.Jira.Entities
 		///     Is the epic done?
 		/// </summary>
 		[JsonProperty(PropertyName = "done")]
-		public long IsDone { get; set; }
+		public bool IsDone { get; set; }
 
 		/// <summary>
 		///     Color of the Epic

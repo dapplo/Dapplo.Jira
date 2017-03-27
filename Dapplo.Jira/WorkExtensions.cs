@@ -152,9 +152,9 @@ namespace Dapplo.Jira
 			}
 
 			var worklogUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "worklog", worklog.Id);
+			worklogUri = worklogUri.ExtendQuery("adjustEstimate", adjustEstimate.EnumValueOf());
 			if (adjustEstimate != AdjustEstimate.Auto)
 			{
-				worklogUri = worklogUri.ExtendQuery("adjustEstimate", adjustEstimate.EnumValueOf());
 				switch (adjustEstimate)
 				{
 					case AdjustEstimate.Manual:

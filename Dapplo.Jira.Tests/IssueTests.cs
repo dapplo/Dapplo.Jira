@@ -113,7 +113,7 @@ namespace Dapplo.Jira.Tests
 
 			// check
 			var issueAssignedToMe = await Client.Issue.GetAsync(TestIssueKey);
-			Assert.True(issueAssignedToMe.Fields.Assignee.Name == issueBeforeChanges.Fields.Assignee.Name);
+			Assert.Equal(issueAssignedToMe.Fields.Assignee, issueBeforeChanges.Fields.Assignee);
 		}
 
 		[Fact]

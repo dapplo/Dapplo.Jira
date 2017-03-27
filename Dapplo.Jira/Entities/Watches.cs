@@ -56,7 +56,7 @@ namespace Dapplo.Jira.Entities
 		///     Amount of users watching
 		/// </summary>
 		[JsonProperty(PropertyName = "watchCount")]
-		public int WatchCount { get; set; }
+		public int? WatchCount { get; set; }
 
 		/// <summary>
 		///     The list of users who are watching

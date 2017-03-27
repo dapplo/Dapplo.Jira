@@ -55,7 +55,7 @@ namespace Dapplo.Jira.Entities
 		///     From what board is this sprint?
 		/// </summary>
 		[JsonProperty(PropertyName = "originBoardId")]
-		public int OriginBoardId { get; set; }
+		public int? OriginBoardId { get; set; }
 
 		/// <summary>
 		///     State of the Sprint
@@ -68,20 +68,20 @@ namespace Dapplo.Jira.Entities
 		/// </summary>
 		[JsonProperty(PropertyName = "startDate")]
 		[ReadOnly(true)]
-		public DateTimeOffset StartDate { get; set; }
+		public DateTimeOffset? StartDate { get; set; }
 
 		/// <summary>
 		///     When was the sprint ended
 		/// </summary>
 		[JsonProperty(PropertyName = "endDate")]
 		[ReadOnly(true)]
-		public DateTimeOffset EndDate { get; set; }
+		public DateTimeOffset? EndDate { get; set; }
 
 		/// <summary>
 		///     When was the sprint completed
 		/// </summary>
 		[JsonProperty(PropertyName = "completeDate")]
 		[ReadOnly(true)]
-		public DateTimeOffset CompleteDate { get; set; }
+		public DateTimeOffset? CompleteDate { get; set; }
 	}
 }

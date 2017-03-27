@@ -47,7 +47,7 @@ namespace Dapplo.Jira.Entities
 		///     The originaly estimated time for this issue
 		/// </summary>
 		[JsonProperty(PropertyName = "originalEstimateSeconds")]
-		public long OriginalEstimateSeconds { get; set; }
+		public long? OriginalEstimateSeconds { get; set; }
 
 		/// <summary>
 		///     The remaining estimated time for this issue
@@ -60,7 +60,7 @@ namespace Dapplo.Jira.Entities
 		///     The remaining estimated time, in seconds, for this issue
 		/// </summary>
 		[JsonProperty(PropertyName = "remainingEstimateSeconds")]
-		public long RemainingEstimateSeconds { get; set; }
+		public long? RemainingEstimateSeconds { get; set; }
 
 		/// <summary>
 		///     Time spent in form of "4w 4d 2h"
@@ -72,6 +72,6 @@ namespace Dapplo.Jira.Entities
 		///     Time spent in seconds
 		/// </summary>
 		[JsonProperty(PropertyName = "timeSpentSeconds")]
-		public long TimeSpentSeconds { get; set; }
+		public long? TimeSpentSeconds { get; set; }
 	}
 }

@@ -41,7 +41,7 @@ namespace Dapplo.Jira.Entities
 		///     Failed login count
 		/// </summary>
 		[JsonProperty(PropertyName = "failedLoginCount")]
-		public int FailedLoginCount { get; set; }
+		public int? FailedLoginCount { get; set; }
 
 		/// <summary>
 		///     Last failed login time
@@ -53,7 +53,7 @@ namespace Dapplo.Jira.Entities
 		///     Login count
 		/// </summary>
 		[JsonProperty(PropertyName = "loginCount")]
-		public int LoginCount { get; set; }
+		public int? LoginCount { get; set; }
 
 		/// <summary>
 		///     Previous login time

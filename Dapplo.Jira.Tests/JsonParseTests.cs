@@ -83,6 +83,7 @@ namespace Dapplo.Jira.Tests
 			var json = File.ReadAllText("JsonTestFiles/agileIssue.json");
 			var issue = (AgileIssue)_jsonSerializer.Deserialize(typeof(AgileIssue), json);
 			Assert.NotNull(issue);
+			Assert.NotNull(issue.Sprint);
 		}
 
 		[Fact]

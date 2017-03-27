@@ -61,6 +61,6 @@ namespace Dapplo.Jira.Entities
 		///     How many votes does it have
 		/// </summary>
 		[JsonProperty(PropertyName = "votes")]
-		public long Votes { get; set; }
+		public long? Votes { get; set; }
 	}
 }

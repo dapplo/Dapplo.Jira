@@ -27,8 +27,8 @@
 
 using System;
 using System.Text.RegularExpressions;
-using Dapplo.HttpExtensions.Json;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 #endregion
 
@@ -54,7 +54,8 @@ namespace Dapplo.Jira.Entities
 				{
 					return null;
 				}
-				var serializedSprintInfomation = (string) ((JsonArray) Fields.CustomFields[JiraConfig.SpintCustomField])[0];
+				var obj = Fields.CustomFields[JiraConfig.SpintCustomField];
+				var serializedSprintInfomation = (string) ((JArray)obj)[0];
 
 				var matchId = Regex.Match(serializedSprintInfomation, "id=([^,]+),");
 				var matchName = Regex.Match(serializedSprintInfomation, "name=([^,]+),");
