@@ -74,7 +74,7 @@ namespace Dapplo.Jira
 			Behaviour = ConfigureBehaviour(new HttpBehaviour(), httpSettings);
 		}
 
-#if NET45 || NET45
+#if NET45 || NET46
 /// <summary>
 ///     Create the JiraApi, using OAuth 1 for the communication, here the HttpClient is configured
 /// </summary>
