@@ -12,7 +12,9 @@
         "Dapplo.Log": "1.0.23",
         "Dapplo.Log.XUnit": "1.0.23",
         "Dapplo.Utils": "1.0.132",
-        "ReportGenerator": "2.5.6"
+        "ReportGenerator": "2.5.6",
+        "Dapplo.HttpExtensions.JsonNet": "0.6.22",
+        "Dapplo.HttpExtensions.OAuth": "0.6.22"
     },
 	"frameworks": {
 		"net45": {

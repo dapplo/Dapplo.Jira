@@ -19,8 +19,8 @@
 	},
 	"supports": {},
     "dependencies": {
-        "Dapplo.HttpExtensions": "0.6.18",
-        "Newtonsoft.Json": "10.0.1"
+        "Dapplo.HttpExtensions": "0.6.22",
+        "Dapplo.HttpExtensions.JsonNet": "0.6.22"
     },
     "frameworks": {
         "netstandard1.3": {
@@ -34,6 +34,7 @@
                 "System.Drawing": "4.0.0.0"
             },
             "dependencies": {
+                "Dapplo.HttpExtensions.OAuth": "0.6.22",
                 "Svg": "2.3.0"
             }
         },
@@ -42,6 +43,7 @@
                 "System.Drawing": "4.0.0.0"
             },
             "dependencies": {
+                "Dapplo.HttpExtensions.OAuth": "0.6.22",
                 "Svg": "2.3.0"
             }
         }

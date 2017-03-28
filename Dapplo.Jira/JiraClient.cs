@@ -27,7 +27,7 @@
 
 using System;
 using Dapplo.HttpExtensions;
-using Dapplo.Jira.Json;
+using Dapplo.HttpExtensions.JsonNet;
 
 #if NET45 || NET46
 using System.Collections.Generic;
