@@ -64,7 +64,7 @@ namespace Dapplo.Jira.Json
                 return;
             }
             var dateTime = (DateTimeOffset)value;
-            string sign = dateTime.Offset < TimeSpan.Zero ? " - " : "+";
+            string sign = dateTime.Offset < TimeSpan.Zero ? "-" : "+";
             var output = $"{dateTime.ToString(_format, CultureInfo.InvariantCulture)}{sign}{Math.Abs(dateTime.Offset.Hours):00}{Math.Abs(dateTime.Offset.Minutes):00}";
             writer.WriteValue(output);
             writer.Flush();
