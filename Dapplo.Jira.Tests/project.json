@@ -9,12 +9,12 @@
         "Dapplo.Jira": "*",
         "xunit.runner.visualstudio": "2.1.0",
         "Xunit.StaFact": "0.1.36-beta",
-        "Dapplo.Log": "1.0.23",
-        "Dapplo.Log.XUnit": "1.0.23",
         "Dapplo.Utils": "1.0.132",
         "ReportGenerator": "2.5.6",
         "Dapplo.HttpExtensions.JsonNet": "0.6.22",
-        "Dapplo.HttpExtensions.OAuth": "0.6.22"
+        "Dapplo.HttpExtensions.OAuth": "0.6.22",
+        "Dapplo.Log": "1.0.25",
+        "Dapplo.Log.XUnit": "1.0.25"
     },
 	"frameworks": {
 		"net45": {

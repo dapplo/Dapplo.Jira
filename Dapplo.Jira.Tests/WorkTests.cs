@@ -45,7 +45,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestLogWork()
 		{
-			var started = DateTimeOffset.Now;
+			var started = DateTimeOffset.Now.Subtract(TimeSpan.FromDays(2));
 
 			var newWorkLog = new Worklog
 			{
@@ -63,7 +63,8 @@ namespace Dapplo.Jira.Tests
 			Assert.Equal(started.AddTicks(-started.Ticks % TimeSpan.TicksPerSecond), worklogStarted.AddTicks(-worklogStarted.Ticks % TimeSpan.TicksPerSecond));
 			worklog.TimeSpent = "3d";
 			worklog.TimeSpentSeconds = null;
-			await Client.Work.UpdateAsync(TestIssueKey, worklog);
+            worklog.Started = DateTimeOffset.Now.Subtract(TimeSpan.FromDays(3));
+            await Client.Work.UpdateAsync(TestIssueKey, worklog);
 			var worklogs = await Client.Work.GetAsync(TestIssueKey);
 			var retrievedWorklog = worklogs.FirstOrDefault(worklogItem => string.Equals(worklog.Id, worklogItem.Id));
 			Assert.NotNull(retrievedWorklog);
