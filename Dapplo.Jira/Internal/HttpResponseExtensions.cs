@@ -32,12 +32,12 @@ using Dapplo.Log;
 
 #endregion
 
-namespace Dapplo.Jira
+namespace Dapplo.Jira.Internal
 {
 	/// <summary>
 	/// Extensions for the HttpResponse object
 	/// </summary>
-	public static class HttpResponseExtensions
+	internal static class HttpResponseExtensions
 	{
 		private static readonly LogSource Log = new LogSource();
 
@@ -57,7 +57,7 @@ namespace Dapplo.Jira
 					Log.Warn().WriteLine("JIRA server error message: {0}", errorMessage);
 				}
 			}
-			if (!(error?.Errors?.Keys.Count > 0))
+			if (error?.Errors == null)
 			{
 				return;
 			}

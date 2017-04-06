@@ -33,105 +33,100 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
+using Dapplo.Jira.Domains;
 using Dapplo.Jira.Entities;
+using Dapplo.Jira.Internal;
 using Dapplo.Log;
 
 #endregion
 
 namespace Dapplo.Jira
 {
-	/// <summary>
-	///     The marker interface of the session domain
-	/// </summary>
-	public interface ISessionDomain : IJiraDomain
-	{
-	}
+    /// <summary>
+    ///     This holds all the user session extension methods
+    /// </summary>
+    public static class SessionExtensions
+    {
+        private static readonly LogSource Log = new LogSource();
 
-	/// <summary>
-	///     This holds all the user session extension methods
-	/// </summary>
-	public static class SessionExtensions
-	{
-		private static readonly LogSource Log = new LogSource();
+        /// <summary>
+        ///     Starts new session. No additional authorization requered.
+        /// </summary>
+        /// <remarks>
+        ///     Please be aware that although cookie-based authentication has many benefits, such as performance (not having to
+        ///     make multiple authentication calls), the session cookie can expire..
+        /// </remarks>
+        /// <param name="jiraClient">ISessionDomain to bind the extension method to</param>
+        /// <param name="username">User username</param>
+        /// <param name="password">User password</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <returns>LoginInfo</returns>
+        public static async Task<LoginInfo> StartAsync(this ISessionDomain jiraClient, string username, string password,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            if (username == null)
+            {
+                throw new ArgumentNullException(nameof(username));
+            }
+            if (password == null)
+            {
+                throw new ArgumentNullException(nameof(password));
+            }
+            if (!jiraClient.Behaviour.HttpSettings.UseCookies)
+            {
+                throw new ArgumentException("Cookies need to be enabled", nameof(IHttpSettings.UseCookies));
+            }
+            Log.Debug().WriteLine("Starting a session for {0}", username);
 
-		/// <summary>
-		///     Starts new session. No additional authorization requered.
-		/// </summary>
-		/// <remarks>
-		///     Please be aware that although cookie-based authentication has many benefits, such as performance (not having to
-		///     make multiple authentication calls), the session cookie can expire..
-		/// </remarks>
-		/// <param name="jiraClient">ISessionDomain to bind the extension method to</param>
-		/// <param name="username">User username</param>
-		/// <param name="password">User password</param>
-		/// <param name="cancellationToken">CancellationToken</param>
-		/// <returns>LoginInfo</returns>
-		public static async Task<LoginInfo> StartAsync(this ISessionDomain jiraClient, string username, string password,
-			CancellationToken cancellationToken = default(CancellationToken))
-		{
-			if (username == null)
-			{
-				throw new ArgumentNullException(nameof(username));
-			}
-			if (password == null)
-			{
-				throw new ArgumentNullException(nameof(password));
-			}
-			if (!jiraClient.Behaviour.HttpSettings.UseCookies)
-			{
-				throw new ArgumentException("Cookies need to be enabled", nameof(IHttpSettings.UseCookies));
-			}
-			Log.Debug().WriteLine("Starting a session for {0}", username);
+            var sessionUri = jiraClient.JiraAuthUri.AppendSegments("session");
 
-			var sessionUri = jiraClient.JiraAuthUri.AppendSegments("session");
+            jiraClient.Behaviour.MakeCurrent();
 
-			jiraClient.Behaviour.MakeCurrent();
+            var content = new StringContent($"{{ \"username\": \"{username}\", \"password\": \"{password}\"}}");
+            content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
 
-			var content = new StringContent($"{{ \"username\": \"{username}\", \"password\": \"{password}\"}}");
-			content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+            var response = await sessionUri.PostAsync<HttpResponse<SessionResponse, Error>>(content, cancellationToken);
+            return response.HandleErrors().LoginInfo;
+        }
 
-			var response = await sessionUri.PostAsync<HttpResponse<SessionResponse, Error>>(content, cancellationToken);
-			return response.HandleErrors().LoginInfo;
-		}
+        /// <summary>
+        ///     Ends session. No additional authorization required.
+        /// </summary>
+        /// <param name="jiraClient">ISessionDomain to bind the extension method to</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        public static async Task EndAsync(this ISessionDomain jiraClient, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            // Find the cookie to expire
+            var sessionCookies = jiraClient.Behaviour.CookieContainer.GetCookies(jiraClient.JiraBaseUri).Cast<Cookie>().ToList();
 
-		/// <summary>
-		///     Ends session. No additional authorization required.
-		/// </summary>
-		/// <param name="jiraClient">ISessionDomain to bind the extension method to</param>
-		/// <param name="cancellationToken">CancellationToken</param>
-		public static async Task EndAsync(this ISessionDomain jiraClient, CancellationToken cancellationToken = default(CancellationToken))
-		{
-			// Find the cookie to expire
-			var sessionCookies = jiraClient.Behaviour.CookieContainer.GetCookies(jiraClient.JiraBaseUri).Cast<Cookie>().ToList();
+            Log.Debug().WriteLine("Ending session");
 
-			Log.Debug().WriteLine("Ending session");
+            // check if a cookie was found, if not skip the end session
+            if (sessionCookies.Any())
+            {
+                if (Log.IsDebugEnabled())
+                {
+                    Log.Debug().WriteLine("Found {0} cookies to invalidate", sessionCookies.Count);
+                    foreach (var sessionCookie in sessionCookies)
+                    {
+                        Log.Debug().WriteLine("Found cookie {0} for domain {1} which expires on {2}", sessionCookie.Name, sessionCookie.Domain, sessionCookie.Expires);
+                    }
+                }
+                var sessionUri = jiraClient.JiraAuthUri.AppendSegments("session");
 
-			// check if a cookie was found, if not skip the end session
-			if (sessionCookies.Any())
-			{
-				if (Log.IsDebugEnabled())
-				{
-					Log.Debug().WriteLine("Found {0} cookies to invalidate", sessionCookies.Count);
-					foreach (var sessionCookie in sessionCookies)
-					{
-						Log.Debug().WriteLine("Found cookie {0} for domain {1} which expires on {2}", sessionCookie.Name, sessionCookie.Domain, sessionCookie.Expires);
-					}
-				}
-				var sessionUri = jiraClient.JiraAuthUri.AppendSegments("session");
+                jiraClient.Behaviour.MakeCurrent();
+                var response = await sessionUri.DeleteAsync<HttpResponseMessage>(cancellationToken).ConfigureAwait(false);
 
-				jiraClient.Behaviour.MakeCurrent();
-				var response = await sessionUri.DeleteAsync<HttpResponseMessage>(cancellationToken).ConfigureAwait(false);
-
-				if (response.StatusCode != HttpStatusCode.NoContent)
-				{
-					Log.Warn().WriteLine("Failed to close jira session. Status code: {0} ", response.StatusCode);
-				}
-				// Expire the cookie, no mather what the return code was.
-				foreach (var sessionCookie in sessionCookies)
-				{
-					sessionCookie.Expired = true;
-				}
-			}
-		}
-	}
+                if (response.StatusCode != HttpStatusCode.NoContent)
+                {
+                    Log.Warn().WriteLine("Failed to close jira session. Status code: {0} ", response.StatusCode);
+                }
+                // Expire the cookie, no mather what the return code was.
+                foreach (var sessionCookie in sessionCookies)
+                {
+                    sessionCookie.Expired = true;
+                }
+            }
+        }
+    }
 }

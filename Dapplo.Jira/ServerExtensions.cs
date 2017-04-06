@@ -30,22 +30,17 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
+using Dapplo.Jira.Domains;
 using Dapplo.Jira.Entities;
 using Dapplo.Jira.Enums;
+using Dapplo.Jira.Internal;
 using Dapplo.Log;
 
 #endregion
 
 namespace Dapplo.Jira
 {
-	/// <summary>
-	///     The marker interface of the server domain
-	/// </summary>
-	public interface IServerDomain : IJiraDomain
-	{
-	}
-
-	/// <summary>
+    /// <summary>
 	///     This holds all the server related extensions methods
 	/// </summary>
 	public static class ServerExtensions

@@ -27,6 +27,7 @@
 
 using System;
 using Dapplo.HttpExtensions;
+using Dapplo.Jira.Domains;
 
 #endregion
 
@@ -99,26 +100,5 @@ namespace Dapplo.Jira
 		/// <param name="user">username</param>
 		/// <param name="password">password</param>
 		void SetBasicAuthentication(string user, string password);
-	}
-
-	/// <summary>
-	///     This interface describes the functionality of the IJiraClient which domains can use
-	/// </summary>
-	public interface IJiraDomain : IJiraClient
-	{
-		/// <summary>
-		///     The rest URI for your JIRA server
-		/// </summary>
-		Uri JiraRestUri { get; }
-
-		/// <summary>
-		///     The agile rest URI for your JIRA server
-		/// </summary>
-		Uri JiraAgileRestUri { get; }
-
-		/// <summary>
-		///     The base URI for JIRA auth api
-		/// </summary>
-		Uri JiraAuthUri { get; }
 	}
 }
