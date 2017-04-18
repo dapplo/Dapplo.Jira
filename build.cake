@@ -181,20 +181,19 @@ Task("RestoreNuGetPackages")
 	});
 });
 
-// Version is written to the AssemblyInfo files when !BuildSystem.IsLocalBuild
+// Update the versioning
 Task("Versioning")
     .Does(() =>
 {
-    var gitVersion = GitVersion();
+	Information("Version of this build: " + version);
 	
 	// Overwrite version if it's not set.
 	if (string.IsNullOrEmpty(version)) {
+		var gitVersion = GitVersion();
+		Information("Git Version of this build: " + gitVersion.AssemblySemVer);
 		version = gitVersion.AssemblySemVer;
 	}
-    
-	Information("Version of this build: " + version);
-    Information("Git Version of this build: " + gitVersion.AssemblySemVer);
-	
+    	
 	var projectFilePaths = GetFiles("./**/project.json").Where(p => !p.FullPath.Contains("Test") && !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
     foreach(var projectFilePath in projectFilePaths)
     {
