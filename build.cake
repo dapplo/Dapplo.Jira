@@ -88,6 +88,10 @@ Task("Package")
     var projectFilePaths = GetFiles("./**/project.json").Where(p => !p.FullPath.Contains("Test") && !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
     foreach(var projectFilePath in projectFilePaths)
     {
+		// Skipping powershell for now, until it's more stable
+		if (projectFilePath.FullPath.Contains("Power")) {
+			continue;
+		}
         Information("Packaging: " + projectFilePath.FullPath);
 		DotNetCorePack(projectFilePath.GetDirectory().FullPath, settings);
     }
