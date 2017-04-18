@@ -130,7 +130,7 @@ namespace Dapplo.Jira
         {
 #if NET45 || NET46
 
-            if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
+            if (HttpExtensionsGlobals.HttpContentConverters.ToList().All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
             {
                 HttpExtensionsGlobals.HttpContentConverters.Add(SvgBitmapHttpContentConverter.Instance.Value);
             }

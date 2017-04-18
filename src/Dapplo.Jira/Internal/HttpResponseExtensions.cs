@@ -106,7 +106,7 @@ namespace Dapplo.Jira.Internal
         public static TResponse HandleErrors<TResponse>(this HttpResponse<TResponse> response, params HttpStatusCode[] expectedHttpStatusCodes)
             where TResponse : class
         {
-            if (expectedHttpStatusCodes == null)
+            if (expectedHttpStatusCodes == null || expectedHttpStatusCodes.Length == 0)
             {
                 expectedHttpStatusCodes = new[] { HttpStatusCode.OK };
             }
@@ -126,7 +126,7 @@ namespace Dapplo.Jira.Internal
         /// <param name="response">TResponse</param>
         public static void HandleStatusCode(this HttpResponse response, params HttpStatusCode[] expectedHttpStatusCodes)
         {
-            if (expectedHttpStatusCodes == null)
+            if (expectedHttpStatusCodes == null || expectedHttpStatusCodes.Length == 0)
             {
                 expectedHttpStatusCodes = new [] { HttpStatusCode.OK};
             }
@@ -147,7 +147,7 @@ namespace Dapplo.Jira.Internal
         /// <param name="response">TResponse</param>
         public static void HandleStatusCode<TError>(this HttpResponseWithError<TError> response, params HttpStatusCode[] expectedHttpStatusCodes) where TError : Error
         {
-            if (expectedHttpStatusCodes == null)
+            if (expectedHttpStatusCodes == null || expectedHttpStatusCodes.Length == 0)
             {
                 expectedHttpStatusCodes = new[] { HttpStatusCode.OK };
             }
@@ -167,7 +167,7 @@ namespace Dapplo.Jira.Internal
         /// <param name="response">TResponse</param>
         public static void HandleStatusCode(this HttpResponseWithError<string> response, params HttpStatusCode[] expectedHttpStatusCodes)
         {
-            if (expectedHttpStatusCodes == null)
+            if (expectedHttpStatusCodes == null || expectedHttpStatusCodes.Length == 0)
             {
                 expectedHttpStatusCodes = new[] { HttpStatusCode.OK };
             }
