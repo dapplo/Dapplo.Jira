@@ -189,7 +189,7 @@ Task("Versioning")
 	
 	// Overwrite version if it's not set.
 	if (string.IsNullOrEmpty(version)) {
-		version = version.AssemblySemVer;
+		version = gitVersion.AssemblySemVer;
 	}
     
 	Information("Version of this build: " + version);
