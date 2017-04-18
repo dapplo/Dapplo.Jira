@@ -3,6 +3,7 @@ skip_tags: true
 configuration: Release
 platform: AnyCPU
 clone_depth: 2
+test: off
 branches:
   only:
   - master
@@ -15,8 +16,6 @@ before_build:
 - ps: if(-not $env:APPVEYOR_PULL_REQUEST_NUMBER) { $env:is_not_pr = "true"; }
 before_package:
 - ps: if(-not $env:APPVEYOR_PULL_REQUEST_NUMBER) { GitLink .\ }
-after_test: 
-- ps: .\CreateCoverage.ps1
 environment:
   COVERALLS_REPO_TOKEN:
     secure: 7WKQnyTUvZhaCOIVI2+CmP/1tV9nJNHgZ6VJFa3lhxD81O9sJGp65DA/uG4sRyG9
@@ -35,6 +34,7 @@ build_script:
 - dotnet build src\Dapplo.Jira.PowerShell -c %CONFIGURATION% --no-dependencies
 - dotnet build src\Dapplo.Jira.Tests -c %CONFIGURATION% --no-dependencies
 after_build:
+- ps: .\CreateCoverage.ps1
 - docfx doc\docfx.json
 - 7z a -tzip %APPVEYOR_BUILD_FOLDER%\artifacts\site.zip -r %APPVEYOR_BUILD_FOLDER%\doc\_site\*.*
 - dotnet pack src\Dapplo.Jira -c %CONFIGURATION% --no-build -o artifacts
