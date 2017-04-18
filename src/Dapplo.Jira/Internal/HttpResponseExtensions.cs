@@ -80,14 +80,11 @@ namespace Dapplo.Jira.Internal
         public static TResponse HandleErrors<TResponse, TError>(this HttpResponse<TResponse, TError> response, params HttpStatusCode[] expectedHttpStatusCodes)
             where TResponse : class where TError : Error
         {
-            if (expectedHttpStatusCodes != null)
+            if (expectedHttpStatusCodes != null && expectedHttpStatusCodes.Any(code => code == response.StatusCode))
             {
-                if (expectedHttpStatusCodes.Any(code => code == response.StatusCode))
-                {
-                    return response.Response;
-                }
+                return response.Response;
             }
-            else if (!response.HasError)
+            if (!response.HasError)
             {
                 return response.Response;
             }
