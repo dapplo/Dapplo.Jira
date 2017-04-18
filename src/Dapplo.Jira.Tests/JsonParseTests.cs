@@ -40,68 +40,72 @@ using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests
 {
-	public class JsonParseTests
-	{
-		private readonly IJsonSerializer _jsonSerializer;
-		public JsonParseTests(ITestOutputHelper testOutputHelper)
-		{
-			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
-			_jsonSerializer = new JsonNetJsonSerializer();
-		}
+    public class JsonParseTests
+    {
+        private readonly IJsonSerializer _jsonSerializer;
+        private readonly string _testFileLocation;
 
-		[Fact]
-		public void TestParseIssue()
-		{
-			var json = File.ReadAllText("JsonTestFiles/issue.json");
-			
-			var issue = (Issue)_jsonSerializer.Deserialize(typeof(Issue), json);
-			Assert.NotNull(issue);
-		}
+        public JsonParseTests(ITestOutputHelper testOutputHelper)
+        {
+            LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
+            _jsonSerializer = new JsonNetJsonSerializer();
+            _testFileLocation = "JsonTestFiles";
 
-		[Fact]
-		public void TestParseServerInfo()
-		{
-			var json = File.ReadAllText("JsonTestFiles/serverInfo.json");
-			var serverInfo = (ServerInfo)_jsonSerializer.Deserialize(typeof(ServerInfo), json);
-			Assert.NotNull(serverInfo);
-			Assert.Equal("http://localhost:8080/jira", serverInfo.BaseUrl.AbsoluteUri);
-			Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
-		}
+        }
 
-		[Fact]
-		public void TestParseProjects()
-		{
-			var json = File.ReadAllText("JsonTestFiles/projects.json");
-			var projects = (IList<ProjectDigest>)_jsonSerializer.Deserialize(typeof(IList<ProjectDigest>), json);
-			Assert.NotNull(projects);
-			Assert.True(projects.Count > 0);
-			Assert.True(projects.Any(digest => "Greenshot bugs".Equals(digest.Name)));
-		}
-		[Fact]
-		public void TestParseAgileIssue()
-		{
-			var json = File.ReadAllText("JsonTestFiles/agileIssue.json");
-			var issue = (AgileIssue)_jsonSerializer.Deserialize(typeof(AgileIssue), json);
-			Assert.NotNull(issue);
-			Assert.NotNull(issue.Sprint);
-		}
+        [Fact]
+        public void TestParseIssue()
+        {
+            var json = File.ReadAllText(Path.Combine(_testFileLocation, "issue.json"));
+            
+            var issue = (Issue)_jsonSerializer.Deserialize(typeof(Issue), json);
+            Assert.NotNull(issue);
+        }
 
-		[Fact]
-		public void TestParsePossibleTransitions()
-		{
-			var json = File.ReadAllText("JsonTestFiles/possibleTransitions.json");
-			var transitions = (Transitions)_jsonSerializer.Deserialize(typeof(Transitions), json);
-			Assert.NotNull(transitions);
-			Assert.True(transitions.Items.Count > 0);
-		}
+        [Fact]
+        public void TestParseServerInfo()
+        {
+            var json = File.ReadAllText(Path.Combine(_testFileLocation, "serverInfo.json"));
+            var serverInfo = (ServerInfo)_jsonSerializer.Deserialize(typeof(ServerInfo), json);
+            Assert.NotNull(serverInfo);
+            Assert.Equal("http://localhost:8080/jira", serverInfo.BaseUrl.AbsoluteUri);
+            Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
+        }
 
-		[Fact]
-		public void TestParseServerConfiguration()
-		{
-			var json = File.ReadAllText("JsonTestFiles/configuration.json");
-			var configuration = (Configuration)_jsonSerializer.Deserialize(typeof(Configuration), json);
-			Assert.NotNull(configuration);
-			Assert.NotNull(configuration.TimeTrackingConfiguration);
-		}
-	}
+        [Fact]
+        public void TestParseProjects()
+        {
+            var json = File.ReadAllText(Path.Combine(_testFileLocation, "projects.json"));
+            var projects = (IList<ProjectDigest>)_jsonSerializer.Deserialize(typeof(IList<ProjectDigest>), json);
+            Assert.NotNull(projects);
+            Assert.True(projects.Count > 0);
+            Assert.True(projects.Any(digest => "Greenshot bugs".Equals(digest.Name)));
+        }
+        [Fact]
+        public void TestParseAgileIssue()
+        {
+            var json = File.ReadAllText(Path.Combine(_testFileLocation, "agileIssue.json"));
+            var issue = (AgileIssue)_jsonSerializer.Deserialize(typeof(AgileIssue), json);
+            Assert.NotNull(issue);
+            Assert.NotNull(issue.Sprint);
+        }
+
+        [Fact]
+        public void TestParsePossibleTransitions()
+        {
+            var json = File.ReadAllText(Path.Combine(_testFileLocation, "possibleTransitions.json"));
+            var transitions = (Transitions)_jsonSerializer.Deserialize(typeof(Transitions), json);
+            Assert.NotNull(transitions);
+            Assert.True(transitions.Items.Count > 0);
+        }
+
+        [Fact]
+        public void TestParseServerConfiguration()
+        {
+            var json = File.ReadAllText(Path.Combine(_testFileLocation, "configuration.json"));
+            var configuration = (Configuration)_jsonSerializer.Deserialize(typeof(Configuration), json);
+            Assert.NotNull(configuration);
+            Assert.NotNull(configuration.TimeTrackingConfiguration);
+        }
+    }
 }
