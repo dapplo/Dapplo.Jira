@@ -349,7 +349,7 @@ namespace Dapplo.Jira
             jiraClient.Behaviour.MakeCurrent();
             var issueUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "assignee");
             var response = await issueUri.PutAsync<HttpResponse>(user, cancellationToken).ConfigureAwait(false);
-            response.HandleStatusCode(HttpStatusCode.NoContent);
+            response.HandleStatusCode(HttpStatusCode.NoContent, HttpStatusCode.OK);
         }
     }
 }

@@ -99,6 +99,8 @@ Task("Documentation")
 {
 	// Run DocFX
 	DocFx("./doc/docfx.json");
+	
+	CreateDirectory("artifacts");
 	// Archive the generated site
 	ZipCompress("./doc/_site", "./artifacts/site.zip");
 });
@@ -213,7 +215,6 @@ Task("Clean")
     CleanDirectories("./**/obj");
     CleanDirectories("./**/bin");
     CleanDirectories("./artifacts");
-	CreateDirectory("./artifacts");
 });
 
 RunTarget(target);
