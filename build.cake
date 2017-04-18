@@ -2,7 +2,7 @@
 #tool "OpenCover"
 #tool "GitVersion.CommandLine"
 #tool "docfx.console"
-#tool "coveralls.net"
+#tool "coveralls.io"
 // Needed for Cake.Compression, as described here: https://github.com/akordowski/Cake.Compression/issues/3
 #addin "SharpZipLib"
 #addin "MagicChunks"
