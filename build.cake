@@ -212,7 +212,8 @@ Task("Clean")
 {
     CleanDirectories("./**/obj");
     CleanDirectories("./**/bin");
-    CleanDirectories("./artifacts");	
+    CleanDirectories("./artifacts");
+	CreateDirectory("./artifacts");
 });
 
 RunTarget(target);
