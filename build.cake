@@ -3,24 +3,39 @@
 #tool "GitVersion.CommandLine"
 #tool "docfx.console"
 #tool "coveralls.net"
+// Needed for Cake.Compression, as described here: https://github.com/akordowski/Cake.Compression/issues/3
+#addin "SharpZipLib"
 #addin "MagicChunks"
 #addin "Cake.FileHelpers"
 #addin "Cake.DocFx"
 #addin "Cake.Coveralls"
+#addin "Cake.Compression"
 
 var target = Argument("target", "Build");
 var configuration = Argument("configuration", "release");
+
+// Used to publish NuGet packages
 var nugetApiKey = Argument("nugetApiKey", EnvironmentVariable("NuGetApiKey"));
+
+// Used to publish coverage report
 var coverallsRepoToken = Argument("nugetApiKey", EnvironmentVariable("COVERALLS_REPO_TOKEN"));
+
+// where is our solution located?
 var solutionFilePath = GetFiles("./**/*.sln").First();
 
+// Check if we are in a pull request, publishing of packages and coverage should be skipped
+var isPullRequest = !string.IsNullOrEmpty(EnvironmentVariable("APPVEYOR_PULL_REQUEST_NUMBER"));
+
+// Check if the commit is marked as release
+var isRelease = (EnvironmentVariable("APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED")?? "").Contains("[release]");
+
 // Used to store the version, which is needed during the build and the packaging
-GitVersion version;
+var version = EnvironmentVariable("APPVEYOR_BUILD_VERSION");
 
 Task("Default")
     .IsDependentOn("Publish");
 
-// Publish the Artifact of the Package Task to the Nexus Pro
+// Publish taks depends on publish specifics
 Task("Publish")
 	.IsDependentOn("PublishPackages")
 	.IsDependentOn("PublishCoverage")
@@ -31,6 +46,7 @@ Task("PublishCoverage")
     .IsDependentOn("Coverage")
     .WithCriteria(() => !BuildSystem.IsLocalBuild)
     .WithCriteria(() => !string.IsNullOrEmpty(coverallsRepoToken))
+    .WithCriteria(() => !isPullRequest)
     .Does(()=>
 {
 	CoverallsIo("./artifacts/coverage.xml", new CoverallsIoSettings()
@@ -44,6 +60,8 @@ Task("PublishPackages")
     .IsDependentOn("Package")
     .WithCriteria(() => !BuildSystem.IsLocalBuild)
     .WithCriteria(() => !string.IsNullOrEmpty(nugetApiKey))
+    .WithCriteria(() => !isPullRequest)
+    .WithCriteria(() => isRelease)
     .Does(()=>
 {
     var settings = new NuGetPushSettings {
@@ -67,17 +85,10 @@ Task("Package")
         Configuration = configuration
     };
 
-    var projectFilePaths = GetFiles("./**/*.xproj").Where(p => !p.FullPath.Contains("Test") && !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
+    var projectFilePaths = GetFiles("./**/project.json").Where(p => !p.FullPath.Contains("Test") && !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
     foreach(var projectFilePath in projectFilePaths)
     {
-	
         Information("Packaging: " + projectFilePath.FullPath);
-        var nuspecFilename = string.Format("{0}/{1}.nuspec", projectFilePath.GetDirectory(),projectFilePath.GetFilenameWithoutExtension());
-        TransformConfig(nuspecFilename, 
-            new TransformationCollection {
-                { "package/metadata/version", version.NuGetVersion }
-            });
-
 		DotNetCorePack(projectFilePath.GetDirectory().FullPath, settings);
     }
 });
@@ -86,7 +97,10 @@ Task("Package")
 Task("Documentation")
     .Does(() =>
 {
+	// Run DocFX
 	DocFx("./doc/docfx.json");
+	// Archive the generated site
+	ZipCompress("./doc/_site", "./artifacts/site.zip");
 });
 
 // Run the XUnit tests via OpenCover, so be get an coverage.xml report
@@ -119,8 +133,17 @@ Task("Coverage")
         tool => {
             tool.XUnit2("./**/*.Tests.dll",
                 new XUnit2Settings {
+					// Add AppVeyor output, this "should" take care of a report inside AppVeyor
+					ArgumentCustomization = args => {
+						if (!BuildSystem.IsLocalBuild) {
+							args.Append("-appveyor");
+						}
+						return args;
+					},
                     ShadowCopy = false,
 					XmlReport = true,
+					HtmlReport = true,
+					ReportName = "Dapplo.Jira",
 					OutputDirectory = "./artifacts",
 					WorkingDirectory = "./src"
                 });
@@ -162,21 +185,25 @@ Task("RestoreNuGetPackages")
 Task("Versioning")
     .Does(() =>
 {
-    version = GitVersion();
-
+    var gitVersion = GitVersion();
+	
+	// Overwrite version if it's not set.
+	if (string.IsNullOrEmpty(version)) {
+		version = version.AssemblySemVer;
+	}
+    
+	Information("Version of this build: " + version);
+    Information("Git Version of this build: " + gitVersion.AssemblySemVer);
+	
 	var projectFilePaths = GetFiles("./**/project.json").Where(p => !p.FullPath.Contains("Test") && !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
     foreach(var projectFilePath in projectFilePaths)
     {
-        Information("Changing version in : " + projectFilePath.FullPath + " to " + version.AssemblySemVer);
+        Information("Changing version in : " + projectFilePath.FullPath + " to " + version);
 		 TransformConfig(projectFilePath.FullPath, 
             new TransformationCollection {
-                { "version", version.AssemblySemVer }
+                { "version", version }
             });
 	}
-		
-    Information("Version of this build: " + version.AssemblySemVer);
-    Information("Nuget Version of this build: " + version.NuGetVersion);
-
 });
 
 

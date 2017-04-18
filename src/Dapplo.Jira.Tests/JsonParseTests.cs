@@ -43,13 +43,18 @@ namespace Dapplo.Jira.Tests
     public class JsonParseTests
     {
         private readonly IJsonSerializer _jsonSerializer;
+        private const string FilesDir = "JsonTestFiles";
         private readonly string _testFileLocation;
 
         public JsonParseTests(ITestOutputHelper testOutputHelper)
         {
             LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
             _jsonSerializer = new JsonNetJsonSerializer();
-            _testFileLocation = "JsonTestFiles";
+            _testFileLocation = FilesDir;
+            if (!Directory.Exists(FilesDir))
+            {
+                _testFileLocation = Path.Combine(Path.GetDirectoryName(GetType().Assembly.Location), FilesDir);
+            }
 
         }
 

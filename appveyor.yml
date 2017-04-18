@@ -7,15 +7,6 @@ test: off
 branches:
   only:
   - master
-install:
-- choco install gitlink -y
-- choco install docfx -y
-before_build:
-- ps: .\SetVersion.ps1
-- appveyor-retry dotnet restore -v Minimal
-- ps: if(-not $env:APPVEYOR_PULL_REQUEST_NUMBER) { $env:is_not_pr = "true"; }
-before_package:
-- ps: if(-not $env:APPVEYOR_PULL_REQUEST_NUMBER) { GitLink .\ }
 environment:
   COVERALLS_REPO_TOKEN:
     secure: 7WKQnyTUvZhaCOIVI2+CmP/1tV9nJNHgZ6VJFa3lhxD81O9sJGp65DA/uG4sRyG9
@@ -28,21 +19,9 @@ environment:
   NuGetApiKey:
     secure: xkDQ385+smLqdzhESsXBJvnUjK4FZ4Djjrqi9tFR29dwESIvPYOrQAqgri5Nf/fA
 build:
-  publish_nuget: true
-  publish_nuget_symbols: true
   verbosity: minimal
 build_script:
-- dotnet build src\Dapplo.Jira -c %CONFIGURATION% --no-dependencies
-- dotnet build src\Dapplo.Jira.PowerShell -c %CONFIGURATION% --no-dependencies
-- dotnet build src\Dapplo.Jira.Tests -c %CONFIGURATION% --no-dependencies
-after_build:
-- ps: .\CreateCoverage.ps1
-- docfx doc\docfx.json
-- 7z a -tzip %APPVEYOR_BUILD_FOLDER%\artifacts\site.zip -r %APPVEYOR_BUILD_FOLDER%\doc\_site\*.*
-- dotnet pack src\Dapplo.Jira -c %CONFIGURATION% --no-build -o artifacts
-#- dotnet pack Dapplo.Jira.PowerShell -c %CONFIGURATION% --no-build -o artifacts
-#cache:
-#- '%USERPROFILE%\.nuget\packages'
+- ps: .\build.ps1
 artifacts:
 - path: artifacts\**\*.nupkg
 - path: artifacts\**\site.zip
@@ -53,12 +32,3 @@ notifications:
   on_build_success: true
   on_build_failure: true
   on_build_status_changed: false
-deploy:
-- provider: NuGet
-  skip_symbols: true
-  api_key:
-    secure: xkDQ385+smLqdzhESsXBJvnUjK4FZ4Djjrqi9tFR29dwESIvPYOrQAqgri5Nf/fA
-  on:
-    branch: master
-    is_not_pr: true
-    appveyor_repo_commit_message_extended: /\[release\]/
