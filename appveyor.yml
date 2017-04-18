@@ -25,6 +25,8 @@ build_script:
 artifacts:
 - path: artifacts\**\*.nupkg
 - path: artifacts\**\site.zip
+- path: artifacts\*.xml
+- path: artifacts\*.html
 notifications:
 - provider: Email
   to:
