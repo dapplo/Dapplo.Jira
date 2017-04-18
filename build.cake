@@ -1,14 +1,14 @@
-#tool "nuget:?package=xunit.runner.console"
-#tool "nuget:?package=GitVersion.CommandLine"
-#tool "nuget:?package=GitVersion.CommandLine"
-#addin "nuget:?package=Cake.FileHelpers"
-#addin "nuget:https://www.nuget.org/api/v2?package=Newtonsoft.Json"
+#tool "xunit.runner.console"
+#tool "GitVersion.CommandLine"
+#addin "Cake.FileHelpers"
+#addin "Newtonsoft.Json"
+
 using Newtonsoft.Json;
 
 var target = Argument("target", "Build");
 var configuration = Argument("configuration", "Release");
 var dotnetVersion = Argument("dotnetVersion", "net45");
-var solution = File("./Dapplo.Jira.sln");
+var solution = File("./src/Dapplo.Jira.sln");
 
 Task("Default")
 	.IsDependentOn("xUnit");
@@ -26,7 +26,7 @@ Task("Versioning")
 	var version = GitVersion();
 	Information(logAction=>logAction("Version: {0}", JsonConvert.SerializeObject(version, Formatting.Indented)));
 
-	var projectJsonFile = "./Dapplo.Jira.Tests/project.json";
+	var projectJsonFile = "./src/Dapplo.Jira.Tests/project.json";
 	var projectJsonFileString = FileReadText(projectJsonFile);
 	var projectJson = JsonConvert.DeserializeObject<dynamic>(projectJsonFile);
 	Information(logAction=>logAction("Project version: {0}",projectJson["version"].ToString()));
@@ -62,7 +62,7 @@ Task("xUnit")
 	.IsDependentOn("Build")
 	.Does(() =>
 {
-	XUnit2(string.Format("./Dapplo.Jira.Tests/bin/{0}/{1}/Dapplo.Jira.Tests.dll", configuration, dotnetVersion));
+	XUnit2(string.Format("./src/Dapplo.Jira.Tests/bin/{0}/{1}/Dapplo.Jira.Tests.dll", configuration, dotnetVersion));
 });
 
 RunTarget(target);

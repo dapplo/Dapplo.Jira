@@ -213,3 +213,15 @@ ModelManifest.xml
 
 # Cake tools
 tools/
+
+# DocFX
+_site/
+/**/DROP/
+/**/TEMP/
+doc/api/**/*.yml
+doc/api/.manifest
+
+# Coverage
+CoverageReport
+coverage.xml
+xunit.xml

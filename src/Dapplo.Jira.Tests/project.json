@@ -13,8 +13,8 @@
         "ReportGenerator": "2.5.6",
         "Dapplo.HttpExtensions.JsonNet": "0.6.22",
         "Dapplo.HttpExtensions.OAuth": "0.6.22",
-        "Dapplo.Log": "1.0.25",
-        "Dapplo.Log.XUnit": "1.0.25"
+        "Dapplo.Log": "1.0.29",
+        "Dapplo.Log.XUnit": "1.0.29"
     },
 	"frameworks": {
 		"net45": {
