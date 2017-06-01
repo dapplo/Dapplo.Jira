@@ -5,17 +5,16 @@
 	"copyright": "Copyright © Dapplo 2016",
 	"description": "Tests for Dapplo.Jira",
 	"supports": {},
-    "dependencies": {
-        "Dapplo.Jira": "*",
-        "Dapplo.Utils": "1.0.132",
-        "Dapplo.HttpExtensions.JsonNet": "0.6.22",
-        "Dapplo.HttpExtensions.OAuth": "0.6.22",
-        "Dapplo.Log": "1.0.29",
-        "Dapplo.Log.XUnit": "1.0.29",
-        "xunit": "2.2.0",
-        "xunit.runner.visualstudio": "2.2.0",
-        "Xunit.StaFact": "0.2.3-beta"
-    },
+  "dependencies": {
+    "Dapplo.Jira": "*",
+    "Dapplo.HttpExtensions.JsonNet": "0.6.22",
+    "Dapplo.HttpExtensions.OAuth": "0.6.22",
+    "Dapplo.Log": "1.0.29",
+    "Dapplo.Log.XUnit": "1.0.29",
+    "xunit": "2.1.0",
+    "xunit.runner.visualstudio": "2.1.0",
+    "Dapplo.Utils": "1.0.150"
+  },
 	"frameworks": {
 		"net45": {
 			"dependencies": {
