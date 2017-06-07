@@ -89,10 +89,15 @@ namespace Dapplo.Jira
 		/// </summary>
 		IServerDomain Server { get; }
 
-		/// <summary>
-		///     Agile domain
+        /// <summary>
+        ///     Agile domain
+        /// </summary>
+        IAgileDomain Agile { get; }
+
+        /// <summary>
+		///     Grasshopper domain
 		/// </summary>
-		IAgileDomain Agile { get; }
+        IGreenhopperDomain Greenhopper { get; }
 
 		/// <summary>
 		///     Set Basic Authentication for the current client

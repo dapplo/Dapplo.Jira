@@ -1,4 +1,4 @@
-#region Dapplo 2017 - GNU Lesser General Public License
+﻿#region Dapplo 2017 - GNU Lesser General Public License
 
 // Dapplo - building blocks for .NET applications
 // Copyright (C) 2017 Dapplo
@@ -23,33 +23,36 @@
 
 #endregion
 
-using System;
+#region Usings
 
-namespace Dapplo.Jira.Domains
+using Newtonsoft.Json;
+
+#endregion
+
+namespace Dapplo.Jira.Entities
 {
     /// <summary>
-    ///     This interface describes the functionality of the IJiraClient which domains can use
+    ///     Grasshopper Sprint Report
     /// </summary>
-    public interface IJiraDomain : IJiraClient
+    [JsonObject]
+    public class SprintReport
     {
         /// <summary>
-        ///     The rest URI for your JIRA server
+        ///     The Sprint Report contents
         /// </summary>
-        Uri JiraRestUri { get; }
+        [JsonProperty(PropertyName = "contents")]
+        public SprintReportContents Contents { get; set; }
 
         /// <summary>
-        ///     The agile rest URI for your JIRA server
+        ///     Sprint information
         /// </summary>
-        Uri JiraAgileRestUri { get; }
+        [JsonProperty(PropertyName = "sprint")]
+        public SprintInReport Sprint { get; set; }
 
         /// <summary>
-        ///     The base URI for JIRA auth api
+        ///     Indicates if the sprint supports pages
         /// </summary>
-        Uri JiraAuthUri { get; }
-
-        /// <summary>
-        ///     The greenhopper rest URI for your JIRA server
-        /// </summary>
-        Uri JiraGreenhopperRestUri { get; }
+        [JsonProperty(PropertyName = "supportsPages")]
+        public bool SupportsPages { get; set; }
     }
 }

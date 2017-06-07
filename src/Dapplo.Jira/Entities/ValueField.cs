@@ -1,4 +1,4 @@
-#region Dapplo 2017 - GNU Lesser General Public License
+﻿#region Dapplo 2017 - GNU Lesser General Public License
 
 // Dapplo - building blocks for .NET applications
 // Copyright (C) 2017 Dapplo
@@ -23,33 +23,30 @@
 
 #endregion
 
-using System;
+#region Usings
 
-namespace Dapplo.Jira.Domains
+using Newtonsoft.Json;
+
+#endregion
+
+namespace Dapplo.Jira.Entities
 {
     /// <summary>
-    ///     This interface describes the functionality of the IJiraClient which domains can use
+    ///     Represents Values in numeric and string modes
     /// </summary>
-    public interface IJiraDomain : IJiraClient
+    [JsonObject]
+    public class ValueField
     {
         /// <summary>
-        ///     The rest URI for your JIRA server
+        ///     The numeric value
         /// </summary>
-        Uri JiraRestUri { get; }
+        [JsonProperty(PropertyName = "value")]
+        public long Value { get; set; }
 
         /// <summary>
-        ///     The agile rest URI for your JIRA server
+        ///     The string value
         /// </summary>
-        Uri JiraAgileRestUri { get; }
-
-        /// <summary>
-        ///     The base URI for JIRA auth api
-        /// </summary>
-        Uri JiraAuthUri { get; }
-
-        /// <summary>
-        ///     The greenhopper rest URI for your JIRA server
-        /// </summary>
-        Uri JiraGreenhopperRestUri { get; }
+        [JsonProperty(PropertyName = "text")]
+        public string Text { get; set; }
     }
 }

@@ -82,6 +82,10 @@ namespace Dapplo.Jira.Json
             {
                 throw new Exception($"Unexpected token parsing date. Expected string, got {reader.TokenType}.");
             }
+            if (dateTimeOffsetString.ToLowerInvariant() == "none")
+            {
+                return null;
+            }
             if (Regex.IsMatch(dateTimeOffsetString, @"\d{4}$"))
             {
                 dateTimeOffsetString = dateTimeOffsetString.Insert(dateTimeOffsetString.Length - 2, ":");

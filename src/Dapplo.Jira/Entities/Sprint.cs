@@ -28,6 +28,7 @@
 using System;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using Dapplo.Jira.Json;
 
 #endregion
 
@@ -68,20 +69,23 @@ namespace Dapplo.Jira.Entities
 		/// </summary>
 		[JsonProperty(PropertyName = "startDate")]
 		[ReadOnly(true)]
-		public DateTimeOffset? StartDate { get; set; }
+        [JsonConverter(typeof(CustomDateTimeOffsetConverter))]
+        public DateTimeOffset? StartDate { get; set; }
 
 		/// <summary>
 		///     When was the sprint ended
 		/// </summary>
 		[JsonProperty(PropertyName = "endDate")]
 		[ReadOnly(true)]
-		public DateTimeOffset? EndDate { get; set; }
+        [JsonConverter(typeof(CustomDateTimeOffsetConverter))]
+        public DateTimeOffset? EndDate { get; set; }
 
 		/// <summary>
 		///     When was the sprint completed
 		/// </summary>
 		[JsonProperty(PropertyName = "completeDate")]
 		[ReadOnly(true)]
-		public DateTimeOffset? CompleteDate { get; set; }
+        [JsonConverter(typeof(CustomDateTimeOffsetConverter))]
+        public DateTimeOffset? CompleteDate { get; set; }
 	}
 }
