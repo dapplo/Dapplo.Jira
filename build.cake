@@ -69,7 +69,7 @@ Task("PublishPackages")
         ApiKey = nugetApiKey
     };
 
-    var packages = GetFiles("./artifacts/*.nupkg");
+    var packages = GetFiles("./artifacts/*.nupkg").Where(p => !p.FullPath.Contains("symbols"));
     NuGetPush(packages, settings);
 });
 
