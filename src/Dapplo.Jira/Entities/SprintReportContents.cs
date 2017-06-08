@@ -120,6 +120,6 @@ namespace Dapplo.Jira.Entities
         ///     Keys for Issues added during the sprint
         /// </summary>
         [JsonProperty(PropertyName = "issueKeysAddedDuringSprint")]
-        public Dictionary<string, bool> IssueKeysAddedDuringSprint { get; set; }
+        public IDictionary<string, bool> IssueKeysAddedDuringSprint { get; set; }
     }
 }

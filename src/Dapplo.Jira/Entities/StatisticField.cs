@@ -46,7 +46,7 @@ namespace Dapplo.Jira.Entities
         /// <summary>
         ///     The Statistic Field value
         /// </summary>
-        [JsonProperty(PropertyName = "tatFieldValue")]
+        [JsonProperty(PropertyName = "statFieldValue")]
         public ValueField StatFieldValue { get; set; }
     }
 }
