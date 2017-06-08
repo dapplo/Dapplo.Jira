@@ -37,8 +37,8 @@ Task("Default")
 
 // Publish taks depends on publish specifics
 Task("Publish")
-	.IsDependentOn("PublishPackages")
 	.IsDependentOn("PublishCoverage")
+	.IsDependentOn("PublishPackages")
     .WithCriteria(() => !BuildSystem.IsLocalBuild);
 
 // Publish the coveralls report to Coveralls.NET
