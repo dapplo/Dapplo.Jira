@@ -175,7 +175,6 @@ namespace Dapplo.Jira
             return response.HandleErrors();
         }
 
-
         /// <summary>
         ///     Get all issues for a spring
         ///     See

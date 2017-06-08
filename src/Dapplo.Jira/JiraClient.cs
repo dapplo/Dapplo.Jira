@@ -46,7 +46,7 @@ namespace Dapplo.Jira
     /// <summary>
     ///     A client for accessing the Atlassian JIRA Api via REST, using Dapplo.HttpExtensions
     /// </summary>
-    public class JiraClient : IProjectDomain, IWorkDomain, IUserDomain, ISessionDomain, IIssueDomain, IFilterDomain, IAttachmentDomain, IServerDomain, IAgileDomain
+    public class JiraClient : IProjectDomain, IWorkDomain, IUserDomain, ISessionDomain, IIssueDomain, IFilterDomain, IAttachmentDomain, IServerDomain, IAgileDomain, IGreenhopperDomain
     {
         private string _password;
         private string _user;
@@ -78,6 +78,7 @@ namespace Dapplo.Jira
             JiraRestUri = baseUri.AppendSegments("rest", "api", "2");
             JiraAuthUri = baseUri.AppendSegments("rest", "auth", "1");
             JiraAgileRestUri = baseUri.AppendSegments("rest", "agile", "1.0");
+            JiraGreenhopperRestUri = baseUri.AppendSegments("rest", "greenhopper", "1.0");
         }
 
 #if NET45 || NET46
@@ -169,6 +170,11 @@ namespace Dapplo.Jira
         public Uri JiraAgileRestUri { get; }
 
         /// <summary>
+        ///     The greenhopper rest URI for your JIRA server
+        /// </summary>
+        public Uri JiraGreenhopperRestUri { get; }
+
+        /// <summary>
         ///     The base URI for JIRA auth api
         /// </summary>
         public Uri JiraAuthUri { get; }
@@ -224,10 +230,14 @@ namespace Dapplo.Jira
         /// </summary>
         public IServerDomain Server => this;
 
-
         /// <summary>
         ///     Agile domain
         /// </summary>
         public IAgileDomain Agile => this;
+
+        /// <summary>
+        ///     Greenhopper domain
+        /// </summary>
+        public IGreenhopperDomain Greenhopper => this;
     }
 }

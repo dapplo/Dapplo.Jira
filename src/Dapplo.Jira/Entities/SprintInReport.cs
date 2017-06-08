@@ -1,4 +1,4 @@
-#region Dapplo 2017 - GNU Lesser General Public License
+﻿#region Dapplo 2017 - GNU Lesser General Public License
 
 // Dapplo - building blocks for .NET applications
 // Copyright (C) 2017 Dapplo
@@ -23,33 +23,49 @@
 
 #endregion
 
-using System;
+#region Usings
 
-namespace Dapplo.Jira.Domains
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+#endregion
+
+namespace Dapplo.Jira.Entities
 {
     /// <summary>
-    ///     This interface describes the functionality of the IJiraClient which domains can use
+    ///     Sprint information within a Sprint Report
     /// </summary>
-    public interface IJiraDomain : IJiraClient
+    [JsonObject]
+    public class SprintInReport : Sprint
     {
         /// <summary>
-        ///     The rest URI for your JIRA server
+        ///     Sequence of this sprint
         /// </summary>
-        Uri JiraRestUri { get; }
+        [JsonProperty(PropertyName = "sequence")]
+        public long Sequence { get; set; }
 
         /// <summary>
-        ///     The agile rest URI for your JIRA server
+        ///     Indicates the amount of pages attached to the sprint
         /// </summary>
-        Uri JiraAgileRestUri { get; }
+        [JsonProperty(PropertyName = "linkedPagesCount")]
+        public int LinkedPagesCount { get; set; }
 
         /// <summary>
-        ///     The base URI for JIRA auth api
+        ///     Indicated if the Sprint can be updated
         /// </summary>
-        Uri JiraAuthUri { get; }
+        [JsonProperty(PropertyName = "canUpdateSprint")]
+        public bool CanUpdateSprint { get; set; }
 
         /// <summary>
-        ///     The greenhopper rest URI for your JIRA server
+        ///     Links to pages attached to the sprint
         /// </summary>
-        Uri JiraGreenhopperRestUri { get; }
+        [JsonProperty(PropertyName = "remoteLinks")]
+        public IEnumerable<string> RemoteLinks { get; set; }
+
+        /// <summary>
+        ///     Days remaining before the end of the sprint
+        /// </summary>
+        [JsonProperty(PropertyName = "daysRemaining")]
+        public int DaysRemaining { get; set; }
     }
 }
