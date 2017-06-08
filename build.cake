@@ -65,6 +65,7 @@ Task("PublishPackages")
     .Does(()=>
 {
     var settings = new NuGetPushSettings {
+	    Source = "https://www.nuget.org/api/v2/package",
         ApiKey = nugetApiKey
     };
 
