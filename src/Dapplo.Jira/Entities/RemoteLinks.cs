@@ -25,47 +25,29 @@
 
 #region Usings
 
+using System;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 
 #endregion
 
 namespace Dapplo.Jira.Entities
 {
     /// <summary>
-    ///     Sprint information within a Sprint Report
+    ///     Remote Links
     /// </summary>
     [JsonObject]
-    public class SprintInReport : Sprint
+    public class RemoteLinks
     {
         /// <summary>
-        ///     Sequence of this sprint
+        ///     Remote link title or type
         /// </summary>
-        [JsonProperty(PropertyName = "sequence")]
-        public long Sequence { get; set; }
+        [JsonProperty(PropertyName = "title")]
+        public string Title { get; set; }
 
         /// <summary>
-        ///     Indicates the amount of pages attached to the sprint
+        ///     Remote link url
         /// </summary>
-        [JsonProperty(PropertyName = "linkedPagesCount")]
-        public int LinkedPagesCount { get; set; }
-
-        /// <summary>
-        ///     Indicated if the Sprint can be updated
-        /// </summary>
-        [JsonProperty(PropertyName = "canUpdateSprint")]
-        public bool CanUpdateSprint { get; set; }
-
-        /// <summary>
-        ///     Links to pages attached to the sprint
-        /// </summary>
-        [JsonProperty(PropertyName = "remoteLinks")]
-        public IEnumerable<RemoteLinks> RemoteLinks { get; set; }
-
-        /// <summary>
-        ///     Days remaining before the end of the sprint
-        /// </summary>
-        [JsonProperty(PropertyName = "daysRemaining")]
-        public int DaysRemaining { get; set; }
+        [JsonProperty(PropertyName = "url")]
+        public Uri Url { get; set; }
     }
 }
