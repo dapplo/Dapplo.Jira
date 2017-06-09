@@ -48,7 +48,7 @@ namespace Dapplo.Jira
         ///     The Greenhopper API is a leftover from when the agile functionality was not yet integrated.
         ///     Unfortunately they never finished the integration on the API level.
         ///     More information can be found in Atlassians Jira system: <a href="https://jira.atlassian.com/browse/JSWSERVER-12877">JSWSERVER-12877</a>
-        ///     Endpoint pattern: https://{domain}.atlassian.net/rest/greenhopper/1.0/rapid/charts/sprintreport?rapidViewId={rapidViewId}&sprintId={sprintId}
+        ///     Endpoint pattern: https://{domain}.atlassian.net/rest/greenhopper/1.0/rapid/charts/sprintreport?rapidViewId={rapidViewId}&amp;sprintId={sprintId}
         /// </summary>
         /// <param name="jiraClient">IGreenhopperDomain to bind the extension method to</param>
         /// <param name="rapidViewId">key for the target board</param>
