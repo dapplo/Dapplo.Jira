@@ -103,7 +103,9 @@ Task("Documentation")
     .Does(() =>
 {
 	// Run DocFX
-	DocFx("./doc/docfx.json");
+    DocFxMetadata("./doc/docfx.json");
+    DocFxBuild("./doc/docfx.json");
+
 	
 	CreateDirectory("artifacts");
 	// Archive the generated site
