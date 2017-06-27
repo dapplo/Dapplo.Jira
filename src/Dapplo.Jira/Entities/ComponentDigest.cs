@@ -31,17 +31,18 @@ using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
-	/// <summary>
-	///     Component information (digest)
-	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/component
-	/// </summary>
-	[JsonObject]
-	public class ComponentDigest : BaseProperties<long>
-	{
-		/// <summary>
-		///     TODO: Needs comment
-		/// </summary>
-		[JsonProperty(PropertyName = "isAssigneeTypeValid")]
-		public bool IsAssigneeTypeValid { get; set; }
-	}
+    /// <summary>
+    ///     Component information (digest)
+    ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/component
+    /// </summary>
+    [JsonObject]
+    public class ComponentDigest : BaseProperties<long>
+    {
+        /// <summary>
+        /// Is the assignee type valid?
+        ///     TODO: Needs comment
+        /// </summary>
+        [JsonProperty(PropertyName = "isAssigneeTypeValid")]
+        public bool IsAssigneeTypeValid { get; set; }
+    }
 }

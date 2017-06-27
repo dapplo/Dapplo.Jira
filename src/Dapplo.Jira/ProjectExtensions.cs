@@ -29,6 +29,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Net;
 using Dapplo.HttpExtensions;
 using Dapplo.Jira.Domains;
 using Dapplo.Jira.Entities;
@@ -78,7 +79,7 @@ namespace Dapplo.Jira
 
         /// <summary>
         ///     Get all visible projects
-        ///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2779
+        ///     More information <a href="https://docs.atlassian.com/jira/REST/latest/#d2e2779">here</a>
         /// </summary>
         /// <param name="jiraClient">IProjectDomain to bind the extension method to</param>
         /// <param name="recent">
@@ -108,6 +109,81 @@ namespace Dapplo.Jira
             jiraClient.Behaviour.MakeCurrent();
             var response = await projectsUri.GetAsAsync<HttpResponse<IList<ProjectDigest>, Error>>(cancellationToken).ConfigureAwait(false);
             return response.HandleErrors();
+        }
+
+        /// <summary>
+        ///     Get component information
+        ///     More information <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/component-getComponent">here</a>
+        /// </summary>
+        /// <param name="jiraClient">IProjectDomain to bind the extension method to</param>
+        /// <param name="componentId">long with ID of the component to retrieve</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <returns>Component</returns>
+        public static async Task<Component> GetComponentAsync(this IProjectDomain jiraClient, long componentId, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            Log.Debug().WriteLine("Retrieving component with id {0}", componentId);
+
+            var componentUri = jiraClient.JiraRestUri.AppendSegments("component", componentId);
+
+            jiraClient.Behaviour.MakeCurrent();
+            var response = await componentUri.GetAsAsync<HttpResponse<Component, Error>>(cancellationToken).ConfigureAwait(false);
+            return response.HandleErrors();
+        }
+
+        /// <summary>
+        ///     Create a component, 
+        ///     More information <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/component-createComponent">here</a>
+        /// </summary>
+        /// <param name="jiraClient">IProjectDomain to bind the extension method to</param>
+        /// <param name="component">Component to create</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <returns>Component with the details, like id</returns>
+        public static async Task<Component> CreateComponentAsync(this IProjectDomain jiraClient, Component component, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            Log.Debug().WriteLine("Creating component {0}", component.Name);
+
+            var componentUri = jiraClient.JiraRestUri.AppendSegments("component");
+
+            jiraClient.Behaviour.MakeCurrent();
+            var response = await componentUri.PostAsync<HttpResponse<Component, Error>>(component, cancellationToken).ConfigureAwait(false);
+            return response.HandleErrors();
+        }
+
+        /// <summary>
+        ///     Update a component, if Lead is an empty string ("") the component lead will be removed.
+        ///     More information <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/component-updateComponent">here</a>
+        /// </summary>
+        /// <param name="jiraClient">IProjectDomain to bind the extension method to</param>
+        /// <param name="component">Component to update</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <returns>Component</returns>
+        public static async Task<Component> UpdateComponentAsync(this IProjectDomain jiraClient, Component component, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            Log.Debug().WriteLine("Updating component {0}", component.Name);
+
+            var componentUri = jiraClient.JiraRestUri.AppendSegments("component", component.Id);
+
+            jiraClient.Behaviour.MakeCurrent();
+            var response = await componentUri.PutAsync<HttpResponse<Component, Error>>(component, cancellationToken).ConfigureAwait(false);
+            return response.HandleErrors();
+        }
+
+        /// <summary>
+        ///     Delete a component
+        ///     More information <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/component-delete">here</a>
+        /// </summary>
+        /// <param name="jiraClient">IProjectDomain to bind the extension method to</param>
+        /// <param name="componentId">long with id of the component to delete</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        public static async Task DeleteComponentAsync(this IProjectDomain jiraClient, long componentId, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            Log.Debug().WriteLine("Deleting component {0}", componentId);
+
+            var componentUri = jiraClient.JiraRestUri.AppendSegments("component", componentId);
+
+            jiraClient.Behaviour.MakeCurrent();
+            var response = await componentUri.DeleteAsync<HttpResponse>(cancellationToken).ConfigureAwait(false);
+            response.HandleStatusCode(HttpStatusCode.NoContent);
         }
     }
 }
