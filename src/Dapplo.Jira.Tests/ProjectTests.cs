@@ -29,7 +29,10 @@ using System.Drawing;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions.Extensions;
 using Dapplo.Jira.Converters;
+using Dapplo.Jira.Entities;
 using Dapplo.Jira.Enums;
+using Dapplo.Log;
+using Dapplo.Log.XUnit;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -39,18 +42,47 @@ namespace Dapplo.Jira.Tests
 {
 	public class ProjectTests : TestBase
 	{
-		public ProjectTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
-		{
-		}
+ 	    public ProjectTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+	    {
+	    }
 
-		[Fact]
-		public async Task TestGetProjectAsync()
-		{
-			var project = await Client.Project.GetAsync("DIT");
+	    [Fact]
+	    public async Task TestGetProjectAsync()
+	    {
+	        var project = await Client.Project.GetAsync("DIT");
 
-			Assert.NotNull(project);
-			Assert.NotNull(project.Roles.Count > 0);
-		}
+	        Assert.NotNull(project);
+	        Assert.NotNull(project.Roles.Count > 0);
+	        foreach (var componentDigest in project.Components)
+	        {
+	            var component = await Client.Project.GetComponentAsync(componentDigest.Id);
+	            Assert.NotNull(component?.Name);
+	            Log.Info().WriteLine("Component {0}", component.Name);
+	        }
+	    }
+
+        [Fact]
+		public async Task TestComponentAsync()
+        {
+            // Create
+            var component = new Component
+            {
+                Name = "Component from Test",
+                Project = "DIT",
+                Description = "This was created from a test"
+            };
+            component = await Client.Project.CreateComponentAsync(component);
+
+            // Update
+            const string descriptionUpdate = "Changed the description";
+            component.Description = descriptionUpdate;
+            await Client.Project.UpdateComponentAsync(component);
+
+            // Delete
+            component = await Client.Project.GetComponentAsync(component.Id);
+            Assert.Equal(descriptionUpdate, component.Description);
+            await Client.Project.DeleteComponentAsync(component.Id);
+        }
 
 		[Fact]
 		public async Task TestGetProjectsAsync()
