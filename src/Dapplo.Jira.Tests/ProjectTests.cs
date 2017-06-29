@@ -26,6 +26,7 @@
 #region Usings
 
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions.Extensions;
 using Dapplo.Jira.Converters;
@@ -59,6 +60,15 @@ namespace Dapplo.Jira.Tests
 	            Assert.NotNull(component?.Name);
 	            Log.Info().WriteLine("Component {0}", component.Name);
 	        }
+	    }
+
+	    [Fact]
+	    public async Task TestGetIssueCreatorsAsync()
+	    {
+	        var creators = await Client.Project.GetIssueCreatorsAsync("DIT");
+
+	        Assert.NotNull(creators);
+	        Assert.NotNull(creators.Any());
 	    }
 
         [Fact]

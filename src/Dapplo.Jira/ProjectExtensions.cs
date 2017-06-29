@@ -185,5 +185,19 @@ namespace Dapplo.Jira
             var response = await componentUri.DeleteAsync<HttpResponse>(cancellationToken).ConfigureAwait(false);
             response.HandleStatusCode(HttpStatusCode.NoContent);
         }
+
+        /// <summary>
+        /// Retrieve the users who can create issues for the specified project
+        /// </summary>
+        /// <param name="jiraClient">IProjectDomain</param>
+        /// <param name="projectKey">string with the key of the project</param>
+        /// <param name="maxResults"></param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <param name="startAt"></param>
+        /// <returns>IEnumerable with User</returns>
+        public static Task<IEnumerable<User>> GetIssueCreatorsAsync(this IProjectDomain jiraClient, string projectKey, int? startAt = null, int? maxResults = null, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return jiraClient.User.GetAssignableUsersAsync(projectKey: projectKey, startAt: startAt, maxResults: maxResults, cancellationToken: cancellationToken);
+        }
     }
 }

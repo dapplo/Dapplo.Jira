@@ -131,5 +131,76 @@ namespace Dapplo.Jira
             var response = await myselfUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
             return response.HandleErrors();
         }
+
+        /// <summary>
+        /// Retrieve the assignable users for the specified project or issue
+        /// See <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/user-findAssignableUsers">here</a>
+        /// </summary>
+        /// <param name="jiraClient">IProjectDomain</param>
+        /// <param name="username">string with a pattern</param>
+        /// <param name="projectKey">string with the key of the project</param>
+        /// <param name="issueKey">string with the key of the issue</param>
+        /// <param name="startAt">optional int where to start returning the results</param>
+        /// <param name="maxResults">optional int with the max of the result</param>
+        /// <param name="actionDescriptorId">optional int, not documented what this does</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <returns>IEnumerable with User</returns>
+        public static async Task<IEnumerable<User>> GetAssignableUsersAsync(this IUserDomain jiraClient, string username = null, string projectKey = null, string issueKey = null, int? startAt = null, int? maxResults = null, int? actionDescriptorId = null, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var usersSearchUri = jiraClient.JiraRestUri
+                .AppendSegments("user", "assignable", "search");
+
+            if (projectKey != null)
+            {
+                usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
+                {
+                    {"project", projectKey},
+                });
+            }
+
+            if (issueKey != null)
+            {
+                usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
+                {
+                    {"issueKey", issueKey},
+                });
+            }
+
+            if (username != null)
+            {
+                usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
+                {
+                    {"username", username},
+                });
+            }
+
+            if (startAt.HasValue)
+            {
+                usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
+                {
+                    {"startAt", startAt.Value},
+                });
+            }
+
+            if (maxResults.HasValue)
+            {
+                usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
+                {
+                    {"maxResults", maxResults.Value},
+                });
+            }
+
+            if (actionDescriptorId.HasValue)
+            {
+                usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
+                {
+                    {"actionDescriptorId", actionDescriptorId.Value},
+                });
+            }
+
+            jiraClient.Behaviour.MakeCurrent();
+            var response = await usersSearchUri.GetAsAsync<HttpResponse<IEnumerable<User>, Error>>(cancellationToken).ConfigureAwait(false);
+            return response.HandleErrors();
+        }
     }
 }
