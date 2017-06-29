@@ -351,5 +351,20 @@ namespace Dapplo.Jira
             var response = await issueUri.PutAsync<HttpResponse>(user, cancellationToken).ConfigureAwait(false);
             response.HandleStatusCode(HttpStatusCode.NoContent, HttpStatusCode.OK);
         }
+
+        /// <summary>
+        /// Retrieve the users who this issue can be assigned to
+        /// </summary>
+        /// <param name="jiraClient">IProjectDomain</param>
+        /// <param name="issueKey">string with the key of the issue</param>
+        /// <param name="userpattern">optional string with a pattern to match the user to</param>
+        /// <param name="startAt">optional int with the start, used for paging</param>
+        /// <param name="maxResults">optional int with the maximum number of results, default is 50</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <returns>IEnumerable with User</returns>
+        public static Task<IEnumerable<User>> GetIssueCreatorsAsync(this IIssueDomain jiraClient, string issueKey, string userpattern = null, int? startAt = null, int? maxResults = null, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return jiraClient.User.GetAssignableUsersAsync(issueKey: issueKey, username: userpattern, startAt: startAt, maxResults: maxResults, cancellationToken: cancellationToken);
+        }
     }
 }

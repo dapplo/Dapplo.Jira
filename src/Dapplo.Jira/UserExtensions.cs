@@ -137,9 +137,9 @@ namespace Dapplo.Jira
         /// See <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/user-findAssignableUsers">here</a>
         /// </summary>
         /// <param name="jiraClient">IProjectDomain</param>
-        /// <param name="username">string with a pattern</param>
-        /// <param name="projectKey">string with the key of the project</param>
-        /// <param name="issueKey">string with the key of the issue</param>
+        /// <param name="username">optional string with a pattern</param>
+        /// <param name="projectKey">optional string with the key of the project</param>
+        /// <param name="issueKey">optional string with the key of the issue</param>
         /// <param name="startAt">optional int where to start returning the results</param>
         /// <param name="maxResults">optional int with the max of the result</param>
         /// <param name="actionDescriptorId">optional int, not documented what this does</param>

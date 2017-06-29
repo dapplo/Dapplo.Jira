@@ -191,13 +191,14 @@ namespace Dapplo.Jira
         /// </summary>
         /// <param name="jiraClient">IProjectDomain</param>
         /// <param name="projectKey">string with the key of the project</param>
-        /// <param name="maxResults"></param>
+        /// <param name="userpattern">optional string with a pattern to match the user to</param>
+        /// <param name="startAt">optional int with the start, used for paging</param>
+        /// <param name="maxResults">optional int with the maximum number of results, default is 50</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        /// <param name="startAt"></param>
         /// <returns>IEnumerable with User</returns>
-        public static Task<IEnumerable<User>> GetIssueCreatorsAsync(this IProjectDomain jiraClient, string projectKey, int? startAt = null, int? maxResults = null, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<IEnumerable<User>> GetIssueCreatorsAsync(this IProjectDomain jiraClient, string projectKey, string userpattern = null, int? startAt = null, int? maxResults = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return jiraClient.User.GetAssignableUsersAsync(projectKey: projectKey, startAt: startAt, maxResults: maxResults, cancellationToken: cancellationToken);
+            return jiraClient.User.GetAssignableUsersAsync(username: userpattern, projectKey: projectKey, startAt: startAt, maxResults: maxResults, cancellationToken: cancellationToken);
         }
     }
 }
