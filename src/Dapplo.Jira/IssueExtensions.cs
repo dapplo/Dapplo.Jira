@@ -362,7 +362,7 @@ namespace Dapplo.Jira
         /// <param name="maxResults">optional int with the maximum number of results, default is 50</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>IEnumerable with User</returns>
-        public static Task<IEnumerable<User>> GetIssueCreatorsAsync(this IIssueDomain jiraClient, string issueKey, string userpattern = null, int? startAt = null, int? maxResults = null, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<IEnumerable<User>> GetAssignableUsersAsync(this IIssueDomain jiraClient, string issueKey, string userpattern = null, int? startAt = null, int? maxResults = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             return jiraClient.User.GetAssignableUsersAsync(issueKey: issueKey, username: userpattern, startAt: startAt, maxResults: maxResults, cancellationToken: cancellationToken);
         }
