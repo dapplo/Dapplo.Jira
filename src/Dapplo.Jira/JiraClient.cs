@@ -37,6 +37,7 @@ using System.Linq;
 using Dapplo.HttpExtensions.Extensions;
 using Dapplo.HttpExtensions.OAuth;
 using Dapplo.Jira.Converters;
+using System.Net.Cache;
 #endif
 
 #endregion
