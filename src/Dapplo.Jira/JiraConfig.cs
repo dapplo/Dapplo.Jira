@@ -64,10 +64,10 @@ namespace Dapplo.Jira
 		/// </summary>
 		public static string[] ExpandGetTransitions { get; set; }
 
-		/// <summary>
-		///     The values that are expanded in the Search result
-		/// </summary>
-		public static string[] ExpandSearch { get; set; }
+        /// <summary>
+        ///     The values that are expanded in the Search result
+        /// </summary>
+        public static string[] ExpandSearch { get; set; }
 
 		/// <summary>
 		///     The fields that are requested by the Search result

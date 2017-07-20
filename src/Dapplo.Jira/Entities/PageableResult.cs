@@ -35,7 +35,7 @@ namespace Dapplo.Jira.Entities
 	///     Container for pagable information in a result
 	/// </summary>
 	[JsonObject]
-	public class PageableResult : Pageable
+	public class PageableResult : Page
 	{
 		/// <summary>
 		///     The total results

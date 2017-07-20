@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>A library for accessing Atlassians JIRA from .NET via the PowerShell</Description>
+    <Copyright>Copyright © Dapplo 2016</Copyright>
+    <AssemblyTitle>Dapplo.Jira.PowerShell</AssemblyTitle>
+    <Authors>Robin Krom</Authors>
+    <TargetFrameworks>net45;net46</TargetFrameworks>
+    <AssemblyName>Dapplo.Jira.PowerShell</AssemblyName>
+    <PackageId>Dapplo.Jira.PowerShell</PackageId>
+    <PackageTags>atlassian;jira;dapplo;powershell</PackageTags>
+    <PackageIconUrl>http://www.dapplo.net/favicon.ico</PackageIconUrl>
+    <PackageProjectUrl>http://www.dapplo.net/blocks/Dapplo.Jira/</PackageProjectUrl>
+    <PackageLicenseUrl>http://www.gnu.org/licenses/lgpl-3.0.en.html</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/dapplo/Dapplo.Jira</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dapplo.Jira\Dapplo.Jira.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <PackageReference Include="System.Management.Automation.dll" Version="10.0.10586" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
+    <PackageReference Include="System.Management.Automation.dll" Version="10.0.10586" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>

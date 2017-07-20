@@ -1,18 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dapplo.Jira", "Dapplo.Jira\Dapplo.Jira.xproj", "{C57A6597-291B-4BB4-B87A-30B0B39C41E2}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dapplo.Jira.Tests", "Dapplo.Jira.Tests\Dapplo.Jira.Tests.xproj", "{2119C12B-5874-4E60-BD36-45CA1D29FDDC}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dapplo.Jira.PowerShell", "Dapplo.Jira.PowerShell\Dapplo.Jira.PowerShell.xproj", "{654AF45B-4757-4959-9845-536AFD73ED6B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{31A4D9F9-EB47-4B48-A65C-D49FDB01E9F7}"
 	ProjectSection(SolutionItems) = preProject
 		..\build.cake = ..\build.cake
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapplo.Jira", "Dapplo.Jira\Dapplo.Jira.csproj", "{C57A6597-291B-4BB4-B87A-30B0B39C41E2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapplo.Jira.PowerShell", "Dapplo.Jira.PowerShell\Dapplo.Jira.PowerShell.csproj", "{654AF45B-4757-4959-9845-536AFD73ED6B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapplo.Jira.Tests", "Dapplo.Jira.Tests\Dapplo.Jira.Tests.csproj", "{96CAD64B-0C99-4DEF-8546-F970B282BD3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,14 +24,14 @@ Global
 		{C57A6597-291B-4BB4-B87A-30B0B39C41E2}.Debug|AnyCPU.Build.0 = Debug|Any CPU
 		{C57A6597-291B-4BB4-B87A-30B0B39C41E2}.Release|AnyCPU.ActiveCfg = Release|Any CPU
 		{C57A6597-291B-4BB4-B87A-30B0B39C41E2}.Release|AnyCPU.Build.0 = Release|Any CPU
-		{2119C12B-5874-4E60-BD36-45CA1D29FDDC}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
-		{2119C12B-5874-4E60-BD36-45CA1D29FDDC}.Debug|AnyCPU.Build.0 = Debug|Any CPU
-		{2119C12B-5874-4E60-BD36-45CA1D29FDDC}.Release|AnyCPU.ActiveCfg = Release|Any CPU
-		{2119C12B-5874-4E60-BD36-45CA1D29FDDC}.Release|AnyCPU.Build.0 = Release|Any CPU
 		{654AF45B-4757-4959-9845-536AFD73ED6B}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
 		{654AF45B-4757-4959-9845-536AFD73ED6B}.Debug|AnyCPU.Build.0 = Debug|Any CPU
 		{654AF45B-4757-4959-9845-536AFD73ED6B}.Release|AnyCPU.ActiveCfg = Release|Any CPU
 		{654AF45B-4757-4959-9845-536AFD73ED6B}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{96CAD64B-0C99-4DEF-8546-F970B282BD3F}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{96CAD64B-0C99-4DEF-8546-F970B282BD3F}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{96CAD64B-0C99-4DEF-8546-F970B282BD3F}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{96CAD64B-0C99-4DEF-8546-F970B282BD3F}.Release|AnyCPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

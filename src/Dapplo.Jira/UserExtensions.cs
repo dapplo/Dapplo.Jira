@@ -81,7 +81,7 @@ namespace Dapplo.Jira
         /// <param name="includeActive">If true, then active users are included in the results (default true)</param>
         /// <param name="includeInactive">If true, then inactive users are included in the results (default false)</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        /// <returns>SearchResult</returns>
+        /// <returns>SearchResults</returns>
         public static async Task<IList<User>> SearchAsync(this IUserDomain jiraClient, string query, bool includeActive = true, bool includeInactive = false, int startAt = 0,
             int maxResults = 20, CancellationToken cancellationToken = default(CancellationToken))
         {

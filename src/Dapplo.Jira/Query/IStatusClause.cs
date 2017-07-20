@@ -1,4 +1,4 @@
-﻿#region Dapplo 2017 - GNU Lesser General Public License
+#region Dapplo 2017 - GNU Lesser General Public License
 
 // Dapplo - building blocks for .NET applications
 // Copyright (C) 2017 Dapplo
@@ -23,36 +23,34 @@
 
 #endregion
 
-#region Usings
+using Dapplo.Jira.Entities;
 
-using Newtonsoft.Json;
-
-#endregion
-
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Query
 {
 	/// <summary>
-	///     Container for pagable information in a request, also the base for the PageableResult
+	///     An interface for status based clauses
 	/// </summary>
-	[JsonObject]
-	public class Pageable
-	{
-		/// <summary>
-		///     Max of the results (this is the limit)
-		/// </summary>
-		[JsonProperty(PropertyName = "maxResults")]
-		public int? MaxResults { get; set; }
+	public interface IStatusClause
+    {
+        /// <summary>
+        ///     Negates the expression
+        /// </summary>
+        IStatusClause Not { get; }
 
 		/// <summary>
-		///     Where in the total this "page" is located
+		///     This allows fluent constructs like IssueKey.In(BUG-1234, FEATURE-5678)
 		/// </summary>
-		[JsonProperty(PropertyName = "startAt")]
-		public int? StartAt { get; set; }
-
+		IFinalClause In(params string[] states);
+        
 		/// <summary>
-		///     Is this the last page?
+		///     This allows fluent constructs like Id.Is(12345)
 		/// </summary>
-		[JsonProperty(PropertyName = "isLast")]
-		public bool IsLast { get; set; }
+		IFinalClause Is(string state);
+
+        /// <summary>
+        ///     This allows fluent constructs like Status.Was("Closed")
+        /// TODO: Add the different predicates like after and before etc... See: <a href="https://confluence.atlassian.com/jira/advanced-searching-179442050.html#id-__JQLWAScaveats-Status">here</a>
+        /// </summary>
+        IFinalClause Was(string state);
 	}
 }

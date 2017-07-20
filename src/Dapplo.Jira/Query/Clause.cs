@@ -36,7 +36,7 @@ using Dapplo.HttpExtensions.Extensions;
 namespace Dapplo.Jira.Query
 {
 	/// <summary>
-	///     This stores the information for a CQL where clause
+	///     This stores the information for a JQL where clause
 	/// </summary>
 	internal class Clause : IFinalClause
 	{

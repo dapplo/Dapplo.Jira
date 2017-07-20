@@ -33,7 +33,6 @@ using Dapplo.Jira.Converters;
 using Dapplo.Jira.Entities;
 using Dapplo.Jira.Enums;
 using Dapplo.Log;
-using Dapplo.Log.XUnit;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -66,9 +65,10 @@ namespace Dapplo.Jira.Tests
 	    public async Task TestGetIssueCreatorsAsync()
 	    {
 	        var creators = await Client.Project.GetIssueCreatorsAsync("DIT");
-
 	        Assert.NotNull(creators);
-	        Assert.NotNull(creators.Any());
+
+	        var firstCreator = creators.First();
+            await Client.Server.GetAvatarAsync<Bitmap>(firstCreator.Avatars);
 	    }
 
         [Fact]

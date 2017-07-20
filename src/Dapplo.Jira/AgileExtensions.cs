@@ -79,10 +79,10 @@ namespace Dapplo.Jira
         ///     Filters results to sprints in specified states. Valid values: future, active, closed. You can
         ///     define multiple states separated by commas, e.g. state=active,closed
         /// </param>
-        /// <param name="page">optional Pageable</param>
+        /// <param name="page">optional Page</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Results with Sprint objects</returns>
-        public static async Task<Results<Sprint>> GetSprintsAsync(this IAgileDomain jiraClient, long boardId, string stateFilter = null, Pageable page = null,
+        public static async Task<SearchResult<Sprint, Tuple<long, string>>> GetSprintsAsync(this IAgileDomain jiraClient, long boardId, string stateFilter = null, Page page = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             jiraClient.Behaviour.MakeCurrent();
@@ -103,8 +103,11 @@ namespace Dapplo.Jira
             {
                 sprintsUri = sprintsUri.ExtendQuery("state", stateFilter);
             }
-            var response = await sprintsUri.GetAsAsync<HttpResponse<Results<Sprint>, Error>>(cancellationToken).ConfigureAwait(false);
-            return response.HandleErrors();
+            var response = await sprintsUri.GetAsAsync<HttpResponse<SearchResult<Sprint, Tuple<long, string>>, Error>>(cancellationToken).ConfigureAwait(false);
+            var result = response.HandleErrors();
+            // Store the original search parameter(s), so we can get the next page
+            result.SearchParameter = new Tuple<long, string>(boardId, stateFilter);
+            return result;
         }
 
         /// <summary>
@@ -117,10 +120,10 @@ namespace Dapplo.Jira
         /// </summary>
         /// <param name="jiraClient">IAgileDomain to bind the extension method to</param>
         /// <param name="boardId">Id of the board to get the backlog for</param>
-        /// <param name="page">optional Pageable</param>
+        /// <param name="page">optional Page</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Results with Sprint objects</returns>
-        public static async Task<SearchResult<AgileIssue>> GetBacklogAsync(this IAgileDomain jiraClient, long boardId, Pageable page = null,
+        public static async Task<SearchIssuesResult<AgileIssue, long>> GetBacklogAsync(this IAgileDomain jiraClient, long boardId, Page page = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             jiraClient.Behaviour.MakeCurrent();
@@ -137,8 +140,11 @@ namespace Dapplo.Jira
                     }
                 });
             }
-            var response = await backlogIssuesUri.GetAsAsync<HttpResponse<SearchResult<AgileIssue>, Error>>(cancellationToken).ConfigureAwait(false);
-            return response.HandleErrors();
+            var response = await backlogIssuesUri.GetAsAsync<HttpResponse<SearchIssuesResult<AgileIssue, long>, Error>>(cancellationToken).ConfigureAwait(false);
+            var result = response.HandleErrors();
+            // Store the original search parameter(s), so we can get the next page
+            result.SearchParameter = boardId;
+            return result;
         }
 
         /// <summary>
@@ -151,10 +157,10 @@ namespace Dapplo.Jira
         /// </summary>
         /// <param name="jiraClient">IAgileDomain to bind the extension method to</param>
         /// <param name="boardId">Id of the board to get the issues for</param>
-        /// <param name="page">optional Pageable</param>
+        /// <param name="page">optional Page</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResult with AgileIssue objects</returns>
-        public static async Task<SearchResult<AgileIssue>> GetIssuesOnBoardAsync(this IAgileDomain jiraClient, long boardId, Pageable page = null,
+        public static async Task<SearchIssuesResult<AgileIssue, long>> GetIssuesOnBoardAsync(this IAgileDomain jiraClient, long boardId, Page page = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             jiraClient.Behaviour.MakeCurrent();
@@ -171,8 +177,11 @@ namespace Dapplo.Jira
                     }
                 });
             }
-            var response = await boardIssuesUri.GetAsAsync<HttpResponse<SearchResult<AgileIssue>, Error>>(cancellationToken).ConfigureAwait(false);
-            return response.HandleErrors();
+            var response = await boardIssuesUri.GetAsAsync<HttpResponse<SearchIssuesResult<AgileIssue, long>, Error>>(cancellationToken).ConfigureAwait(false);
+            var result = response.HandleErrors();
+            // Store the original search parameter(s), so we can get the next page
+            result.SearchParameter = boardId;
+            return result;
         }
 
         /// <summary>
@@ -186,10 +195,10 @@ namespace Dapplo.Jira
         /// <param name="jiraClient">IAgileDomain to bind the extension method to</param>
         /// <param name="boardId">Id of the board to get the issues for</param>
         /// <param name="sprintId">Id of the sprint to get the issues for</param>
-        /// <param name="page">optional Pageable</param>
+        /// <param name="page">optional Page</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResult with AgileIssue objects</returns>
-        public static async Task<SearchResult<AgileIssue>> GetIssuesInSprintAsync(this IAgileDomain jiraClient, long boardId, long sprintId, Pageable page = null,
+        public static async Task<SearchIssuesResult<AgileIssue, Tuple<long, long>>> GetIssuesInSprintAsync(this IAgileDomain jiraClient, long boardId, long sprintId, Page page = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             jiraClient.Behaviour.MakeCurrent();
@@ -206,8 +215,11 @@ namespace Dapplo.Jira
                     }
                 });
             }
-            var response = await sprintIssuesUri.GetAsAsync<HttpResponse<SearchResult<AgileIssue>, Error>>(cancellationToken).ConfigureAwait(false);
-            return response.HandleErrors();
+            var response = await sprintIssuesUri.GetAsAsync<HttpResponse<SearchIssuesResult<AgileIssue, Tuple<long, long>>, Error>>(cancellationToken).ConfigureAwait(false);
+            var result = response.HandleErrors();
+            // Store the original search parameter(s), so we can get the next page
+            result.SearchParameter = new Tuple<long,long>(boardId, sprintId);
+            return result;
         }
 
         /// <summary>
@@ -296,11 +308,11 @@ namespace Dapplo.Jira
         ///     Filters results to boards that are relevant to a project. Relevance means that the jql
         ///     filter defined in board contains a reference to a project.
         /// </param>
-        /// <param name="page">optional Pageable</param>
+        /// <param name="page">optional Page</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Results with Board objects</returns>
-        public static async Task<Results<Board>> GetBoardsAsync(this IAgileDomain jiraClient, string type = null, string name = null, string projectKeyOrId = null,
-            Pageable page = null, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<SearchResult<Board, Tuple<string, string, string>>> GetBoardsAsync(this IAgileDomain jiraClient, string type = null, string name = null, string projectKeyOrId = null,
+            Page page = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             jiraClient.Behaviour.MakeCurrent();
             var boardsUri = jiraClient.JiraAgileRestUri.AppendSegments("board");
@@ -328,8 +340,12 @@ namespace Dapplo.Jira
             {
                 boardsUri = boardsUri.ExtendQuery("projectKeyOrId", projectKeyOrId);
             }
-            var response = await boardsUri.GetAsAsync<HttpResponse<Results<Board>, Error>>(cancellationToken).ConfigureAwait(false);
-            return response.HandleErrors();
+            var response = await boardsUri.GetAsAsync<HttpResponse<SearchResult<Board, Tuple<string, string, string>>, Error>>(cancellationToken).ConfigureAwait(false);
+            // Store the original search parameter(s), so we can get the next page
+            var result = response.HandleErrors();
+            // Store the original search parameter(s), so we can get the next page
+            result.SearchParameter = new Tuple<string, string, string>(type, name, projectKeyOrId);
+            return result;
         }
 
         /// <summary>
@@ -338,10 +354,10 @@ namespace Dapplo.Jira
         /// </summary>
         /// <param name="jiraClient">IAgileDomain to bind the extension method to</param>
         /// <param name="boardId">Id of the board to get the epics for</param>
-        /// <param name="page">optional Pageable</param>
+        /// <param name="page">optional Page</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Results with Epic objects</returns>
-        public static async Task<Results<Epic>> GetEpicsAsync(this IAgileDomain jiraClient, long boardId, Pageable page = null,
+        public static async Task<SearchResult<Epic, long>> GetEpicsAsync(this IAgileDomain jiraClient, long boardId, Page page = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             jiraClient.Behaviour.MakeCurrent();
@@ -358,8 +374,12 @@ namespace Dapplo.Jira
                     }
                 });
             }
-            var response = await epicsUri.GetAsAsync<HttpResponse<Results<Epic>, Error>>(cancellationToken).ConfigureAwait(false);
-            return response.HandleErrors();
+            var response = await epicsUri.GetAsAsync<HttpResponse<SearchResult<Epic, long>, Error>>(cancellationToken).ConfigureAwait(false);
+            // Store the original search parameter(s), so we can get the next page
+            var result = response.HandleErrors();
+            // Store the original search parameter(s), so we can get the next page
+            result.SearchParameter = boardId;
+            return result;
         }
 
         /// <summary>
@@ -369,10 +389,10 @@ namespace Dapplo.Jira
         /// <param name="jiraClient">IAgileDomain to bind the extension method to</param>
         /// <param name="boardId">Id of the board to get the issues for</param>
         /// <param name="epicId">Id of the epic to get the issues for</param>
-        /// <param name="page">optional Pageable</param>
+        /// <param name="page">optional Page</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResult with AgileIssue objects</returns>
-        public static async Task<SearchResult<AgileIssue>> GetIssuesForEpicAsync(this IAgileDomain jiraClient, long boardId, long epicId, Pageable page = null,
+        public static async Task<SearchIssuesResult<AgileIssue, Tuple<long, long>>> GetIssuesForEpicAsync(this IAgileDomain jiraClient, long boardId, long epicId, Page page = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             jiraClient.Behaviour.MakeCurrent();
@@ -389,8 +409,11 @@ namespace Dapplo.Jira
                     }
                 });
             }
-            var response = await epicIssuesUri.GetAsAsync<HttpResponse<SearchResult<AgileIssue>, Error>>(cancellationToken).ConfigureAwait(false);
-            return response.HandleErrors();
+            var response = await epicIssuesUri.GetAsAsync<HttpResponse<SearchIssuesResult<AgileIssue, Tuple<long, long>>, Error>>(cancellationToken).ConfigureAwait(false);
+            var result = response.HandleErrors();
+            // Store the original search parameter(s), so we can get the next page
+            result.SearchParameter = new Tuple<long, long>(boardId, epicId);
+            return result;
         }
 
         /// <summary>
@@ -401,10 +424,10 @@ namespace Dapplo.Jira
         /// </summary>
         /// <param name="jiraClient">IAgileDomain to bind the extension method to</param>
         /// <param name="epicId">Id of the epic to get the issues for</param>
-        /// <param name="page">optional Pageable</param>
+        /// <param name="page">optional Page</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResult with AgileIssue objects</returns>
-        public static async Task<SearchResult<AgileIssue>> GetIssuesForEpicAsync(this IAgileDomain jiraClient, long epicId, Pageable page = null,
+        public static async Task<SearchIssuesResult<AgileIssue, long>> GetIssuesForEpicAsync(this IAgileDomain jiraClient, long epicId, Page page = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             jiraClient.Behaviour.MakeCurrent();
@@ -421,8 +444,11 @@ namespace Dapplo.Jira
                     }
                 });
             }
-            var response = await epicIssuesUri.GetAsAsync<HttpResponse<SearchResult<AgileIssue>, Error>>(cancellationToken).ConfigureAwait(false);
-            return response.HandleErrors();
+            var response = await epicIssuesUri.GetAsAsync<HttpResponse<SearchIssuesResult<AgileIssue, long>, Error>>(cancellationToken).ConfigureAwait(false);
+            var result = response.HandleErrors();
+            // Store the original search parameter(s), so we can get the next page
+            result.SearchParameter = epicId;
+            return result;
         }
 
         /// <summary>
@@ -463,10 +489,10 @@ namespace Dapplo.Jira
         /// </summary>
         /// <param name="jiraClient">IAgileDomain to bind the extension method to</param>
         /// <param name="boardId">Id of the board to get the issues for</param>
-        /// <param name="page">optional Pageable</param>
+        /// <param name="page">optional Page</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResult with AgileIssue objects</returns>
-        public static async Task<SearchResult<AgileIssue>> GetIssuesWithoutEpicAsync(this IAgileDomain jiraClient, long boardId, Pageable page = null,
+        public static async Task<SearchIssuesResult<AgileIssue, long>> GetIssuesWithoutEpicAsync(this IAgileDomain jiraClient, long boardId, Page page = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             jiraClient.Behaviour.MakeCurrent();
@@ -483,8 +509,11 @@ namespace Dapplo.Jira
                     }
                 });
             }
-            var response = await epicLessIssuesUri.GetAsAsync<HttpResponse<SearchResult<AgileIssue>, Error>>(cancellationToken).ConfigureAwait(false);
-            return response.HandleErrors();
+            var response = await epicLessIssuesUri.GetAsAsync<HttpResponse<SearchIssuesResult<AgileIssue, long>, Error>>(cancellationToken).ConfigureAwait(false);
+            var result = response.HandleErrors();
+            // Store the original search parameter(s), so we can get the next page
+            result.SearchParameter = boardId;
+            return result;
         }
     }
 }

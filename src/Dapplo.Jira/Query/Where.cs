@@ -33,7 +33,7 @@ using System.Linq;
 namespace Dapplo.Jira.Query
 {
 	/// <summary>
-	///     Factory method for CQL where clauses
+	///     Factory method for JQL where clauses
 	/// </summary>
 	public static class Where
 	{
@@ -42,10 +42,15 @@ namespace Dapplo.Jira.Query
 		/// </summary>
 		public static IIssueClause IssueKey => new IssueClause();
 
-		/// <summary>
-		///     Create a clause for the type field
-		/// </summary>
-		public static ITypeClause Type => new TypeClause();
+	    /// <summary>
+	    ///     Create a clause for the Status field
+	    /// </summary>
+	    public static IStatusClause Status => new StatusClause();
+
+        /// <summary>
+        ///     Create a clause for the type field
+        /// </summary>
+        public static ITypeClause Type => new TypeClause();
 
 		#region User based clauses
 

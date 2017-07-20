@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Tests for Dapplo.Jira</Description>
+    <Copyright>Copyright © Dapplo 2016</Copyright>
+    <AssemblyTitle>Dapplo.Jira.Tests</AssemblyTitle>
+    <Authors>Robin Krom</Authors>
+    <TargetFramework>net45</TargetFramework>
+    <AssemblyName>Dapplo.Jira.Tests</AssemblyName>
+    <PackageId>Dapplo.Jira.Tests</PackageId>
+    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="JsonTestFiles\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dapplo.Jira\Dapplo.Jira.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.6.22" />
+    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.6.22" />
+    <PackageReference Include="Dapplo.Log" Version="1.0.29" />
+    <PackageReference Include="Dapplo.Log.XUnit" Version="1.0.29" />
+    <PackageReference Include="xunit" Version="2.2.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+    <PackageReference Include="Dapplo.Utils" Version="1.0.150" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>

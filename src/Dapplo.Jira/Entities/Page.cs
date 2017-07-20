@@ -25,8 +25,6 @@
 
 #region Usings
 
-using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 #endregion
@@ -34,36 +32,21 @@ using Newtonsoft.Json;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Pagable results
+	///     Container for paga information in a request, also the base for the PageableResult
 	/// </summary>
-	/// <typeparam name="TResultType">The type for the results</typeparam>
 	[JsonObject]
-	public class Results<TResultType> : PageableResult, IEnumerable<TResultType>
+	public class Page
 	{
 		/// <summary>
-		///     Expand values
+		///     Max of the results (this is the limit)
 		/// </summary>
-		[JsonProperty(PropertyName = "expand")]
-		public string Expand { get; set; }
+		[JsonProperty(PropertyName = "maxResults")]
+		public int? MaxResults { get; set; }
 
 		/// <summary>
-		///     Results
+		///     Where in the total this "page" is located
 		/// </summary>
-		[JsonProperty(PropertyName = "values")]
-		public IList<TResultType> Values { get; set; }
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
-
-		/// <summary>
-		/// IEnumerator implementation
-		/// </summary>
-		/// <returns>IEnumerator of type TResultType</returns>
-		public IEnumerator<TResultType> GetEnumerator()
-		{
-			return Values.GetEnumerator();
-		}
+		[JsonProperty(PropertyName = "startAt")]
+		public int? StartAt { get; set; }
 	}
 }

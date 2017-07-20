@@ -33,37 +33,35 @@ using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
-    /// <summary>
-    ///     Pagable results
-    /// </summary>
-    /// <typeparam name="TResultType">The type for the results</typeparam>
-    /// <typeparam name="TSearch">The type for the search parameter</typeparam>
+	/// <summary>
+	///     Search result information, see <a href="https://docs.atlassian.com/jira/REST/latest/#api/2/search-search">here</a>
+	/// </summary>
 	[JsonObject]
-	public class SearchResult<TResultType, TSearch> : PageableResult, IEnumerable<TResultType>
+	public class SearchIssuesResult<TIssue, TSearch> : PageableResult, IEnumerable<TIssue> where TIssue : IssueBase
 	{
-	    /// <summary>
-	    /// The original search value, used to continue searches
-	    /// </summary>
-	    [JsonIgnore]
-	    public TSearch SearchParameter { get; set; }
-
         /// <summary>
-        ///     Expand values
+        /// The original search value, used to continue searches
         /// </summary>
-        [JsonProperty(PropertyName = "expand")]
+        [JsonIgnore]
+        public TSearch SearchParameter { get; set; }
+
+		/// <summary>
+		///     Expand values
+		/// </summary>
+		[JsonProperty(PropertyName = "expand")]
 		public string Expand { get; set; }
 
 		/// <summary>
-		///     Results
+		///     List of issues
 		/// </summary>
-		[JsonProperty(PropertyName = "values")]
-		public IList<TResultType> Values { get; set; }
+		[JsonProperty(PropertyName = "issues")]
+		public IList<TIssue> Issues { get; set; }
 
 	    /// <summary>
 	    ///     Nummber of items in the result
 	    /// </summary>
 	    [JsonIgnore]
-	    public int Count => Values?.Count ?? 0;
+	    public int Count => Issues?.Count ?? 0;
 
         /// <summary>
         ///     Is this the last page?
@@ -71,15 +69,15 @@ namespace Dapplo.Jira.Entities
         [JsonIgnore]
 	    public bool IsLastPage => !Total.HasValue || StartAt + Count >= Total;
 
-        /// <summary>
-        /// Retrieve the next page
-        /// </summary>
-        [JsonIgnore]
+	    /// <summary>
+	    /// Retrieve the next page
+	    /// </summary>
+	    [JsonIgnore]
 	    public Page NextPage => new Page
 	    {
-            StartAt = StartAt + Count,
-            MaxResults = MaxResults
-        };
+	        StartAt = StartAt + (Issues?.Count ?? 0),
+	        MaxResults = MaxResults
+	    };
 
         IEnumerator IEnumerable.GetEnumerator()
 		{
@@ -87,12 +85,12 @@ namespace Dapplo.Jira.Entities
 		}
 
 		/// <summary>
-		/// IEnumerator implementation
+		/// Generic IEnumerator implementation
 		/// </summary>
-		/// <returns>IEnumerator of type TResultType</returns>
-		public IEnumerator<TResultType> GetEnumerator()
+		/// <returns>IEnumerator with TIssue</returns>
+		public IEnumerator<TIssue> GetEnumerator()
 		{
-			return Values.GetEnumerator();
+			return Issues.GetEnumerator();
 		}
 	}
 }

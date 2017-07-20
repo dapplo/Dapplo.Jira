@@ -31,6 +31,7 @@ using System.Threading.Tasks;
 using Dapplo.HttpExtensions.ContentConverter;
 using Dapplo.Jira.Entities;
 using Dapplo.Jira.Query;
+using Dapplo.Log;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -152,5 +153,24 @@ namespace Dapplo.Jira.Tests
 				Assert.NotNull(issue.Fields.Project);
 			}
 		}
-	}
+
+	    [Fact]
+	    public async Task TestSearch_Paging()
+	    {
+            var searchResult = await Client.Issue.SearchAsync(Where.Text.Contains("DPI"));
+
+	        // Loop over all results
+	        do
+	        {
+	            Assert.NotNull(searchResult);
+	            Assert.NotNull(searchResult.Issues.Count > 0);
+	            Log.Info().WriteLine("Got {0} results, starting at index {1}, isLast: {2}", searchResult.Total, searchResult.StartAt, searchResult.IsLastPage);
+	            if (searchResult.IsLastPage)
+	            {
+	                break;
+	            }
+	            searchResult = await Client.Issue.NextPageSearchAsync(searchResult);
+	        } while (true);
+	    }
+    }
 }

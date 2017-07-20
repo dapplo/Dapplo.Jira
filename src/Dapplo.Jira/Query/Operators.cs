@@ -46,6 +46,7 @@ namespace Dapplo.Jira.Query
 		[EnumMember(Value = "<")] LessThan,
 		[EnumMember(Value = "in")] In,
 		[EnumMember(Value = "not in")] NotIn,
+	    [EnumMember(Value = "was")] Was,
 		[EnumMember(Value = "~")] Contains,
 		[EnumMember(Value = "!~")] DoesNotContain
 	}

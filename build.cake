@@ -21,7 +21,7 @@ var nugetApiKey = Argument("nugetApiKey", EnvironmentVariable("NuGetApiKey"));
 var coverallsRepoToken = Argument("nugetApiKey", EnvironmentVariable("COVERALLS_REPO_TOKEN"));
 
 // where is our solution located?
-var solutionFilePath = GetFiles("./**/*.sln").First();
+var solutionFilePath = GetFiles("src/*.sln").First();
 
 // Check if we are in a pull request, publishing of packages and coverage should be skipped
 var isPullRequest = !string.IsNullOrEmpty(EnvironmentVariable("APPVEYOR_PULL_REQUEST_NUMBER"));
@@ -86,7 +86,7 @@ Task("Package")
         Configuration = configuration
     };
 
-    var projectFilePaths = GetFiles("./**/project.json").Where(p => !p.FullPath.Contains("Test") && !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
+    var projectFilePaths = GetFiles("./**/*.csproj").Where(p => !p.FullPath.Contains("Test") && !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
     foreach(var projectFilePath in projectFilePaths)
     {
 		// Skipping powershell for now, until it's more stable
@@ -125,7 +125,7 @@ Task("Coverage")
         ReturnTargetCodeOffset = 0
     };
 
-    var projectFiles = GetFiles("./**/*.xproj");
+    var projectFiles = GetFiles("./**/*.csproj");
     foreach(var projectFile in projectFiles)
     {
         var projectName = projectFile.GetDirectory().GetDirectoryName();
@@ -181,10 +181,10 @@ Task("Build")
 Task("RestoreNuGetPackages")
     .Does(() =>
 {
-    DotNetCoreRestore("./", new DotNetCoreRestoreSettings
+    DotNetCoreRestore(solutionFilePath.FullPath, new DotNetCoreRestoreSettings
 	{
-		Verbose = false,
-		Verbosity = DotNetCoreRestoreVerbosity.Warning,
+		Verbose = true,
+		Verbosity = DotNetCoreRestoreVerbosity.Debug,
 		Sources = new [] {
 			"https://api.nuget.org/v3/index.json"
 		}
@@ -204,7 +204,7 @@ Task("Versioning")
 		version = gitVersion.AssemblySemVer;
 	}
     	
-	var projectFilePaths = GetFiles("./**/project.json").Where(p => !p.FullPath.Contains("Test") && !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
+	var projectFilePaths = GetFiles("./**/*.csproj").Where(p => !p.FullPath.Contains("Test") && !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
     foreach(var projectFilePath in projectFilePaths)
     {
         Information("Changing version in : " + projectFilePath.FullPath + " to " + version);
