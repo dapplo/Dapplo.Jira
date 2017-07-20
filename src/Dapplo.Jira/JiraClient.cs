@@ -37,6 +37,7 @@ using System.Linq;
 using Dapplo.HttpExtensions.Extensions;
 using Dapplo.HttpExtensions.OAuth;
 using Dapplo.Jira.Converters;
+using System.Net.Cache;
 #endif
 
 #endregion
@@ -129,14 +130,22 @@ namespace Dapplo.Jira
         /// <returns>the behaviour, but configured as IHttpBehaviour </returns>
         private IHttpBehaviour ConfigureBehaviour(IChangeableHttpBehaviour behaviour, IHttpSettings httpSettings = null)
         {
-#if NET45 || NET46
 
+#if NET45 || NET46
+            // Add SvgBitmapHttpContentConverter if it was not yet added 
             if (HttpExtensionsGlobals.HttpContentConverters.ToList().All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
             {
                 HttpExtensionsGlobals.HttpContentConverters.Add(SvgBitmapHttpContentConverter.Instance.Value);
             }
 #endif
             behaviour.HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings.ShallowClone();
+#if NET45 || NET46
+            // Disable caching, if no HTTP settings were provided.
+            if (httpSettings == null)
+            {
+                behaviour.HttpSettings.RequestCacheLevel = RequestCacheLevel.NoCacheNoStore;
+            }
+#endif
 
             // Using our own Json Serializer, implemented with Json.NET
             behaviour.JsonSerializer = new JsonNetJsonSerializer();
