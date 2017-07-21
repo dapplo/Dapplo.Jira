@@ -157,20 +157,26 @@ namespace Dapplo.Jira.Tests
 	    [Fact]
 	    public async Task TestSearch_Paging()
 	    {
-            var searchResult = await Client.Issue.SearchAsync(Where.Text.Contains("DPI"));
-
-	        // Loop over all results
-	        do
-	        {
+            // Create initial search
+            string[] fields = { "summary", "status", "assignee", "key", "project", "summary" };
+            var searchResult = await Client.Issue.SearchAsync(Where.Text.Contains("DPI"), fields: fields);
+            // Loop over all results
+	        while (searchResult.Count > 0)
+            {
 	            Assert.NotNull(searchResult);
 	            Assert.NotNull(searchResult.Issues.Count > 0);
-	            Log.Info().WriteLine("Got {0} results, starting at index {1}, isLast: {2}", searchResult.Total, searchResult.StartAt, searchResult.IsLastPage);
+	            Log.Info().WriteLine("Got {0} of {1} results, starting at index {2}, isLast: {3}", searchResult.Count, searchResult.Total, searchResult.StartAt, searchResult.IsLastPage);
+	            foreach (var issue in searchResult)
+	            {
+	                Log.Info().WriteLine("Found issue {0} - {1}", issue.Key, issue.Fields.Summary);
+	            }
 	            if (searchResult.IsLastPage)
 	            {
 	                break;
 	            }
-	            searchResult = await Client.Issue.NextPageSearchAsync(searchResult);
-	        } while (true);
+                // Continue the search, by reusing the SearchParameter and taking the next page
+                searchResult = await Client.Issue.SearchAsync(searchResult.SearchParameter, searchResult.NextPage);
+	        }
 	    }
     }
 }

@@ -61,22 +61,5 @@ namespace Dapplo.Jira.Entities
 		/// </summary>
 		[JsonProperty(PropertyName = "validateQuery")]
 		public bool ValidateQuery { get; set; } = true;
-
-        /// <summary>
-        /// Prepare the search for the next
-        /// </summary>
-        /// <returns>JqlIssueSearch</returns>
-	    public static JqlIssueSearch NextPage(JqlIssueSearch jqlIssueSearch, Page page)
-        {
-            return new JqlIssueSearch
-            {
-                StartAt = page.StartAt,
-                Expand = jqlIssueSearch.Expand,
-                Fields = jqlIssueSearch.Fields,
-                Jql = jqlIssueSearch.Jql,
-                ValidateQuery = jqlIssueSearch.ValidateQuery,
-                MaxResults = page.MaxResults
-            };
-        }
 	}
 }

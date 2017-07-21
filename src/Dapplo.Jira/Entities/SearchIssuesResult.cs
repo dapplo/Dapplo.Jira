@@ -70,7 +70,7 @@ namespace Dapplo.Jira.Entities
 	    public bool IsLastPage => !Total.HasValue || StartAt + Count >= Total;
 
 	    /// <summary>
-	    /// Retrieve the next page
+	    /// Retrieve the next page, this is based upon the number of items that was returned
 	    /// </summary>
 	    [JsonIgnore]
 	    public Page NextPage => new Page

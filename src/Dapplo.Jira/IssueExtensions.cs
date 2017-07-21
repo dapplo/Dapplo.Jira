@@ -165,7 +165,7 @@ namespace Dapplo.Jira
         public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, IFinalClause jql, int maxResults = 20, int startAt = 0, IEnumerable<string> fields = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            return jiraClient.SearchAsync(jql.ToString(), maxResults, startAt, fields, cancellationToken);
+            return jiraClient.SearchAsync(jql.ToString(), new Page {MaxResults = maxResults, StartAt = startAt}, fields, cancellationToken);
         }
 
         /// <summary>
@@ -174,12 +174,11 @@ namespace Dapplo.Jira
         /// </summary>
         /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
         /// <param name="jql">Jira Query Language, like SQL, for the search</param>
-        /// <param name="maxResults">Maximum number of results returned, default is 20</param>
-        /// <param name="startAt">The start of the </param>
+        /// <param name="page">Page with paging information, default this starts at the beginning with a maxResults of 20</param>
         /// <param name="fields">Jira fields to include, if null the defaults from the JiraConfig.SearchFields are taken</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchIssuesResult</returns>
-        public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, string jql, int? maxResults = 20, int? startAt = null, IEnumerable<string> fields = null,
+        public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, string jql, Page page = null, IEnumerable<string> fields = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             if (jql == null)
@@ -191,10 +190,36 @@ namespace Dapplo.Jira
             {
                 Jql = jql,
                 ValidateQuery = true,
-                MaxResults = maxResults,
-                StartAt = startAt,
+                MaxResults = page?.MaxResults ?? 20,
+                StartAt = page?.StartAt ?? 0,
                 Fields = fields ?? new List<string>(JiraConfig.SearchFields)
             };
+            return jiraClient.SearchAsync(search, cancellationToken);
+        }
+
+        /// <summary>
+        ///     Search for issues, with a JQL (e.g. from a filter)
+        ///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2713
+        /// </summary>
+        /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+        /// <param name="search">Search information, with Jira Query Language, like SQL, for the search</param>
+        /// <param name="page">Page with paging information, overwriting the page info in the search.</param>
+        /// <param name="fields">Jira fields to include, if null the defaults from the JiraConfig.SearchFields are taken</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <returns>SearchIssuesResult</returns>
+        public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search, Page page = null, IEnumerable<string> fields = null,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            if (search == null)
+            {
+                throw new ArgumentNullException(nameof(search));
+            }
+
+            if (page != null)
+            {
+                search.MaxResults = page?.MaxResults ?? 20;
+                search.StartAt = page?.StartAt ?? 0;
+            }
             return jiraClient.SearchAsync(search, cancellationToken);
         }
 
@@ -232,41 +257,15 @@ namespace Dapplo.Jira
         }
 
         /// <summary>
-        ///     Search the next page of the previously retrieved search results
+        ///     Update comment
+        ///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1139
         /// </summary>
         /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
-        /// <param name="previousSearchResult">The previous search result</param>
+        /// <param name="issueKey">jira key to which the comment belongs</param>
+        /// <param name="comment">Comment to update</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        /// <returns>SearchIssuesResult</returns>
-        public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> NextPageSearchAsync(this IIssueDomain jiraClient, SearchIssuesResult<Issue, JqlIssueSearch> previousSearchResult, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            if (previousSearchResult.IsLastPage)
-            {
-                return null;
-            }
-            var jqlIssueSearch = previousSearchResult.SearchParameter;
-            var newSearch = new JqlIssueSearch
-            {
-                StartAt = jqlIssueSearch.StartAt + previousSearchResult.Count,
-                Expand = jqlIssueSearch.Expand,
-                Fields = jqlIssueSearch.Fields,
-                Jql = jqlIssueSearch.Jql,
-                ValidateQuery = jqlIssueSearch.ValidateQuery,
-            };
-            return jiraClient.SearchAsync(newSearch, cancellationToken);
-        }
-
-        /// <summary>
-            ///     Update comment
-            ///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1139
-            /// </summary>
-            /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
-            /// <param name="issueKey">jira key to which the comment belongs</param>
-            /// <param name="comment">Comment to update</param>
-            /// <param name="cancellationToken">CancellationToken</param>
-            /// <returns>Comment</returns>
-            public static async Task<Comment> UpdateCommentAsync(this IIssueDomain jiraClient, string issueKey, Comment comment,
-            CancellationToken cancellationToken = default(CancellationToken))
+        /// <returns>Comment</returns>
+        public static async Task<Comment> UpdateCommentAsync(this IIssueDomain jiraClient, string issueKey, Comment comment, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (issueKey == null)
             {
