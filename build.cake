@@ -1,6 +1,6 @@
 #tool "xunit.runner.console"
 #tool "OpenCover"
-#tool "GitVersion.CommandLine"
+#tool nuget:?package=GitVersion.CommandLine&prerelease
 #tool "docfx.console"
 #tool "coveralls.io"
 // Needed for Cake.Compression, as described here: https://github.com/akordowski/Cake.Compression/issues/3
@@ -28,9 +28,6 @@ var isPullRequest = !string.IsNullOrEmpty(EnvironmentVariable("APPVEYOR_PULL_REQ
 
 // Check if the commit is marked as release
 var isRelease = (EnvironmentVariable("APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED")?? "").Contains("[release]");
-
-// Used to store the version, which is needed during the build and the packaging
-var version = EnvironmentVariable("APPVEYOR_BUILD_VERSION");
 
 Task("Default")
     .IsDependentOn("Publish");
@@ -82,7 +79,6 @@ Task("Package")
     var settings = new DotNetCorePackSettings  
     {
         OutputDirectory = "./artifacts/",
-        Verbose = true,
         Configuration = configuration
     };
 
@@ -167,12 +163,15 @@ Task("Coverage")
 
 // This starts the actual MSBuild
 Task("Build")
-    .IsDependentOn("RestoreNuGetPackages")
     .IsDependentOn("Clean")
+    .IsDependentOn("RestoreNuGetPackages")
     .IsDependentOn("Versioning")
     .Does(() =>
 {
-	DotNetBuild(solutionFilePath, settings => settings.SetConfiguration(configuration));
+	DotNetCoreBuild(solutionFilePath.FullPath, new DotNetCoreBuildSettings 
+	{
+		Configuration = configuration
+	});
     // Make sure the .dlls in the obj path are not found elsewhere
     CleanDirectories("./**/obj");
 });
@@ -183,8 +182,6 @@ Task("RestoreNuGetPackages")
 {
     DotNetCoreRestore(solutionFilePath.FullPath, new DotNetCoreRestoreSettings
 	{
-		Verbose = true,
-		Verbosity = DotNetCoreRestoreVerbosity.Debug,
 		Sources = new [] {
 			"https://api.nuget.org/v3/index.json"
 		}
@@ -195,22 +192,18 @@ Task("RestoreNuGetPackages")
 Task("Versioning")
     .Does(() =>
 {
-	Information("Version of this build: " + version);
-	
-	// Overwrite version if it's not set.
-	if (string.IsNullOrEmpty(version)) {
-		var gitVersion = GitVersion();
-		Information("Git Version of this build: " + gitVersion.AssemblySemVer);
-		version = gitVersion.AssemblySemVer;
-	}
+	var gitVersion = GitVersion();
+	Information("Git Version of this build: " + gitVersion.AssemblySemVer);
     	
 	var projectFilePaths = GetFiles("./**/*.csproj").Where(p => !p.FullPath.Contains("Test") && !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
     foreach(var projectFilePath in projectFilePaths)
     {
-        Information("Changing version in : " + projectFilePath.FullPath + " to " + version);
-		 TransformConfig(projectFilePath.FullPath, 
+        Information("Changing version in : " + projectFilePath.FullPath + " to " + gitVersion.AssemblySemVer);
+		TransformConfig(projectFilePath.FullPath, 
             new TransformationCollection {
-                { "version", version }
+                { "Project/PropertyGroup/Version", gitVersion.AssemblySemVer },
+				{ "Project/PropertyGroup/AssemblyVersion", gitVersion.AssemblySemVer },
+				{ "Project/PropertyGroup/FileVersion", gitVersion.AssemblySemVer }
             });
 	}
 });

@@ -158,10 +158,10 @@ namespace Dapplo.Jira.Query
 				clauseBuilder.Append(Value);
 				if (_orderByList.Any())
 				{
-					clauseBuilder.Append(" order by ");
+					clauseBuilder.Append(" ORDER BY ");
 					clauseBuilder.Append(string.Join(", ", _orderByList.Select(orderBy =>
 					{
-						var order = orderBy.Item2.HasValue ? orderBy.Item2.Value ? " desc" : " asc" : "";
+						var order = orderBy.Item2.HasValue ? orderBy.Item2.Value ? " DESC" : " ASC" : "";
 						return $"{orderBy.Item1.EnumValueOf()}{order}";
 					})));
 				}

@@ -56,7 +56,7 @@ namespace Dapplo.Jira.Tests
 			var createdFilter = await Client.Filter.CreateAsync(new Filter(testFilterName, query));
 			Assert.NotNull(createdFilter);
 			Assert.Equal(query.ToString(), createdFilter.Jql);
-			query = Where.IssueKey.In(TestIssueKey, TestIssueKey);
+			query = Where.IssueKey.In(TestIssueKey).OrderByAscending(Fields.IssueKey);
 			createdFilter.Jql = query.ToString();
 			var updatedFilter = await Client.Filter.UpdateAsync(createdFilter);
 			Assert.NotNull(updatedFilter);
