@@ -18,6 +18,8 @@
     <Version>0.7.173.0</Version>
     <AssemblyVersion>0.7.173.0</AssemblyVersion>
     <FileVersion>0.7.173.0</FileVersion>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>True</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Dapplo.HttpExtensions" Version="0.6.22" />

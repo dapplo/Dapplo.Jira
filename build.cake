@@ -88,10 +88,10 @@ Task("Package")
     var projectFilePaths = GetFiles("./**/*.csproj").Where(p => !p.FullPath.Contains("Test") && !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
     foreach(var projectFilePath in projectFilePaths)
     {
-		// Skipping powershell for now, until it's more stable
-		if (projectFilePath.FullPath.Contains("Power")) {
-			continue;
-		}
+        // Skipping powershell for now, until it's more stable
+        if (projectFilePath.FullPath.Contains("Power")) {
+            continue;
+        }
         Information("Packaging: " + projectFilePath.FullPath);
 		DotNetCorePack(projectFilePath.GetDirectory().FullPath, settings);
     }
@@ -124,15 +124,17 @@ Task("Coverage")
         ReturnTargetCodeOffset = 0
     };
 
-    var projectFiles = GetFiles("./**/*.csproj");
+    var projectFiles = GetFiles("./**/*.csproj").Where(p => !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
     foreach(var projectFile in projectFiles)
     {
         var projectName = projectFile.GetDirectory().GetDirectoryName();
         if (projectName.Contains("Test")) {
-           openCoverSettings.WithFilter("-["+projectName+"]*");
+            openCoverSettings.WithFilter("-["+projectName+"]*");
+            Information("OpenCover added filter -" + projectName);
         }
         else {
-           openCoverSettings.WithFilter("+["+projectName+"]*");
+            openCoverSettings.WithFilter("+["+projectName+"]*");
+            Information("OpenCover added filter +" + projectName);
         }
     }
 
@@ -140,21 +142,21 @@ Task("Coverage")
     OpenCover(
         // The test tool Lamdba
         tool => {
-            tool.XUnit2("./**/*.Tests.dll",
+            tool.XUnit2("./**/bin/**/*.Tests.dll",
                 new XUnit2Settings {
-					// Add AppVeyor output, this "should" take care of a report inside AppVeyor
-					ArgumentCustomization = args => {
-						if (!BuildSystem.IsLocalBuild) {
-							args.Append("-appveyor");
-						}
-						return args;
-					},
+                    // Add AppVeyor output, this "should" take care of a report inside AppVeyor
+                    ArgumentCustomization = args => {
+                        if (!BuildSystem.IsLocalBuild) {
+                            args.Append("-appveyor");
+                        }
+                        return args;
+                    },
                     ShadowCopy = false,
-					XmlReport = true,
-					HtmlReport = true,
-					ReportName = "Dapplo.Jira",
-					OutputDirectory = "./artifacts",
-					WorkingDirectory = "./src"
+                    XmlReport = true,
+                    HtmlReport = true,
+                    ReportName = "Dapplo.Jira",
+                    OutputDirectory = "./artifacts",
+                    WorkingDirectory = "./src"
                 });
             },
         // The output path
