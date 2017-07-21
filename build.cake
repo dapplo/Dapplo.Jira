@@ -175,8 +175,6 @@ Task("Build")
 	{
 		Configuration = configuration
 	});
-    // Make sure the .dlls in the obj path are not found elsewhere
-    CleanDirectories("./**/obj");
 });
 
 // Load the needed NuGet packages to make the build work
