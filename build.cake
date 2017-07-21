@@ -1,6 +1,6 @@
 #tool "xunit.runner.console"
 #tool "OpenCover"
-#tool nuget:?package=GitVersion.CommandLine&prerelease
+#tool "GitVersion.CommandLine"
 #tool "docfx.console"
 #tool "coveralls.io"
 // Needed for Cake.Compression, as described here: https://github.com/akordowski/Cake.Compression/issues/3
@@ -28,6 +28,9 @@ var isPullRequest = !string.IsNullOrEmpty(EnvironmentVariable("APPVEYOR_PULL_REQ
 
 // Check if the commit is marked as release
 var isRelease = (EnvironmentVariable("APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED")?? "").Contains("[release]");
+
+// Used to store the version, which is needed during the build and the packaging
+var version = EnvironmentVariable("APPVEYOR_BUILD_VERSION");
 
 Task("Default")
     .IsDependentOn("Publish");
@@ -192,18 +195,24 @@ Task("RestoreNuGetPackages")
 Task("Versioning")
     .Does(() =>
 {
-	var gitVersion = GitVersion();
-	Information("Git Version of this build: " + gitVersion.AssemblySemVer);
+	Information("Version of this build: " + version);
+	
+	// Overwrite version if it's not set.
+	if (string.IsNullOrEmpty(version)) {
+		var gitVersion = GitVersion();
+		Information("Git Version of this build: " + gitVersion.AssemblySemVer);
+		version = gitVersion.AssemblySemVer;
+	}
     	
 	var projectFilePaths = GetFiles("./**/*.csproj").Where(p => !p.FullPath.Contains("Test") && !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
     foreach(var projectFilePath in projectFilePaths)
     {
-        Information("Changing version in : " + projectFilePath.FullPath + " to " + gitVersion.AssemblySemVer);
+        Information("Changing version in : " + projectFilePath.FullPath + " to " + version);
 		TransformConfig(projectFilePath.FullPath, 
             new TransformationCollection {
-                { "Project/PropertyGroup/Version", gitVersion.AssemblySemVer },
-				{ "Project/PropertyGroup/AssemblyVersion", gitVersion.AssemblySemVer },
-				{ "Project/PropertyGroup/FileVersion", gitVersion.AssemblySemVer }
+                { "Project/PropertyGroup/Version", version },
+				{ "Project/PropertyGroup/AssemblyVersion", version },
+				{ "Project/PropertyGroup/FileVersion", version }
             });
 	}
 });
