@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.6.22" />
-    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.6.22" />
+    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.8.23" />
+    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.8.23" />
     <PackageReference Include="Dapplo.Log" Version="1.0.29" />
     <PackageReference Include="Dapplo.Log.XUnit" Version="1.0.29" />
     <PackageReference Include="xunit" Version="2.2.0" />
