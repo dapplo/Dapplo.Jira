@@ -50,13 +50,13 @@ namespace Dapplo.Jira.Entities
         /// <summary>
         ///     Expand values
         /// </summary>
-        [JsonProperty(PropertyName = "expand")]
+        [JsonProperty("expand")]
 		public string Expand { get; set; }
 
 		/// <summary>
 		///     Results
 		/// </summary>
-		[JsonProperty(PropertyName = "values")]
+		[JsonProperty("values")]
 		public IList<TResultType> Values { get; set; }
 
 	    /// <summary>

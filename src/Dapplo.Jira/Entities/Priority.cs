@@ -41,25 +41,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Description of the priority
 		/// </summary>
-		[JsonProperty(PropertyName = "description")]
+		[JsonProperty("description")]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     Url to the icon for this priority
 		/// </summary>
-		[JsonProperty(PropertyName = "iconUrl")]
+		[JsonProperty("iconUrl")]
 		public Uri IconUrl { get; set; }
 
 		/// <summary>
 		///     Name of the priority
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Status color
 		/// </summary>
-		[JsonProperty(PropertyName = "statusColor")]
+		[JsonProperty("statusColor")]
 		public string StatusColor { get; set; }
 	}
 }

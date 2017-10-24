@@ -70,55 +70,55 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Description of the filter
 		/// </summary>
-		[JsonProperty(PropertyName = "description")]
+		[JsonProperty("description")]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     Is the filter a favorite?
 		/// </summary>
-		[JsonProperty(PropertyName = "favorite")]
+		[JsonProperty("favorite")]
 		public bool IsFavorite { get; set; }
 
 		/// <summary>
 		///     The JQL (query) for the filter
 		/// </summary>
-		[JsonProperty(PropertyName = "jql")]
+		[JsonProperty("jql")]
 		public string Jql { get; set; }
 
 		/// <summary>
 		///     Name for the filter
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     User who owns the filter
 		/// </summary>
-		[JsonProperty(PropertyName = "owner")]
+		[JsonProperty("owner")]
 		public User Owner { get; set; }
 
 		/// <summary>
 		///     The URL to show the search results
 		/// </summary>
-		[JsonProperty(PropertyName = "searchUrl")]
+		[JsonProperty("searchUrl")]
 		public Uri SearchUri { get; set; }
 
 		/// <summary>
 		///     The permissions for sharing
 		/// </summary>
-		[JsonProperty(PropertyName = "sharePermissions")]
+		[JsonProperty("sharePermissions")]
 		public IList<SharePermission> SharePermissions { get; set; }
 
 		/// <summary>
 		///     The subscriptions for this filter
 		/// </summary>
-		[JsonProperty(PropertyName = "subscriptions")]
+		[JsonProperty("subscriptions")]
 		public Subscriptions Subscriptions { get; set; }
 
 		/// <summary>
 		///     The url to view the filter
 		/// </summary>
-		[JsonProperty(PropertyName = "viewUrl")]
+		[JsonProperty("viewUrl")]
 		public Uri ViewUri { get; set; }
 	}
 }

@@ -41,19 +41,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Where does this "page" end?
 		/// </summary>
-		[JsonProperty(PropertyName = "end-index")]
+		[JsonProperty("end-index")]
 		public long? EndIndex { get; set; }
 
 		/// <summary>
 		///     The actual list of subscriptions
 		/// </summary>
-		[JsonProperty(PropertyName = "items")]
+		[JsonProperty("items")]
 		public IList<Subscription> Items { get; set; }
 
 		/// <summary>
 		///     How many results are given back
 		/// </summary>
-		[JsonProperty(PropertyName = "max-results")]
+		[JsonProperty("max-results")]
 		public long? MaxResults { get; set; }
 
 		/// <summary>
@@ -61,13 +61,13 @@ namespace Dapplo.Jira.Entities
 		///     This could be more than the amount of items, not only due to rights (maybe the subscriber is not visible) but also
 		///     as the value is not expanded.
 		/// </summary>
-		[JsonProperty(PropertyName = "size")]
+		[JsonProperty("size")]
 		public long? Size { get; set; }
 
 		/// <summary>
 		///     Where does this page start?
 		/// </summary>
-		[JsonProperty(PropertyName = "start-index")]
+		[JsonProperty("start-index")]
 		public long? StartIndex { get; set; }
 	}
 }

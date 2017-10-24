@@ -42,49 +42,49 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Is voting enabled?
 		/// </summary>
-		[JsonProperty(PropertyName = "votingEnabled")]
+		[JsonProperty("votingEnabled")]
 		public bool IsVotingEnabled { get; set; }
 
 		/// <summary>
 		///     Is watching enabled?
 		/// </summary>
-		[JsonProperty(PropertyName = "watchingEnabled")]
+		[JsonProperty("watchingEnabled")]
 		public bool IsWatchingEnabled { get; set; }
 
 		/// <summary>
 		///     Are unassigned issues allowed?
 		/// </summary>
-		[JsonProperty(PropertyName = "unassignedIssuesAllowed")]
+		[JsonProperty("unassignedIssuesAllowed")]
 		public bool AreUnassignedIssuesAllowed { get; set; }
 
 		/// <summary>
 		///     Are sub-tasks enabled?
 		/// </summary>
-		[JsonProperty(PropertyName = "subTasksEnabled")]
+		[JsonProperty("subTasksEnabled")]
 		public bool AreSubTasksEnabled { get; set; }
 
 		/// <summary>
 		///     Is issue linking enabled?
 		/// </summary>
-		[JsonProperty(PropertyName = "issueLinkingEnabled")]
+		[JsonProperty("issueLinkingEnabled")]
 		public bool IsIssueLinkingEnabled { get; set; }
 
 		/// <summary>
 		///     Is time tracking enabled?
 		/// </summary>
-		[JsonProperty(PropertyName = "timeTrackingEnabled")]
+		[JsonProperty("timeTrackingEnabled")]
 		public bool IsTimeTrackingEnabled { get; set; }
 
 		/// <summary>
 		///     Are attachments enabled?
 		/// </summary>
-		[JsonProperty(PropertyName = "attachmentsEnabled")]
+		[JsonProperty("attachmentsEnabled")]
 		public bool AreAttachmentsEnabled { get; set; }
 
 		/// <summary>
 		///     The configuration of the time tracking
 		/// </summary>
-		[JsonProperty(PropertyName = "timeTrackingConfiguration")]
+		[JsonProperty("timeTrackingConfiguration")]
 		public TimeTrackingConfiguration TimeTrackingConfiguration { get; set; }
 	}
 }

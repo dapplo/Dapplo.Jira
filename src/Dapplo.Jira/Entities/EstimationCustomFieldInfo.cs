@@ -40,13 +40,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     EstimationFieldInfo
 		/// </summary>
-		[JsonProperty(PropertyName = "field")]
+		[JsonProperty("field")]
 		public EstimationFieldInfo Field { get; set; }
 
 		/// <summary>
 		///     Type of the estimation custom field
 		/// </summary>
-		[JsonProperty(PropertyName = "type")]
+		[JsonProperty("type")]
 		public string Type { get; set; }
 	}
 }

@@ -42,37 +42,37 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The base URL for this server
 		/// </summary>
-		[JsonProperty(PropertyName = "baseUrl")]
+		[JsonProperty("baseUrl")]
 		public Uri BaseUrl { get; set; }
 
 		/// <summary>
 		///     Date of the build
 		/// </summary>
-		[JsonProperty(PropertyName = "buildDate")]
+		[JsonProperty("buildDate")]
 		public DateTimeOffset? BuildDate { get; set; }
 
 		/// <summary>
 		///     Build number (internal information)
 		/// </summary>
-		[JsonProperty(PropertyName = "buildNumber")]
+		[JsonProperty("buildNumber")]
 		public int? BuildNumber { get; set; }
 
 		/// <summary>
 		///     Git commit id (at lease until the SCM is changed)
 		/// </summary>
-		[JsonProperty(PropertyName = "scmInfo")]
+		[JsonProperty("scmInfo")]
 		public string ScmInfo { get; set; }
 
 		/// <summary>
 		///     Title of the server
 		/// </summary>
-		[JsonProperty(PropertyName = "serverTitle")]
+		[JsonProperty("serverTitle")]
 		public string ServerTitle { get; set; }
 
 		/// <summary>
 		///     Version of the software
 		/// </summary>
-		[JsonProperty(PropertyName = "version")]
+		[JsonProperty("version")]
 		public string Version { get; set; }
 	}
 }

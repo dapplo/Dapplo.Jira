@@ -41,7 +41,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The actual list of transitions
 		/// </summary>
-		[JsonProperty(PropertyName = "transitions")]
+		[JsonProperty("transitions")]
 		public IList<Transition> Items { get; set; }
 	}
 }

@@ -41,25 +41,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Description of the issue type
 		/// </summary>
-		[JsonProperty(PropertyName = "description")]
+		[JsonProperty("description")]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     URL to the icon for the issue type
 		/// </summary>
-		[JsonProperty(PropertyName = "iconUrl")]
+		[JsonProperty("iconUrl")]
 		public Uri IconUri { get; set; }
 
 		/// <summary>
 		///     Is the issue type a sub task?
 		/// </summary>
-		[JsonProperty(PropertyName = "subtask")]
+		[JsonProperty("subtask")]
 		public bool IsSubTask { get; set; }
 
 		/// <summary>
 		///     Name of the issue type
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 	}
 }

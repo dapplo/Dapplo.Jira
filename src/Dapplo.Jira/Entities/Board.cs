@@ -42,20 +42,20 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Name of the Board
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Board type
 		/// </summary>
-		[JsonProperty(PropertyName = "type")]
+		[JsonProperty("type")]
 		[JsonConverter(typeof(StringEnumConverter))]
 		public BoardTypes Type { get; set; }
 
 		/// <summary>
 		///     Filter for the board, used when creating
 		/// </summary>
-		[JsonProperty(PropertyName = "filterId")]
+		[JsonProperty("filterId")]
 		public long FilterId { get; set; }
 	}
 }

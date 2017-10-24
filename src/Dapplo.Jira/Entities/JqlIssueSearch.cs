@@ -41,25 +41,25 @@ namespace Dapplo.Jira.Entities
 	    /// <summary>
 	    ///     Expand values
 	    /// </summary>
-	    [JsonProperty(PropertyName = "expand")]
+	    [JsonProperty("expand")]
 	    public string Expand { get; set; } = JiraConfig.ExpandSearch == null ? null: string.Join(",", JiraConfig.ExpandSearch);
 
         /// <summary>
         ///     Fields for this query
         /// </summary>
-        [JsonProperty(PropertyName = "fields")]
+        [JsonProperty("fields")]
 		public IEnumerable<string> Fields { get; set; } = new List<string>(JiraConfig.SearchFields);
 
         /// <summary>
         ///     The JQL for this search
         /// </summary>
-        [JsonProperty(PropertyName = "jql")]
+        [JsonProperty("jql")]
 		public string Jql { get; set; }
 
 		/// <summary>
 		///     Does the query (JQL) need to be validated?
 		/// </summary>
-		[JsonProperty(PropertyName = "validateQuery")]
+		[JsonProperty("validateQuery")]
 		public bool ValidateQuery { get; set; } = true;
 	}
 }

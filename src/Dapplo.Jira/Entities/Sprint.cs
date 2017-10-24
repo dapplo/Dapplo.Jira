@@ -43,31 +43,31 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Name of the Sprint
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Goal of the Sprint
 		/// </summary>
-		[JsonProperty(PropertyName = "goal")]
+		[JsonProperty("goal")]
 		public string Goal { get; set; }
 
 		/// <summary>
 		///     From what board is this sprint?
 		/// </summary>
-		[JsonProperty(PropertyName = "originBoardId")]
+		[JsonProperty("originBoardId")]
 		public int? OriginBoardId { get; set; }
 
 		/// <summary>
 		///     State of the Sprint
 		/// </summary>
-		[JsonProperty(PropertyName = "state")]
+		[JsonProperty("state")]
 		public string State { get; set; }
 
 		/// <summary>
 		///     When was the sprint started
 		/// </summary>
-		[JsonProperty(PropertyName = "startDate")]
+		[JsonProperty("startDate")]
 		[ReadOnly(true)]
         [JsonConverter(typeof(CustomDateTimeOffsetConverter))]
         public DateTimeOffset? StartDate { get; set; }
@@ -75,7 +75,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     When was the sprint ended
 		/// </summary>
-		[JsonProperty(PropertyName = "endDate")]
+		[JsonProperty("endDate")]
 		[ReadOnly(true)]
         [JsonConverter(typeof(CustomDateTimeOffsetConverter))]
         public DateTimeOffset? EndDate { get; set; }
@@ -83,7 +83,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     When was the sprint completed
 		/// </summary>
-		[JsonProperty(PropertyName = "completeDate")]
+		[JsonProperty("completeDate")]
 		[ReadOnly(true)]
         [JsonConverter(typeof(CustomDateTimeOffsetConverter))]
         public DateTimeOffset? CompleteDate { get; set; }

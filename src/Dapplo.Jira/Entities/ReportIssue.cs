@@ -42,145 +42,145 @@ namespace Dapplo.Jira.Entities
         /// <summary>
         ///     Is this issue hidden?
         /// </summary>
-        [JsonProperty(PropertyName = "hidden")]
+        [JsonProperty("hidden")]
         public bool Hidden { get; set; }
 
         /// <summary>
         ///     Name of the type
         /// </summary>
-        [JsonProperty(PropertyName = "typeName")]
+        [JsonProperty("typeName")]
         public string TypeName { get; set; }
 
         /// <summary>
         ///     Type ID for the issue
         /// </summary>
-        [JsonProperty(PropertyName = "typeId")]
+        [JsonProperty("typeId")]
         public string TypeId { get; set; }
 
         /// <summary>
         ///     Issue summary
         /// </summary>
-        [JsonProperty(PropertyName = "summary")]
+        [JsonProperty("summary")]
         public string Summary { get; set; }
 
         /// <summary>
         ///     Url to the type of issue
         /// </summary>
-        [JsonProperty(PropertyName = "typeUrl")]
+        [JsonProperty("typeUrl")]
         public Uri TypeUrl { get; set; }
 
         /// <summary>
         ///     Url to the priority
         /// </summary>
-        [JsonProperty(PropertyName = "priorityUrl")]
+        [JsonProperty("priorityUrl")]
         public Uri PriorityUrl { get; set; }
 
         /// <summary>
         ///     Name of the priority
         /// </summary>
-        [JsonProperty(PropertyName = "priorityName")]
+        [JsonProperty("priorityName")]
         public string PriorityName { get; set; }
 
         /// <summary>
         ///     Is the issue done?
         /// </summary>
-        [JsonProperty(PropertyName = "done")]
+        [JsonProperty("done")]
         public bool Done { get; set; }
 
         /// <summary>
         ///     Who is this issue assigned to?
         /// </summary>
-        [JsonProperty(PropertyName = "assignee")]
+        [JsonProperty("assignee")]
         public string Assignee { get; set; }
 
         /// <summary>
         ///     Key of the person this issue is assigned to
         /// </summary>
-        [JsonProperty(PropertyName = "assigneeKey")]
+        [JsonProperty("assigneeKey")]
         public string AssigneeKey { get; set; }
 
         /// <summary>
         ///     Uri to the avatar of the current user
         /// </summary>
-        [JsonProperty(PropertyName = "avatarUrl")]
+        [JsonProperty("avatarUrl")]
         public Uri AvatarUrl { get; set; }
 
         /// <summary>
         ///     Does user have a customavatar?
         /// </summary>
-        [JsonProperty(PropertyName = "hasCustomUserAvatar")]
+        [JsonProperty("hasCustomUserAvatar")]
         public bool HasCustomUserAvatar { get; set; }
 
         /// <summary>
         ///     Is this issue flagged?
         /// </summary>
-        [JsonProperty(PropertyName = "flagged")]
+        [JsonProperty("flagged")]
         public bool Flagged { get; set; }
 
         /// <summary>
         ///     The epic this issue belongs to
         /// </summary>
-        [JsonProperty(PropertyName = "epic")]
+        [JsonProperty("epic")]
         public string Epic { get; set; }
 
         /// <summary>
         ///     The epic field
         /// </summary>
-        [JsonProperty(PropertyName = "epicField")]
+        [JsonProperty("epicField")]
         public EpicField EpicField { get; set; }
 
         /// <summary>
         ///     The statics for the colum
         /// </summary>
-        [JsonProperty(PropertyName = "columnStatistic")]
+        [JsonProperty("columnStatistic")]
         public StatisticField ColumnStatistic { get; set; }
 
         /// <summary>
         ///     Current estimate
         /// </summary>
-        [JsonProperty(PropertyName = "currentEstimateStatistic")]
+        [JsonProperty("currentEstimateStatistic")]
         public StatisticField CurrentEstimateStatistic { get; set; }
 
         /// <summary>
         ///     Tells if the estimate statistics are required
         /// </summary>
-        [JsonProperty(PropertyName = "estimateStatisticRequired")]
+        [JsonProperty("estimateStatisticRequired")]
         public bool EstimateStatisticRequired { get; set; }
 
         /// <summary>
         ///     Estimate statistics
         /// </summary>
-        [JsonProperty(PropertyName = "estimateStatistic")]
+        [JsonProperty("estimateStatistic")]
         public StatisticField EstimateStatistic { get; set; }
 
         /// <summary>
         ///     Tracking statistics
         /// </summary>
-        [JsonProperty(PropertyName = "trackingStatistic")]
+        [JsonProperty("trackingStatistic")]
         public StatisticField TrackingStatistic { get; set; }
 
         /// <summary>
         ///     Status of the issue
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
+        [JsonProperty("status")]
         public Status Status { get; set; }
 
         /// <summary>
         ///     Versions in which this issue is fixed
         /// </summary>
-        [JsonProperty(PropertyName = "fixVersions")]
+        [JsonProperty("fixVersions")]
         public IEnumerable<string> FixVersions { get; set; }
 
         /// <summary>
         ///     Project where the issue belongs to
         /// </summary>
-        [JsonProperty(PropertyName = "projectId")]
+        [JsonProperty("projectId")]
         public long ProjectId { get; set; }
 
         /// <summary>
         ///     Number of linked pages, used to display the count of pages for the sprint.
         /// </summary>
-        [JsonProperty(PropertyName = "linkedPagesCount")]
+        [JsonProperty("linkedPagesCount")]
         public int LinkedPagesCount { get; set; }
     }
 }

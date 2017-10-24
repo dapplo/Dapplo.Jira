@@ -82,7 +82,8 @@ Task("Package")
     var settings = new DotNetCorePackSettings  
     {
         OutputDirectory = "./artifacts/",
-        Configuration = configuration
+        Configuration = configuration,
+        IncludeSymbols = true
     };
 
     var projectFilePaths = GetFiles("./**/*.csproj").Where(p => !p.FullPath.Contains("Test") && !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
@@ -105,7 +106,6 @@ Task("Documentation")
     DocFxMetadata("./doc/docfx.json");
     DocFxBuild("./doc/docfx.json");
 
-	
 	CreateDirectory("artifacts");
 	// Archive the generated site
 	ZipCompress("./doc/_site", "./artifacts/site.zip");

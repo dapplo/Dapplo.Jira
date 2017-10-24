@@ -40,13 +40,13 @@ namespace Dapplo.Jira.Entities
         /// <summary>
         ///     The numeric value
         /// </summary>
-        [JsonProperty(PropertyName = "value")]
+        [JsonProperty("value")]
         public long Value { get; set; }
 
         /// <summary>
         ///     The string value
         /// </summary>
-        [JsonProperty(PropertyName = "text")]
+        [JsonProperty("text")]
         public string Text { get; set; }
     }
 }

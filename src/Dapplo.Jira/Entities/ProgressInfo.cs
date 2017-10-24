@@ -40,13 +40,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Progress for the issue
 		/// </summary>
-		[JsonProperty(PropertyName = "progress")]
+		[JsonProperty("progress")]
 		public long? Progress { get; set; }
 
 		/// <summary>
 		///     The total progress
 		/// </summary>
-		[JsonProperty(PropertyName = "total")]
+		[JsonProperty("total")]
 		public long? Total { get; set; }
 	}
 }

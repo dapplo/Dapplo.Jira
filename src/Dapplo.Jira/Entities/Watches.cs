@@ -43,25 +43,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Is "current user" watching?
 		/// </summary>
-		[JsonProperty(PropertyName = "isWatching")]
+		[JsonProperty("isWatching")]
 		public bool IsWatching { get; set; }
 
 		/// <summary>
 		///     Link to the watch info itself
 		/// </summary>
-		[JsonProperty(PropertyName = "self")]
+		[JsonProperty("self")]
 		public Uri Self { get; set; }
 
 		/// <summary>
 		///     Amount of users watching
 		/// </summary>
-		[JsonProperty(PropertyName = "watchCount")]
+		[JsonProperty("watchCount")]
 		public int? WatchCount { get; set; }
 
 		/// <summary>
 		///     The list of users who are watching
 		/// </summary>
-		[JsonProperty(PropertyName = "watchers")]
+		[JsonProperty("watchers")]
 		public IList<User> Watchers { get; set; }
 	}
 }

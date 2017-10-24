@@ -40,19 +40,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Is this an achived version?
 		/// </summary>
-		[JsonProperty(PropertyName = "archived")]
+		[JsonProperty("archived")]
 		public bool Archived { get; set; }
 
 		/// <summary>
 		///     Name of the version
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Is this version released?
 		/// </summary>
-		[JsonProperty(PropertyName = "released")]
+		[JsonProperty("released")]
 		public bool Released { get; set; }
 	}
 }

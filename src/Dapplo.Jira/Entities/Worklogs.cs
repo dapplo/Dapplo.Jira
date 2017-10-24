@@ -42,7 +42,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The worklog items
 		/// </summary>
-		[JsonProperty(PropertyName = "worklogs")]
+		[JsonProperty("worklogs")]
 		public IList<Worklog> Elements { get; set; }
 
 		IEnumerator IEnumerable.GetEnumerator()

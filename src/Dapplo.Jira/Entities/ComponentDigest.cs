@@ -42,7 +42,7 @@ namespace Dapplo.Jira.Entities
         /// Is the assignee type valid?
         ///     TODO: Needs comment
         /// </summary>
-        [JsonProperty(PropertyName = "isAssigneeTypeValid")]
+        [JsonProperty("isAssigneeTypeValid")]
         public bool IsAssigneeTypeValid { get; set; }
     }
 }

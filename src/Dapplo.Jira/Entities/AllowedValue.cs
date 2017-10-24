@@ -42,19 +42,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     TODO: Describe
 		/// </summary>
-		[JsonProperty(PropertyName = "autoCompleteUrl")]
+		[JsonProperty("autoCompleteUrl")]
 		public Uri AutoCompleteUrl { get; set; }
 
 		/// <summary>
 		///     Name of the allowd value
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Possible operations
 		/// </summary>
-		[JsonProperty(PropertyName = "operations")]
+		[JsonProperty("operations")]
 		public IList<string> Operations { get; set; }
 	}
 }

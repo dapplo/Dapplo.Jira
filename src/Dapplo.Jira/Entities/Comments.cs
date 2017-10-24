@@ -42,7 +42,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The actual commits
 		/// </summary>
-		[JsonProperty(PropertyName = "comments")]
+		[JsonProperty("comments")]
 		public IList<Comment> Elements { get; set; }
 	}
 }

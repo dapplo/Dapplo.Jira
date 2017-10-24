@@ -41,7 +41,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The closed sprint information
 		/// </summary>
-		[JsonProperty(PropertyName = "closedSprints")]
+		[JsonProperty("closedSprints")]
 		public IList<Sprint> ClosedSprints { get; set; }
 	}
 }

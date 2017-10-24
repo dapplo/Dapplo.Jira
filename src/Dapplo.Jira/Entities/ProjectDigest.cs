@@ -42,37 +42,37 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Avatar for this project
 		/// </summary>
-		[JsonProperty(PropertyName = "avatarUrls")]
+		[JsonProperty("avatarUrls")]
 		public AvatarUrls Avatar { get; set; }
 
 		/// <summary>
 		///     The projects category
 		/// </summary>
-		[JsonProperty(PropertyName = "projectCategory")]
+		[JsonProperty("projectCategory")]
 		public ProjectCategory Category { get; set; }
 
 		/// <summary>
 		///     Key for this project (the prefix of the issues in the project)
 		/// </summary>
-		[JsonProperty(PropertyName = "key")]
+		[JsonProperty("key")]
 		public string Key { get; set; }
 
 		/// <summary>
 		///     User who is the lead for the project
 		/// </summary>
-		[JsonProperty(PropertyName = "lead")]
+		[JsonProperty("lead")]
 		public User Lead { get; set; }
 
 		/// <summary>
 		///     Name of the project
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     All project keys associated with the project
 		/// </summary>
-		[JsonProperty(PropertyName = "projectKeys")]
+		[JsonProperty("projectKeys")]
 		public IList<string> ProjectKeys { get; set; }
 	}
 }

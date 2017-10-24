@@ -40,19 +40,19 @@ namespace Dapplo.Jira.Entities
         /// <summary>
         ///     The Sprint Report contents
         /// </summary>
-        [JsonProperty(PropertyName = "contents")]
+        [JsonProperty("contents")]
         public SprintReportContents Contents { get; set; }
 
         /// <summary>
         ///     Sprint information
         /// </summary>
-        [JsonProperty(PropertyName = "sprint")]
+        [JsonProperty("sprint")]
         public SprintInReport Sprint { get; set; }
 
         /// <summary>
         ///     Indicates if the sprint supports pages
         /// </summary>
-        [JsonProperty(PropertyName = "supportsPages")]
+        [JsonProperty("supportsPages")]
         public bool SupportsPages { get; set; }
     }
 }

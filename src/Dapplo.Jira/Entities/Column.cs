@@ -41,13 +41,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Name for the column
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     States for the column
 		/// </summary>
-		[JsonProperty(PropertyName = "statuses")]
+		[JsonProperty("statuses")]
 		public IList<Status> States { get; set; }
 	}
 }

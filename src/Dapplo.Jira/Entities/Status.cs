@@ -41,25 +41,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Category for this status
 		/// </summary>
-		[JsonProperty(PropertyName = "statusCategory")]
+		[JsonProperty("statusCategory")]
 		public StatusCategory Category { get; set; }
 
 		/// <summary>
 		///     Description for this status
 		/// </summary>
-		[JsonProperty(PropertyName = "description")]
+		[JsonProperty("description")]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     Url to the icon for this status
 		/// </summary>
-		[JsonProperty(PropertyName = "iconUrl")]
+		[JsonProperty("iconUrl")]
 		public Uri IconUri { get; set; }
 
 		/// <summary>
 		///     Name of the status
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 	}
 }

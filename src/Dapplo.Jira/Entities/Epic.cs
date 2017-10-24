@@ -40,25 +40,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Name of the Epic
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Epic summary
 		/// </summary>
-		[JsonProperty(PropertyName = "summary")]
+		[JsonProperty("summary")]
 		public string Summary { get; set; }
 
 		/// <summary>
 		///     Is the epic done?
 		/// </summary>
-		[JsonProperty(PropertyName = "done")]
+		[JsonProperty("done")]
 		public bool IsDone { get; set; }
 
 		/// <summary>
 		///     Color of the Epic
 		/// </summary>
-		[JsonProperty(PropertyName = "color")]
+		[JsonProperty("color")]
 		public EpicColor Color { get; set; }
 	}
 }

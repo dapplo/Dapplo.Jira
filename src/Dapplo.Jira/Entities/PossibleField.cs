@@ -42,31 +42,31 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Allowed values
 		/// </summary>
-		[JsonProperty(PropertyName = "allowedValues")]
+		[JsonProperty("allowedValues")]
 		public IList<AllowedValue> AllowedValues { get; set; }
 
 		/// <summary>
 		///     TODO: Describe
 		/// </summary>
-		[JsonProperty(PropertyName = "autoCompleteUrl")]
+		[JsonProperty("autoCompleteUrl")]
 		public Uri AutoCompleteUrl { get; set; }
 
 		/// <summary>
 		///     Name of the field
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Possible operations
 		/// </summary>
-		[JsonProperty(PropertyName = "operations")]
+		[JsonProperty("operations")]
 		public IList<string> Operations { get; set; }
 
 		/// <summary>
 		///     The summary of the time spend on this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "required")]
+		[JsonProperty("required")]
 		public bool Required { get; set; }
 	}
 }

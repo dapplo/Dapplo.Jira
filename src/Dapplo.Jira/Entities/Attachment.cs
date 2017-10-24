@@ -42,43 +42,43 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Who created the attachment
 		/// </summary>
-		[JsonProperty(PropertyName = "author")]
+		[JsonProperty("author")]
 		public User Author { get; set; }
 
 		/// <summary>
 		///     Url which can be used to download the attachment
 		/// </summary>
-		[JsonProperty(PropertyName = "content")]
+		[JsonProperty("content")]
 		public Uri ContentUri { get; set; }
 
 		/// <summary>
 		///     When was the attachment created
 		/// </summary>
-		[JsonProperty(PropertyName = "created")]
+		[JsonProperty("created")]
 		public DateTimeOffset? Created { get; set; }
 
 		/// <summary>
 		///     Filename of the attachment
 		/// </summary>
-		[JsonProperty(PropertyName = "filename")]
+		[JsonProperty("filename")]
 		public string Filename { get; set; }
 
 		/// <summary>
 		///     Mimetype for the attachment
 		/// </summary>
-		[JsonProperty(PropertyName = "mimeType")]
+		[JsonProperty("mimeType")]
 		public string MimeType { get; set; }
 
 		/// <summary>
 		///     Size (in bytes) of the attachment
 		/// </summary>
-		[JsonProperty(PropertyName = "size")]
+		[JsonProperty("size")]
 		public long? Size { get; set; }
 
 		/// <summary>
 		///     An URL to the thumbnail for this attachment
 		/// </summary>
-		[JsonProperty(PropertyName = "thumbnail")]
+		[JsonProperty("thumbnail")]
 		public Uri ThumbnailUri { get; set; }
 	}
 }

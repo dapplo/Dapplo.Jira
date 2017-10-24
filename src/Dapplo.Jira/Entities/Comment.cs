@@ -43,41 +43,41 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Who created the comment
 		/// </summary>
-		[JsonProperty(PropertyName = "author")]
+		[JsonProperty("author")]
 		[ReadOnly(true)]
 		public User Author { get; set; }
 
 		/// <summary>
 		///     The text of the comment
 		/// </summary>
-		[JsonProperty(PropertyName = "body")]
+		[JsonProperty("body")]
 		public string Body { get; set; }
 
 		/// <summary>
 		///     When was the comment created
 		/// </summary>
-		[JsonProperty(PropertyName = "created")]
+		[JsonProperty("created")]
 		[ReadOnly(true)]
 		public DateTimeOffset? Created { get; set; }
 
 		/// <summary>
 		///     Who updated the comment
 		/// </summary>
-		[JsonProperty(PropertyName = "updateAuthor")]
+		[JsonProperty("updateAuthor")]
 		[ReadOnly(true)]
 		public User UpdateAuthor { get; set; }
 
 		/// <summary>
 		///     When was the comment updated
 		/// </summary>
-		[JsonProperty(PropertyName = "updated")]
+		[JsonProperty("updated")]
 		[ReadOnly(true)]
 		public DateTimeOffset? Updated { get; set; }
 
 		/// <summary>
 		///     Is a comment visible
 		/// </summary>
-		[JsonProperty(PropertyName = "visibility")]
+		[JsonProperty("visibility")]
 		public Visibility Visibility { get; set; }
 	}
 }

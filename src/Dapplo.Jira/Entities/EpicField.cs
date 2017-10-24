@@ -40,49 +40,49 @@ namespace Dapplo.Jira.Entities
         /// <summary>
         ///     The Id for the Epic
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
+        [JsonProperty("id")]
         public string Id { get; set; }
 
         /// <summary>
         ///     The Label for the Epic
         /// </summary>
-        [JsonProperty(PropertyName = "label")]
+        [JsonProperty("label")]
         public string Label { get; set; }
 
         /// <summary>
         ///     Is the Epic editable?
         /// </summary>
-        [JsonProperty(PropertyName = "editable")]
+        [JsonProperty("editable")]
         public bool Editable { get; set; }
 
         /// <summary>
         ///     Renderer for the Epic
         /// </summary>
-        [JsonProperty(PropertyName = "renderer")]
+        [JsonProperty("renderer")]
         public string Renderer { get; set; }
         
         /// <summary>
         ///     The Key for the Epic
         /// </summary>
-        [JsonProperty(PropertyName = "epicKey")]
+        [JsonProperty("epicKey")]
         public string EpicKey { get; set; }
 
         /// <summary>
         ///     The Color for the Epic
         /// </summary>
-        [JsonProperty(PropertyName = "epicColor")]
+        [JsonProperty("epicColor")]
         public string EpicColor { get; set; }
 
         /// <summary>
         ///     The Text for the Epic
         /// </summary>
-        [JsonProperty(PropertyName = "text")]
+        [JsonProperty("text")]
         public string Text { get; set; }
 
         /// <summary>
         ///     Can the Epic be removed?
         /// </summary>
-        [JsonProperty(PropertyName = "canRemoveEpic")]
+        [JsonProperty("canRemoveEpic")]
         public bool CanRemoveEpic { get; set; }
     }
 }

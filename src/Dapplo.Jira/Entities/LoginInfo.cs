@@ -40,25 +40,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Failed login count
 		/// </summary>
-		[JsonProperty(PropertyName = "failedLoginCount")]
+		[JsonProperty("failedLoginCount")]
 		public int? FailedLoginCount { get; set; }
 
 		/// <summary>
 		///     Last failed login time
 		/// </summary>
-		[JsonProperty(PropertyName = "lastFailedLoginTime")]
+		[JsonProperty("lastFailedLoginTime")]
 		public string LastFailedLoginTime { get; set; }
 
 		/// <summary>
 		///     Login count
 		/// </summary>
-		[JsonProperty(PropertyName = "loginCount")]
+		[JsonProperty("loginCount")]
 		public int? LoginCount { get; set; }
 
 		/// <summary>
 		///     Previous login time
 		/// </summary>
-		[JsonProperty(PropertyName = "previousLoginTime")]
+		[JsonProperty("previousLoginTime")]
 		public string PreviousLoginTime { get; set; }
 	}
 }

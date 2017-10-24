@@ -41,13 +41,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Columns for the Board configuration
 		/// </summary>
-		[JsonProperty(PropertyName = "columns")]
+		[JsonProperty("columns")]
 		public IList<Column> Columns { get; set; }
 
 		/// <summary>
 		///     ConstraintType for the Board configuration, whatever this means
 		/// </summary>
-		[JsonProperty(PropertyName = "constraintType")]
+		[JsonProperty("constraintType")]
 		public string ConstraintType { get; set; }
 	}
 }

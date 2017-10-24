@@ -40,13 +40,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Description of the resolution
 		/// </summary>
-		[JsonProperty(PropertyName = "description")]
+		[JsonProperty("description")]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     Name of the resolution
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 	}
 }

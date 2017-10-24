@@ -41,31 +41,31 @@ namespace Dapplo.Jira.Entities
         /// <summary>
         ///     Sequence of this sprint
         /// </summary>
-        [JsonProperty(PropertyName = "sequence")]
+        [JsonProperty("sequence")]
         public long Sequence { get; set; }
 
         /// <summary>
         ///     Indicates the amount of pages attached to the sprint
         /// </summary>
-        [JsonProperty(PropertyName = "linkedPagesCount")]
+        [JsonProperty("linkedPagesCount")]
         public int LinkedPagesCount { get; set; }
 
         /// <summary>
         ///     Indicated if the Sprint can be updated
         /// </summary>
-        [JsonProperty(PropertyName = "canUpdateSprint")]
+        [JsonProperty("canUpdateSprint")]
         public bool CanUpdateSprint { get; set; }
 
         /// <summary>
         ///     Links to pages attached to the sprint
         /// </summary>
-        [JsonProperty(PropertyName = "remoteLinks")]
+        [JsonProperty("remoteLinks")]
         public IEnumerable<RemoteLinks> RemoteLinks { get; set; }
 
         /// <summary>
         ///     Days remaining before the end of the sprint
         /// </summary>
-        [JsonProperty(PropertyName = "daysRemaining")]
+        [JsonProperty("daysRemaining")]
         public int DaysRemaining { get; set; }
     }
 }

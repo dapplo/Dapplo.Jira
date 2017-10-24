@@ -40,13 +40,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     System for this schema
 		/// </summary>
-		[JsonProperty(PropertyName = "system")]
+		[JsonProperty("system")]
 		public string System { get; set; }
 
 		/// <summary>
 		///     Type for this schema
 		/// </summary>
-		[JsonProperty(PropertyName = "type")]
+		[JsonProperty("type")]
 		public string Type { get; set; }
 	}
 }

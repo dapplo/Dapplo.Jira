@@ -40,19 +40,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Name of the color
 		/// </summary>
-		[JsonProperty(PropertyName = "colorName")]
+		[JsonProperty("colorName")]
 		public string ColorName { get; set; }
 
 		/// <summary>
 		///     Key for the status category
 		/// </summary>
-		[JsonProperty(PropertyName = "key")]
+		[JsonProperty("key")]
 		public string Key { get; set; }
 
 		/// <summary>
 		///     Name of the status category
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 	}
 }

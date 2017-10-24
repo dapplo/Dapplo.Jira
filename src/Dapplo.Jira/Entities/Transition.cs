@@ -41,25 +41,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Does this transition have a screen?
 		/// </summary>
-		[JsonProperty(PropertyName = "hasScreen")]
+		[JsonProperty("hasScreen")]
 		public bool HasScreen { get; set; }
 
 		/// <summary>
 		///     Name for this transition
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Possible fields for the transation
 		/// </summary>
-		[JsonProperty(PropertyName = "fields")]
+		[JsonProperty("fields")]
 		public IDictionary<string, PossibleField> PossibleFields { get; set; }
 
 		/// <summary>
 		///     To status for the transation
 		/// </summary>
-		[JsonProperty(PropertyName = "to")]
+		[JsonProperty("to")]
 		public Status To { get; set; }
 	}
 }

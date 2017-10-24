@@ -40,38 +40,38 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The originaly estimated time for this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "originalEstimate")]
+		[JsonProperty("originalEstimate")]
 		public string OriginalEstimate { get; set; }
 
 		/// <summary>
 		///     The originaly estimated time for this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "originalEstimateSeconds")]
+		[JsonProperty("originalEstimateSeconds")]
 		public long? OriginalEstimateSeconds { get; set; }
 
 		/// <summary>
 		///     The remaining estimated time for this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "remainingEstimate")]
+		[JsonProperty("remainingEstimate")]
 		public string RemainingEstimate { get; set; }
 
 
 		/// <summary>
 		///     The remaining estimated time, in seconds, for this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "remainingEstimateSeconds")]
+		[JsonProperty("remainingEstimateSeconds")]
 		public long? RemainingEstimateSeconds { get; set; }
 
 		/// <summary>
 		///     Time spent in form of "4w 4d 2h"
 		/// </summary>
-		[JsonProperty(PropertyName = "timeSpent")]
+		[JsonProperty("timeSpent")]
 		public string TimeSpent { get; set; }
 
 		/// <summary>
 		///     Time spent in seconds
 		/// </summary>
-		[JsonProperty(PropertyName = "timeSpentSeconds")]
+		[JsonProperty("timeSpentSeconds")]
 		public long? TimeSpentSeconds { get; set; }
 	}
 }

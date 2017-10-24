@@ -41,25 +41,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The HTTP status code of the error
 		/// </summary>
-		[JsonProperty(PropertyName = "status-code")]
+		[JsonProperty("status-code")]
 		public int StatusCode { get; set; }
 
 		/// <summary>
 		///     The list of error messages
 		/// </summary>
-		[JsonProperty(PropertyName = "errorMessages")]
+		[JsonProperty("errorMessages")]
 		public IList<string> ErrorMessages { get; set; }
 
 		/// <summary>
 		///     The message
 		/// </summary>
-		[JsonProperty(PropertyName = "message")]
+		[JsonProperty("message")]
 		public string Message { get; set; }
 
 		/// <summary>
 		/// A list of errors
 		/// </summary>
-		[JsonProperty(PropertyName = "errors")]
+		[JsonProperty("errors")]
 		public IDictionary<string, string> Errors { get; set; }
 	}
 }

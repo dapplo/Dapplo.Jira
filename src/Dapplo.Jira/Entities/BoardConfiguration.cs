@@ -40,25 +40,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Filter for the Board
 		/// </summary>
-		[JsonProperty(PropertyName = "filter")]
+		[JsonProperty("filter")]
 		public Filter Filter { get; set; }
 
 		/// <summary>
 		///     Configuration for the columns of the Board
 		/// </summary>
-		[JsonProperty(PropertyName = "columnConfig")]
+		[JsonProperty("columnConfig")]
 		public ColumnConfig ColumnConfig { get; set; }
 
 		/// <summary>
 		///     The custom field id for the ranking information
 		/// </summary>
-		[JsonProperty(PropertyName = "ranking")]
+		[JsonProperty("ranking")]
 		public RankingCustomFieldInfo Ranking { get; set; }
 
 		/// <summary>
 		///     The custom field info for the estimation information
 		/// </summary>
-		[JsonProperty(PropertyName = "estimation")]
+		[JsonProperty("estimation")]
 		public EstimationCustomFieldInfo Estimation { get; set; }
 	}
 }

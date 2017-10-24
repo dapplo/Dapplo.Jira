@@ -40,19 +40,19 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Id for the share permission
 		/// </summary>
-		[JsonProperty(PropertyName = "id")]
+		[JsonProperty("id")]
 		public string Id { get; set; }
 
 		/// <summary>
 		///     Project for the permissions
 		/// </summary>
-		[JsonProperty(PropertyName = "project")]
+		[JsonProperty("project")]
 		public ProjectDigest Project { get; set; }
 
 		/// <summary>
 		///     Share type can be project
 		/// </summary>
-		[JsonProperty(PropertyName = "type")]
+		[JsonProperty("type")]
 		public string Type { get; set; }
 	}
 }

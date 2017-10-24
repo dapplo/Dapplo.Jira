@@ -41,13 +41,13 @@ namespace Dapplo.Jira.Entities
         /// <summary>
         ///     Remote link title or type
         /// </summary>
-        [JsonProperty(PropertyName = "title")]
+        [JsonProperty("title")]
         public string Title { get; set; }
 
         /// <summary>
         ///     Remote link url
         /// </summary>
-        [JsonProperty(PropertyName = "url")]
+        [JsonProperty("url")]
         public Uri Url { get; set; }
     }
 }

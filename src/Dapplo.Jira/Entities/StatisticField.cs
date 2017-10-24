@@ -40,13 +40,13 @@ namespace Dapplo.Jira.Entities
         /// <summary>
         ///     The Statistic Field Id
         /// </summary>
-        [JsonProperty(PropertyName = "statFieldId")]
+        [JsonProperty("statFieldId")]
         public string StatFieldId { get; set; }
 
         /// <summary>
         ///     The Statistic Field value
         /// </summary>
-        [JsonProperty(PropertyName = "statFieldValue")]
+        [JsonProperty("statFieldValue")]
         public ValueField StatFieldValue { get; set; }
     }
 }

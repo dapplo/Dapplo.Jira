@@ -37,10 +37,10 @@ namespace Dapplo.Jira.Entities
 	[JsonObject]
 	internal class SessionResponse
 	{
-		[JsonProperty(PropertyName = "loginInfo")]
+		[JsonProperty("loginInfo")]
 		public LoginInfo LoginInfo { get; set; }
 
-		[JsonProperty(PropertyName = "session")]
+		[JsonProperty("session")]
 		public JiraSession Session { get; set; }
 	}
 }

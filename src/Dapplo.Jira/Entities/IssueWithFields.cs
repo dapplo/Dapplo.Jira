@@ -41,14 +41,14 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Fields for the issue
 		/// </summary>
-		[JsonProperty(PropertyName = "fields")]
+		[JsonProperty("fields")]
 		public TFields Fields { get; set; }
 
 		/// <summary>
 		///     Fields for the issue, but wiki markup is now rendered to HTML
 		///     This will be in the response when expand=renderedFields
 		/// </summary>
-		[JsonProperty(PropertyName = "renderedFields")]
+		[JsonProperty("renderedFields")]
 		public TFields RenderedFields { get; set; }
 	}
 }

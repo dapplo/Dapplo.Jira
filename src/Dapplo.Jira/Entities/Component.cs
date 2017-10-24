@@ -41,55 +41,55 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     TODO: Needs comment
 		/// </summary>
-		[JsonProperty(PropertyName = "assignee")]
+		[JsonProperty("assignee")]
 		public User Assignee { get; set; }
 
 		/// <summary>
 		///     TODO: Needs comment
 		/// </summary>
-		[JsonProperty(PropertyName = "assigneeType")]
+		[JsonProperty("assigneeType")]
 		public string AssigneeType { get; set; }
 
 		/// <summary>
 		///     Description of this component
 		/// </summary>
-		[JsonProperty(PropertyName = "description")]
+		[JsonProperty("description")]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     Lead for this component
 		/// </summary>
-		[JsonProperty(PropertyName = "lead")]
+		[JsonProperty("lead")]
 		public User Lead { get; set; }
 
 		/// <summary>
 		///     Name of the component
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Project key where this component belongs to
 		/// </summary>
-		[JsonProperty(PropertyName = "project")]
+		[JsonProperty("project")]
 		public string Project { get; set; }
 
 		/// <summary>
 		///     Id of the project where this component belongs to
 		/// </summary>
-		[JsonProperty(PropertyName = "projectId")]
+		[JsonProperty("projectId")]
 		public int ProjectId { get; set; }
 
 		/// <summary>
 		///     TODO: Needs comment
 		/// </summary>
-		[JsonProperty(PropertyName = "realAssignee")]
+		[JsonProperty("realAssignee")]
 		public User RealAssignee { get; set; }
 
 		/// <summary>
 		///     TODO: Needs comment
 		/// </summary>
-		[JsonProperty(PropertyName = "realAssigneeType")]
+		[JsonProperty("realAssigneeType")]
 		public string RealAssigneeType { get; set; }
 	}
 }

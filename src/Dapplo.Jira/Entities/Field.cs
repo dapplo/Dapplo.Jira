@@ -41,43 +41,43 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Name of the field
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Is this field a custom field?
 		/// </summary>
-		[JsonProperty(PropertyName = "custom")]
+		[JsonProperty("custom")]
 		public bool IsCustom { get; set; }
 
 		/// <summary>
 		///     Is this field orderable?
 		/// </summary>
-		[JsonProperty(PropertyName = "orderable")]
+		[JsonProperty("orderable")]
 		public bool IsOrderable { get; set; }
 
 		/// <summary>
 		///     Is this field navigable?
 		/// </summary>
-		[JsonProperty(PropertyName = "navigable")]
+		[JsonProperty("navigable")]
 		public bool IsNavigable { get; set; }
 
 		/// <summary>
 		///     Is this field searchable?
 		/// </summary>
-		[JsonProperty(PropertyName = "searchable")]
+		[JsonProperty("searchable")]
 		public bool IsSearchable { get; set; }
 
 		/// <summary>
 		///     Aliases in where clauses
 		/// </summary>
-		[JsonProperty(PropertyName = "clauseNames")]
+		[JsonProperty("clauseNames")]
 		public IList<string> ClauseNames { get; set; }
 
 		/// <summary>
 		///     Schema for the field
 		/// </summary>
-		[JsonProperty(PropertyName = "schema")]
+		[JsonProperty("schema")]
 		public Schema Schema { get; set; }
 	}
 }

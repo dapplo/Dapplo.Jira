@@ -34,10 +34,10 @@ namespace Dapplo.Jira.Entities
 	[JsonObject]
 	internal class JiraSession
 	{
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 
-		[JsonProperty(PropertyName = "value")]
+		[JsonProperty("value")]
 		public string Value { get; set; }
 
 		public override string ToString()

@@ -40,13 +40,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Max of the results (this is the limit)
 		/// </summary>
-		[JsonProperty(PropertyName = "maxResults")]
+		[JsonProperty("maxResults")]
 		public int? MaxResults { get; set; }
 
 		/// <summary>
 		///     Where in the total this "page" is located
 		/// </summary>
-		[JsonProperty(PropertyName = "startAt")]
+		[JsonProperty("startAt")]
 		public int? StartAt { get; set; }
 	}
 }

@@ -40,13 +40,13 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Type for the visibility
 		/// </summary>
-		[JsonProperty(PropertyName = "type")]
+		[JsonProperty("type")]
 		public string Type { get; set; }
 
 		/// <summary>
 		///     Value of the visibility
 		/// </summary>
-		[JsonProperty(PropertyName = "value")]
+		[JsonProperty("value")]
 		public string Value { get; set; }
 	}
 }

@@ -42,25 +42,25 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Does the issue have votes?
 		/// </summary>
-		[JsonProperty(PropertyName = "hasVoted")]
+		[JsonProperty("hasVoted")]
 		public bool HasVoted { get; set; }
 
 		/// <summary>
 		///     Link to itself
 		/// </summary>
-		[JsonProperty(PropertyName = "self")]
+		[JsonProperty("self")]
 		public Uri Self { get; set; }
 
 		/// <summary>
 		///     Who are the voters
 		/// </summary>
-		[JsonProperty(PropertyName = "voters")]
+		[JsonProperty("voters")]
 		public IList<User> Voters { get; set; }
 
 		/// <summary>
 		///     How many votes does it have
 		/// </summary>
-		[JsonProperty(PropertyName = "votes")]
+		[JsonProperty("votes")]
 		public long? Votes { get; set; }
 	}
 }

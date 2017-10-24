@@ -40,7 +40,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Id of the Rank custom field
 		/// </summary>
-		[JsonProperty(PropertyName = "rankCustomFieldId")]
+		[JsonProperty("rankCustomFieldId")]
 		public long? RankCustomFieldId { get; set; }
 	}
 }

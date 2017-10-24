@@ -40,7 +40,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The user which subscribed
 		/// </summary>
-		[JsonProperty(PropertyName = "user")]
+		[JsonProperty("user")]
 		public User Subscriber { get; set; }
 	}
 }

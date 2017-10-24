@@ -55,41 +55,41 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     true if the user is active (license count)
 		/// </summary>
-		[JsonProperty(PropertyName = "active")]
+		[JsonProperty("active")]
 		[ReadOnly(true)]
 		public bool Active { get; set; }
 
 		/// <summary>
 		///     Avatar urls (links to 16x16, 24x24, 32x32, 48x48 icons) for this user
 		/// </summary>
-		[JsonProperty(PropertyName = "avatarUrls")]
+		[JsonProperty("avatarUrls")]
 		[ReadOnly(true)]
 		public AvatarUrls Avatars { get; set; }
 
 		/// <summary>
 		///     Display name for the user
 		/// </summary>
-		[JsonProperty(PropertyName = "displayName")]
+		[JsonProperty("displayName")]
 		[ReadOnly(true)]
 		public string DisplayName { get; set; }
 
 		/// <summary>
 		///     Email address of the user
 		/// </summary>
-		[JsonProperty(PropertyName = "emailAddress")]
+		[JsonProperty("emailAddress")]
 		[ReadOnly(true)]
 		public string EmailAddress { get; set; }
 
 		/// <summary>
 		///     Name of the user
 		/// </summary>
-		[JsonProperty(PropertyName = "name")]
+		[JsonProperty("name")]
 		public string Name { get; set; }
 
 		/// <summary>
 		///     Link to this item (self)
 		/// </summary>
-		[JsonProperty(PropertyName = "self")]
+		[JsonProperty("self")]
 		[ReadOnly(true)]
 		public Uri Self { get; set; }
 	}

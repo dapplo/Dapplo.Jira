@@ -42,43 +42,43 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     The summary of the time spend on this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "aggregatetimespent")]
+		[JsonProperty("aggregatetimespent")]
 		public long? AggregateTimeSpent { get; set; }
 
 		/// <summary>
 		///     User who this issue is assigned to
 		/// </summary>
-		[JsonProperty(PropertyName = "assignee")]
+		[JsonProperty("assignee")]
 		public User Assignee { get; set; }
 
 		/// <summary>
 		///     Attachments for this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "attachment")]
+		[JsonProperty("attachment")]
 		public IList<Attachment> Attachments { get; set; }
 
 		/// <summary>
 		///     Container for the comments for this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "comment")]
+		[JsonProperty("comment")]
 		public Comments Comments { get; set; }
 
 		/// <summary>
 		///     Components for this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "components")]
+		[JsonProperty("components")]
 		public IList<Component> Components { get; set; }
 
 		/// <summary>
 		///     When was this issue created
 		/// </summary>
-		[JsonProperty(PropertyName = "created")]
+		[JsonProperty("created")]
 		public DateTimeOffset? Created { get; set; }
 
 		/// <summary>
 		///     User who created this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "creator")]
+		[JsonProperty("creator")]
 		public User Creator { get; set; }
 
 		/// <summary>
@@ -90,115 +90,115 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Description of this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "description")]
+		[JsonProperty("description")]
 		public string Description { get; set; }
 
 		/// <summary>
 		///     Versions where this issue is fixed
 		/// </summary>
-		[JsonProperty(PropertyName = "fixVersions")]
+		[JsonProperty("fixVersions")]
 		public IList<Version> FixVersions { get; set; }
 
 		/// <summary>
 		///     Type of the issue
 		/// </summary>
-		[JsonProperty(PropertyName = "issuetype")]
+		[JsonProperty("issuetype")]
 		public IssueType IssueType { get; set; }
 
 		/// <summary>
 		///     Labels for this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "labels")]
+		[JsonProperty("labels")]
 		public IList<string> Labels { get; set; }
 
 		/// <summary>
 		///     When was this issue viewed (by whom??)
 		/// </summary>
-		[JsonProperty(PropertyName = "lastViewed")]
+		[JsonProperty("lastViewed")]
 		public DateTimeOffset? LastViewed { get; set; }
 
 		/// <summary>
 		///     Priority for this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "priority")]
+		[JsonProperty("priority")]
 		public Priority Priority { get; set; }
 
 		/// <summary>
 		///     Progress for this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "progress")]
+		[JsonProperty("progress")]
 		public ProgressInfo Progress { get; set; }
 
 		/// <summary>
 		///     Project to which this issue belongs
 		/// </summary>
-		[JsonProperty(PropertyName = "project")]
+		[JsonProperty("project")]
 		public Project Project { get; set; }
 
 		/// <summary>
 		///     What user reported the issue?
 		/// </summary>
-		[JsonProperty(PropertyName = "reporter")]
+		[JsonProperty("reporter")]
 		public User Reporter { get; set; }
 
 		/// <summary>
 		///     The resolution for this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "resolution")]
+		[JsonProperty("resolution")]
 		public Resolution Resolution { get; set; }
 
 		/// <summary>
 		///     Resolution date for this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "resolutiondate")]
+		[JsonProperty("resolutiondate")]
 		public DateTimeOffset? ResolutionData { get; set; }
 
 		/// <summary>
 		///     Current status of the issue
 		/// </summary>
-		[JsonProperty(PropertyName = "status")]
+		[JsonProperty("status")]
 		public Status Status { get; set; }
 
 		/// <summary>
 		///     Summary for the issue
 		/// </summary>
-		[JsonProperty(PropertyName = "summary")]
+		[JsonProperty("summary")]
 		public string Summary { get; set; }
 
 		/// <summary>
 		///     How much time is spent on this issue
 		/// </summary>
-		[JsonProperty(PropertyName = "timespent")]
+		[JsonProperty("timespent")]
 		public long? TimeSpent { get; set; }
 
 		/// <summary>
 		///     Time tracking information
 		/// </summary>
-		[JsonProperty(PropertyName = "timetracking")]
+		[JsonProperty("timetracking")]
 		public TimeTracking TimeTracking { get; set; }
 
 		/// <summary>
 		///     When was the last update
 		/// </summary>
-		[JsonProperty(PropertyName = "updated")]
+		[JsonProperty("updated")]
 		public DateTimeOffset? Updated { get; set; }
 
 		/// <summary>
 		///     Version for which this ticket is
 		/// </summary>
-		[JsonProperty(PropertyName = "versions")]
+		[JsonProperty("versions")]
 		public IList<Version> Versions { get; set; }
 
 		/// <summary>
 		///     Information on the watches for the ticket
 		/// </summary>
-		[JsonProperty(PropertyName = "watches")]
+		[JsonProperty("watches")]
 		public Watches Watches { get; set; }
 
 		/// <summary>
 		///     The worklog entries
 		/// </summary>
-		[JsonProperty(PropertyName = "worklog")]
+		[JsonProperty("worklog")]
 		public Worklogs Worklogs { get; set; }
 	}
 }

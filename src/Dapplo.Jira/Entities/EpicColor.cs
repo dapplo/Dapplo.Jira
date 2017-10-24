@@ -40,7 +40,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Key for the color
 		/// </summary>
-		[JsonProperty(PropertyName = "key")]
+		[JsonProperty("key")]
 		public string Key { get; set; }
 	}
 }

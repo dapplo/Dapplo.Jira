@@ -42,7 +42,7 @@ namespace Dapplo.Jira.Entities
 		/// <summary>
 		///     Link to itself
 		/// </summary>
-		[JsonProperty(PropertyName = "self")]
+		[JsonProperty("self")]
 		[ReadOnly(true)]
 		public Uri Self { get; set; }
 	}
