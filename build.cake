@@ -2,10 +2,10 @@
 #tool "OpenCover"
 #tool "GitVersion.CommandLine"
 #tool "docfx.console"
-#tool "coveralls.io"
+#tool "coveralls.net"
+#tool "PdbGit"
 // Needed for Cake.Compression, as described here: https://github.com/akordowski/Cake.Compression/issues/3
 #addin "SharpZipLib"
-#addin "MagicChunks"
 #addin "Cake.FileHelpers"
 #addin "Cake.DocFx"
 #addin "Cake.Coveralls"
@@ -18,10 +18,11 @@ var configuration = Argument("configuration", "release");
 var nugetApiKey = Argument("nugetApiKey", EnvironmentVariable("NuGetApiKey"));
 
 // Used to publish coverage report
-var coverallsRepoToken = Argument("coverallsRepoToken", EnvironmentVariable("COVERALLS_REPO_TOKEN"));
+var coverallsRepoToken = Argument("coverallsRepoToken", EnvironmentVariable("CoverallsRepoToken"));
 
 // where is our solution located?
 var solutionFilePath = GetFiles("src/*.sln").First();
+var solutionName = solutionFilePath.GetDirectory().GetDirectoryName();
 
 // Check if we are in a pull request, publishing of packages and coverage should be skipped
 var isPullRequest = !string.IsNullOrEmpty(EnvironmentVariable("APPVEYOR_PULL_REQUEST_NUMBER"));
@@ -49,7 +50,7 @@ Task("PublishCoverage")
     .WithCriteria(() => !isPullRequest)
     .Does(()=>
 {
-	CoverallsIo("./artifacts/coverage.xml", new CoverallsIoSettings()
+	CoverallsNet("./artifacts/coverage.xml", CoverallsNetReportType.OpenCover, new CoverallsNetSettings
     {
         RepoToken = coverallsRepoToken
     });
@@ -65,34 +66,36 @@ Task("PublishPackages")
     .Does(()=>
 {
     var settings = new NuGetPushSettings {
-	    Source = "https://www.nuget.org/api/v2/package",
+        Source = "https://www.nuget.org/api/v2/package",
         ApiKey = nugetApiKey
     };
 
-    var packages = GetFiles("./artifacts/*.nupkg").Where(p => !p.FullPath.Contains("symbols"));
+    var packages = GetFiles("./artifacts/*.nupkg").Where(p => !p.FullPath.ToLower().Contains("symbols"));
     NuGetPush(packages, settings);
 });
 
-// Package the results of the build, if the tests worked, into a NuGet Package
+// Package the results of the build, into a NuGet Package
 Task("Package")
 	.IsDependentOn("Build")
 	.IsDependentOn("Documentation")
+	.IsDependentOn("GitLink")
     .Does(()=>
 {
     var settings = new DotNetCorePackSettings  
     {
         OutputDirectory = "./artifacts/",
         Configuration = configuration,
-        IncludeSymbols = true
+		NoRestore = true
     };
 
-    var projectFilePaths = GetFiles("./**/*.csproj").Where(p => !p.FullPath.Contains("Test") && !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
+    var projectFilePaths = GetFiles("./**/*.csproj")
+		.Where(p => !p.FullPath.ToLower().Contains("test"))
+		.Where(p => !p.FullPath.ToLower().Contains("packages"))
+		.Where(p => !p.FullPath.ToLower().Contains("tools"))
+		.Where(p => !p.FullPath.ToLower().Contains("power"))
+		.Where(p => !p.FullPath.ToLower().Contains("example"));
     foreach(var projectFilePath in projectFilePaths)
     {
-        // Skipping powershell for now, until it's more stable
-        if (projectFilePath.FullPath.Contains("Power")) {
-            continue;
-        }
         Information("Packaging: " + projectFilePath.FullPath);
 		DotNetCorePack(projectFilePath.GetDirectory().FullPath, settings);
     }
@@ -102,19 +105,18 @@ Task("Package")
 Task("Documentation")
     .Does(() =>
 {
-	// Run DocFX
+    // Run DocFX
     DocFxMetadata("./doc/docfx.json");
     DocFxBuild("./doc/docfx.json");
 
-	CreateDirectory("artifacts");
-	// Archive the generated site
-	ZipCompress("./doc/_site", "./artifacts/site.zip");
+    CreateDirectory("artifacts");
+    // Archive the generated site
+    ZipCompress("./doc/_site", "./artifacts/site.zip");
 });
 
 // Run the XUnit tests via OpenCover, so be get an coverage.xml report
 Task("Coverage")
     .IsDependentOn("Build")
-	.WithCriteria(() => !isPullRequest)
     .Does(() =>
 {
     CreateDirectory("artifacts");
@@ -123,42 +125,43 @@ Task("Coverage")
         // Forces error in build when tests fail
         ReturnTargetCodeOffset = 0
     };
-
-    var projectFiles = GetFiles("./**/*.csproj").Where(p => !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
-    foreach(var projectFile in projectFiles)
+	
+    var projectFilePaths = GetFiles("./**/*.csproj")
+		.Where(p => !p.FullPath.ToLower().Contains("demo"))
+		.Where(p => !p.FullPath.ToLower().Contains("packages"))
+		.Where(p => !p.FullPath.ToLower().Contains("tools"))
+		.Where(p => !p.FullPath.ToLower().Contains("example"));
+	foreach(var projectFile in projectFilePaths)
     {
         var projectName = projectFile.GetDirectory().GetDirectoryName();
-        if (projectName.Contains("Test")) {
-            openCoverSettings.WithFilter("-["+projectName+"]*");
-            Information("OpenCover added filter -" + projectName);
+        if (projectName.ToLower().Contains("test")) {
+           openCoverSettings.WithFilter("-["+projectName+"]*");
         }
         else {
-            openCoverSettings.WithFilter("+["+projectName+"]*");
-            Information("OpenCover added filter +" + projectName);
+           openCoverSettings.WithFilter("+["+projectName+"]*");
         }
     }
+	
+	var xunit2Settings = new XUnit2Settings {
+		// Add AppVeyor output, this "should" take care of a report inside AppVeyor
+		ArgumentCustomization = args => {
+			if (!BuildSystem.IsLocalBuild) {
+				args.Append("-appveyor");
+			}
+			return args;
+		},
+		ShadowCopy = false,
+		XmlReport = true,
+		HtmlReport = true,
+		ReportName = solutionName,
+		OutputDirectory = "./artifacts",
+		WorkingDirectory = "./src"
+	};
 
     // Make XUnit 2 run via the OpenCover process
     OpenCover(
         // The test tool Lamdba
-        tool => {
-            tool.XUnit2("./**/bin/**/*.Tests.dll",
-                new XUnit2Settings {
-                    // Add AppVeyor output, this "should" take care of a report inside AppVeyor
-                    ArgumentCustomization = args => {
-                        if (!BuildSystem.IsLocalBuild) {
-                            args.Append("-appveyor");
-                        }
-                        return args;
-                    },
-                    ShadowCopy = false,
-                    XmlReport = true,
-                    HtmlReport = true,
-                    ReportName = "Dapplo.Jira",
-                    OutputDirectory = "./artifacts",
-                    WorkingDirectory = "./src"
-                });
-            },
+        tool => tool.XUnit2("./**/bin/**/*.Tests.dll", xunit2Settings),
         // The output path
         new FilePath("./artifacts/coverage.xml"),
         // Settings
@@ -169,14 +172,32 @@ Task("Coverage")
 // This starts the actual MSBuild
 Task("Build")
     .IsDependentOn("Clean")
-    .IsDependentOn("RestoreNuGetPackages")
     .IsDependentOn("Versioning")
+    .IsDependentOn("RestoreNuGetPackages")
     .Does(() =>
 {
 	DotNetCoreBuild(solutionFilePath.FullPath, new DotNetCoreBuildSettings 
 	{
 		Configuration = configuration
 	});
+});
+
+// Generate Git links in the PDB files
+Task("GitLink")
+    .IsDependentOn("Build")
+    .Does(() =>
+{
+	FilePath pdbGitPath = Context.Tools.Resolve("PdbGit.exe");
+	var pdbFiles = GetFiles("./**/*.pdb")
+		.Where(p => !p.FullPath.ToLower().Contains("test"))
+		.Where(p => !p.FullPath.ToLower().Contains("tools"))
+		.Where(p => !p.FullPath.ToLower().Contains("packages"))
+		.Where(p => !p.FullPath.ToLower().Contains("example"));
+    foreach(var pdbFile in pdbFiles)
+    {
+		Information("Processing: " + pdbFile.FullPath);
+		StartProcess(pdbGitPath, new ProcessSettings { Arguments = new ProcessArgumentBuilder().Append(pdbFile.FullPath)});
+	}
 });
 
 // Load the needed NuGet packages to make the build work
@@ -195,26 +216,29 @@ Task("RestoreNuGetPackages")
 Task("Versioning")
     .Does(() =>
 {
-	Information("Version of this build: " + version);
-	
-	// Overwrite version if it's not set.
-	if (string.IsNullOrEmpty(version)) {
-		var gitVersion = GitVersion();
-		Information("Git Version of this build: " + gitVersion.AssemblySemVer);
-		version = gitVersion.AssemblySemVer;
-	}
+    Information("Version of this build: " + version);
+    
+    // Overwrite version if it's not set.
+    if (string.IsNullOrEmpty(version)) {
+        var gitVersion = GitVersion();
+        Information("Git Version of this build: " + gitVersion.AssemblySemVer);
+        version = gitVersion.AssemblySemVer;
+    }
     	
-	var projectFilePaths = GetFiles("./**/*.csproj").Where(p => !p.FullPath.Contains("Test") && !p.FullPath.Contains("packages") &&!p.FullPath.Contains("tools"));
+    var projectFilePaths = GetFiles("./**/*.csproj")
+		// Ignore netstandard pdb files, as these currently don't work
+		.Where(p => !p.FullPath.ToLower().Contains("test"))
+		.Where(p => !p.FullPath.ToLower().Contains("tools"))
+		.Where(p => !p.FullPath.ToLower().Contains("packages"))
+		.Where(p => !p.FullPath.ToLower().Contains("example"));
     foreach(var projectFilePath in projectFilePaths)
     {
         Information("Changing version in : " + projectFilePath.FullPath + " to " + version);
-		TransformConfig(projectFilePath.FullPath, 
-            new TransformationCollection {
-                { "Project/PropertyGroup/Version", version },
-				{ "Project/PropertyGroup/AssemblyVersion", version },
-				{ "Project/PropertyGroup/FileVersion", version }
-            });
-	}
+		var xmlFile = File(projectFilePath.FullPath);
+		XmlPoke(xmlFile, "/Project/PropertyGroup/Version", version);
+		XmlPoke(xmlFile, "/Project/PropertyGroup/AssemblyVersion", version);
+		XmlPoke(xmlFile, "/Project/PropertyGroup/FileVersion", version);
+    }
 });
 
 

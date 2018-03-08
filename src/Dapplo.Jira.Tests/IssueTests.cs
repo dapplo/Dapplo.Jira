@@ -79,7 +79,7 @@ namespace Dapplo.Jira.Tests
 					Project = new Project {Key = projectForIssue.Key},
 					IssueType = bugIssueType,
 					Summary = "Some summary, this is a test",
-					Description = "Some description, this is a test",
+					Description = "Some description, this is a test"
 				}
 			};
 

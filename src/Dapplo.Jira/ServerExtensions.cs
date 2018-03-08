@@ -57,7 +57,7 @@ namespace Dapplo.Jira
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>TResponse</returns>
 		public static async Task<TResponse> GetUriContentAsync<TResponse>(this IServerDomain jiraClient, Uri contentUri,
-			CancellationToken cancellationToken = default(CancellationToken))
+			CancellationToken cancellationToken = default)
 			where TResponse : class
 		{
 			Log.Debug().WriteLine("Retrieving content from {0}", contentUri);
@@ -79,7 +79,7 @@ namespace Dapplo.Jira
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Bitmap,BitmapSource or MemoryStream (etc) depending on TResponse</returns>
 		public static async Task<TResponse> GetAvatarAsync<TResponse>(this IServerDomain jiraClient, AvatarUrls avatarUrls, AvatarSizes avatarSize = AvatarSizes.ExtraLarge,
-			CancellationToken cancellationToken = default(CancellationToken))
+			CancellationToken cancellationToken = default)
 			where TResponse : class
 		{
 			var avatarUri = avatarUrls.GetUri(avatarSize);
@@ -96,7 +96,7 @@ namespace Dapplo.Jira
 		/// <param name="jiraClient">IServerDomain to bind the extension method to</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>IList of Field objects</returns>
-		public static async Task<IList<Field>> GetFieldsAsync(this IServerDomain jiraClient, CancellationToken cancellationToken = default(CancellationToken))
+		public static async Task<IList<Field>> GetFieldsAsync(this IServerDomain jiraClient, CancellationToken cancellationToken = default)
 		{
 			Log.Debug().WriteLine("Retrieving fields");
 
@@ -114,7 +114,7 @@ namespace Dapplo.Jira
 		/// <param name="jiraClient">IServerDomain to bind the extension method to</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>ServerInfo</returns>
-		public static async Task<ServerInfo> GetInfoAsync(this IServerDomain jiraClient, CancellationToken cancellationToken = default(CancellationToken))
+		public static async Task<ServerInfo> GetInfoAsync(this IServerDomain jiraClient, CancellationToken cancellationToken = default)
 		{
 			Log.Debug().WriteLine("Retrieving server information");
 
@@ -126,9 +126,7 @@ namespace Dapplo.Jira
 			if (Log.IsDebugEnabled() && !response.HasError)
 			{
 				var serverInfo = response.Response;
-				Log.Debug()
-					.WriteLine("Server title {0}, version {1}, uri {2}, build date {3}, build number {4}, scm info {5}", serverInfo.ServerTitle, serverInfo.Version, serverInfo.BaseUrl,
-						serverInfo.BuildDate, serverInfo.BuildNumber, serverInfo.ScmInfo);
+				Log.Debug().WriteLine("Server title {0}, version {1}, uri {2}, build date {3}, build number {4}, scm info {5}", serverInfo.ServerTitle, serverInfo.Version, serverInfo.BaseUrl, serverInfo.BuildDate, serverInfo.BuildNumber, serverInfo.ScmInfo);
 			}
 			return response.HandleErrors();
 		}
@@ -141,7 +139,7 @@ namespace Dapplo.Jira
 		/// <param name="jiraClient">IServerDomain to bind the extension method to</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Configuration</returns>
-		public static async Task<Configuration> GetConfigurationAsync(this IServerDomain jiraClient, CancellationToken cancellationToken = default(CancellationToken))
+		public static async Task<Configuration> GetConfigurationAsync(this IServerDomain jiraClient, CancellationToken cancellationToken = default)
 		{
 			Log.Debug().WriteLine("Retrieving server configuration");
 
@@ -166,7 +164,7 @@ namespace Dapplo.Jira
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>TimeTrackingConfiguration</returns>
 		public static async Task<TimeTrackingConfiguration> GetTimeTrackingConfigurationAsync(this IServerDomain jiraClient,
-			CancellationToken cancellationToken = default(CancellationToken))
+			CancellationToken cancellationToken = default)
 		{
 			Log.Debug().WriteLine("Retrieving time tracking configuration");
 
@@ -191,7 +189,7 @@ namespace Dapplo.Jira
 		/// <param name="timeTrackingConfiguration">TimeTrackingConfiguration to use</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		public static async Task SetTimeTrackingConfigurationAsync(this IServerDomain jiraClient, TimeTrackingConfiguration timeTrackingConfiguration,
-			CancellationToken cancellationToken = default(CancellationToken))
+			CancellationToken cancellationToken = default)
 		{
 			Log.Debug().WriteLine("Retrieving time tracking configuration");
 

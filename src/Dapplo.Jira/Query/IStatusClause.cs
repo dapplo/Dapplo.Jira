@@ -23,8 +23,6 @@
 
 #endregion
 
-using Dapplo.Jira.Entities;
-
 namespace Dapplo.Jira.Query
 {
 	/// <summary>

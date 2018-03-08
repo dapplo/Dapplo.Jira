@@ -97,13 +97,13 @@ namespace Dapplo.Jira.Entities
 			// check if there is a custom field for the ID
 			if (!Fields.CustomFields.ContainsKey(estimationCustomField))
 			{
-				return default(T);
+				return default;
 			}
 
 			// We have a custom field, get it
 			var result = Fields.CustomFields[estimationCustomField];
 			// Return the custom field, as the supplied type
-			return result == null ? default(T) : (T)result;
+			return result == null ? default : (T)result;
 		}
 
 		/// <summary>

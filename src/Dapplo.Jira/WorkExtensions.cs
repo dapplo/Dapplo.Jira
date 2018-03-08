@@ -55,7 +55,7 @@ namespace Dapplo.Jira
         /// <param name="issueKey">the issue key</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Worklogs</returns>
-        public static async Task<Worklogs> GetAsync(this IWorkDomain jiraClient, string issueKey, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<Worklogs> GetAsync(this IWorkDomain jiraClient, string issueKey, CancellationToken cancellationToken = default)
         {
             if (issueKey == null)
             {
@@ -86,7 +86,7 @@ namespace Dapplo.Jira
         /// </param>
         /// <param name="cancellationToken">CancellationToken</param>
         public static async Task<Worklog> CreateAsync(this IWorkDomain jiraClient, string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto,
-            string adjustValue = null, CancellationToken cancellationToken = default(CancellationToken))
+            string adjustValue = null, CancellationToken cancellationToken = default)
         {
             if (issueKey == null)
             {
@@ -135,7 +135,7 @@ namespace Dapplo.Jira
         /// </param>
         /// <param name="cancellationToken">CancellationToken</param>
         public static async Task UpdateAsync(this IWorkDomain jiraClient, string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto,
-            string adjustValue = null, CancellationToken cancellationToken = default(CancellationToken))
+            string adjustValue = null, CancellationToken cancellationToken = default)
         {
             if (issueKey == null)
             {
@@ -184,7 +184,7 @@ namespace Dapplo.Jira
         /// </param>
         /// <param name="cancellationToken">CancellationToken</param>
         public static async Task DeleteAsync(this IWorkDomain jiraClient, string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto,
-            string adjustValue = null, CancellationToken cancellationToken = default(CancellationToken))
+            string adjustValue = null, CancellationToken cancellationToken = default)
         {
             if (issueKey == null)
             {

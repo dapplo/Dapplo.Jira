@@ -53,7 +53,7 @@ namespace Dapplo.Jira
         /// <param name="issueKey">key for the issue</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>AgileIssue</returns>
-        public static async Task<AgileIssue> GetIssueAsync(this IAgileDomain jiraClient, string issueKey, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<AgileIssue> GetIssueAsync(this IAgileDomain jiraClient, string issueKey, CancellationToken cancellationToken = default)
         {
             if (issueKey == null)
             {
@@ -83,7 +83,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Results with Sprint objects</returns>
         public static async Task<SearchResult<Sprint, Tuple<long, string>>> GetSprintsAsync(this IAgileDomain jiraClient, long boardId, string stateFilter = null, Page page = null,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
             var sprintsUri = jiraClient.JiraAgileRestUri.AppendSegments("board", boardId, "sprint");
@@ -124,7 +124,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Results with Sprint objects</returns>
         public static async Task<SearchIssuesResult<AgileIssue, long>> GetBacklogAsync(this IAgileDomain jiraClient, long boardId, Page page = null,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
             var backlogIssuesUri = jiraClient.JiraAgileRestUri.AppendSegments("board", boardId, "backlog");
@@ -161,7 +161,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResult with AgileIssue objects</returns>
         public static async Task<SearchIssuesResult<AgileIssue, long>> GetIssuesOnBoardAsync(this IAgileDomain jiraClient, long boardId, Page page = null,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
             var boardIssuesUri = jiraClient.JiraAgileRestUri.AppendSegments("board", boardId, "issue");
@@ -199,7 +199,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResult with AgileIssue objects</returns>
         public static async Task<SearchIssuesResult<AgileIssue, Tuple<long, long>>> GetIssuesInSprintAsync(this IAgileDomain jiraClient, long boardId, long sprintId, Page page = null,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
             var sprintIssuesUri = jiraClient.JiraAgileRestUri.AppendSegments("board", boardId, "sprint", sprintId, "issue");
@@ -235,7 +235,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>BoardConfiguration</returns>
         public static async Task<BoardConfiguration> GetBoardConfigurationAsync(this IAgileDomain jiraClient, long boardId,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
             var boardConfigurationUri = jiraClient.JiraAgileRestUri.AppendSegments("board", boardId, "configuration");
@@ -251,7 +251,7 @@ namespace Dapplo.Jira
         /// <param name="boardId">Id of the board to return</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Board</returns>
-        public static async Task<Board> GetBoardAsync(this IAgileDomain jiraClient, long boardId, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<Board> GetBoardAsync(this IAgileDomain jiraClient, long boardId, CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
             var boardUri = jiraClient.JiraAgileRestUri.AppendSegments("board", boardId);
@@ -266,7 +266,7 @@ namespace Dapplo.Jira
         /// <param name="jiraClient">IAgileDomain to bind the extension method to</param>
         /// <param name="board">Board to create</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public static async Task<Board> CreateBoardAsync(this IAgileDomain jiraClient, Board board, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<Board> CreateBoardAsync(this IAgileDomain jiraClient, Board board, CancellationToken cancellationToken = default)
         {
             if (board == null)
             {
@@ -289,7 +289,7 @@ namespace Dapplo.Jira
         /// <param name="jiraClient">IAgileDomain to bind the extension method to</param>
         /// <param name="boardId">Id of the board to return</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public static async Task DeleteBoardAsync(this IAgileDomain jiraClient, long boardId, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task DeleteBoardAsync(this IAgileDomain jiraClient, long boardId, CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
             var boardUri = jiraClient.JiraAgileRestUri.AppendSegments("board", boardId);
@@ -312,7 +312,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Results with Board objects</returns>
         public static async Task<SearchResult<Board, Tuple<string, string, string>>> GetBoardsAsync(this IAgileDomain jiraClient, string type = null, string name = null, string projectKeyOrId = null,
-            Page page = null, CancellationToken cancellationToken = default(CancellationToken))
+            Page page = null, CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
             var boardsUri = jiraClient.JiraAgileRestUri.AppendSegments("board");
@@ -358,7 +358,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Results with Epic objects</returns>
         public static async Task<SearchResult<Epic, long>> GetEpicsAsync(this IAgileDomain jiraClient, long boardId, Page page = null,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
             var epicsUri = jiraClient.JiraAgileRestUri.AppendSegments("board", boardId, "epic");
@@ -393,7 +393,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResult with AgileIssue objects</returns>
         public static async Task<SearchIssuesResult<AgileIssue, Tuple<long, long>>> GetIssuesForEpicAsync(this IAgileDomain jiraClient, long boardId, long epicId, Page page = null,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
             var epicIssuesUri = jiraClient.JiraAgileRestUri.AppendSegments("board", boardId, "epic", epicId, "issue");
@@ -428,7 +428,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResult with AgileIssue objects</returns>
         public static async Task<SearchIssuesResult<AgileIssue, long>> GetIssuesForEpicAsync(this IAgileDomain jiraClient, long epicId, Page page = null,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
             var epicIssuesUri = jiraClient.JiraAgileRestUri.AppendSegments("epic", epicId, "issue");
@@ -459,7 +459,7 @@ namespace Dapplo.Jira
         /// <param name="epicId">Id of the epic to get</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Epic</returns>
-        public static async Task<Epic> GetEpicAsync(this IAgileDomain jiraClient, long epicId, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<Epic> GetEpicAsync(this IAgileDomain jiraClient, long epicId, CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
             var epicUri = jiraClient.JiraAgileRestUri.AppendSegments("epic", epicId);
@@ -475,7 +475,7 @@ namespace Dapplo.Jira
         /// <param name="epic">Epic to update</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Epic</returns>
-        public static async Task<Epic> UpdateEpicAsync(this IAgileDomain jiraClient, Epic epic, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<Epic> UpdateEpicAsync(this IAgileDomain jiraClient, Epic epic, CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
             var epicUri = jiraClient.JiraAgileRestUri.AppendSegments("epic", epic.Id);
@@ -493,7 +493,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResult with AgileIssue objects</returns>
         public static async Task<SearchIssuesResult<AgileIssue, long>> GetIssuesWithoutEpicAsync(this IAgileDomain jiraClient, long boardId, Page page = null,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
             var epicLessIssuesUri = jiraClient.JiraAgileRestUri.AppendSegments("board", boardId, "epic", "none", "issue");

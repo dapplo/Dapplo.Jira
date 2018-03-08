@@ -54,7 +54,7 @@ namespace Dapplo.Jira
         /// <param name="jiraClient">IFilterDomain to bind the extension method to</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>List of filter</returns>
-        public static async Task<IList<Filter>> GetFavoritesAsync(this IFilterDomain jiraClient, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<IList<Filter>> GetFavoritesAsync(this IFilterDomain jiraClient, CancellationToken cancellationToken = default)
         {
             Log.Debug().WriteLine("Retrieving favorite filters");
 
@@ -78,7 +78,7 @@ namespace Dapplo.Jira
         /// <param name="jiraClient">IFilterDomain to bind the extension method to</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>List of filter</returns>
-        public static async Task<IList<Filter>> GetFiltersAsync(this IFilterDomain jiraClient, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<IList<Filter>> GetFiltersAsync(this IFilterDomain jiraClient, CancellationToken cancellationToken = default)
         {
             Log.Debug().WriteLine("Retrieving filters for current user");
 
@@ -103,7 +103,7 @@ namespace Dapplo.Jira
         /// <param name="id">filter id</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Filter</returns>
-        public static async Task<Filter> GetAsync(this IFilterDomain jiraClient, long id, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<Filter> GetAsync(this IFilterDomain jiraClient, long id, CancellationToken cancellationToken = default)
         {
             Log.Debug().WriteLine("Retrieving filter {0}", id);
 
@@ -127,7 +127,7 @@ namespace Dapplo.Jira
         /// <param name="filter">Filter to create</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Filter</returns>
-        public static async Task<Filter> CreateAsync(this IFilterDomain jiraClient, Filter filter, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<Filter> CreateAsync(this IFilterDomain jiraClient, Filter filter, CancellationToken cancellationToken = default)
         {
             if (filter == null)
             {
@@ -160,7 +160,7 @@ namespace Dapplo.Jira
         /// <param name="filter">Filter to update</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Filter</returns>
-        public static async Task<Filter> UpdateAsync(this IFilterDomain jiraClient, Filter filter, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<Filter> UpdateAsync(this IFilterDomain jiraClient, Filter filter, CancellationToken cancellationToken = default)
         {
             if (filter == null)
             {
@@ -194,7 +194,7 @@ namespace Dapplo.Jira
         /// <param name="jiraClient">IFilterDomain to bind the extension method to</param>
         /// <param name="filter">Filter to delete</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public static async Task DeleteAsync(this IFilterDomain jiraClient, Filter filter, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task DeleteAsync(this IFilterDomain jiraClient, Filter filter, CancellationToken cancellationToken = default)
         {
             if (filter == null)
             {

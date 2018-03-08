@@ -55,7 +55,7 @@ namespace Dapplo.Jira
         /// <param name="projectKey">key of the project</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>ProjectDetails</returns>
-        public static async Task<Project> GetAsync(this IProjectDomain jiraClient, string projectKey, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<Project> GetAsync(this IProjectDomain jiraClient, string projectKey, CancellationToken cancellationToken = default)
         {
             if (projectKey == null)
             {
@@ -90,7 +90,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>list of ProjectDigest</returns>
         public static async Task<IList<ProjectDigest>> GetAllAsync(this IProjectDomain jiraClient, int? recent = null,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             Log.Debug().WriteLine("Retrieving projects");
 
@@ -119,7 +119,7 @@ namespace Dapplo.Jira
         /// <param name="componentId">long with ID of the component to retrieve</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Component</returns>
-        public static async Task<Component> GetComponentAsync(this IProjectDomain jiraClient, long componentId, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<Component> GetComponentAsync(this IProjectDomain jiraClient, long componentId, CancellationToken cancellationToken = default)
         {
             Log.Debug().WriteLine("Retrieving component with id {0}", componentId);
 
@@ -138,7 +138,7 @@ namespace Dapplo.Jira
         /// <param name="component">Component to create</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Component with the details, like id</returns>
-        public static async Task<Component> CreateComponentAsync(this IProjectDomain jiraClient, Component component, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<Component> CreateComponentAsync(this IProjectDomain jiraClient, Component component, CancellationToken cancellationToken = default)
         {
             Log.Debug().WriteLine("Creating component {0}", component.Name);
 
@@ -157,7 +157,7 @@ namespace Dapplo.Jira
         /// <param name="component">Component to update</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Component</returns>
-        public static async Task<Component> UpdateComponentAsync(this IProjectDomain jiraClient, Component component, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<Component> UpdateComponentAsync(this IProjectDomain jiraClient, Component component, CancellationToken cancellationToken = default)
         {
             Log.Debug().WriteLine("Updating component {0}", component.Name);
 
@@ -175,7 +175,7 @@ namespace Dapplo.Jira
         /// <param name="jiraClient">IProjectDomain to bind the extension method to</param>
         /// <param name="componentId">long with id of the component to delete</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public static async Task DeleteComponentAsync(this IProjectDomain jiraClient, long componentId, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task DeleteComponentAsync(this IProjectDomain jiraClient, long componentId, CancellationToken cancellationToken = default)
         {
             Log.Debug().WriteLine("Deleting component {0}", componentId);
 
@@ -196,9 +196,9 @@ namespace Dapplo.Jira
         /// <param name="maxResults">optional int with the maximum number of results, default is 50</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>IEnumerable with User</returns>
-        public static Task<IEnumerable<User>> GetIssueCreatorsAsync(this IProjectDomain jiraClient, string projectKey, string userpattern = null, int? startAt = null, int? maxResults = null, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<IEnumerable<User>> GetIssueCreatorsAsync(this IProjectDomain jiraClient, string projectKey, string userpattern = null, int? startAt = null, int? maxResults = null, CancellationToken cancellationToken = default)
         {
-            return jiraClient.User.GetAssignableUsersAsync(username: userpattern, projectKey: projectKey, startAt: startAt, maxResults: maxResults, cancellationToken: cancellationToken);
+            return jiraClient.User.GetAssignableUsersAsync(userpattern, projectKey, startAt: startAt, maxResults: maxResults, cancellationToken: cancellationToken);
         }
     }
 }

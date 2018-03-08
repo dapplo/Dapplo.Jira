@@ -59,7 +59,7 @@ namespace Dapplo.Jira
         /// <returns>Attachment</returns>
         public static async Task<Attachment> AttachAsync<TContent>(this IAttachmentDomain jiraClient, string issueKey, TContent content, string filename,
             string contentType = null,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
             where TContent : class
         {
             if (issueKey == null)
@@ -92,7 +92,7 @@ namespace Dapplo.Jira
         /// <param name="jiraClient">IAttachmentDomain to bind the extension method to</param>
         /// <param name="attachment">The Attachment to delete</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public static Task DeleteAsync(this IAttachmentDomain jiraClient, Attachment attachment, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task DeleteAsync(this IAttachmentDomain jiraClient, Attachment attachment, CancellationToken cancellationToken = default)
         {
             if (attachment == null)
             {
@@ -108,7 +108,7 @@ namespace Dapplo.Jira
         /// <param name="jiraClient">IAttachmentDomain to bind the extension method to</param>
         /// <param name="attachmentId">Id from the attachment</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public static async Task DeleteAsync(this IAttachmentDomain jiraClient, long attachmentId, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task DeleteAsync(this IAttachmentDomain jiraClient, long attachmentId, CancellationToken cancellationToken = default)
         {
             Log.Debug().WriteLine("Deleting attachment {0}", attachmentId);
 
@@ -130,7 +130,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>TResponse</returns>
         public static async Task<TResponse> GetContentAsAsync<TResponse>(this IAttachmentDomain jiraClient, Attachment attachment,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
             where TResponse : class
         {
             if (attachment == null)
@@ -155,7 +155,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>TResponse</returns>
         public static async Task<TResponse> GetThumbnailAsAsync<TResponse>(this IAttachmentDomain jiraClient, Attachment attachment,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
             where TResponse : class
         {
             if (attachment == null)

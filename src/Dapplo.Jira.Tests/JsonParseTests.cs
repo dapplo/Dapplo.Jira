@@ -27,7 +27,6 @@
 
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.JsonNet;
 using Dapplo.Jira.Entities;

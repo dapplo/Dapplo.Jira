@@ -62,7 +62,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>LoginInfo</returns>
         public static async Task<LoginInfo> StartAsync(this ISessionDomain jiraClient, string username, string password,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             if (username == null)
             {
@@ -94,7 +94,7 @@ namespace Dapplo.Jira
         /// </summary>
         /// <param name="jiraClient">ISessionDomain to bind the extension method to</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public static async Task EndAsync(this ISessionDomain jiraClient, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task EndAsync(this ISessionDomain jiraClient, CancellationToken cancellationToken = default)
         {
             // Find the cookie to expire
             var sessionCookies = jiraClient.Behaviour.CookieContainer.GetCookies(jiraClient.JiraBaseUri).Cast<Cookie>().ToList();

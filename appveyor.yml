@@ -22,7 +22,7 @@ environment:
 build:
   verbosity: minimal
 build_script:
-- ps: .\build.ps1
+- ps: .\build.ps1 --settings_skipverification=true
 artifacts:
 - path: artifacts\**\*.nupkg
 - path: artifacts\**\site.zip

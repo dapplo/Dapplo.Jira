@@ -59,7 +59,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Comment</returns>
         public static async Task<Comment> AddCommentAsync(this IIssueDomain jiraClient, string issueKey, string body, string visibility = null,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             if (issueKey == null)
             {
@@ -91,7 +91,7 @@ namespace Dapplo.Jira
         /// <param name="issueKey">the issue key</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Issue</returns>
-        public static async Task<TIssue> GetAsync<TIssue, TFields>(this IIssueDomain jiraClient, string issueKey, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<TIssue> GetAsync<TIssue, TFields>(this IIssueDomain jiraClient, string issueKey, CancellationToken cancellationToken = default)
             where TIssue : IssueWithFields<TFields>
             where TFields : IssueFields
         {
@@ -120,9 +120,9 @@ namespace Dapplo.Jira
         /// <param name="issueKey">the issue key</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Issue</returns>
-        public static Task<Issue> GetAsync(this IIssueDomain jiraClient, string issueKey, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<Issue> GetAsync(this IIssueDomain jiraClient, string issueKey, CancellationToken cancellationToken = default)
         {
-            return jiraClient.GetAsync<Issue, IssueFields>(issueKey, cancellationToken: cancellationToken);
+            return jiraClient.GetAsync<Issue, IssueFields>(issueKey, cancellationToken);
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>List of Transition</returns>
         public static async Task<IList<Transition>> GetPossibleTransitionsAsync(this IIssueDomain jiraClient, string issueKey,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             if (issueKey == null)
             {
@@ -163,7 +163,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResults</returns>
         public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, IFinalClause jql, int maxResults = 20, int startAt = 0, IEnumerable<string> fields = null,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             return jiraClient.SearchAsync(jql.ToString(), new Page {MaxResults = maxResults, StartAt = startAt}, fields, cancellationToken);
         }
@@ -179,7 +179,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchIssuesResult</returns>
         public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, string jql, Page page = null, IEnumerable<string> fields = null,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             if (jql == null)
             {
@@ -208,7 +208,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchIssuesResult</returns>
         public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search, Page page = null, IEnumerable<string> fields = null,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             if (search == null)
             {
@@ -217,8 +217,8 @@ namespace Dapplo.Jira
 
             if (page != null)
             {
-                search.MaxResults = page?.MaxResults ?? 20;
-                search.StartAt = page?.StartAt ?? 0;
+                search.MaxResults = page.MaxResults ?? 20;
+                search.StartAt = page.StartAt ?? 0;
             }
             return jiraClient.SearchAsync(search, cancellationToken);
         }
@@ -231,7 +231,7 @@ namespace Dapplo.Jira
         /// <param name="search">The search arguments</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchIssuesResult</returns>
-        public static async Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search, CancellationToken cancellationToken = default)
         {
             if (search == null)
             {
@@ -265,7 +265,7 @@ namespace Dapplo.Jira
         /// <param name="comment">Comment to update</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Comment</returns>
-        public static async Task<Comment> UpdateCommentAsync(this IIssueDomain jiraClient, string issueKey, Comment comment, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<Comment> UpdateCommentAsync(this IIssueDomain jiraClient, string issueKey, Comment comment, CancellationToken cancellationToken = default)
         {
             if (issueKey == null)
             {
@@ -303,7 +303,7 @@ namespace Dapplo.Jira
         /// <param name="issue">the issue to create</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Issue</returns>
-        public static async Task<IssueWithFields<TFields>> CreateAsync<TFields>(this IIssueDomain jiraClient, IssueWithFields<TFields> issue, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<IssueWithFields<TFields>> CreateAsync<TFields>(this IIssueDomain jiraClient, IssueWithFields<TFields> issue, CancellationToken cancellationToken = default)
             where TFields : IssueFields
         {
             if (issue == null)
@@ -328,7 +328,7 @@ namespace Dapplo.Jira
         /// <param name="overrideEditableFlag">Updates the issue even if the issue is not editable due to being in a status with jira.issue.editable set to false or missing. Only connect add-on users with admin scope permission are allowed to use this flag. default = false</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>TIssue</returns>
-        public static async Task UpdateAsync<TFields>(this IIssueDomain jiraClient, IssueWithFields<TFields> issue, bool notifyUsers = true, bool overrideScreenSecurity = false,  bool overrideEditableFlag= false, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task UpdateAsync<TFields>(this IIssueDomain jiraClient, IssueWithFields<TFields> issue, bool notifyUsers = true, bool overrideScreenSecurity = false,  bool overrideEditableFlag= false, CancellationToken cancellationToken = default)
             where TFields : IssueFields
         {
             if (issue == null)
@@ -364,7 +364,7 @@ namespace Dapplo.Jira
         /// </param>
         /// <param name="cancellationToken">CancellationToken</param>
         public static async Task DeleteAsync(this IIssueDomain jiraClient, string issueKey, bool deleteSubtasks = false,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             if (issueKey == null)
             {
@@ -387,7 +387,7 @@ namespace Dapplo.Jira
         /// <param name="issueKey">Key for the issue to assign</param>
         /// <param name="user">User to assign to, use User.Nobody to remove the assignee or User.Default to automaticly assign</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public static async Task AssignAsync(this IIssueDomain jiraClient, string issueKey, User user, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task AssignAsync(this IIssueDomain jiraClient, string issueKey, User user, CancellationToken cancellationToken = default)
         {
             if (user == null)
             {
@@ -410,7 +410,7 @@ namespace Dapplo.Jira
         /// <param name="maxResults">optional int with the maximum number of results, default is 50</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>IEnumerable with User</returns>
-        public static Task<IEnumerable<User>> GetAssignableUsersAsync(this IIssueDomain jiraClient, string issueKey, string userpattern = null, int? startAt = null, int? maxResults = null, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<IEnumerable<User>> GetAssignableUsersAsync(this IIssueDomain jiraClient, string issueKey, string userpattern = null, int? startAt = null, int? maxResults = null, CancellationToken cancellationToken = default)
         {
             return jiraClient.User.GetAssignableUsersAsync(issueKey: issueKey, username: userpattern, startAt: startAt, maxResults: maxResults, cancellationToken: cancellationToken);
         }

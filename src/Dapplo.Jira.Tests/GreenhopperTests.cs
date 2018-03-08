@@ -47,8 +47,8 @@ namespace Dapplo.Jira.Tests
         public async Task TestGetSprintReport()
         {
             // Arrange
-            var selectedBoard = "greenshot releases";
-            var selectedSprint = "greenshot 1.2.9 bf1";
+            const string selectedBoard = "greenshot releases";
+            const string selectedSprint = "greenshot 1.2.9 bf1";
 
             var boards = await Client.Agile.GetBoardsAsync();
             var scrumboard = boards.First(board => board.Type == BoardTypes.Scrum && board.Name.ToLowerInvariant() == selectedBoard);
@@ -67,7 +67,7 @@ namespace Dapplo.Jira.Tests
             Assert.NotEmpty(report.Contents.PuntedIssues);
             Assert.Equal(3, report.Contents.PuntedIssues.Count());
             Assert.NotEmpty(report.Contents.IssueKeysAddedDuringSprint);
-            Assert.Equal(2, report.Contents.IssueKeysAddedDuringSprint.Count());
+            Assert.Equal(2, report.Contents.IssueKeysAddedDuringSprint.Count);
         }
     }
 }

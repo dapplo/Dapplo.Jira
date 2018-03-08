@@ -150,23 +150,25 @@ namespace Dapplo.Jira.Query
 
 		public override string ToString()
 		{
-			if (string.IsNullOrEmpty(_finalClause))
+			if (!string.IsNullOrEmpty(_finalClause))
 			{
-				var clauseBuilder = new StringBuilder();
-				clauseBuilder.Append(Field.EnumValueOf()).Append(' ');
-				clauseBuilder.Append(Operator.EnumValueOf()).Append(' ');
-				clauseBuilder.Append(Value);
-				if (_orderByList.Any())
-				{
-					clauseBuilder.Append(" ORDER BY ");
-					clauseBuilder.Append(string.Join(", ", _orderByList.Select(orderBy =>
-					{
-						var order = orderBy.Item2.HasValue ? orderBy.Item2.Value ? " DESC" : " ASC" : "";
-						return $"{orderBy.Item1.EnumValueOf()}{order}";
-					})));
-				}
-				_finalClause = clauseBuilder.ToString();
+				return _finalClause;
 			}
+
+			var clauseBuilder = new StringBuilder();
+			clauseBuilder.Append(Field.EnumValueOf()).Append(' ');
+			clauseBuilder.Append(Operator.EnumValueOf()).Append(' ');
+			clauseBuilder.Append(Value);
+			if (_orderByList.Any())
+			{
+				clauseBuilder.Append(" ORDER BY ");
+				clauseBuilder.Append(string.Join(", ", _orderByList.Select(orderBy =>
+				{
+					var order = orderBy.Item2.HasValue ? orderBy.Item2.Value ? " DESC" : " ASC" : "";
+					return $"{orderBy.Item1.EnumValueOf()}{order}";
+				})));
+			}
+			_finalClause = clauseBuilder.ToString();
 
 			return _finalClause;
 		}

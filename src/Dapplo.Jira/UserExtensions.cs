@@ -54,7 +54,7 @@ namespace Dapplo.Jira
         /// <param name="username"></param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>User</returns>
-        public static async Task<User> GetAsync(this IUserDomain jiraClient, string username, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<User> GetAsync(this IUserDomain jiraClient, string username, CancellationToken cancellationToken = default)
         {
             if (username == null)
             {
@@ -83,7 +83,7 @@ namespace Dapplo.Jira
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResults</returns>
         public static async Task<IList<User>> SearchAsync(this IUserDomain jiraClient, string query, bool includeActive = true, bool includeInactive = false, int startAt = 0,
-            int maxResults = 20, CancellationToken cancellationToken = default(CancellationToken))
+            int maxResults = 20, CancellationToken cancellationToken = default)
         {
             if (query == null)
             {
@@ -122,7 +122,7 @@ namespace Dapplo.Jira
         /// <param name="jiraClient">IWorkDomain to bind the extension method to</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>User</returns>
-        public static async Task<User> GetMyselfAsync(this IUserDomain jiraClient, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<User> GetMyselfAsync(this IUserDomain jiraClient, CancellationToken cancellationToken = default)
         {
             Log.Debug().WriteLine("Retieving who I am");
 
@@ -145,7 +145,7 @@ namespace Dapplo.Jira
         /// <param name="actionDescriptorId">optional int, not documented what this does</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>IEnumerable with User</returns>
-        public static async Task<IEnumerable<User>> GetAssignableUsersAsync(this IUserDomain jiraClient, string username = null, string projectKey = null, string issueKey = null, int? startAt = null, int? maxResults = null, int? actionDescriptorId = null, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<IEnumerable<User>> GetAssignableUsersAsync(this IUserDomain jiraClient, string username = null, string projectKey = null, string issueKey = null, int? startAt = null, int? maxResults = null, int? actionDescriptorId = null, CancellationToken cancellationToken = default)
         {
             var usersSearchUri = jiraClient.JiraRestUri
                 .AppendSegments("user", "assignable", "search");
@@ -154,7 +154,7 @@ namespace Dapplo.Jira
             {
                 usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
                 {
-                    {"project", projectKey},
+                    {"project", projectKey}
                 });
             }
 
@@ -162,7 +162,7 @@ namespace Dapplo.Jira
             {
                 usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
                 {
-                    {"issueKey", issueKey},
+                    {"issueKey", issueKey}
                 });
             }
 
@@ -170,7 +170,7 @@ namespace Dapplo.Jira
             {
                 usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
                 {
-                    {"username", username},
+                    {"username", username}
                 });
             }
 
@@ -178,7 +178,7 @@ namespace Dapplo.Jira
             {
                 usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
                 {
-                    {"startAt", startAt.Value},
+                    {"startAt", startAt.Value}
                 });
             }
 
@@ -186,7 +186,7 @@ namespace Dapplo.Jira
             {
                 usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
                 {
-                    {"maxResults", maxResults.Value},
+                    {"maxResults", maxResults.Value}
                 });
             }
 
@@ -194,7 +194,7 @@ namespace Dapplo.Jira
             {
                 usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
                 {
-                    {"actionDescriptorId", actionDescriptorId.Value},
+                    {"actionDescriptorId", actionDescriptorId.Value}
                 });
             }
 

@@ -25,7 +25,6 @@
 
 #region Usings
 
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
@@ -55,7 +54,7 @@ namespace Dapplo.Jira
         /// <param name="sprintId">key for the desired sprint</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SprintReport</returns>
-        public static async Task<SprintReport> GetSprintReportAsync(this IGreenhopperDomain jiraClient, long rapidViewId, long sprintId, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<SprintReport> GetSprintReportAsync(this IGreenhopperDomain jiraClient, long rapidViewId, long sprintId, CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
             var sprintReportUri = jiraClient.JiraGreenhopperRestUri.AppendSegments("rapid", "charts", "sprintreport")
