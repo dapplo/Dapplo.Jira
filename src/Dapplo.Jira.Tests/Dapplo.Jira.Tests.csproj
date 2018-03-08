@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <Description>Tests for Dapplo.Jira</Description>
-    <Copyright>Copyright © Dapplo 2016</Copyright>
+    <Copyright>Copyright © Dapplo 2016-2018</Copyright>
     <AssemblyTitle>Dapplo.Jira.Tests</AssemblyTitle>
     <Authors>Robin Krom</Authors>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
     <AssemblyName>Dapplo.Jira.Tests</AssemblyName>
     <PackageId>Dapplo.Jira.Tests</PackageId>
     <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
@@ -22,16 +22,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.8.23" />
-    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.8.23" />
-    <PackageReference Include="Dapplo.Log" Version="1.0.29" />
-    <PackageReference Include="Dapplo.Log.XUnit" Version="1.0.29" />
-    <PackageReference Include="xunit" Version="2.2.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
-    <PackageReference Include="Dapplo.Utils" Version="1.0.150" />
+    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.8.28" />
+    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.8.28" />
+    <PackageReference Include="Dapplo.Log" Version="1.1.4" />
+    <PackageReference Include="Dapplo.Log.XUnit" Version="1.1.4" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <PackageReference Include="Dapplo.Utils" Version="1.0.158" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Drawing" />

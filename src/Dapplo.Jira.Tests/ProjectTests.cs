@@ -52,7 +52,7 @@ namespace Dapplo.Jira.Tests
 	        var project = await Client.Project.GetAsync("DIT");
 
 	        Assert.NotNull(project);
-	        Assert.NotNull(project.Roles.Count > 0);
+	        Assert.True(project.Roles.Count > 0);
 	        foreach (var componentDigest in project.Components)
 	        {
 	            var component = await Client.Project.GetComponentAsync(componentDigest.Id);
@@ -100,7 +100,7 @@ namespace Dapplo.Jira.Tests
 			var projects = await Client.Project.GetAllAsync();
 
 			Assert.NotNull(projects);
-			Assert.NotNull(projects.Count > 0);
+			Assert.True(projects.Count > 0);
 
 			Client.Behaviour.SetConfig(new SvgConfiguration {Width = 24, Height = 24});
 

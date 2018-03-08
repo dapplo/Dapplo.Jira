@@ -146,7 +146,7 @@ namespace Dapplo.Jira.Tests
 			var searchResult = await Client.Issue.SearchAsync(Where.Text.Contains("robin"));
 
 			Assert.NotNull(searchResult);
-			Assert.NotNull(searchResult.Issues.Count > 0);
+			Assert.True(searchResult.Issues.Count > 0);
 
 			foreach (var issue in searchResult.Issues)
 			{
@@ -164,7 +164,7 @@ namespace Dapplo.Jira.Tests
 	        while (searchResult.Count > 0)
 	        {
 	            Assert.NotNull(searchResult);
-	            Assert.NotNull(searchResult.Issues.Count > 0);
+	            Assert.True(searchResult.Issues.Count > 0);
 	            Log.Info().WriteLine("Got {0} of {1} results, starting at index {2}, isLast: {3}", searchResult.Count, searchResult.Total, searchResult.StartAt, searchResult.IsLastPage);
 	            foreach (var issue in searchResult)
 	            {

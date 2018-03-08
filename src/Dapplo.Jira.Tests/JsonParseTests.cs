@@ -84,7 +84,7 @@ namespace Dapplo.Jira.Tests
             var projects = (IList<ProjectDigest>)_jsonSerializer.Deserialize(typeof(IList<ProjectDigest>), json);
             Assert.NotNull(projects);
             Assert.True(projects.Count > 0);
-            Assert.True(projects.Any(digest => "Greenshot bugs".Equals(digest.Name)));
+            Assert.Contains(projects, digest => "Greenshot bugs".Equals(digest.Name));
         }
         [Fact]
         public void TestParseAgileIssue()

@@ -54,7 +54,7 @@ namespace Dapplo.Jira.Tests
 		{
 			var fields = await Client.Server.GetFieldsAsync();
 			Assert.True(fields.Count > 0);
-			Assert.True(fields.Any(field => field.Id == "issuetype"));
+			Assert.Contains(fields, field => field.Id == "issuetype");
 		}
 
 		[Fact]

@@ -91,9 +91,6 @@ namespace Dapplo.Jira.Tests
 			{
 				var issues = await Client.Agile.GetIssuesOnBoardAsync(testBoard.Id);
 				Assert.True(issues.Any());
-
-
-				//var sprint = await Client.Agile.CreateSprint();
 			}
 			finally
 			{
@@ -107,7 +104,7 @@ namespace Dapplo.Jira.Tests
 		{
 			var boards = await Client.Agile.GetBoardsAsync();
 			Assert.NotNull(boards);
-			Assert.True(boards.Any(board => board.Type == BoardTypes.Scrum));
+			Assert.Contains(boards, board => board.Type == BoardTypes.Scrum);
 		}
 
 		[Fact]
@@ -121,7 +118,7 @@ namespace Dapplo.Jira.Tests
 			Assert.NotNull(issue.Fields);
 			Assert.NotNull(issue.Fields.ClosedSprints);
 			Assert.NotNull(issue.Sprint);
-			Assert.NotNull(issue.Fields.ClosedSprints.Count > 0);
+			Assert.True(issue.Fields.ClosedSprints.Count > 0);
 
 			Assert.True(issue.GetEstimation(boardConfiguration) == 0);
 			Assert.NotNull(issue.GetRank(boardConfiguration));

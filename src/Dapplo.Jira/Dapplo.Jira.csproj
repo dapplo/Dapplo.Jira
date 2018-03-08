@@ -22,21 +22,21 @@
     <DebugSymbols>True</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Dapplo.HttpExtensions" Version="0.8.23" />
-    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.8.23" />
+    <PackageReference Include="Dapplo.HttpExtensions" Version="0.8.28" />
+    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.8.28" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
     <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.8.23" />
+    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.8.28" />
     <PackageReference Include="Svg" Version="2.3.0" />
     <Reference Include="System.Drawing" />
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
-    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.8.23" />
+    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.8.28" />
     <PackageReference Include="Svg" Version="2.3.0" />
     <Reference Include="System.Drawing" />
     <Reference Include="System" />

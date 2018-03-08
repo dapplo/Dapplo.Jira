@@ -133,7 +133,7 @@ namespace Dapplo.Jira
 
 #if NET45 || NET46
             // Add SvgBitmapHttpContentConverter if it was not yet added 
-            if (HttpExtensionsGlobals.HttpContentConverters.ToList().All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
+            if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
             {
                 HttpExtensionsGlobals.HttpContentConverters.Add(SvgBitmapHttpContentConverter.Instance.Value);
             }
