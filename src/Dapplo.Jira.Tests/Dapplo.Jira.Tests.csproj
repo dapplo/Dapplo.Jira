@@ -22,10 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.8.28" />
-    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.8.28" />
-    <PackageReference Include="Dapplo.Log" Version="1.1.4" />
-    <PackageReference Include="Dapplo.Log.XUnit" Version="1.1.4" />
+    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.8.33" />
+    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.8.33" />
+    <PackageReference Include="Dapplo.Log" Version="1.2.1" />
+    <PackageReference Include="Dapplo.Log.XUnit" Version="1.2.1" />
     <PackageReference Include="xunit" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     <PackageReference Include="Dapplo.Utils" Version="1.0.158" />
@@ -40,6 +40,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
 
 </Project>
