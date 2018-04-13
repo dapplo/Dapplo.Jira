@@ -37,6 +37,8 @@ using Dapplo.Jira.Domains;
 using Dapplo.Jira.Entities;
 using Dapplo.Jira.Internal;
 using Dapplo.Log;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 #endregion
 
@@ -82,7 +84,8 @@ namespace Dapplo.Jira
 
             jiraClient.Behaviour.MakeCurrent();
 
-            var content = new StringContent($"{{ \"username\": \"{username}\", \"password\": \"{password}\"}}");
+            var jsonContent = new JObject {{"username", username}, {"password", password}};
+            var content = new StringContent(jsonContent.ToString(Formatting.None));
             content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
 
             var response = await sessionUri.PostAsync<HttpResponse<SessionResponse, Error>>(content, cancellationToken);
