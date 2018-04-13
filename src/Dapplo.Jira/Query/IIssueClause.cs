@@ -28,7 +28,8 @@ using Dapplo.Jira.Entities;
 namespace Dapplo.Jira.Query
 {
 	/// <summary>
-	///     An interface for issue based clauses
+	///     An interface for issue based clauses.
+	///     <a href="https://confluence.atlassian.com/jiracoreserver072/advanced-searching-functions-reference-829092674.html">Advanced searching - functions reference</a>
 	/// </summary>
 	public interface IIssueClause
 	{
@@ -49,17 +50,28 @@ namespace Dapplo.Jira.Query
 
 		/// <summary>
 		///     This allows fluent constructs like IssueKey.InIssueHistory()
+		///     Find issues that you have recently viewed, i.e. issues that are in the 'Recent Issues' section of the 'Issues' drop-down menu.
 		/// </summary>
 		IFinalClause InIssueHistory();
 
 		/// <summary>
 		///     This allows fluent constructs like IssueKey.InLinkedIssues(BUG-12345)
+		///     Perform searches based on issues that are linked to a specified issue.
+		///     You can optionally restrict the search to links of a particular type. Note that LinkType is case-sensitive.
 		/// </summary>
+		/// <param name="issueKey">string</param>
+		/// <param name="linkType">string</param>
+		/// <returns>IFinalClause</returns>
 		IFinalClause InLinkedIssues(string issueKey, string linkType = null);
 
 		/// <summary>
 		///     This allows fluent constructs like IssueKey.InLinkedIssues(issue1)
+		///     Perform searches based on issues that are linked to a specified issue.
+		///     You can optionally restrict the search to links of a particular type. Note that LinkType is case-sensitive.
 		/// </summary>
+		/// <param name="issue">Issue</param>
+		/// <param name="linkType">string</param>
+		/// <returns>IFinalClause</returns>
 		IFinalClause InLinkedIssues(Issue issue, string linkType = null);
 
 		/// <summary>
