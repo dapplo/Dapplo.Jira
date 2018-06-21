@@ -38,22 +38,33 @@ namespace Dapplo.Jira.Entities
 	[JsonObject]
 	public class JqlIssueSearch : Page
 	{
-	    /// <summary>
-	    ///     Expand values
-	    /// </summary>
-	    [JsonProperty("expand")]
-	    public string Expand { get; set; } = JiraConfig.ExpandSearch == null ? null: string.Join(",", JiraConfig.ExpandSearch);
+		/// <summary>
+		///     Initializes a new instance of the <see cref="JqlIssueSearch" /> class.
+		/// </summary>
+		public JqlIssueSearch()
+		{
+			Expand = JiraConfig.ExpandSearch;
+		}
 
-        /// <summary>
-        ///     Fields for this query
-        /// </summary>
-        [JsonProperty("fields")]
+		/// <summary>
+		///     Expand values
+		/// </summary>
+		/// <value>
+		///     The expands.
+		/// </value>
+		[JsonProperty("expand")]
+		public IEnumerable<string> Expand { get; set; }
+
+		/// <summary>
+		///     Fields for this query
+		/// </summary>
+		[JsonProperty("fields")]
 		public IEnumerable<string> Fields { get; set; } = new List<string>(JiraConfig.SearchFields);
 
-        /// <summary>
-        ///     The JQL for this search
-        /// </summary>
-        [JsonProperty("jql")]
+		/// <summary>
+		///     The JQL for this search
+		/// </summary>
+		[JsonProperty("jql")]
 		public string Jql { get; set; }
 
 		/// <summary>

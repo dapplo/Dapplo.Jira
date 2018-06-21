@@ -143,7 +143,8 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestSearch()
 		{
-			var searchResult = await Client.Issue.SearchAsync(Where.Text.Contains("robin"));
+			var searchResult =
+				await Client.Issue.SearchAsync(Where.Text.Contains("robin"));
 
 			Assert.NotNull(searchResult);
 			Assert.True(searchResult.Issues.Count > 0);
@@ -151,32 +152,48 @@ namespace Dapplo.Jira.Tests
 			foreach (var issue in searchResult.Issues)
 			{
 				Assert.NotNull(issue.Fields.Project);
+				Assert.Null(issue.Changelog); //Should be null as no changelog was requested in the request
 			}
 		}
 
-	    [Fact]
-	    public async Task TestSearch_Paging()
-	    {
-	        // Create initial search
-	        string[] fields = { "summary", "status", "assignee", "key", "project", "summary" };
-	        var searchResult = await Client.Issue.SearchAsync(Where.Text.Contains("DPI"), fields: fields);
-	        // Loop over all results
-	        while (searchResult.Count > 0)
-	        {
-	            Assert.NotNull(searchResult);
-	            Assert.True(searchResult.Issues.Count > 0);
-	            Log.Info().WriteLine("Got {0} of {1} results, starting at index {2}, isLast: {3}", searchResult.Count, searchResult.Total, searchResult.StartAt, searchResult.IsLastPage);
-	            foreach (var issue in searchResult)
-	            {
-	                Log.Info().WriteLine("Found issue {0} - {1}", issue.Key, issue.Fields.Summary);
-	            }
-	            if (searchResult.IsLastPage)
-	            {
-	                break;
-	            }
-	            // Continue the search, by reusing the SearchParameter and taking the next page
-	            searchResult = await Client.Issue.SearchAsync(searchResult.SearchParameter, searchResult.NextPage);
-	        }
-	    }
-    }
+		[Fact]
+		public async Task TestSearch_Paging()
+		{
+			// Create initial search
+			string[] fields = {"summary", "status", "assignee", "key", "project", "summary"};
+			var searchResult =
+				await Client.Issue.SearchAsync(Where.Text.Contains("DPI"), fields: fields);
+			// Loop over all results
+			while (searchResult.Count > 0)
+			{
+				Assert.NotNull(searchResult);
+				Assert.True(searchResult.Issues.Count > 0);
+				Log.Info().WriteLine("Got {0} of {1} results, starting at index {2}, isLast: {3}", searchResult.Count,
+					searchResult.Total, searchResult.StartAt, searchResult.IsLastPage);
+				foreach (var issue in searchResult)
+					Log.Info().WriteLine("Found issue {0} - {1}", issue.Key, issue.Fields.Summary);
+				if (searchResult.IsLastPage)
+				{
+					break;
+				}
+				// Continue the search, by reusing the SearchParameter and taking the next page
+				searchResult = await Client.Issue.SearchAsync(searchResult.SearchParameter, searchResult.NextPage);
+			}
+		}
+
+		[Fact]
+		public async Task TestSearchWithChangelog()
+		{
+			var searchResult = await Client.Issue.SearchAsync(Where.Text.Contains("robin"), expand: new[] {"changelog"});
+
+			Assert.NotNull(searchResult);
+			Assert.True(searchResult.Issues.Count > 0);
+
+			foreach (var issue in searchResult.Issues)
+			{
+				Assert.NotNull(issue.Fields.Project);
+				Assert.NotNull(issue.Changelog);
+			}
+		}
+	}
 }
