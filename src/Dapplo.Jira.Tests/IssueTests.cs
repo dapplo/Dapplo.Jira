@@ -161,17 +161,17 @@ namespace Dapplo.Jira.Tests
 		{
 			// Create initial search
 			string[] fields = {"summary", "status", "assignee", "key", "project", "summary"};
-			var searchResult =
-				await Client.Issue.SearchAsync(Where.Text.Contains("DPI"), fields: fields);
+			var searchResult = await Client.Issue.SearchAsync(Where.Text.Contains("DPI"), fields: fields);
 			// Loop over all results
 			while (searchResult.Count > 0)
 			{
 				Assert.NotNull(searchResult);
 				Assert.True(searchResult.Issues.Count > 0);
-				Log.Info().WriteLine("Got {0} of {1} results, starting at index {2}, isLast: {3}", searchResult.Count,
-					searchResult.Total, searchResult.StartAt, searchResult.IsLastPage);
+				Log.Info().WriteLine("Got {0} of {1} results, starting at index {2}, isLast: {3}", searchResult.Count, searchResult.Total, searchResult.StartAt, searchResult.IsLastPage);
 				foreach (var issue in searchResult)
+				{
 					Log.Info().WriteLine("Found issue {0} - {1}", issue.Key, issue.Fields.Summary);
+				}
 				if (searchResult.IsLastPage)
 				{
 					break;
