@@ -143,8 +143,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestSearch()
 		{
-			var searchResult =
-				await Client.Issue.SearchAsync(Where.Text.Contains("robin"));
+			var searchResult = await Client.Issue.SearchAsync(Where.Text.Contains("robin"));
 
 			Assert.NotNull(searchResult);
 			Assert.True(searchResult.Issues.Count > 0);
