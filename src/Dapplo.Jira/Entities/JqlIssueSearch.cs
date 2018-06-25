@@ -1,7 +1,7 @@
-﻿#region Dapplo 2017 - GNU Lesser General Public License
+﻿#region Dapplo 2017-2018 - GNU Lesser General Public License
 
 // Dapplo - building blocks for .NET applications
-// Copyright (C) 2017 Dapplo
+// Copyright (C) 2017-2018 Dapplo
 // 
 // For more information see: http://dapplo.net/
 // Dapplo repositories are hosted on GitHub: https://github.com/dapplo
@@ -39,27 +39,19 @@ namespace Dapplo.Jira.Entities
 	public class JqlIssueSearch : Page
 	{
 		/// <summary>
-		///     Initializes a new instance of the <see cref="JqlIssueSearch" /> class.
-		/// </summary>
-		public JqlIssueSearch()
-		{
-			Expand = JiraConfig.ExpandSearch;
-		}
-
-		/// <summary>
 		///     Expand values
 		/// </summary>
 		/// <value>
 		///     The expands.
 		/// </value>
 		[JsonProperty("expand")]
-		public IEnumerable<string> Expand { get; set; }
+		public IEnumerable<string> Expand { get; set; } = JiraConfig.ExpandSearch;
 
-		/// <summary>
-		///     Fields for this query
-		/// </summary>
-		[JsonProperty("fields")]
-		public IEnumerable<string> Fields { get; set; } = new List<string>(JiraConfig.SearchFields);
+        /// <summary>
+        ///     Fields for this query
+        /// </summary>
+        [JsonProperty("fields")]
+		public IEnumerable<string> Fields { get; set; } = JiraConfig.SearchFields;
 
 		/// <summary>
 		///     The JQL for this search
