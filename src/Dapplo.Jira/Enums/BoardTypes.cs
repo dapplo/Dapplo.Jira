@@ -45,6 +45,11 @@ namespace Dapplo.Jira.Enums
 		/// Identifies the board to be of type Scrum
 		/// </summary>
 		[Description("Scrum")]
-		Scrum
-	}
+		Scrum,
+	    /// <summary>
+	    /// Identifies the board to be of type Simple
+	    /// </summary>
+	    [Description("Simple")]
+	    Simple
+    }
 }

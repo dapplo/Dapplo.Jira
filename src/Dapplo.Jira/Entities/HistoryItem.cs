@@ -24,6 +24,7 @@
 #endregion
 
 using System.ComponentModel;
+using Dapplo.Jira.Enumss;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
