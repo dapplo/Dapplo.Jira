@@ -43,5 +43,14 @@ namespace Dapplo.Jira.Entities
 		/// </summary>
 		[JsonProperty("key")]
 		public string Key { get; set; }
+
+		/// <summary>
+		///     Gets or sets the changelogs.
+		/// </summary>
+		/// <value>
+		///     The changelogs.
+		/// </value>
+		[JsonProperty("changelog")]
+		public Changelog Changelog { get; set; }
 	}
 }
