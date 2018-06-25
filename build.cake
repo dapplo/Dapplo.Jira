@@ -2,7 +2,8 @@
 #tool "OpenCover"
 #tool "GitVersion.CommandLine"
 #tool "docfx.console"
-#tool "coveralls.net"
+//#tool "coveralls.net"
+#tool nuget:?package=coveralls.net&version=0.7.0
 #tool "PdbGit"
 // Needed for Cake.Compression, as described here: https://github.com/akordowski/Cake.Compression/issues/3
 #addin "SharpZipLib"
