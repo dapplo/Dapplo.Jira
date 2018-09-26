@@ -8,7 +8,7 @@ branches:
   only:
   - master
 environment:
-  COVERALLS_REPO_TOKEN:
+  CoverallsRepoToken:
     secure: 7WKQnyTUvZhaCOIVI2+CmP/1tV9nJNHgZ6VJFa3lhxD81O9sJGp65DA/uG4sRyG9
   jira_test_username:
     secure: gdcMwbkCpbe2jH691vkZqw==
