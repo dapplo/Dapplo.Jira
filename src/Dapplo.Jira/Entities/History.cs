@@ -30,6 +30,9 @@ using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
+	/// <summary>
+    /// Part of the changelog
+    /// </summary>
 	[JsonObject]
 	public class History : BaseProperties<long>
 	{

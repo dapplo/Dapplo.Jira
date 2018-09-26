@@ -23,7 +23,7 @@
 
 #endregion
 
-namespace Dapplo.Jira.Enumss
+namespace Dapplo.Jira.Enums
 {
 	/// <summary>
 	///     Represent the kind of field.

@@ -24,8 +24,10 @@
 #endregion
 
 
-#if NET45 || NET46
+#if NET461
+
 using Dapplo.HttpExtensions.OAuth;
+
 using System.Security.Cryptography;
 
 namespace Dapplo.Jira

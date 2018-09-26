@@ -28,7 +28,9 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.ContentConverter;
+using Dapplo.HttpExtensions.Extensions;
 using Dapplo.Jira.Entities;
 using Dapplo.Jira.Query;
 using Dapplo.Log;
@@ -132,7 +134,11 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetPossibleTransitions()
 		{
-			DefaultJsonHttpContentConverter.Instance.Value.LogThreshold = 0;
+			var defaultJsonHttpContentConverterConfiguration = new DefaultJsonHttpContentConverterConfiguration
+			{
+				LogThreshold = 0
+			};
+			HttpBehaviour.Current.SetConfig(defaultJsonHttpContentConverterConfiguration);
 			JiraConfig.ExpandGetTransitions = new[] {"transitions.fields"};
 			var transitions = await Client.Issue.GetPossibleTransitionsAsync(TestIssueKey);
 			Assert.NotNull(transitions);

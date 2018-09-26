@@ -26,7 +26,9 @@
 #region Usings
 
 using System;
+using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.ContentConverter;
+using Dapplo.HttpExtensions.Extensions;
 using Dapplo.Log;
 using Dapplo.Log.XUnit;
 using Xunit.Abstractions;
@@ -53,8 +55,12 @@ namespace Dapplo.Jira.Tests
 		/// <param name="doLogin"></param>
 		protected TestBase(ITestOutputHelper testOutputHelper, bool doLogin = true)
 		{
-			// For tests, make sure we get everything
-			DefaultJsonHttpContentConverter.Instance.Value.LogThreshold = 0;
+
+			var defaultJsonHttpContentConverterConfiguration = new DefaultJsonHttpContentConverterConfiguration
+			{
+				LogThreshold = 0
+			};
+			HttpBehaviour.Current.SetConfig(defaultJsonHttpContentConverterConfiguration);
 
 			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
 			Client = JiraClient.Create(TestJiraUri);

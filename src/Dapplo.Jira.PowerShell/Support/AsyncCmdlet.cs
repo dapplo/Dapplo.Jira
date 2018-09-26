@@ -23,7 +23,7 @@
 
 #endregion
 
-#if NET45 || NET46
+#if NET451 || NET461
 
 #region Usings
 
