@@ -16,22 +16,22 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapplo.Jira.Tests", "Dapplo
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|AnyCPU = Debug|AnyCPU
-		Release|AnyCPU = Release|AnyCPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C57A6597-291B-4BB4-B87A-30B0B39C41E2}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{C57A6597-291B-4BB4-B87A-30B0B39C41E2}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{C57A6597-291B-4BB4-B87A-30B0B39C41E2}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{C57A6597-291B-4BB4-B87A-30B0B39C41E2}.Release|AnyCPU.Build.0 = Release|AnyCPU
-		{654AF45B-4757-4959-9845-536AFD73ED6B}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{654AF45B-4757-4959-9845-536AFD73ED6B}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{654AF45B-4757-4959-9845-536AFD73ED6B}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{654AF45B-4757-4959-9845-536AFD73ED6B}.Release|AnyCPU.Build.0 = Release|AnyCPU
-		{96CAD64B-0C99-4DEF-8546-F970B282BD3F}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{96CAD64B-0C99-4DEF-8546-F970B282BD3F}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{96CAD64B-0C99-4DEF-8546-F970B282BD3F}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{96CAD64B-0C99-4DEF-8546-F970B282BD3F}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{C57A6597-291B-4BB4-B87A-30B0B39C41E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C57A6597-291B-4BB4-B87A-30B0B39C41E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C57A6597-291B-4BB4-B87A-30B0B39C41E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C57A6597-291B-4BB4-B87A-30B0B39C41E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{654AF45B-4757-4959-9845-536AFD73ED6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{654AF45B-4757-4959-9845-536AFD73ED6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{654AF45B-4757-4959-9845-536AFD73ED6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{654AF45B-4757-4959-9845-536AFD73ED6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96CAD64B-0C99-4DEF-8546-F970B282BD3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96CAD64B-0C99-4DEF-8546-F970B282BD3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96CAD64B-0C99-4DEF-8546-F970B282BD3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96CAD64B-0C99-4DEF-8546-F970B282BD3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

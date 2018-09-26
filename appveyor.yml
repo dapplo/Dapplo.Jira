@@ -2,7 +2,7 @@ version: 0.8.{build}
 skip_tags: true
 os: Visual Studio 2017
 configuration: Release
-platform: AnyCPU
+platform: Any CPU
 test: off
 branches:
   only:
