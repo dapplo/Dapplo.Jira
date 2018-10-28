@@ -17,7 +17,7 @@ environment:
   sonar_token:
     secure: QIaJEHgudzCCUvtIOmDZEUVHzOUF9+d4J0ghEEbuJBj+QW3li6lK053A1kftp8CX
   NuGetApiKey:
-    secure: FkbOZI29wVSKdzHuFOq9tY8cq05Sy6vFKwvqYnUhDVamagkTUrjNJElPPoACP8Ov
+    secure: Fu7vXeOuWmvDK7WGNsEbTIV2vhDV4P6PiK5k1+UZOmwldhCfvUvkA4HOkml+ZE/n
 build:
   verbosity: minimal
 build_script:
