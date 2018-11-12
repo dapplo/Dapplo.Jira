@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Description>A library for accessing Atlassians JIRA from .NET via the PowerShell</Description>
     <AssemblyTitle>Dapplo.Jira.PowerShell</AssemblyTitle>
-    <TargetFrameworks>net451;net461</TargetFrameworks>
+    <TargetFrameworks>net461</TargetFrameworks>
     <AssemblyName>Dapplo.Jira.PowerShell</AssemblyName>
     <PackageId>Dapplo.Jira.PowerShell</PackageId>
     <PackageTags>atlassian;jira;dapplo;powershell</PackageTags>
@@ -14,12 +14,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dapplo.Jira\Dapplo.Jira.csproj" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
-    <PackageReference Include="System.Management.Automation.dll" Version="10.0.10586" />
-    <Reference Include="System.Threading.Tasks" />
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <PackageReference Include="System.Management.Automation.dll" Version="10.0.10586" />

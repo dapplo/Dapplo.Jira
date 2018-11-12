@@ -35,11 +35,7 @@ using Dapplo.HttpExtensions.OAuth;
 using Dapplo.HttpExtensions.Extensions;
 using System.Collections.Generic;
 using System.Net.Http;
-#endif
-
-#if NET451 || NET461
 using System.Linq;
-
 using Dapplo.Jira.Converters;
 using System.Net.Cache;
 #endif
@@ -135,7 +131,7 @@ namespace Dapplo.Jira
         private IHttpBehaviour ConfigureBehaviour(IChangeableHttpBehaviour behaviour, IHttpSettings httpSettings = null)
         {
 
-#if NET451 || NET461
+#if NET461
             // Add SvgBitmapHttpContentConverter if it was not yet added 
             if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
             {
@@ -143,7 +139,7 @@ namespace Dapplo.Jira
             }
 #endif
             behaviour.HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings.ShallowClone();
-#if NET451 || NET461
+#if NET461
             // Disable caching, if no HTTP settings were provided.
             if (httpSettings == null)
             {

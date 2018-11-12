@@ -24,7 +24,7 @@
 #endregion
 
 
-#if NET451 || NET461
+#if NET461
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
