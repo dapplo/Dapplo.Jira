@@ -40,7 +40,7 @@
   </PropertyGroup>
   
   <ItemGroup Condition="!$(MSBuildProjectName.Contains('Tests')) And !$(MSBuildProjectName.Contains('Example'))">
-    <PackageReference Include="Nerdbank.GitVersioning" Version="2.2.13">
+    <PackageReference Include="Nerdbank.GitVersioning" Version="2.2.33">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
