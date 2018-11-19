@@ -82,6 +82,7 @@ Task("Documentation")
 // Run the XUnit tests via OpenCover, so be get an coverage.xml report
 Task("Coverage")
 	.IsDependentOn("Build")
+	.WithCriteria(() => !isPullRequest)
 	.Does(() =>
 {
 	CreateDirectory("artifacts");
