@@ -16,7 +16,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Dapplo.HttpExtensions" Version="0.9.15" />
-    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.9.15" />
+    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.9.16" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.9.15" />
