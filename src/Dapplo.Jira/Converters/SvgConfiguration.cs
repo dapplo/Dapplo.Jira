@@ -24,7 +24,7 @@
 #endregion
 
 
-#if NET461
+#if NET471 || NETCOREAPP3_0
 using System.Collections.Generic;
 using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.Extensions;

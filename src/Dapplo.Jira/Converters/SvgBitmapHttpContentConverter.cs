@@ -24,7 +24,7 @@
 #endregion
 
 
-#if NET461
+#if NET471 || NETCOREAPP3_0
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -78,7 +78,7 @@ namespace Dapplo.Jira.Converters
 		}
 
 		/// <inheritdoc />
-		public async Task<object> ConvertFromHttpContentAsync(Type resultType, HttpContent httpContent, CancellationToken cancellationToken = default(CancellationToken))
+		public async Task<object> ConvertFromHttpContentAsync(Type resultType, HttpContent httpContent, CancellationToken cancellationToken = default)
 		{
 			if (!CanConvertFromHttpContent(resultType, httpContent))
 			{

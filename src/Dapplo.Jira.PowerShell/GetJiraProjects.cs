@@ -23,7 +23,7 @@
 
 #endregion
 
-#if NET461
+#if NET471 || NETCOREAPP3_0
 
 #region Usings
 

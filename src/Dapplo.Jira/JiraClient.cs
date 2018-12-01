@@ -30,7 +30,7 @@ using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.JsonNet;
 using Dapplo.Jira.Domains;
 
-#if NET461
+#if NET471 || NETCOREAPP3_0
 using Dapplo.HttpExtensions.OAuth;
 using Dapplo.HttpExtensions.Extensions;
 using System.Collections.Generic;
@@ -82,13 +82,13 @@ namespace Dapplo.Jira
             JiraGreenhopperRestUri = baseUri.AppendSegments("rest", "greenhopper", "1.0");
         }
 
-#if NET461
-/// <summary>
-///     Create the JiraApi, using OAuth 1 for the communication, here the HttpClient is configured
-/// </summary>
-/// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
-/// <param name="jiraOAuthSettings">JiraOAuthSettings</param>
-/// <param name="httpSettings">IHttpSettings or null for default</param>
+#if NET471 || NETCOREAPP3_0
+        /// <summary>
+        ///     Create the JiraApi, using OAuth 1 for the communication, here the HttpClient is configured
+        /// </summary>
+        /// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
+        /// <param name="jiraOAuthSettings">JiraOAuthSettings</param>
+        /// <param name="httpSettings">IHttpSettings or null for default</param>
         public static IJiraClient Create(Uri baseUri, JiraOAuthSettings jiraOAuthSettings, IHttpSettings httpSettings = null)
         {
             JiraClient client = new JiraClient(baseUri, httpSettings);
@@ -131,7 +131,7 @@ namespace Dapplo.Jira
         private IHttpBehaviour ConfigureBehaviour(IChangeableHttpBehaviour behaviour, IHttpSettings httpSettings = null)
         {
 
-#if NET461
+#if NET471 || NETCOREAPP3_0
             // Add SvgBitmapHttpContentConverter if it was not yet added 
             if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
             {
@@ -139,7 +139,7 @@ namespace Dapplo.Jira
             }
 #endif
             behaviour.HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings.ShallowClone();
-#if NET461
+#if NET471
             // Disable caching, if no HTTP settings were provided.
             if (httpSettings == null)
             {
