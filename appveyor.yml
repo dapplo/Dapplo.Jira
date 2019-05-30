@@ -1,6 +1,6 @@
 version: 0.8.{build}
 skip_tags: true
-os: Visual Studio 2017
+os: Visual Studio 2019
 configuration: Release
 platform: Any CPU
 test: off
@@ -25,7 +25,7 @@ install:
 build:
   verbosity: minimal
 build_script:
-- ps: .\build.ps1 --settings_skipverification=true
+- ps: .\build.ps1 --settings_skipverification=true --settings_skippackageversioncheck=true
 artifacts:
 - path: src\**\*.nupkg
 - path: artifacts\**\site.zip

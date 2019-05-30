@@ -142,7 +142,7 @@ Task("Build")
 {
 	MSBuild(solutionFilePath.FullPath, new MSBuildSettings {
 		Verbosity = Verbosity.Minimal,
-		ToolVersion = MSBuildToolVersion.VS2017,
+		ToolVersion = MSBuildToolVersion.VS2019,
 		Configuration = "Release",
 		Restore = true,
 		PlatformTarget = PlatformTarget.MSIL
