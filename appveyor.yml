@@ -11,7 +11,7 @@ environment:
   CoverallsRepoToken:
     secure: 7WKQnyTUvZhaCOIVI2+CmP/1tV9nJNHgZ6VJFa3lhxD81O9sJGp65DA/uG4sRyG9
   jira_test_username:
-    secure: gdcMwbkCpbe2jH691vkZqw==
+    secure: YDFCm4fj2pYoTR+QCKcR1Q==
   jira_test_password:
     secure: Ok03X5fvfNY2h61MHktUJw==
   sonar_token:
