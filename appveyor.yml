@@ -13,7 +13,7 @@ environment:
   jira_test_username:
     secure: YDFCm4fj2pYoTR+QCKcR1Q==
   jira_test_password:
-    secure: Ok03X5fvfNY2h61MHktUJw==
+    secure: dYz3Bt2ptfuX9ogf0rrL3grkuyhRbFDdxQK3XcAVh04=
   sonar_token:
     secure: QIaJEHgudzCCUvtIOmDZEUVHzOUF9+d4J0ghEEbuJBj+QW3li6lK053A1kftp8CX
   NuGetApiKey:
