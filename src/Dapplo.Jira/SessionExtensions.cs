@@ -52,7 +52,7 @@ namespace Dapplo.Jira
         private static readonly LogSource Log = new LogSource();
 
         /// <summary>
-        ///     Starts new session. No additional authorization requered.
+        ///     Starts new session. No additional authorization required.
         /// </summary>
         /// <remarks>
         ///     Please be aware that although cookie-based authentication has many benefits, such as performance (not having to
@@ -63,8 +63,8 @@ namespace Dapplo.Jira
         /// <param name="password">User password</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>LoginInfo</returns>
-        public static async Task<LoginInfo> StartAsync(this ISessionDomain jiraClient, string username, string password,
-            CancellationToken cancellationToken = default)
+        [Obsolete("This method is deprecated, see https://developer.atlassian.com/cloud/jira/platform/deprecation-notice-basic-auth-and-cookie-based-auth/")]
+        public static async Task<LoginInfo> StartAsync(this ISessionDomain jiraClient, string username, string password, CancellationToken cancellationToken = default)
         {
             if (username == null)
             {

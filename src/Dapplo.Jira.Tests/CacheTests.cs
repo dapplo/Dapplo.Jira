@@ -38,7 +38,7 @@ namespace Dapplo.Jira.Tests
 {
 	public class CacheTests : TestBase
 	{
-		public CacheTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper, false)
+		public CacheTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper, true)
 		{
 			_avatarCache = new AvatarCache(Client);
 		}
@@ -48,13 +48,8 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestCache()
 		{
-			LoginInfo loginInfo = null;
-			if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
-			{
-				loginInfo = await Client.Session.StartAsync(Username, Password);
-			}
 			var me = await Client.User.GetMyselfAsync();
-			Assert.Equal(me.Name, Username);
+			Assert.NotEmpty(me.Name);
 
 			var avatar = await _avatarCache.GetOrCreateAsync(me.Avatars);
 			Assert.NotNull(avatar);
@@ -68,11 +63,6 @@ namespace Dapplo.Jira.Tests
 			_avatarCache.AvatarSize = AvatarSizes.Small;
 			avatar = await _avatarCache.GetAsync(me.Avatars);
 			Assert.Null(avatar);
-
-			if (loginInfo != null)
-			{
-				await Client.Session.EndAsync();
-			}
 		}
 	}
 }

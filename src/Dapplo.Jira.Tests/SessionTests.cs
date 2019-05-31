@@ -39,7 +39,7 @@ namespace Dapplo.Jira.Tests
 		{
 		}
 
-		[Fact]
+		//[Fact]
 		public async Task TestSession()
 		{
 			if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
