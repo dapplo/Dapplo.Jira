@@ -28,7 +28,7 @@ For examples on how to use this library, I advice you to look at the test cases.
 A simple exampe to find issues, and output their description
 ```
 var jiraClient = JiraClient.Create(new Uri("https://jira"));
-jiraClient.SetBasicAuthentication(username, password);
+jiraClient.SetBasicAuthentication(username, password); // use API key, instead of your password, for Jira Cloud
 var searchResult = await jiraClient.Issue.SearchAsync(Where.Text.Contains("my text"));
 foreach (var issue in searchResult.Issues)
 {
