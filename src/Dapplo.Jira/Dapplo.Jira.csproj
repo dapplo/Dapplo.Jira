@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <Description>A library for accessing Atlassians Jira from .NET</Description>
     <AssemblyTitle>Dapplo.Jira</AssemblyTitle>
@@ -7,16 +7,19 @@
     <PackageId>Dapplo.Jira</PackageId>
     <PackageTags>atlassian;jira;dapplo</PackageTags>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0'">
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Dapplo.HttpExtensions" Version="0.9.21" />
-    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.9.21" />
+    <PackageReference Include="Dapplo.HttpExtensions" Version="0.9.23" />
+    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.9.23" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0'">
-    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.9.21" />
+    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.9.23" />
     <PackageReference Include="Svg" Version="2.4.3" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net471'">
-    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.9.21" />
+    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.9.23" />
     <PackageReference Include="Svg" Version="2.4.3" />
     <Reference Include="System.Drawing" />
     <Reference Include="System" />
