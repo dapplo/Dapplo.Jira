@@ -1,7 +1,7 @@
-﻿#region Dapplo 2017-2018 - GNU Lesser General Public License
+﻿#region Dapplo 2017-2019 - GNU Lesser General Public License
 
 // Dapplo - building blocks for .NET applications
-// Copyright (C) 2017-2018 Dapplo
+// Copyright (C) 2017-2019 Dapplo
 // 
 // For more information see: http://dapplo.net/
 // Dapplo repositories are hosted on GitHub: https://github.com/dapplo
@@ -37,9 +37,10 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Linq;
 using Dapplo.Jira.Converters;
+#endif
+#if NET461
 using System.Net.Cache;
 #endif
-
 #endregion
 
 namespace Dapplo.Jira

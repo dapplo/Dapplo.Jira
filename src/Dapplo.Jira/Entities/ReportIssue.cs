@@ -1,7 +1,7 @@
-﻿#region Dapplo 2017-2018 - GNU Lesser General Public License
+﻿#region Dapplo 2017-2019 - GNU Lesser General Public License
 
 // Dapplo - building blocks for .NET applications
-// Copyright (C) 2017-2018 Dapplo
+// Copyright (C) 2017-2019 Dapplo
 // 
 // For more information see: http://dapplo.net/
 // Dapplo repositories are hosted on GitHub: https://github.com/dapplo
@@ -106,7 +106,7 @@ namespace Dapplo.Jira.Entities
         public Uri AvatarUrl { get; set; }
 
         /// <summary>
-        ///     Does user have a customavatar?
+        ///     Does user have a custom avatar?
         /// </summary>
         [JsonProperty("hasCustomUserAvatar")]
         public bool HasCustomUserAvatar { get; set; }
@@ -130,7 +130,7 @@ namespace Dapplo.Jira.Entities
         public EpicField EpicField { get; set; }
 
         /// <summary>
-        ///     The statics for the colum
+        ///     The statics for the column
         /// </summary>
         [JsonProperty("columnStatistic")]
         public StatisticField ColumnStatistic { get; set; }
