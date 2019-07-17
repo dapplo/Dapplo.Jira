@@ -30,7 +30,7 @@ using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.JsonNet;
 using Dapplo.Jira.Domains;
 
-#if NET471 || NETCOREAPP3_0
+#if NET461 || NETCOREAPP3_0
 using Dapplo.HttpExtensions.OAuth;
 using Dapplo.HttpExtensions.Extensions;
 using System.Collections.Generic;
@@ -82,7 +82,7 @@ namespace Dapplo.Jira
             JiraGreenhopperRestUri = baseUri.AppendSegments("rest", "greenhopper", "1.0");
         }
 
-#if NET471 || NETCOREAPP3_0
+#if NET461 || NETCOREAPP3_0
         /// <summary>
         ///     Create the JiraApi, using OAuth 1 for the communication, here the HttpClient is configured
         /// </summary>
@@ -131,7 +131,7 @@ namespace Dapplo.Jira
         private IHttpBehaviour ConfigureBehaviour(IChangeableHttpBehaviour behaviour, IHttpSettings httpSettings = null)
         {
 
-#if NET471 || NETCOREAPP3_0
+#if NET461 || NETCOREAPP3_0
             // Add SvgBitmapHttpContentConverter if it was not yet added 
             if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
             {
@@ -139,7 +139,7 @@ namespace Dapplo.Jira
             }
 #endif
             behaviour.HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings.ShallowClone();
-#if NET471
+#if NET461
             // Disable caching, if no HTTP settings were provided.
             if (httpSettings == null)
             {

@@ -24,7 +24,7 @@
 #endregion
 
 
-#if NET471 || NETCOREAPP3_0
+#if NET461 || NETCOREAPP3_0
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;

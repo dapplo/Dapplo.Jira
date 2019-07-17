@@ -20,7 +20,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net471' And !$(MSBuildProjectName.Contains('Tests')) And !$(MSBuildProjectName.Contains('Example'))">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net461' And !$(MSBuildProjectName.Contains('Tests')) And !$(MSBuildProjectName.Contains('Example'))">
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Dapplo.Jira.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
