@@ -9,11 +9,11 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Dapplo.HttpExtensions" Version="0.9.24" />
-    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.9.24" />
+    <PackageReference Include="Dapplo.HttpExtensions" Version="0.9.26" />
+    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.9.26" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0' Or '$(TargetFramework)' == 'net461'">
-    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.9.24" />
+    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="0.9.26" />
     <PackageReference Include="Svg" Version="2.4.3" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
