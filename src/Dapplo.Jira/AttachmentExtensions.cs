@@ -1,6 +1,4 @@
-﻿#region Dapplo 2017-2019 - GNU Lesser General Public License
-
-// Dapplo - building blocks for .NET applications
+﻿// Dapplo - building blocks for .NET applications
 // Copyright (C) 2017-2019 Dapplo
 // 
 // For more information see: http://dapplo.net/
@@ -21,10 +19,6 @@
 // You should have a copy of the GNU Lesser General Public License
 // along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
-#endregion
-
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -34,8 +28,6 @@ using Dapplo.Jira.Domains;
 using Dapplo.Jira.Entities;
 using Dapplo.Log;
 using Dapplo.Jira.Internal;
-
-#endregion
 
 namespace Dapplo.Jira
 {

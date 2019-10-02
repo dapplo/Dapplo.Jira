@@ -1,6 +1,4 @@
-﻿#region Dapplo 2017-2019 - GNU Lesser General Public License
-
-// Dapplo - building blocks for .NET applications
+﻿// Dapplo - building blocks for .NET applications
 // Copyright (C) 2017-2019 Dapplo
 // 
 // For more information see: http://dapplo.net/
@@ -21,14 +19,8 @@
 // You should have a copy of the GNU Lesser General Public License
 // along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
-#endregion
-
-#region Usings
-
 using System;
 using System.Linq;
-
-#endregion
 
 namespace Dapplo.Jira.Query
 {
@@ -52,9 +44,7 @@ namespace Dapplo.Jira.Query
         /// </summary>
         public static ITypeClause Type => new TypeClause();
 
-		#region User based clauses
-
-		/// <summary>
+        /// <summary>
 		///     Create a clause for the creator
 		/// </summary>
 		public static IUserClause Creator => new UserClause(Fields.Creator);
@@ -89,11 +79,7 @@ namespace Dapplo.Jira.Query
 		/// </summary>
 		public static IUserClause WorkLogAuthor => new UserClause(Fields.WorkLogAuthor);
 
-		#endregion
-
-		#region Date clauses
-
-		/// <summary>
+        /// <summary>
 		///     Create a clause for the created field
 		/// </summary>
 		public static IDatetimeClause Created => new DatetimeClause(Fields.Created);
@@ -128,11 +114,7 @@ namespace Dapplo.Jira.Query
 		/// </summary>
 		public static IDatetimeClause WorkLogDate => new DatetimeClause(Fields.WorkLogDate);
 
-		#endregion
-
-		#region BooleanLogic
-
-		/// <summary>
+        /// <summary>
 		/// Create an And of two or more where clauses
 		/// </summary>
 		/// <param name="clauses">Two or more IFinalClause</param>
@@ -160,11 +142,7 @@ namespace Dapplo.Jira.Query
 			return new Clause("(" + string.Join(" or ", clauses.ToList()) + ")");
 		}
 
-		#endregion
-
-		#region text
-
-		/// <summary>
+        /// <summary>
 		///     Create a clause for the Comment field
 		/// </summary>
 		public static ITextClause Comment => new TextClause(Fields.Comment);
@@ -199,11 +177,7 @@ namespace Dapplo.Jira.Query
 		/// </summary>
 		public static ITextClause RequestChannelType => new TextClause(Fields.RequestChannelType);
 
-		#endregion
-
-		#region Version clauses
-
-		/// <summary>
+        /// <summary>
 		///     Create a clause for the AffectedVersion field
 		/// </summary>
 		public static IVersionClause AffectedVersion => new VersionClause(Fields.AffectedVersion);
@@ -213,11 +187,7 @@ namespace Dapplo.Jira.Query
 		/// </summary>
 		public static IVersionClause FixVersion => new VersionClause(Fields.FixVersion);
 
-		#endregion
-
-		#region simple values
-
-		/// <summary>
+        /// <summary>
 		///     Create a clause for the Parent field
 		/// </summary>
 		public static ISimpleValueClause Parent => new SimpleValueClause(Fields.Parent);
@@ -227,9 +197,7 @@ namespace Dapplo.Jira.Query
 		/// </summary>
 		public static ISimpleValueClause Labels => new SimpleValueClause(Fields.Labels);
 
-		#endregion
-
-		/// <summary>
+        /// <summary>
 		///     Create a clause for the Project field
 		/// </summary>
 		public static IProjectClause Project => new ProjectClause();

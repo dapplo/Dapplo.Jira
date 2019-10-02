@@ -1,5 +1,3 @@
-#region Dapplo 2017-2019 - GNU Lesser General Public License
-
 // Dapplo - building blocks for .NET applications
 // Copyright (C) 2017-2019 Dapplo
 // 
@@ -20,8 +18,6 @@
 // 
 // You should have a copy of the GNU Lesser General Public License
 // along with Dapplo.Jira. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
-
-#endregion
 
 namespace Dapplo.Jira.Query
 {
