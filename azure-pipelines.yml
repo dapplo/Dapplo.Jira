@@ -80,7 +80,7 @@ stages:
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)/doc/_site'
         TargetFolder: '$(Build.ArtifactStagingDirectory)/site'
-		
+
     - task: PublishPipelineArtifact@1
       displayName: 'Publish Artifacts'
       condition: ne(variables['Build.Reason'], 'PullRequest')
