@@ -5,12 +5,12 @@
         {
 		  "src": "../src",
           "files": [
-            "Dapplo.Jira*/project.json"
+            "*/*.csproj"
           ],
           "exclude": [
 			"**/bin/**",
 			"**/obj/**",
-			"**Tests/project.json",
+			"**Tests/*.csproj",
           ]
         }
       ],
@@ -54,7 +54,7 @@
 		"_appTitle": "Dapplo.Jira",
 		"_appLogoPath": "images/d.svg",
 		"_appFaviconPath": "images/favicon.ico",
-		"_appFooter": "Copyright © 2017 Dapplo"
+		"_appFooter": "Copyright © Dapplo"
 	},
     "globalMetadataFiles": [],
 	"template": [

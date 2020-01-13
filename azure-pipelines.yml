@@ -75,12 +75,12 @@ stages:
         }
       displayName: "docfx build"
 
-    - task: PublishPipelineArtifact@1
-      displayName: 'Publish Documentation'
+    - task: CopyFiles@2
+      displayName: 'Copy documentation files to: $(Build.ArtifactStagingDirectory)'
       inputs:
-        artifactName: 'site'
-        PathtoPublish: 'doc/_site'
-
+        SourceFolder: '$(System.DefaultWorkingDirectory)/doc/_site'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/site'
+		
     - task: PublishPipelineArtifact@1
       displayName: 'Publish Artifacts'
       condition: ne(variables['Build.Reason'], 'PullRequest')
