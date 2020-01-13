@@ -80,5 +80,11 @@ namespace Dapplo.Jira.Entities
 		/// </summary>
 		[JsonProperty("versions")]
 		public IList<Version> Versions { get; set; }
+
+		 /// <summary>
+        ///     The project type e.g. software, service_desk, business
+        /// </summary>
+        [JsonProperty("projectTypeKey")]
+        public string ProjectTypeKey { get; set; }
 	}
 }
