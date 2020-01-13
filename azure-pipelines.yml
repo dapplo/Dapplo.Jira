@@ -76,17 +76,13 @@ stages:
       displayName: "docfx build"
 
     - task: CopyFiles@2
-      displayName: 'Copy documentation files to: $(Build.ArtifactStagingDirectory)'
+      displayName: 'Copy generated documentation to: $(Build.ArtifactStagingDirectory)/site'
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)/doc/_site'
         TargetFolder: '$(Build.ArtifactStagingDirectory)/site'
 
-    - task: PublishPipelineArtifact@1
-      displayName: 'Publish Artifacts'
-      condition: ne(variables['Build.Reason'], 'PullRequest')
-      inputs:
-        artifactName: 'drop'
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    - publish: $(Build.ArtifactStagingDirectory)
+      artifact: drop
 
 - stage: Deploy
   jobs:
@@ -101,9 +97,8 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: DownloadPipelineArtifact@2
-            inputs:
-              artifact: 'drop'
+          - download: current
+            artifact: drop
 
           - task: NuGetToolInstaller@0
             displayName: 'Use NuGet 5.4.0'
@@ -118,3 +113,4 @@ stages:
               packagesToPush: '$(Pipeline.Workspace)/drop/a/*.nupkg;!$(Pipeline.Workspace)/drop/a/*.symbols.nupkg'
               nuGetFeedType: external
               publishFeedCredentials: 'Dapplo NuGet push'
+		  
