@@ -3,6 +3,14 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
+trigger:
+  batch: true
+  branches:
+    include:
+    - '*'
+    exclude:
+    - gh-pages
+
 stages:
 - stage: Build
   jobs:
@@ -26,6 +34,7 @@ stages:
 
     - task: DotNetCoreCLI@2
       displayName: Test
+      condition: ne(variables['Build.Reason'], 'PullRequest')
       inputs:
         command: test
         projects: '$(solution)'
@@ -52,13 +61,29 @@ stages:
         flattenFolders: true
 
     - task: PublishCodeCoverageResults@1
+      condition: ne(variables['Build.Reason'], 'PullRequest')
       inputs:
         codeCoverageTool: Cobertura
         summaryFileLocation: 'src/**/coverage.cobertura.xml'
         failIfCoverageEmpty: true
 
+    - powershell: |
+        choco install docfx -y
+        docfx doc/docfx.json
+        if ($lastexitcode -ne 0){
+          throw ("Error generating docfx document")
+        }
+      displayName: "docfx build"
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Documentation'
+      inputs:
+        artifactName: 'site'
+        PathtoPublish: 'doc/_site'
+
     - task: PublishPipelineArtifact@1
       displayName: 'Publish Artifacts'
+      condition: ne(variables['Build.Reason'], 'PullRequest')
       inputs:
         artifactName: 'drop'
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
@@ -66,6 +91,7 @@ stages:
 - stage: Deploy
   jobs:
   - deployment: DeployNuGet
+    condition: ne(variables['Build.Reason'], 'PullRequest')
     pool:
       vmImage: 'Windows-latest'
 
