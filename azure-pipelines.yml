@@ -54,7 +54,7 @@ stages:
     - task: PublishCodeCoverageResults@1
       inputs:
         codeCoverageTool: Cobertura
-        summaryFileLocation: 'src/**/coverage.*.cobertura.xml'
+        summaryFileLocation: 'src/**/coverage.cobertura.xml'
         failIfCoverageEmpty: true
 
     - task: PublishPipelineArtifact@1
