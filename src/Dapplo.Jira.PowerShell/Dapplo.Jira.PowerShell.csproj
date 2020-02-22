@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Description>A library for accessing Atlassians JIRA from .NET via the PowerShell</Description>
     <AssemblyTitle>Dapplo.Jira.PowerShell</AssemblyTitle>
-    <TargetFrameworks>net461</TargetFrameworks>
+    <TargetFramework>net461</TargetFramework>
     <AssemblyName>Dapplo.Jira.PowerShell</AssemblyName>
     <PackageId>Dapplo.Jira.PowerShell</PackageId>
     <PackageTags>atlassian;jira;dapplo;powershell</PackageTags>

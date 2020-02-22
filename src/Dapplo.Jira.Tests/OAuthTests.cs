@@ -5,6 +5,7 @@ using System;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions.OAuth;
+using Dapplo.Jira.OAuth;
 using Dapplo.Log;
 using Dapplo.Log.XUnit;
 using Xunit;
@@ -65,7 +66,7 @@ ZMUZaDWF58d3otc23mCzwh3YcUWFu09KnMpzZsK59OfyjtkS44EDWpbE=</D></RSAKeyValue>";
 				Token = this
 			};
 			// Create the JiraApi for the Uri and the settings
-			_jiraApi = JiraClient.Create(TestJiraUri, oAuthSettings);
+			_jiraApi = OAuthJiraClient.Create(TestJiraUri, oAuthSettings);
 		}
 
 		public string OAuthToken { get; set; }

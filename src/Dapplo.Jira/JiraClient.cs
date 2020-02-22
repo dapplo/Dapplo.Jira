@@ -7,10 +7,6 @@ using Dapplo.HttpExtensions.JsonNet;
 using Dapplo.Jira.Domains;
 
 #if NET461 || NETCOREAPP3_0
-using Dapplo.HttpExtensions.OAuth;
-using Dapplo.HttpExtensions.Extensions;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Linq;
 using Dapplo.Jira.Converters;
 #endif
@@ -58,57 +54,17 @@ namespace Dapplo.Jira
             JiraGreenhopperRestUri = baseUri.AppendSegments("rest", "greenhopper", "1.0");
         }
 
-#if NET461 || NETCOREAPP3_0
-        /// <summary>
-        ///     Create the JiraApi, using OAuth 1 for the communication, here the HttpClient is configured
-        /// </summary>
-        /// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
-        /// <param name="jiraOAuthSettings">JiraOAuthSettings</param>
-        /// <param name="httpSettings">IHttpSettings or null for default</param>
-        public static IJiraClient Create(Uri baseUri, JiraOAuthSettings jiraOAuthSettings, IHttpSettings httpSettings = null)
-        {
-            JiraClient client = new JiraClient(baseUri, httpSettings);
-            var jiraOAuthUri = client.JiraBaseUri.AppendSegments("plugins", "servlet", "oauth");
-
-            var oAuthSettings = new OAuth1Settings
-            {
-                TokenUrl = jiraOAuthUri.AppendSegments("request-token"),
-                TokenMethod = HttpMethod.Post,
-                AccessTokenUrl = jiraOAuthUri.AppendSegments("access-token"),
-                AccessTokenMethod = HttpMethod.Post,
-                CheckVerifier = false,
-                SignatureType = OAuth1SignatureTypes.RsaSha1,
-                Token = jiraOAuthSettings.Token,
-                ClientId = jiraOAuthSettings.ConsumerKey,
-                CloudServiceName = jiraOAuthSettings.CloudServiceName,
-                RsaSha1Provider = jiraOAuthSettings.RsaSha1Provider,
-                AuthorizeMode = jiraOAuthSettings.AuthorizeMode,
-                AuthorizationUri = jiraOAuthUri.AppendSegments("authorize")
-                    .ExtendQuery(new Dictionary<string, string>
-                    {
-                        {OAuth1Parameters.Token.EnumValueOf(), "{RequestToken}"},
-                        {OAuth1Parameters.Callback.EnumValueOf(), "{RedirectUrl}"}
-                    })
-            };
-
-            // Configure the OAuth1Settings
-
-            client.Behaviour = client.ConfigureBehaviour(OAuth1HttpBehaviourFactory.Create(oAuthSettings), httpSettings);
-            return client;
-        }
-#endif
-
         /// <summary>
         ///     Helper method to configure the IChangeableHttpBehaviour
         /// </summary>
         /// <param name="behaviour">IChangeableHttpBehaviour</param>
         /// <param name="httpSettings">IHttpSettings</param>
         /// <returns>the behaviour, but configured as IHttpBehaviour </returns>
-        private IHttpBehaviour ConfigureBehaviour(IChangeableHttpBehaviour behaviour, IHttpSettings httpSettings = null)
+        public IHttpBehaviour ConfigureBehaviour(IChangeableHttpBehaviour behaviour, IHttpSettings httpSettings = null)
         {
 
 #if NET461 || NETCOREAPP3_0
-            // Add SvgBitmapHttpContentConverter if it was not yet added 
+            // Add SvgBitmapHttpContentConverter if it was not yet added
             if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
             {
                 HttpExtensionsGlobals.HttpContentConverters.Add(SvgBitmapHttpContentConverter.Instance.Value);

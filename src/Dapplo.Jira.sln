@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{31A4D9F9-EB47-4B48-A65C-D49FDB01E9F7}"
 	ProjectSection(SolutionItems) = preProject
@@ -13,6 +13,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapplo.Jira.PowerShell", "Dapplo.Jira.PowerShell\Dapplo.Jira.PowerShell.csproj", "{654AF45B-4757-4959-9845-536AFD73ED6B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapplo.Jira.Tests", "Dapplo.Jira.Tests\Dapplo.Jira.Tests.csproj", "{96CAD64B-0C99-4DEF-8546-F970B282BD3F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapplo.Jira.OAuth", "Dapplo.Jira.OAuth\Dapplo.Jira.OAuth.csproj", "{0F9C6474-CEBD-4E70-8793-BF7BFF062A8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,8 +34,15 @@ Global
 		{96CAD64B-0C99-4DEF-8546-F970B282BD3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96CAD64B-0C99-4DEF-8546-F970B282BD3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96CAD64B-0C99-4DEF-8546-F970B282BD3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F9C6474-CEBD-4E70-8793-BF7BFF062A8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F9C6474-CEBD-4E70-8793-BF7BFF062A8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F9C6474-CEBD-4E70-8793-BF7BFF062A8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F9C6474-CEBD-4E70-8793-BF7BFF062A8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {105A2A4A-A3FB-4553-9376-88F5CF987B1F}
 	EndGlobalSection
 EndGlobal
