@@ -68,7 +68,7 @@ stages:
         failIfCoverageEmpty: true
 
     - powershell: |
-        choco install docfx -y
+        choco install docfx -y --version 2.48.1
         docfx doc/docfx.json
         if ($lastexitcode -ne 0){
           throw ("Error generating docfx document")
