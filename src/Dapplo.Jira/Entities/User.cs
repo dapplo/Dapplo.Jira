@@ -26,6 +26,13 @@ namespace Dapplo.Jira.Entities
 		/// <returns>A User which can be used in e.g. AssignAsync to assign to the default user</returns>
 		public static User Default { get; } = new User {Name = "-1"};
 
+        /// <summary>
+        ///     Value for the account ID
+        /// </summary>
+        [JsonProperty("accountId")]
+        [ReadOnly(true)]
+        public string AccountId { get; set; }
+
 		/// <summary>
 		///     true if the user is active (license count)
 		/// </summary>

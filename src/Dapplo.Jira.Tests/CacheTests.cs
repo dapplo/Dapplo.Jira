@@ -22,7 +22,7 @@ namespace Dapplo.Jira.Tests
 		public async Task TestCache()
 		{
 			var me = await Client.User.GetMyselfAsync();
-			Assert.NotEmpty(me.Name);
+			Assert.NotEmpty(me.AccountId);
 
 			var avatar = await _avatarCache.GetOrCreateAsync(me.Avatars);
 			Assert.NotNull(avatar);

@@ -25,10 +25,10 @@ namespace Dapplo.Jira
         ///     See: https://docs.atlassian.com/jira/REST/latest/#d2e5339
         /// </summary>
         /// <param name="jiraClient">IWorkDomain to bind the extension method to</param>
-        /// <param name="username"></param>
+        /// <param name="username">string</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>User</returns>
-        public static async Task<User> GetAsync(this IUserDomain jiraClient, string username, CancellationToken cancellationToken = default)
+        public static async Task<User> GetByUsernameAsync(this IUserDomain jiraClient, string username, CancellationToken cancellationToken = default)
         {
             if (username == null)
             {
@@ -37,6 +37,29 @@ namespace Dapplo.Jira
             Log.Debug().WriteLine("Retrieving user {0}", username);
 
             var userUri = jiraClient.JiraRestUri.AppendSegments("user").ExtendQuery("username", username);
+            jiraClient.Behaviour.MakeCurrent();
+
+            var response = await userUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
+            return response.HandleErrors();
+        }
+
+        /// <summary>
+        ///     Get user information
+        ///     See: https://docs.atlassian.com/jira/REST/latest/#d2e5339
+        /// </summary>
+        /// <param name="jiraClient">IWorkDomain to bind the extension method to</param>
+        /// <param name="accountId">accountId</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <returns>User</returns>
+        public static async Task<User> GetAsync(this IUserDomain jiraClient, string accountId, CancellationToken cancellationToken = default)
+        {
+            if (accountId == null)
+            {
+                throw new ArgumentNullException(nameof(accountId));
+            }
+            Log.Debug().WriteLine("Retrieving user for accountId {0}", accountId);
+
+            var userUri = jiraClient.JiraRestUri.AppendSegments("user").ExtendQuery("accountId", accountId);
             jiraClient.Behaviour.MakeCurrent();
 
             var response = await userUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
