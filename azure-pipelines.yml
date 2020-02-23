@@ -30,7 +30,7 @@ stages:
       displayName: 'Use .NET Core sdk 3.1'
       inputs:
         packageType: sdk
-        version: 3.1.100
+        version: 3.1.102
 
     - task: DotNetCoreCLI@2
       displayName: Test
@@ -110,6 +110,6 @@ stages:
             displayName: 'NuGet push'
             inputs:
               command: push
-              packagesToPush: '$(Pipeline.Workspace)/drop/a/*.nupkg;!$(Pipeline.Workspace)/drop/a/*.symbols.nupkg'
+              packagesToPush: '$(Pipeline.Workspace)/drop/*.nupkg;!$(Pipeline.Workspace)/drop/*.symbols.nupkg'
               nuGetFeedType: external
               publishFeedCredentials: 'Dapplo NuGet push'
