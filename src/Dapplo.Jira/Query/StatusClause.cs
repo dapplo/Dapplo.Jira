@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Linq;
 using Dapplo.Jira.Entities;
 
 namespace Dapplo.Jira.Query
@@ -31,7 +32,7 @@ namespace Dapplo.Jira.Query
 	    public IFinalClause Was(string state)
 	    {
 	        _clause.Operator = Operators.Was;
-	        _clause.Value = state;
+	        _clause.Value = EscapeState(state);
 	        if (_negate)
 	        {
 	            _clause.Negate();
@@ -43,7 +44,7 @@ namespace Dapplo.Jira.Query
         public IFinalClause Is(string state)
 		{
 			_clause.Operator = Operators.EqualTo;
-			_clause.Value = state;
+			_clause.Value = EscapeState(state);
 			if (_negate)
 			{
 				_clause.Negate();
@@ -61,12 +62,14 @@ namespace Dapplo.Jira.Query
 		public IFinalClause In(params string[] states)
 		{
 			_clause.Operator = Operators.In;
-			_clause.Value = "(" + string.Join(", ", states) + ")";
+			_clause.Value = "(" + string.Join(", ", states.Select(EscapeState)) + ")";
 			if (_negate)
 			{
 				_clause.Negate();
 			}
 			return _clause;
 		}
-	}
+
+        private string EscapeState(string state) => $"\"{state}\"";
+    }
 }

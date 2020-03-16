@@ -17,8 +17,8 @@ namespace Dapplo.Jira.Query
 		///     This allows fluent constructs like IssueKey.In(BUG-1234, FEATURE-5678)
 		/// </summary>
 		IFinalClause In(params string[] states);
-        
-		/// <summary>
+
+        /// <summary>
 		///     This allows fluent constructs like Id.Is(12345)
 		/// </summary>
 		IFinalClause Is(string state);
