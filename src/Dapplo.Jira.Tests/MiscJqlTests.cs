@@ -47,7 +47,7 @@ namespace Dapplo.Jira.Tests
                 )
             );
             var jqlString = jql.ToString();
-            Assert.Equal("(project = PROJ and type in (1) and ((resolved >= \"1601-01-01 01:02\" and resolved <= \"1601-01-01 01:20\") or status = \"End to End Testing\"))", jqlString);
+            Assert.Equal("(project = PROJ and type in (1) and ((resolved >= \"1601-01-01 00:02\" and resolved <= \"1601-01-01 00:20\") or status = \"End to End Testing\"))", jqlString);
         }
 
 	}
