@@ -12,7 +12,7 @@ namespace Dapplo.Jira.Entities
 	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/user
 	/// </summary>
 	[JsonObject]
-	public class User
+	public class User : IUserIdentifier
 	{
 		/// <summary>
 		///     Use this to specify nobody

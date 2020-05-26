@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
@@ -51,7 +52,7 @@ namespace Dapplo.Jira
         /// <param name="accountId">accountId</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>User</returns>
-        public static async Task<User> GetAsync(this IUserDomain jiraClient, string accountId, CancellationToken cancellationToken = default)
+        public static async Task<User> GetByAccountIdAsync(this IUserDomain jiraClient, string accountId, CancellationToken cancellationToken = default)
         {
             if (accountId == null)
             {
@@ -60,6 +61,36 @@ namespace Dapplo.Jira
             Log.Debug().WriteLine("Retrieving user for accountId {0}", accountId);
 
             var userUri = jiraClient.JiraRestUri.AppendSegments("user").ExtendQuery("accountId", accountId);
+            jiraClient.Behaviour.MakeCurrent();
+
+            var response = await userUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
+            return response.HandleErrors();
+        }
+
+        /// <summary>
+        ///     Get user information
+        ///     See: https://docs.atlassian.com/jira/REST/latest/#d2e5339
+        /// </summary>
+        /// <param name="jiraClient">IWorkDomain to bind the extension method to</param>
+        /// <param name="userIdentifier">IUserIdentifier</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <returns>User</returns>
+        public static async Task<User> GetAsync(this IUserDomain jiraClient, IUserIdentifier userIdentifier, CancellationToken cancellationToken = default)
+        {
+            Uri userUri = jiraClient.JiraRestUri.AppendSegments("user");
+            if (userIdentifier?.AccountId != null)
+            {
+                Log.Debug().WriteLine("Retrieving user for accountId {0}", userIdentifier.AccountId);
+                userUri = userUri.ExtendQuery("accountId", userIdentifier.AccountId);
+            }
+            else if (userIdentifier?.Name != null)
+            {
+                Log.Debug().WriteLine("Retrieving user for name {0}", userIdentifier.Name);
+                userUri = userUri.ExtendQuery("username", userIdentifier.Name);
+            } else
+            {
+                throw new ArgumentNullException(nameof(userIdentifier), "no users identifier specified");
+            }
             jiraClient.Behaviour.MakeCurrent();
 
             var response = await userUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);

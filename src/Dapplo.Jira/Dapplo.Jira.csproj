@@ -13,7 +13,7 @@
     <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.10.9" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0' Or '$(TargetFramework)' == 'net461'">
-    <PackageReference Include="Svg" Version="3.0.102" />
+    <PackageReference Include="Svg" Version="3.1.1" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
     <Reference Include="System.Drawing" />

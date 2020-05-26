@@ -16,5 +16,11 @@ namespace Dapplo.Jira.Entities
 		/// </summary>
 		[JsonProperty("total")]
 		public int? Total { get; set; }
+
+		/// <summary>
+		///     Specifies if there are more results
+		/// </summary>
+		[JsonProperty("isLast")]
+		public bool IsLastPage { get; set; }
 	}
 }

@@ -40,12 +40,6 @@ namespace Dapplo.Jira.Entities
 	    public int Count => Values?.Count ?? 0;
 
         /// <summary>
-        ///     Is this the last page?
-        /// </summary>
-        [JsonIgnore]
-	    public bool IsLastPage => !Total.HasValue || StartAt + Count >= Total;
-
-        /// <summary>
         /// Retrieve the next page
         /// </summary>
         [JsonIgnore]

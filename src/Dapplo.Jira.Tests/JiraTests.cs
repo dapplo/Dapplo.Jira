@@ -46,7 +46,7 @@ namespace Dapplo.Jira.Tests
 			Assert.NotNull(serverInfo.Version);
 			Assert.NotNull(serverInfo.ServerTitle);
 			// This should be changed when the title changes
-			Assert.Equal("Greenshot JIRA", serverInfo.ServerTitle);
+			Assert.EndsWith("JIRA", serverInfo.ServerTitle);
 			Log.Debug().WriteLine($"Version {serverInfo.Version} - Title: {serverInfo.ServerTitle}");
 		}
 	}
