@@ -16,7 +16,15 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestSearchUsersAsync()
 		{
-			var users = await Client.User.SearchAsync("rkrom");
+			var users = await Client.User.SearchAsync("krom");
+			Assert.NotNull(users);
+			Assert.True(users.Count > 0);
+		}
+
+		[Fact]
+		public async Task TestSearchUsersByQueryAsync()
+		{
+			var users = await Client.User.SearchByQueryAsync("is assignee of BUG");
 			Assert.NotNull(users);
 			Assert.True(users.Count > 0);
 		}
