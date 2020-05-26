@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
@@ -75,26 +74,17 @@ namespace Dapplo.Jira
         /// <param name="userIdentifier">IUserIdentifier</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>User</returns>
-        public static async Task<User> GetAsync(this IUserDomain jiraClient, IUserIdentifier userIdentifier, CancellationToken cancellationToken = default)
+        public static Task<User> GetAsync(this IUserDomain jiraClient, IUserIdentifier userIdentifier, CancellationToken cancellationToken = default)
         {
-            Uri userUri = jiraClient.JiraRestUri.AppendSegments("user");
             if (userIdentifier?.AccountId != null)
             {
-                Log.Debug().WriteLine("Retrieving user for accountId {0}", userIdentifier.AccountId);
-                userUri = userUri.ExtendQuery("accountId", userIdentifier.AccountId);
+                return GetByAccountIdAsync(jiraClient, userIdentifier.AccountId, cancellationToken);
             }
-            else if (userIdentifier?.Name != null)
+            if (userIdentifier?.Name != null)
             {
-                Log.Debug().WriteLine("Retrieving user for name {0}", userIdentifier.Name);
-                userUri = userUri.ExtendQuery("username", userIdentifier.Name);
-            } else
-            {
-                throw new ArgumentNullException(nameof(userIdentifier), "no users identifier specified");
+                return GetByUsernameAsync(jiraClient, userIdentifier.Name, cancellationToken);
             }
-            jiraClient.Behaviour.MakeCurrent();
-
-            var response = await userUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
-            return response.HandleErrors();
+            throw new ArgumentNullException(nameof(userIdentifier), "no users identifier specified");
         }
 
         /// <summary>

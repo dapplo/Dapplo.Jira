@@ -26,7 +26,7 @@ namespace Dapplo.Jira.Tests
 		{
 			var meMyselfAndI = await Client.User.GetMyselfAsync();
 			Assert.NotNull(meMyselfAndI);
-			var meAgain = await Client.User.GetAsync(meMyselfAndI.AccountId);
+			var meAgain = await Client.User.GetAsync(meMyselfAndI);
 			Assert.NotNull(meAgain);
 		}
 	}
