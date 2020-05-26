@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace Dapplo.Jira.Entities
 {
     /// <summary>
-    ///     Pagable results
+    ///     Pageable results
     /// </summary>
     /// <typeparam name="TResultType">The type for the results</typeparam>
     /// <typeparam name="TSearch">The type for the search parameter</typeparam>
@@ -34,7 +34,7 @@ namespace Dapplo.Jira.Entities
 		public IList<TResultType> Values { get; set; }
 
 	    /// <summary>
-	    ///     Nummber of items in the result
+	    ///     Number of items in the result
 	    /// </summary>
 	    [JsonIgnore]
 	    public int Count => Values?.Count ?? 0;

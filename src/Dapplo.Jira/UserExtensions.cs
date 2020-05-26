@@ -94,7 +94,7 @@ namespace Dapplo.Jira
         /// </summary>
         /// <param name="jiraClient">IUserDomain to bind the extension method to</param>
         /// <param name="query">A query string used to search name or e-mail address</param>
-        /// <param name="startAt"></param>
+        /// <param name="startAt">int with the offset used for paged searches</param>
         /// <param name="maxResults">Maximum number of results returned, default is 20</param>
         /// <param name="includeActive">If true, then active users are included in the results (default true)</param>
         /// <param name="includeInactive">If true, then inactive users are included in the results (default false)</param>
@@ -139,7 +139,7 @@ namespace Dapplo.Jira
         /// </summary>
         /// <param name="jiraClient">IUserDomain to bind the extension method to</param>
         /// <param name="query">A query string used to search username, name or e-mail address</param>
-        /// <param name="startAt"></param>
+        /// <param name="startAt">int with the offset used for paged searches</param>
         /// <param name="maxResults">Maximum number of results returned, default is 20</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResults</returns>
@@ -165,8 +165,8 @@ namespace Dapplo.Jira
                 }
             });
 
-            var response = await searchUri.GetAsAsync<HttpResponse<IList<User>, Error>>(cancellationToken).ConfigureAwait(false);
-            return response.HandleErrors();
+            var response = await searchUri.GetAsAsync<HttpResponse<SearchResult<User, string>, Error>>(cancellationToken).ConfigureAwait(false);
+            return response.HandleErrors().Values;
         }
 
         /// <summary>
