@@ -64,7 +64,7 @@ stages:
       condition: ne(variables['Build.Reason'], 'PullRequest')
       inputs:
         codeCoverageTool: Cobertura
-        summaryFileLocation: 'src/**/coverage.cobertura.xml'
+        summaryFileLocation: 'src/**/coverage.*.xml'
         failIfCoverageEmpty: true
 
     - powershell: |
