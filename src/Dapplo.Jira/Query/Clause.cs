@@ -94,7 +94,7 @@ namespace Dapplo.Jira.Query
 					Operator = Operators.NotIn;
 					break;
 				case Operators.NotIn:
-					Operator = Operators.NotIn;
+					Operator = Operators.In;
 					break;
 				case Operators.GreaterThan:
 					Operator = Operators.LessThan;
