@@ -5,11 +5,6 @@ using System;
 using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.JsonNet;
 using Dapplo.Jira.Domains;
-
-#if NET461 || NETCOREAPP3_0
-using System.Linq;
-using Dapplo.Jira.Converters;
-#endif
 #if NET461
 using System.Net.Cache;
 #endif
@@ -62,14 +57,6 @@ namespace Dapplo.Jira
         /// <returns>the behaviour, but configured as IHttpBehaviour </returns>
         public IHttpBehaviour ConfigureBehaviour(IChangeableHttpBehaviour behaviour, IHttpSettings httpSettings = null)
         {
-
-#if NET461 || NETCOREAPP3_0
-            // Add SvgBitmapHttpContentConverter if it was not yet added
-            if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
-            {
-                HttpExtensionsGlobals.HttpContentConverters.Add(SvgBitmapHttpContentConverter.Instance.Value);
-            }
-#endif
             behaviour.HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings.ShallowClone();
 #if NET461
             // Disable caching, if no HTTP settings were provided.

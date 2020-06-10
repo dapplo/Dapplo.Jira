@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapplo.Jira.Tests", "Dapplo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapplo.Jira.OAuth", "Dapplo.Jira.OAuth\Dapplo.Jira.OAuth.csproj", "{0F9C6474-CEBD-4E70-8793-BF7BFF062A8C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapplo.Jira.SvgWinForms", "Dapplo.Jira.SvgWinForms\Dapplo.Jira.SvgWinForms.csproj", "{5E02CEA8-1AAE-4D85-B0E8-CC7A87BFDC6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{0F9C6474-CEBD-4E70-8793-BF7BFF062A8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F9C6474-CEBD-4E70-8793-BF7BFF062A8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F9C6474-CEBD-4E70-8793-BF7BFF062A8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E02CEA8-1AAE-4D85-B0E8-CC7A87BFDC6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E02CEA8-1AAE-4D85-B0E8-CC7A87BFDC6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E02CEA8-1AAE-4D85-B0E8-CC7A87BFDC6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E02CEA8-1AAE-4D85-B0E8-CC7A87BFDC6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

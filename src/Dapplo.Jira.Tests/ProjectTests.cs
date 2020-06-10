@@ -4,10 +4,11 @@
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.Extensions;
-using Dapplo.Jira.Converters;
 using Dapplo.Jira.Entities;
 using Dapplo.Jira.Enums;
+using Dapplo.Jira.SvgWinForms.Converters;
 using Dapplo.Log;
 using Xunit;
 using Xunit.Abstractions;
@@ -18,9 +19,14 @@ namespace Dapplo.Jira.Tests
 	{
  	    public ProjectTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
 	    {
-	    }
+            // Add SvgBitmapHttpContentConverter if it was not yet added
+            if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
+            {
+                HttpExtensionsGlobals.HttpContentConverters.Add(SvgBitmapHttpContentConverter.Instance.Value);
+            }
+		}
 
-	    [Fact]
+		[Fact]
 	    public async Task TestGetProjectAsync()
 	    {
 	        var project = await Client.Project.GetAsync("DIT");

@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-
-#if NET461 || NETCOREAPP3_0
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -18,7 +16,7 @@ using Dapplo.HttpExtensions.Support;
 using Dapplo.Log;
 using Svg;
 
-namespace Dapplo.Jira.Converters
+namespace Dapplo.Jira.SvgWinForms.Converters
 {
 	/// <summary>
 	///     This adds SVG image support as jira uses this.
@@ -117,5 +115,3 @@ namespace Dapplo.Jira.Converters
 		}
 	}
 }
-
-#endif

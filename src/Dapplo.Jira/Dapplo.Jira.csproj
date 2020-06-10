@@ -1,18 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>A library for accessing Atlassians Jira from .NET</Description>
     <AssemblyTitle>Dapplo.Jira</AssemblyTitle>
-    <TargetFrameworks>netstandard1.3;netstandard2.0;net461;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>netstandard1.3;netstandard2.0;net461;netcoreapp3.1</TargetFrameworks>
     <AssemblyName>Dapplo.Jira</AssemblyName>
     <PackageId>Dapplo.Jira</PackageId>
     <PackageTags>atlassian;jira;dapplo</PackageTags>
-    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Dapplo.HttpExtensions" Version="0.10.9" />
-    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="0.10.9" />
+    <PackageReference Include="Dapplo.HttpExtensions" Version="1.0.3" />
+    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="1.0.3" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0' Or '$(TargetFramework)' == 'net461'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net461'">
     <PackageReference Include="Svg" Version="3.1.1" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net461'">

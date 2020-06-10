@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <AssemblyTitle>Dapplo.Jira.Tests</AssemblyTitle>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Dapplo.Jira.Tests</AssemblyName>
     <PackageId>Dapplo.Jira.Tests</PackageId>
 	<UseWindowsForms>true</UseWindowsForms>
@@ -17,18 +17,19 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dapplo.Jira.OAuth\Dapplo.Jira.OAuth.csproj" />
+    <ProjectReference Include="..\Dapplo.Jira.SvgWinForms\Dapplo.Jira.SvgWinForms.csproj" />
     <ProjectReference Include="..\Dapplo.Jira\Dapplo.Jira.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapplo.Log.XUnit" Version="1.3.26" />
     <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Dapplo.Utils" Version="1.1.21" />
-    <PackageReference Include="coverlet.msbuild" Version="2.8.1">
+    <PackageReference Include="coverlet.msbuild" Version="2.9.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>

@@ -1,14 +1,12 @@
 ﻿// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-
-#if NET461 || NETCOREAPP3_0
 using System.Collections.Generic;
 using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.Extensions;
 using Dapplo.HttpExtensions.Support;
 
-namespace Dapplo.Jira.Converters
+namespace Dapplo.Jira.SvgWinForms.Converters
 {
 	/// <summary>
 	///     Configuration for the SvgBitmapHttpContentConverter or SvgBitmapSourceHttpContentConverter
@@ -40,4 +38,3 @@ namespace Dapplo.Jira.Converters
 		public string Name { get; } = nameof(SvgConfiguration);
 	}
 }
-#endif
