@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
@@ -37,6 +38,38 @@ namespace Dapplo.Jira.Tests
 		}
 
 		[Fact]
+		public async Task UpdateIssueLinks()
+		{
+			var issue = await Client.Issue.GetAsync(TestIssueKey);
+
+			var issueLink = new IssueLink
+			{
+				Add = new IssueLinkAdd
+				{
+					Type = new IssuelinkType
+					{
+						Name = "Relates",
+						Inward = "relates to",
+						Outward = "relates to"
+					}
+				}
+			};
+			
+			var updateIssue = new Issue
+			{
+				Key = issue.Key,
+				Update = new Update
+				{
+					IssueLinks = new List<IssueLink>()
+					{
+						issueLink
+					}
+				}
+			};
+			await Client.Issue.UpdateAsync(updateIssue);
+		}
+
+		[Fact]
 		public async Task CreateIssue()
 		{
 			var meMyselfAndI = await Client.User.GetMyselfAsync();
@@ -65,6 +98,45 @@ namespace Dapplo.Jira.Tests
 			// Remove again
 			await Client.Issue.DeleteAsync(createdIssue.Key);
 		}
+		
+		[Fact]
+		public async Task CreateIssueWithCustomFields()
+		{
+			var meMyselfAndI = await Client.User.GetMyselfAsync();
+			Assert.NotNull(meMyselfAndI);
+
+			var issueTypes = await Client.Issue.GetIssueTypesAsync();
+			var projects = await Client.Project.GetAllAsync();
+
+			var bugIssueType = issueTypes.First(type => type.Name == "Bug");
+			var projectForIssue = projects.First(digest => digest.Key == "DIT");
+
+			var cfTextField = "customfield_10001";
+			var cfLabelField = "customfield_10002";
+			
+			var issueToCreate = new Issue
+			{
+				Fields = new IssueFields
+				{
+					Project = new Project {Key = projectForIssue.Key},
+					IssueType = bugIssueType,
+					Summary = "Some summary, this is a test",
+					Description = "Some description, this is a test",
+					CustomFields =
+					{
+						{ cfTextField, "plain text" },
+						{ cfLabelField, new [] {"label1 label2"} },
+					}
+				}
+			};
+
+			var createdIssue = await Client.Issue.CreateAsync(issueToCreate);
+			Assert.NotNull(createdIssue);
+			Assert.NotNull(createdIssue.Key);
+			// Remove again
+			await Client.Issue.DeleteAsync(createdIssue.Key);
+		}
+
 
 		[Fact]
 		public async Task GetIssueTypes()

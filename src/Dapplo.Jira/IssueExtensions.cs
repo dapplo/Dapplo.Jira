@@ -329,7 +329,8 @@ namespace Dapplo.Jira
 			jiraClient.Behaviour.MakeCurrent();
 			var issueToUpdate = new IssueWithFields<TFields>
 			{
-				Fields = issue.Fields
+				Fields = issue.Fields,
+				Update = issue.Update
 			};
 			var issueUri = jiraClient.JiraRestUri.AppendSegments("issue", issue.Key).ExtendQuery(new Dictionary<string, bool>
 			{
