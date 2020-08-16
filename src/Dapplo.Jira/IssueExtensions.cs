@@ -188,10 +188,9 @@ namespace Dapplo.Jira
 		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
 		/// <param name="search">Search information, with Jira Query Language, like SQL, for the search</param>
 		/// <param name="page">Page with paging information, overwriting the page info in the search.</param>
-		/// <param name="fields">Jira fields to include, if null the defaults from the JiraConfig.SearchFields are taken</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>SearchIssuesResult</returns>
-		public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search, Page page = null, IEnumerable<string> fields = null,
+		public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search, Page page = null,
 			CancellationToken cancellationToken = default)
 		{
 			if (search == null)
