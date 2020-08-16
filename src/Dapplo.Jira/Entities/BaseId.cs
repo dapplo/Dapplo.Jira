@@ -16,7 +16,6 @@ namespace Dapplo.Jira.Entities
 		///     Id of this entity
 		/// </summary>
 		[JsonProperty("id")]
-		[ReadOnly(true)]
 		public TId Id { get; set; }
 	}
 }

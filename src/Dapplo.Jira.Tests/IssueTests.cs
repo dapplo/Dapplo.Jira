@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
@@ -23,54 +22,83 @@ namespace Dapplo.Jira.Tests
 		}
 
 		[Fact]
-		public async Task UpdateIssue()
+		public async Task Test_EditIssue()
 		{
-			var issue = await Client.Issue.GetAsync(TestIssueKey);
-			var updateIssue = new Issue
+			var updateIssue = new IssueEdit
 			{
-				Key = issue.Key,
 				Fields = new IssueFields
 				{
 					Description = "Test run at " + DateTime.Now.ToLocalTime()
 				}
 			};
-			await Client.Issue.UpdateAsync(updateIssue);
+			await Client.Issue.EditAsync(TestIssueKey, updateIssue);
 		}
 
+        [Fact]
+        public async Task Test_GetIssueLinkTypes()
+        {
+            var issueLinkTypes = await Client.Issue.GetIssueLinkTypesAsync();
+			Assert.NotEmpty(issueLinkTypes);
+        }
+
+        [Fact]
+        public async Task Test_GetIssueTransitions()
+        {
+            var issueTransitions = await Client.Issue.GetIssueTransitionsAsync(TestIssueKey);
+            Assert.NotEmpty(issueTransitions);
+        }
+
 		[Fact]
-		public async Task UpdateIssueLinks()
+		public async Task Test_ChangeIssueLinks()
 		{
 			var issue = await Client.Issue.GetAsync(TestIssueKey);
 
-			var issueLink = new IssueLink
-			{
-				Add = new IssueLinkAdd
-				{
-					Type = new IssuelinkType
-					{
-						Name = "Relates",
-						Inward = "relates to",
-						Outward = "relates to"
-					}
-				}
-			};
-			
-			var updateIssue = new Issue
-			{
-				Key = issue.Key,
-				Update = new Update
-				{
-					IssueLinks = new List<IssueLink>()
-					{
-						issueLink
-					}
-				}
-			};
-			await Client.Issue.UpdateAsync(updateIssue);
+            var issueLinkCount = issue.Fields.IssueLinks.Count;
+
+			var issueLinkTypes = await Client.Issue.GetIssueLinkTypesAsync();
+
+
+            var issueLink = new IssueLink()
+            {
+				InwardIssue = new LinkedIssue { Key = TestIssueKey },
+
+				IssueLinkType = issueLinkTypes[0],
+				OutwardIssue = new LinkedIssue{ Key = TestIssueKey2 }
+            };
+
+            await Client.Issue.CreateIssueLinkAsync(issueLink);
+            issue = await Client.Issue.GetAsync(TestIssueKey);
+			Assert.Equal(issueLinkCount+1, issue.Fields.IssueLinks.Count);
+            foreach (var issueLinkToDelete in issue.Fields.IssueLinks)
+            {
+                await Client.Issue.DeleteIssueLinkAsync(issueLinkToDelete.Id);
+            }
+            issue = await Client.Issue.GetAsync(TestIssueKey);
+			Assert.Empty(issue.Fields.IssueLinks);
+		}
+
+        [Fact]
+        public async Task Test_IssueTransition()
+        {
+            var issueInitial = await Client.Issue.GetAsync(TestIssueKey);
+            Assert.Equal("To Do", issueInitial.Fields.Status.Name);
+			var possibleTransitions = await Client.Issue.GetIssueTransitionsAsync(TestIssueKey);
+            Assert.NotEmpty(possibleTransitions);
+
+			// Set the issue to the state "In Progress"
+            var transitionForward = possibleTransitions.First(t => t.Name == "In Progress");
+            await Client.Issue.TransitionAsync(TestIssueKey, transitionForward);
+			var issueAfter = await Client.Issue.GetAsync(TestIssueKey);
+			Assert.Equal("In Progress", issueAfter.Fields.Status.Name);
+
+			var transitionBack = possibleTransitions.First(t => t.Name == issueInitial.Fields.Status.Name);
+            await Client.Issue.TransitionAsync(TestIssueKey, transitionBack);
+            issueInitial = await Client.Issue.GetAsync(TestIssueKey);
+            Assert.Equal("To Do", issueInitial.Fields.Status.Name);
 		}
 
 		[Fact]
-		public async Task CreateIssue()
+		public async Task Test_CreateIssue()
 		{
 			var meMyselfAndI = await Client.User.GetMyselfAsync();
 			Assert.NotNull(meMyselfAndI);
@@ -98,9 +126,9 @@ namespace Dapplo.Jira.Tests
 			// Remove again
 			await Client.Issue.DeleteAsync(createdIssue.Key);
 		}
-		
-		[Fact]
-		public async Task CreateIssueWithCustomFields()
+
+        //[Fact]
+		public async Task Test_CreateIssueWithCustomFields()
 		{
 			var meMyselfAndI = await Client.User.GetMyselfAsync();
 			Assert.NotNull(meMyselfAndI);
@@ -113,8 +141,8 @@ namespace Dapplo.Jira.Tests
 
 			var cfTextField = "customfield_10001";
 			var cfLabelField = "customfield_10002";
-			
-			var issueToCreate = new Issue
+
+            var issueToCreate = new Issue
 			{
 				Fields = new IssueFields
 				{
@@ -137,16 +165,15 @@ namespace Dapplo.Jira.Tests
 			await Client.Issue.DeleteAsync(createdIssue.Key);
 		}
 
-
-		[Fact]
-		public async Task GetIssueTypes()
+        [Fact]
+		public async Task Test_GetIssueTypes()
 		{
 			var issueTypes = await Client.Issue.GetIssueTypesAsync();
 			Assert.NotNull(issueTypes);
 		}
 
 		[Fact]
-		public async Task TestAssign()
+		public async Task Test_Assign()
 		{
 			var issueBeforeChanges = await Client.Issue.GetAsync(TestIssueKey);
 
@@ -166,7 +193,7 @@ namespace Dapplo.Jira.Tests
 		}
 
 		[Fact]
-		public async Task TestGetIssue()
+		public async Task Test_GetIssue()
 		{
 			var issue = await Client.Issue.GetAsync(TestIssueKey);
 			Assert.NotNull(issue);
@@ -178,7 +205,7 @@ namespace Dapplo.Jira.Tests
 		}
 
 		[Fact]
-		public async Task TestGetPossibleTransitions()
+		public async Task Test_GetPossibleTransitions()
 		{
 			var defaultJsonHttpContentConverterConfiguration = new DefaultJsonHttpContentConverterConfiguration
 			{
@@ -193,7 +220,7 @@ namespace Dapplo.Jira.Tests
 		}
 
 		[Fact]
-		public async Task TestSearch()
+		public async Task Test_Search()
 		{
 			var searchResult = await Client.Issue.SearchAsync(Where.Text.Contains("robin"));
 
@@ -208,7 +235,7 @@ namespace Dapplo.Jira.Tests
 		}
 
 		[Fact]
-		public async Task TestSearch_Paging()
+		public async Task Test_Search_Paging()
 		{
 			// Create initial search
 			string[] fields = {"summary", "status", "assignee", "key", "project", "summary"};
@@ -233,7 +260,7 @@ namespace Dapplo.Jira.Tests
 		}
 
 		[Fact]
-		public async Task TestSearchWithChangelog()
+		public async Task Test_SearchWithChangelog()
 		{
 			var searchResult = await Client.Issue.SearchAsync(Where.Text.Contains("robin"), expand: new[] {"changelog"});
 

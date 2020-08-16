@@ -276,6 +276,116 @@ namespace Dapplo.Jira
 		}
 
 		/// <summary>
+		///     Get a list of all possible issue link types
+		/// </summary>
+		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>List with IssueLinkType elements</returns>
+		public static async Task<IList<IssueLinkType>> GetIssueLinkTypesAsync(this IIssueDomain jiraClient, CancellationToken cancellationToken = new CancellationToken())
+        {
+            var issueLinkTypesUri = jiraClient.JiraRestUri.AppendSegments("issueLinkType");
+            jiraClient.Behaviour.MakeCurrent();
+            var response = await issueLinkTypesUri.GetAsAsync<HttpResponse<IssueLinkTypes, Error>>(cancellationToken).ConfigureAwait(false);
+            return response.HandleErrors().Values;
+        }
+
+        /// <summary>
+        ///     Get a list of all possible issue transitions
+        /// </summary>
+        /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+        /// <param name="issueKey">string with the issueKey for which to retrieve the possible transitions</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <returns>List with IssueTransition elements</returns>
+        public static async Task<IList<IssueTransition>> GetIssueTransitionsAsync(this IIssueDomain jiraClient, string issueKey, CancellationToken cancellationToken = new CancellationToken())
+        {
+            var issueLinkTypesUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "transitions");
+            jiraClient.Behaviour.MakeCurrent();
+            var response = await issueLinkTypesUri.GetAsAsync<HttpResponse<IssueTransitions, Error>>(cancellationToken).ConfigureAwait(false);
+            return response.HandleErrors().Values;
+        }
+
+		/// <summary>
+		///     Change the state of the issue (make a transition)
+		/// </summary>
+		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+		/// <param name="issueKey">string with the key for the issue to update</param>
+		/// <param name="transition">IssueTransition</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		public static Task TransitionAsync(this IIssueDomain jiraClient, string issueKey, IssueTransition transition, CancellationToken cancellationToken = default)
+        {
+            var issueEdit = new IssueEdit
+            {
+                IssueTransition = transition
+            };
+            return TransitionAsync(jiraClient, issueKey, issueEdit, cancellationToken);
+        }
+
+		/// <summary>
+		///     Change the state of the issue (make a transition)
+		/// </summary>
+		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+		/// <param name="issueKey">string with the key for the issue to update</param>
+		/// <param name="issueEdit">IssueEdit which describes what to edit</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		public static async Task TransitionAsync(this IIssueDomain jiraClient, string issueKey, IssueEdit issueEdit, CancellationToken cancellationToken = default)
+		{
+			if (issueEdit?.IssueTransition == null)
+			{
+				throw new ArgumentNullException(nameof(issueEdit));
+			}
+			Log.Debug().WriteLine("Transitioning issue {0} to {1}", issueKey, issueEdit.IssueTransition.Name);
+			jiraClient.Behaviour.MakeCurrent();
+			var issueUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "transitions");
+			var response = await issueUri.PostAsync<HttpResponseWithError<Error>>(issueEdit, cancellationToken).ConfigureAwait(false);
+			// Expect HttpStatusCode.NoContent throw error if not
+			response.HandleStatusCode(HttpStatusCode.NoContent);
+		}
+
+
+		/// <summary>
+		///     Create an issue link
+		/// </summary>
+		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+		/// <param name="issueLink">IssueLink</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		public static async Task CreateIssueLinkAsync(this IIssueDomain jiraClient, IssueLink issueLink, CancellationToken cancellationToken = new CancellationToken())
+        {
+            var issueLinkUri = jiraClient.JiraRestUri.AppendSegments("issueLink");
+            jiraClient.Behaviour.MakeCurrent();
+            var response = await issueLinkUri.PostAsync<HttpResponse>(issueLink, cancellationToken).ConfigureAwait(false);
+            response.HandleStatusCode(HttpStatusCode.Created);
+        }
+
+		/// <summary>
+		///     Get an issue link
+		/// </summary>
+		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+		/// <param name="linkId">string</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		/// <returns>Issue </returns>
+		public static async Task<IssueLink> GetIssueLinkAsync(this IIssueDomain jiraClient, string linkId, CancellationToken cancellationToken = new CancellationToken())
+        {
+            var issueLinkUri = jiraClient.JiraRestUri.AppendSegments("issueLink", linkId);
+            jiraClient.Behaviour.MakeCurrent();
+            var response = await issueLinkUri.GetAsAsync<HttpResponse<IssueLink, Error>>(cancellationToken).ConfigureAwait(false);
+            return response.HandleErrors();
+        }
+
+		/// <summary>
+		///     Delete an issue link
+		/// </summary>
+		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+		/// <param name="issueLinkId">string with the ID of the issue link</param>
+		/// <param name="cancellationToken">CancellationToken</param>
+		public static async Task DeleteIssueLinkAsync(this IIssueDomain jiraClient, string issueLinkId, CancellationToken cancellationToken = new CancellationToken())
+        {
+            var issueLinkUri = jiraClient.JiraRestUri.AppendSegments("issueLink", issueLinkId);
+            jiraClient.Behaviour.MakeCurrent();
+            var response = await issueLinkUri.DeleteAsync<HttpResponse>(cancellationToken).ConfigureAwait(false);
+			response.HandleStatusCode(HttpStatusCode.NoContent);
+		}
+
+		/// <summary>
 		///     Create an issue
 		/// </summary>
 		/// <typeparam name="TFields">The type of the issue fields</typeparam>
@@ -298,11 +408,11 @@ namespace Dapplo.Jira
 		}
 
 		/// <summary>
-		///     Update an issue
+		///     Edit an issue
 		/// </summary>
-		/// <typeparam name="TFields">The type of the issue</typeparam>
 		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
-		/// <param name="issue">the issue to update</param>
+		/// <param name="issueKey">string with the key for the issue to update</param>
+		/// <param name="issueEdit">IssueEdit which describes what to edit</param>
 		/// <param name="notifyUsers">
 		///     send the email with notification that the issue was updated to users that watch it. Admin or
 		///     project admin permissions are required to disable the notification. default = true
@@ -318,27 +428,21 @@ namespace Dapplo.Jira
 		/// </param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>TIssue</returns>
-		public static async Task UpdateAsync<TFields>(this IIssueDomain jiraClient, IssueWithFields<TFields> issue, bool notifyUsers = true, bool overrideScreenSecurity = false, bool overrideEditableFlag = false, CancellationToken cancellationToken = default)
-			where TFields : IssueFields
+		public static async Task EditAsync(this IIssueDomain jiraClient, string issueKey, IssueEdit issueEdit, bool notifyUsers = true, bool overrideScreenSecurity = false, bool overrideEditableFlag = false, CancellationToken cancellationToken = default)
 		{
-			if (issue == null)
+			if (issueEdit == null)
 			{
-				throw new ArgumentNullException(nameof(issue));
+				throw new ArgumentNullException(nameof(issueEdit));
 			}
-			Log.Debug().WriteLine("Updating issue {0}", issue.Key);
+			Log.Debug().WriteLine("Editing issue {0}", issueKey);
 			jiraClient.Behaviour.MakeCurrent();
-			var issueToUpdate = new IssueWithFields<TFields>
-			{
-				Fields = issue.Fields,
-				Update = issue.Update
-			};
-			var issueUri = jiraClient.JiraRestUri.AppendSegments("issue", issue.Key).ExtendQuery(new Dictionary<string, bool>
+			var issueUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey).ExtendQuery(new Dictionary<string, bool>
 			{
 				{"notifyUsers", notifyUsers},
 				{"overrideScreenSecurity", overrideScreenSecurity},
 				{"overrideEditableFlag", overrideEditableFlag}
 			});
-			var response = await issueUri.PutAsync<HttpResponseWithError<Error>>(issueToUpdate, cancellationToken).ConfigureAwait(false);
+			var response = await issueUri.PutAsync<HttpResponseWithError<Error>>(issueEdit, cancellationToken).ConfigureAwait(false);
 			// Expect HttpStatusCode.NoContent throw error if not
 			response.HandleStatusCode(HttpStatusCode.NoContent);
 		}
@@ -349,8 +453,8 @@ namespace Dapplo.Jira
 		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
 		/// <param name="issueKey">the key of the issue to delete</param>
 		/// <param name="deleteSubtasks">
-		///     true or false (default) indicating that any subtasks should also be deleted.
-		///     If the issue has no subtasks this parameter is ignored. If the issue has subtasks and this parameter is missing or
+		///     true or false (default) indicating that any sub-tasks should also be deleted.
+		///     If the issue has no sub-tasks this parameter is ignored. If the issue has subtasks and this parameter is missing or
 		///     false, then the issue will not be deleted and an error will be returned
 		/// </param>
 		/// <param name="cancellationToken">CancellationToken</param>

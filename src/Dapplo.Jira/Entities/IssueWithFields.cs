@@ -27,10 +27,11 @@ namespace Dapplo.Jira.Entities
 		public TFields RenderedFields { get; set; }
 
 		/// <summary>
-		/// 	Used eg. for issue linking
+		///		List of operations to perform on issue screen fields.
+		///		Note that fields included in here cannot be included in fields.
 		/// </summary>
 		[JsonProperty("update")]
-		public Update Update { get; set; }
+		public IssueEdit Edit { get; set; }
 
 	}
 }

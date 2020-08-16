@@ -33,8 +33,9 @@ namespace Dapplo.Jira.Tests
             {
                 HttpExtensionsGlobals.HttpContentConverters.Add(BitmapSourceHttpContentConverter.Instance.Value);
             }
-			_avatarCache = new AvatarCache(Client);
-		}
+
+            _avatarCache = new AvatarCache(Client);
+        }
 
 		private readonly AvatarCache _avatarCache;
 
@@ -51,11 +52,6 @@ namespace Dapplo.Jira.Tests
 			avatar = await _avatarCache.GetAsync(me.Avatars);
 			Assert.NotNull(avatar);
 			Assert.True(avatar.Width > 0);
-
-			// when changing the size, the value is no longer available.
-			_avatarCache.AvatarSize = AvatarSizes.Small;
-			avatar = await _avatarCache.GetAsync(me.Avatars);
-			Assert.Null(avatar);
 		}
 	}
 }

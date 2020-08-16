@@ -9,18 +9,16 @@ namespace Dapplo.Jira.Entities
     ///     Describes a link between Jira issues
     /// </summary>
     [JsonObject]
-    public class IssueLink : BaseId<string>
+    public class CreateIssueLink : BaseId<string>
     {
         /// <summary>
         /// The comment for the issue link
         /// </summary>
-        [JsonProperty("comment")]
         public Comment Comment { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        [JsonProperty("type")]
         public IssueLinkType IssueLinkType { get; set; }
 
         /// <summary>
@@ -34,5 +32,6 @@ namespace Dapplo.Jira.Entities
         /// </summary>
         [JsonProperty("inwardIssue")]
         public LinkedIssue InwardIssue { get; set; }
+
     }
 }

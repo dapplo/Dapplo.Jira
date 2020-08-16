@@ -174,5 +174,11 @@ namespace Dapplo.Jira.Entities
 		/// </summary>
 		[JsonProperty("worklog")]
 		public Worklogs Worklogs { get; set; }
+
+        /// <summary>
+        /// All linked issues
+        /// </summary>
+        [JsonProperty("issueLinks")]
+		public IList<IssueLink> IssueLinks { get; set; }
 	}
 }
