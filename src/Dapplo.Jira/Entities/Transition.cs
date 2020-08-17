@@ -10,7 +10,7 @@ namespace Dapplo.Jira.Entities
 	///     Transition information
 	/// </summary>
 	[JsonObject]
-	public class Transition : BaseId<long>
+	public class Transition : ReadOnlyBaseId<long>
 	{
 		/// <summary>
 		///     Does this transition have a screen?

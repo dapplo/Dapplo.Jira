@@ -78,6 +78,6 @@ namespace Dapplo.Jira
         /// </summary>
         /// <param name="user">username</param>
         /// <param name="password">password</param>
-        void SetBasicAuthentication(string user, string password);
+        IJiraClient SetBasicAuthentication(string user, string password);
     }
 }

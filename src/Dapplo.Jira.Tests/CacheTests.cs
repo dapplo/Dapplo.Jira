@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.WinForms.ContentConverter;
 using Dapplo.HttpExtensions.Wpf.ContentConverter;
-using Dapplo.Jira.Enums;
 using Dapplo.Jira.SvgWinForms.Converters;
 using Dapplo.Jira.Tests.Support;
 using Xunit;

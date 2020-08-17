@@ -9,7 +9,7 @@ namespace Dapplo.Jira.Entities
 	///     Subscription information
 	/// </summary>
 	[JsonObject]
-	public class Subscription : BaseId<long>
+	public class Subscription : ReadOnlyBaseId<long>
 	{
 		/// <summary>
 		///     The user which subscribed

@@ -9,7 +9,7 @@ namespace Dapplo.Jira.Entities
     ///     Describes a link between Jira issues
     /// </summary>
     [JsonObject]
-    public class IssueLink : BaseId<string>
+    public class IssueLink : ReadOnlyBaseId<string>
     {
         /// <summary>
         /// The comment for the issue link

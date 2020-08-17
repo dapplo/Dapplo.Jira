@@ -9,7 +9,7 @@ namespace Dapplo.Jira.Entities
     /// The ID or key of a linked issue.
     /// </summary>
     [JsonObject]
-    public class LinkedIssue : BaseId<string>
+    public class LinkedIssue : ReadOnlyBaseId<string>
     {
         /// <summary>
         /// Issue key of linked issue
