@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -28,19 +27,14 @@ namespace Dapplo.Jira.Entities
 				{
 					return null;
 				}
-				var obj = Fields.CustomFields[JiraConfig.SpintCustomField];
-				var serializedSprintInfomation = (string) ((JArray)obj)[0];
 
-				var matchId = Regex.Match(serializedSprintInfomation, "id=([^,]+),");
-				var matchName = Regex.Match(serializedSprintInfomation, "name=([^,]+),");
-				var matchState = Regex.Match(serializedSprintInfomation, "state=([^,]+),");
-				return new Sprint
-				{
-					Name = matchName.Groups[1].Value,
-					Id = int.Parse(matchId.Groups[1].Value),
-					State = matchState.Groups[1].Value
-				};
-			}
+                if (Fields.CustomFields[JiraConfig.SpintCustomField] is JArray jArray)
+                {
+                    return jArray[0]?.ToObject<Sprint>();
+                }
+
+                return null;
+            }
 		}
 
 		/// <summary>

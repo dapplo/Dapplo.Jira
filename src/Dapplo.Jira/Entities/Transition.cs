@@ -10,7 +10,7 @@ namespace Dapplo.Jira.Entities
 	///     Transition information
 	/// </summary>
 	[JsonObject]
-	public class Transition : ReadOnlyBaseId<long>
+	public class Transition : BaseId<long>
 	{
         /// <summary>
 		///     Name for this transition
