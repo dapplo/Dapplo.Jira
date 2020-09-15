@@ -1,0 +1,1261 @@
+﻿{
+  "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+  "id": "53102",
+  "self": "https://greenshot.atlassian.net/rest/agile/1.0/issue/53102",
+  "key": "BUG-2125",
+  "fields": {
+    "issuetype": {
+      "self": "https://greenshot.atlassian.net/rest/api/2/issuetype/1",
+      "id": "1",
+      "description": "A problem which impairs or prevents the functions of the product.",
+      "iconUrl": "https://greenshot.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10403&avatarType=issuetype",
+      "name": "Bug",
+      "subtask": false,
+      "avatarId": 10403
+    },
+    "timespent": 3600,
+    "project": {
+      "self": "https://greenshot.atlassian.net/rest/api/2/project/10402",
+      "id": "10402",
+      "key": "BUG",
+      "name": "Greenshot bugs",
+      "avatarUrls": {
+        "48x48": "https://greenshot.atlassian.net/secure/projectavatar?pid=10402&avatarId=10502",
+        "24x24": "https://greenshot.atlassian.net/secure/projectavatar?size=small&pid=10402&avatarId=10502",
+        "16x16": "https://greenshot.atlassian.net/secure/projectavatar?size=xsmall&pid=10402&avatarId=10502",
+        "32x32": "https://greenshot.atlassian.net/secure/projectavatar?size=medium&pid=10402&avatarId=10502"
+      },
+      "projectCategory": {
+        "self": "https://greenshot.atlassian.net/rest/api/2/projectCategory/10000",
+        "id": "10000",
+        "description": "Development Projects",
+        "name": "Development"
+      }
+    },
+    "customfield_11000": "{pullrequest={dataType=pullrequest, state=MERGED, stateCount=1}, json={\"cachedValue\":{\"errors\":[],\"summary\":{\"pullrequest\":{\"overall\":{\"count\":1,\"lastUpdated\":\"2017-01-29T21:15:06.000+0100\",\"stateCount\":1,\"state\":\"MERGED\",\"open\":false},\"byInstanceType\":{\"github\":{\"count\":1,\"name\":\"GitHub\"}}}}},\"isStale\":false}}",
+    "fixVersions": [
+      {
+        "self": "https://greenshot.atlassian.net/rest/api/2/version/12101",
+        "id": "12101",
+        "description": "",
+        "name": "1.2.9.129",
+        "archived": false,
+        "released": false,
+        "releaseDate": "2017-01-29"
+      }
+    ],
+    "customfield_11200": null,
+    "aggregatetimespent": 3600,
+    "resolution": {
+      "self": "https://greenshot.atlassian.net/rest/api/2/resolution/1",
+      "id": "1",
+      "description": "A fix for this issue is checked into the tree and tested.",
+      "name": "Fixed"
+    },
+    "customfield_10502": null,
+    "customfield_10900": null,
+    "resolutiondate": "2017-01-26T09:16:20.233+0100",
+    "workratio": -1,
+    "lastViewed": "2017-02-01T10:31:54.690+0100",
+    "watches": {
+      "self": "https://greenshot.atlassian.net/rest/api/2/issue/BUG-2125/watchers",
+      "watchCount": 2,
+      "isWatching": true
+    },
+    "created": "2017-01-26T06:54:57.635+0100",
+    "customfield_10020": null,
+    "customfield_10021": "Not started",
+    "priority": {
+      "self": "https://greenshot.atlassian.net/rest/api/2/priority/3",
+      "iconUrl": "https://greenshot.atlassian.net/images/icons/priorities/major.svg",
+      "name": "Major",
+      "id": "3"
+    },
+    "customfield_10100": null,
+    "labels": [],
+    "customfield_10016": null,
+    "customfield_10017": null,
+    "customfield_10018": null,
+    "customfield_10019": null,
+    "timeestimate": 0,
+    "aggregatetimeoriginalestimate": null,
+    "versions": [
+      {
+        "self": "https://greenshot.atlassian.net/rest/api/2/version/12001",
+        "id": "12001",
+        "description": "",
+        "name": "1.2.9.112",
+        "archived": false,
+        "released": true,
+        "releaseDate": "2016-12-31"
+      }
+    ],
+    "issuelinks": [],
+    "assignee": null,
+    "updated": "2017-01-30T06:54:56.320+0100",
+    "status": {
+      "self": "https://greenshot.atlassian.net/rest/api/2/status/6",
+      "description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
+      "iconUrl": "https://greenshot.atlassian.net/images/icons/statuses/closed.png",
+      "name": "Closed",
+      "id": "6",
+      "statusCategory": {
+        "self": "https://greenshot.atlassian.net/rest/api/2/statuscategory/3",
+        "id": 3,
+        "key": "done",
+        "colorName": "green",
+        "name": "Done"
+      }
+    },
+    "components": [
+      {
+        "self": "https://greenshot.atlassian.net/rest/api/2/component/10130",
+        "id": "10130",
+        "name": "Office"
+      }
+    ],
+    "timeoriginalestimate": null,
+    "description": "Make a screenshot with greenshot, mark a window and klick on \"Microsoft OneNote\" in the context menu, nothing happens or popup reopens again.",
+    "customfield_11100": null,
+    "customfield_10012": null,
+    "customfield_10013": null,
+    "customfield_10014": null,
+    "customfield_10015": null,
+    "timetracking": {
+      "remainingEstimate": "0m",
+      "timeSpent": "1h",
+      "remainingEstimateSeconds": 0,
+      "timeSpentSeconds": 3600
+    },
+    "customfield_10007": [
+      "com.atlassian.greenhopper.service.sprint.Sprint@176425[id=10,rapidViewId=2,state=CLOSED,name=Greenshot 1.2.9 BF2,goal=Fix bugs which are still in 1.2.9 BF1,startDate=2017-01-12T20:54:55.833+01:00,endDate=2017-02-09T20:54:00.000+01:00,completeDate=2017-01-28T17:19:28.520+01:00,sequence=9]"
+    ],
+    "customfield_10800": null,
+    "customfield_10008": null,
+    "attachment": [
+      {
+        "self": "https://greenshot.atlassian.net/rest/api/2/attachment/25906",
+        "id": "25906",
+        "filename": "CreateHierachy.exe",
+        "author": {
+          "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+          "name": "aone",
+          "key": "aone",
+          "avatarUrls": {
+            "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+            "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+            "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+            "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+          },
+          "displayName": "Another One",
+          "active": true,
+          "timeZone": "Europe/Berlin"
+        },
+        "created": "2017-01-28T16:18:32.117+0100",
+        "size": 8704,
+        "mimeType": "application/x-msdownload",
+        "content": "https://greenshot.atlassian.net/secure/attachment/25906/CreateHierachy.exe"
+      },
+      {
+        "self": "https://greenshot.atlassian.net/rest/api/2/attachment/25904",
+        "id": "25904",
+        "filename": "Greenshot.log",
+        "author": {
+          "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+          "name": "soneone",
+          "key": "soneone",
+          "avatarUrls": {
+            "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+            "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+            "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+            "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+          },
+          "displayName": "Some One",
+          "active": true,
+          "timeZone": "Europe/Berlin"
+        },
+        "created": "2017-01-27T09:07:45.214+0100",
+        "size": 94837,
+        "mimeType": "text/plain",
+        "content": "https://greenshot.atlassian.net/secure/attachment/25904/Greenshot.log"
+      },
+      {
+        "self": "https://greenshot.atlassian.net/rest/api/2/attachment/25823",
+        "id": "25823",
+        "filename": "Greenshot-Bug.png",
+        "author": {
+          "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+          "name": "soneone",
+          "key": "soneone",
+          "avatarUrls": {
+            "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+            "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+            "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+            "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+          },
+          "displayName": "Some One",
+          "active": true,
+          "timeZone": "Europe/Berlin"
+        },
+        "created": "2017-01-26T06:53:18.005+0100",
+        "size": 13905,
+        "mimeType": "image/png",
+        "content": "https://greenshot.atlassian.net/secure/attachment/25823/Greenshot-Bug.png",
+        "thumbnail": "https://greenshot.atlassian.net/secure/thumbnail/25823/Greenshot-Bug.png"
+      },
+      {
+        "self": "https://greenshot.atlassian.net/rest/api/2/attachment/25909",
+        "id": "25909",
+        "filename": "image001.jpg",
+        "author": {
+          "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+          "name": "soneone",
+          "key": "soneone",
+          "avatarUrls": {
+            "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+            "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+            "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+            "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+          },
+          "displayName": "Some One",
+          "active": true,
+          "timeZone": "Europe/Berlin"
+        },
+        "created": "2017-01-30T06:54:54.693+0100",
+        "size": 30701,
+        "mimeType": "image/jpeg",
+        "content": "https://greenshot.atlassian.net/secure/attachment/25909/image001.jpg",
+        "thumbnail": "https://greenshot.atlassian.net/secure/thumbnail/25909/image001.jpg"
+      },
+      {
+        "self": "https://greenshot.atlassian.net/rest/api/2/attachment/25910",
+        "id": "25910",
+        "filename": "image003.png",
+        "author": {
+          "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+          "name": "soneone",
+          "key": "soneone",
+          "avatarUrls": {
+            "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+            "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+            "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+            "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+          },
+          "displayName": "Some One",
+          "active": true,
+          "timeZone": "Europe/Berlin"
+        },
+        "created": "2017-01-30T06:54:55.574+0100",
+        "size": 645,
+        "mimeType": "image/png",
+        "content": "https://greenshot.atlassian.net/secure/attachment/25910/image003.png",
+        "thumbnail": "https://greenshot.atlassian.net/secure/thumbnail/25910/image003.png"
+      },
+      {
+        "self": "https://greenshot.atlassian.net/rest/api/2/attachment/25905",
+        "id": "25905",
+        "filename": "image003.png",
+        "author": {
+          "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+          "name": "soneone",
+          "key": "soneone",
+          "avatarUrls": {
+            "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+            "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+            "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+            "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+          },
+          "displayName": "Some One",
+          "active": true,
+          "timeZone": "Europe/Berlin"
+        },
+        "created": "2017-01-27T14:47:44.538+0100",
+        "size": 645,
+        "mimeType": "image/png",
+        "content": "https://greenshot.atlassian.net/secure/attachment/25905/image003.png",
+        "thumbnail": "https://greenshot.atlassian.net/secure/thumbnail/25905/image003.png"
+      },
+      {
+        "self": "https://greenshot.atlassian.net/rest/api/2/attachment/25902",
+        "id": "25902",
+        "filename": "image007.jpg",
+        "author": {
+          "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+          "name": "soneone",
+          "key": "soneone",
+          "avatarUrls": {
+            "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+            "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+            "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+            "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+          },
+          "displayName": "Some One",
+          "active": true,
+          "timeZone": "Europe/Berlin"
+        },
+        "created": "2017-01-27T09:07:43.493+0100",
+        "size": 40047,
+        "mimeType": "image/jpeg",
+        "content": "https://greenshot.atlassian.net/secure/attachment/25902/image007.jpg",
+        "thumbnail": "https://greenshot.atlassian.net/secure/thumbnail/25902/image007.jpg"
+      },
+      {
+        "self": "https://greenshot.atlassian.net/rest/api/2/attachment/25903",
+        "id": "25903",
+        "filename": "image008.png",
+        "author": {
+          "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+          "name": "soneone",
+          "key": "soneone",
+          "avatarUrls": {
+            "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+            "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+            "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+            "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+          },
+          "displayName": "Some One",
+          "active": true,
+          "timeZone": "Europe/Berlin"
+        },
+        "created": "2017-01-27T09:07:44.492+0100",
+        "size": 645,
+        "mimeType": "image/png",
+        "content": "https://greenshot.atlassian.net/secure/attachment/25903/image008.png",
+        "thumbnail": "https://greenshot.atlassian.net/secure/thumbnail/25903/image008.png"
+      }
+    ],
+    "aggregatetimeestimate": 0,
+    "flagged": false,
+    "summary": "Send to OneNote does not work",
+    "creator": {
+      "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+      "name": "soneone",
+      "key": "soneone",
+      "avatarUrls": {
+        "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+        "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+        "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+        "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+      },
+      "displayName": "Some One",
+      "active": true,
+      "timeZone": "Europe/Berlin"
+    },
+    "subtasks": [],
+    "reporter": {
+      "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+      "name": "soneone",
+      "key": "soneone",
+      "avatarUrls": {
+        "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+        "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+        "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+        "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+      },
+      "displayName": "Some One",
+      "active": true,
+      "timeZone": "Europe/Berlin"
+    },
+    "customfield_10000": "1_*:*_1_*:*_8482614_*|*_5_*:*_2_*:*_429",
+    "aggregateprogress": {
+      "progress": 3600,
+      "total": 3600,
+      "percent": 100
+    },
+    "customfield_10001": "2017-01-26T08:55:51.877+0100",
+    "customfield_10002": null,
+    "customfield_10003": null,
+    "customfield_10400": "0|101dzb:zr",
+    "environment": "Windows 7 and OneNote 2010",
+    "duedate": null,
+    "closedSprints": [
+      {
+        "id": 10,
+        "self": "https://greenshot.atlassian.net/rest/agile/1.0/sprint/10",
+        "state": "closed",
+        "name": "Greenshot 1.2.9 BF2",
+        "startDate": "2017-01-12T20:54:55.833+01:00",
+        "endDate": "2017-02-09T20:54:00.000+01:00",
+        "completeDate": "2017-01-28T17:19:28.520+01:00",
+        "originBoardId": 2,
+        "goal": "Fix bugs which are still in 1.2.9 BF1"
+      }
+    ],
+    "progress": {
+      "progress": 3600,
+      "total": 3600,
+      "percent": 100
+    },
+    "comment": {
+      "comments": [
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103348",
+          "id": "103348",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "You are right... thanks for reporting this.",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-26T08:55:51.877+0100",
+          "updated": "2017-01-26T08:55:51.877+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103349",
+          "id": "103349",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "I already found the issue, anyways can you please test it to confirm the fix?\r\n\r\nThe version of Greenshot to test can be found here:\r\nhttps://github.com/greenshot/greenshot/releases/tag/Greenshot-UNSTABLE-1.2.9.124",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-26T09:16:20.244+0100",
+          "updated": "2017-01-26T09:16:20.244+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103350",
+          "id": "103350",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Hello Robin,\r\nI have problems with the paf-version (portable).\r\nGreenshot freezes after starting to mark an area.\r\nGreetings\r\nVolker\r\n\r\nVon: Another One (JIRA) [mailto:jira@greenshot.atlassian.net]\r\nGesendet: Donnerstag, 26. Januar 2017 09:16\r\nAn: Bourtscheidt, Volker\r\nBetreff: [JIRA] (BUG-2125) Send to OneNote does not work\r\n\r\n[cid:image001.png@01D277C2.5CB08A00]\r\n\r\nAnother One<https://greenshot.atlassian.net/secure/ViewProfile.jspa?name=aone> resolved as Fixed\r\n\r\n\r\n\r\n\r\n\r\nI already found the issue, anyways can you please test it to confirm the fix?\r\n\r\nThe version of Greenshot to test can be found here:\r\nhttps://github.com/greenshot/greenshot/releases/tag/Greenshot-UNSTABLE-1.2.9.124\r\n\r\n\r\nGreenshot bugs<https://greenshot.atlassian.net/browse/BUG> / [Bug] <https://greenshot.atlassian.net/browse/BUG-2125> BUG-2125<https://greenshot.atlassian.net/browse/BUG-2125>\r\n\r\nSend to OneNote does not work<https://greenshot.atlassian.net/browse/BUG-2125>\r\n\r\n\r\nChange By:\r\n\r\nAnother One<https://greenshot.atlassian.net/secure/ViewProfile.jspa?name=aone>\r\n\r\nResolution:\r\n\r\nFixed\r\n\r\nFix Version/s:\r\n\r\n1.2.9BF2\r\n\r\nStatus:\r\n\r\nOpen Resolved\r\n\r\n\r\n[Add Comment]<https://greenshot.atlassian.net/browse/BUG-2125#add-comment>\r\n\r\nAdd Comment<https://greenshot.atlassian.net/browse/BUG-2125#add-comment>\r\n\r\n\r\n\r\n\r\n\r\n\r\nThis message was sent by Atlassian JIRA (v1000.718.1#100026-sha1:45ff291)\r\n\r\n[Atlassian logo]\r\n\r\n\r\n\r\n\r\n=========================================================================\nAXA Konzern Aktiengesellschaft\nColonia-Allee 10-20, 51067 Köln · Postanschrift: 51171 Köln\nInternet: www.AXA.de\nSitz der Gesellschaft Köln · Handelsregister Köln HR B Nr. 672\nUSt.-Ident-Nr. DE 122786679\nVorsitzender des Aufsichtsrats: Dr. Thomas Buberl\nVorstand: Dr. Alexander Vollert, Vorsitzender; Dr. Andrea van Aubel, Dr. Patrick Dahmen, Thierry Daucourt, Jens Hasselbächer,\nFrank Hüppelshäuser, Dr. Nils Kaschner, Dr. Thilo Schumacher, Dr. Astrid Stange, Jens Warkentin\n-------------------------------------------------------------------------\nDer Inhalt dieser E-Mail ist vertraulich und ausschliesslich fuer den\nbezeichneten Adressaten oder dessen Vertreter bestimmt. Sollten Sie\nnicht der vorgesehene Adressat dieser E-Mail oder dessen Vertreter sein,\nso bitten wir Sie, sich mit dem Absender der E-Mail in Verbindung zu\nsetzen. Beachten Sie bitte, dass jede Form der unautorisierten Nutzung,\nVeroeffentlichung, Vervielfaeltigung oder Weitergabe des Inhaltes dieser\nE-Mail nicht gestattet ist.\n-------------------------------------------------------------------------\nThis message contains confidential information and is exclusively for the\nperson addressed or their representative. If you are not the intended\nrecipient of this message and its contents, please notify the sender\nimmediately. Any form of unauthorised use, publication, reproduction,\ncopying or disclosure of the content of the e-mail is not permitted.\n=========================================================================\n",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-26T10:54:00.164+0100",
+          "updated": "2017-01-26T10:54:00.164+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103351",
+          "id": "103351",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "That is really weird, most changes are fixes to make stuff more stable.\r\nCan you use another capture mode (window or screen) as it might be that you can't see the error as the region window is on top?",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-26T10:59:43.218+0100",
+          "updated": "2017-01-26T10:59:43.218+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103352",
+          "id": "103352",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Hello Robin,\r\ncopy to clipboard and send to outlook works successful.\r\nOnly Microsoft OneNote has Problems. Greenshot freezes without error.\r\nI have to end Greenshot via taskmanager.\r\nRegards\r\nVolker\r\n\r\n\r\nVon: Another One (JIRA) [mailto:jira@greenshot.atlassian.net]\r\nGesendet: Donnerstag, 26. Januar 2017 11:00\r\nAn: Bourtscheidt, Volker\r\nBetreff: [JIRA] (BUG-2125) Send to OneNote does not work\r\n\r\n[cid:image001.png@01D277C4.5F6ED4C0]\r\n\r\nAnother One<https://greenshot.atlassian.net/secure/ViewProfile.jspa?name=aone> commented on [Bug] BUG-2125<https://greenshot.atlassian.net/browse/BUG-2125>\r\n\r\n\r\n\r\n\r\nRe: Send to OneNote does not work<https://greenshot.atlassian.net/browse/BUG-2125>\r\n\r\n\r\n\r\nThat is really weird, most changes are fixes to make stuff more stable.\r\nCan you use another capture mode (window or screen) as it might be that you can't see the error as the region window is on top?\r\n\r\n\r\n[Add Comment]<https://greenshot.atlassian.net/browse/BUG-2125#add-comment>\r\n\r\nAdd Comment<https://greenshot.atlassian.net/browse/BUG-2125#add-comment>\r\n\r\n\r\n\r\n\r\n\r\n\r\nThis message was sent by Atlassian JIRA (v1000.718.1#100026-sha1:45ff291)\r\n\r\n[Atlassian logo]\r\n\r\n\r\n\r\n\r\n=========================================================================\nAXA Konzern Aktiengesellschaft\nColonia-Allee 10-20, 51067 Köln · Postanschrift: 51171 Köln\nInternet: www.AXA.de\nSitz der Gesellschaft Köln · Handelsregister Köln HR B Nr. 672\nUSt.-Ident-Nr. DE 122786679\nVorsitzender des Aufsichtsrats: Dr. Thomas Buberl\nVorstand: Dr. Alexander Vollert, Vorsitzender; Dr. Andrea van Aubel, Dr. Patrick Dahmen, Thierry Daucourt, Jens Hasselbächer,\nFrank Hüppelshäuser, Dr. Nils Kaschner, Dr. Thilo Schumacher, Dr. Astrid Stange, Jens Warkentin\n-------------------------------------------------------------------------\nDer Inhalt dieser E-Mail ist vertraulich und ausschliesslich fuer den\nbezeichneten Adressaten oder dessen Vertreter bestimmt. Sollten Sie\nnicht der vorgesehene Adressat dieser E-Mail oder dessen Vertreter sein,\nso bitten wir Sie, sich mit dem Absender der E-Mail in Verbindung zu\nsetzen. Beachten Sie bitte, dass jede Form der unautorisierten Nutzung,\nVeroeffentlichung, Vervielfaeltigung oder Weitergabe des Inhaltes dieser\nE-Mail nicht gestattet ist.\n-------------------------------------------------------------------------\nThis message contains confidential information and is exclusively for the\nperson addressed or their representative. If you are not the intended\nrecipient of this message and its contents, please notify the sender\nimmediately. Any form of unauthorised use, publication, reproduction,\ncopying or disclosure of the content of the e-mail is not permitted.\n=========================================================================\n",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-26T11:08:00.059+0100",
+          "updated": "2017-01-26T11:08:00.059+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103353",
+          "id": "103353",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Can you check the logs, please?\r\nhttps://getgreenshot.org/faq/where-can-i-find-greenshots-log-file/",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-26T11:10:24.229+0100",
+          "updated": "2017-01-26T11:10:24.229+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103354",
+          "id": "103354",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Hi Robin,\r\nhere ist he content of the log:\r\n\r\n2017-01-25 15:20:50,732 [Greenshot] WARN  - [Greenshot.Interop.Office.OneNoteExporter] Problem retrieving onenote destinations, ignoring:\r\nSystem.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetHierarchy(String startNode, HierarchyScope scope, String& notebookXml, XMLSchema schema)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetPages()\r\n2017-01-25 15:20:51,013 [Greenshot] ERROR - [GreenshotOfficePlugin.WordDestination] System.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetSpecialLocation(SpecialLocation specialLocation, String& specialLocationPath)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetSectionId(IOneNoteApplication oneNoteApplication, SpecialLocation specialLocation)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.ExportToNewPage(ISurface surfaceToUpload)\r\n   bei GreenshotOfficePlugin.OneNoteDestination.ExportCapture(Boolean manuallyInitiated, ISurface surface, ICaptureDetails captureDetails)\r\n2017-01-25 15:20:51,013 [Greenshot] INFO  - [GreenshotPlugin.Core.AbstractDestination] Export cancelled or failed, showing menu again\r\n2017-01-25 15:20:56,061 [Greenshot] WARN  - [Greenshot.Interop.Office.OneNoteExporter] Problem retrieving onenote destinations, ignoring:\r\nSystem.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetHierarchy(String startNode, HierarchyScope scope, String& notebookXml, XMLSchema schema)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetPages()\r\n2017-01-25 15:20:56,280 [Greenshot] WARN  - [Greenshot.Interop.Office.OneNoteExporter] Problem retrieving onenote destinations, ignoring:\r\nSystem.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetHierarchy(String startNode, HierarchyScope scope, String& notebookXml, XMLSchema schema)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetPages()\r\n2017-01-25 15:20:56,529 [Greenshot] ERROR - [GreenshotOfficePlugin.WordDestination] System.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetSpecialLocation(SpecialLocation specialLocation, String& specialLocationPath)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetSectionId(IOneNoteApplication oneNoteApplication, SpecialLocation specialLocation)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.ExportToNewPage(ISurface surfaceToUpload)\r\n   bei GreenshotOfficePlugin.OneNoteDestination.ExportCapture(Boolean manuallyInitiated, ISurface surface, ICaptureDetails captureDetails)\r\n2017-01-25 15:20:56,529 [Greenshot] INFO  - [GreenshotPlugin.Core.AbstractDestination] Export cancelled or failed, showing menu again\r\n2017-01-25 15:21:11,169 [Greenshot] WARN  - [Greenshot.Interop.Office.OneNoteExporter] Problem retrieving onenote destinations, ignoring:\r\nSystem.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetHierarchy(String startNode, HierarchyScope scope, String& notebookXml, XMLSchema schema)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetPages()\r\n2017-01-25 15:21:12,089 [Greenshot] INFO  - [Greenshot.Interop.Office.OutlookEmailExporter] Using Outlook 14.0.0.7172\r\n2017-01-25 15:21:12,120 [Greenshot] INFO  - [Greenshot.Interop.Office.OutlookEmailExporter] Current user: Bourtscheidt, Volker\r\n2017-01-25 15:21:12,697 [Greenshot] WARN  - [Greenshot.Interop.Office.OneNoteExporter] Problem retrieving onenote destinations, ignoring:\r\nSystem.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetHierarchy(String startNode, HierarchyScope scope, String& notebookXml, XMLSchema schema)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetPages()\r\n2017-01-25 15:21:13,134 [Greenshot] WARN  - [Greenshot.Interop.Office.OneNoteExporter] Problem retrieving onenote destinations, ignoring:\r\nSystem.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetHierarchy(String startNode, HierarchyScope scope, String& notebookXml, XMLSchema schema)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetPages()\r\n2017-01-25 15:21:13,368 [Greenshot] ERROR - [GreenshotOfficePlugin.WordDestination] System.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetSpecialLocation(SpecialLocation specialLocation, String& specialLocationPath)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetSectionId(IOneNoteApplication oneNoteApplication, SpecialLocation specialLocation)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.ExportToNewPage(ISurface surfaceToUpload)\r\n   bei GreenshotOfficePlugin.OneNoteDestination.ExportCapture(Boolean manuallyInitiated, ISurface surface, ICaptureDetails captureDetails)\r\n2017-01-25 15:21:13,368 [Greenshot] INFO  - [GreenshotPlugin.Core.AbstractDestination] Export cancelled or failed, showing menu again\r\n2017-01-25 15:21:18,516 [Greenshot] WARN  - [GreenshotPlugin.Controls.GreenshotForm] Unknown language key 'editor_counter_startvalue' configured for control 'counterLabel', this might be okay.\r\n2017-01-25 15:21:18,516 [Greenshot] WARN  - [GreenshotPlugin.Controls.GreenshotForm] Unknown language key 'editor_counter_startvalue' configured for control 'counterLabel', this might be okay.\r\n2017-01-25 15:21:18,532 [Greenshot] INFO  - [GreenshotPlugin.Core.AbstractDestination] Export to Im Greenshot-Editor öffnen success, closing menu\r\n2017-01-25 15:21:23,690 [Greenshot] WARN  - [Greenshot.Interop.Office.OneNoteExporter] Problem retrieving onenote destinations, ignoring:\r\nSystem.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetHierarchy(String startNode, HierarchyScope scope, String& notebookXml, XMLSchema schema)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetPages()\r\n2017-01-25 15:21:25,047 [Greenshot] ERROR - [GreenshotOfficePlugin.WordDestination] System.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetSpecialLocation(SpecialLocation specialLocation, String& specialLocationPath)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetSectionId(IOneNoteApplication oneNoteApplication, SpecialLocation specialLocation)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.ExportToNewPage(ISurface surfaceToUpload)\r\n   bei GreenshotOfficePlugin.OneNoteDestination.ExportCapture(Boolean manuallyInitiated, ISurface surface, ICaptureDetails captureDetails)\r\n2017-01-25 15:21:28,879 [Greenshot] ERROR - [GreenshotOfficePlugin.WordDestination] System.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetSpecialLocation(SpecialLocation specialLocation, String& specialLocationPath)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetSectionId(IOneNoteApplication oneNoteApplication, SpecialLocation specialLocation)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.ExportToNewPage(ISurface surfaceToUpload)\r\n   bei GreenshotOfficePlugin.OneNoteDestination.ExportCapture(Boolean manuallyInitiated, ISurface surface, ICaptureDetails captureDetails)\r\n2017-01-25 15:21:30,220 [Greenshot] ERROR - [GreenshotOfficePlugin.WordDestination] System.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetSpecialLocation(SpecialLocation specialLocation, String& specialLocationPath)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetSectionId(IOneNoteApplication oneNoteApplication, SpecialLocation specialLocation)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.ExportToNewPage(ISurface surfaceToUpload)\r\n   bei GreenshotOfficePlugin.OneNoteDestination.ExportCapture(Boolean manuallyInitiated, ISurface surface, ICaptureDetails captureDetails)\r\n2017-01-25 15:21:35,446 [Greenshot] WARN  - [Greenshot.Interop.Office.OneNoteExporter] Problem retrieving onenote destinations, ignoring:\r\nSystem.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetHierarchy(String startNode, HierarchyScope scope, String& notebookXml, XMLSchema schema)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetPages()\r\n2017-01-25 15:21:36,538 [Greenshot] WARN  - [Greenshot.Interop.Office.OneNoteExporter] Problem retrieving onenote destinations, ignoring:\r\nSystem.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetHierarchy(String startNode, HierarchyScope scope, String& notebookXml, XMLSchema schema)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetPages()\r\n2017-01-25 15:21:38,113 [Greenshot] ERROR - [GreenshotOfficePlugin.WordDestination] System.Reflection.TargetInvocationException: Ein Aufrufziel hat einen Ausnahmefehler verursacht. ---> System.Runtime.InteropServices.COMException: Typkonflikt. (Ausnahme von HRESULT: 0x80020005 (DISP_E_TYPEMISMATCH))\r\n   --- Ende der internen Ausnahmestapelüberwachung ---\r\n\r\nServer stack trace:\r\n   bei System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)\r\n   bei System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)\r\n   bei Greenshot.Interop.COMWrapper.Invoke(IMessage myMessage)\r\n\r\nException rethrown at [0]:\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   bei System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   bei Greenshot.Interop.Office.IOneNoteApplication.GetSpecialLocation(SpecialLocation specialLocation, String& specialLocationPath)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.GetSectionId(IOneNoteApplication oneNoteApplication, SpecialLocation specialLocation)\r\n   bei Greenshot.Interop.Office.OneNoteExporter.ExportToNewPage(ISurface surfaceToUpload)\r\n   bei GreenshotOfficePlugin.OneNoteDestination.ExportCapture(Boolean manuallyInitiated, ISurface surface, ICaptureDetails captureDetails)\r\n2017-01-25 15:21:42,455 [Greenshot] INFO  - [Greenshot.IniFile.IniConfig] Using ini file C:\\Users\\i49877\\AppData\\Roaming\\Greenshot\\Greenshot.ini\r\n2017-01-25 15:21:42,455 [Greenshot] INFO  - [Greenshot.IniFile.IniConfig] Saving configuration to: C:\\Users\\i49877\\AppData\\Roaming\\Greenshot\\Greenshot.ini\r\n2017-01-25 16:04:48,256 [Greenshot] INFO  - [Greenshot.MainForm] Exit: Software version: 1.2.9.112-RELEASE-9bc62ac42bd37d7ba2b19946b70d40a599332b75 (64 bit), .NET runtime version: 4.0.30319.42000+, Time: 2017-01-25 16:04:48 +01:00, OS: unknown   (x64)  6.1 build 7601 revision 10000, GDI object count: 71, User object count: 35,\r\n2017-01-25 16:04:48,271 [Greenshot] INFO  - [Greenshot.IniFile.IniConfig] Using ini file C:\\Users\\i49877\\AppData\\Roaming\\Greenshot\\Greenshot.ini\r\n2017-01-25 16:04:48,271 [Greenshot] INFO  - [Greenshot.IniFile.IniConfig] Saving configuration to: C:\\Users\\i49877\\AppData\\Roaming\\Greenshot\\Greenshot.ini\r\n2017-01-25 16:04:48,271 [Greenshot] INFO  - [Greenshot.Helpers.DestinationHelper] Released Mutex Local\\F48E86D3-E34C-4DB7-8F8F-9A0EA55F0D08 for Greenshot\r\n2017-01-26 06:19:05,509 [Greenshot] INFO  - [Greenshot.IniFile.IniConfig] Using ProductName Greenshot\r\n2017-01-26 06:19:05,529 [Greenshot] INFO  - [Greenshot.IniFile.IniConfig] Checking for portable mode.\r\n2017-01-26 06:19:05,529 [Greenshot] INFO  - [Greenshot.IniFile.IniConfig] Using ini file C:\\Program Files\\Greenshot\\Greenshot-defaults.ini\r\n2017-01-26 06:19:05,529 [Greenshot] INFO  - [Greenshot.IniFile.IniConfig] Loading ini-file: C:\\Program Files\\Greenshot\\Greenshot-defaults.ini\r\n2017-01-26 06:19:05,539 [Greenshot] INFO  - [Greenshot.IniFile.IniConfig] Using ini file C:\\Users\\i49877\\AppData\\Roaming\\Greenshot\\Greenshot.ini\r\n2017-01-26 06:19:05,539 [Greenshot] INFO  - [Greenshot.IniFile.IniConfig] Loading ini-file: C:\\Users\\i49877\\AppData\\Roaming\\Greenshot\\Greenshot.ini\r\n2017-01-26 06:19:05,549 [Greenshot] INFO  - [Greenshot.IniFile.IniConfig] Using ini file C:\\Program Files\\Greenshot\\Greenshot-fixed.ini\r\n2017-01-26 06:19:05,549 [Greenshot] INFO  - [Greenshot.IniFile.IniConfig] Loading ini-file: C:\\Program Files\\Greenshot\\Greenshot-fixed.ini\r\n2017-01-26 06:19:05,609 [Greenshot] INFO  - [Greenshot.MainForm] Starting: Software version: 1.2.9.112-RELEASE-9bc62ac42bd37d7ba2b19946b70d40a599332b75 (64 bit), .NET runtime version: 4.0.30319.42000+, Time: 2017-01-26 06:19:05 +01:00, OS: unknown   (x64)  6.1 build 7601 revision 10000, GDI object count: 9, User object count: 2,\r\n2017-01-26 06:19:05,679 [Greenshot] INFO  - [Greenshot.Helpers.DestinationHelper] Greenshot has created & claimed the mutex Local\\F48E86D3-E34C-4DB7-8F8F-9A0EA55F0D08\r\n2017-01-26 06:19:06,305 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Not adding non existing language path C:\\Program Files\\Greenshot\\App\\Greenshot\\Languages\r\n2017-01-26 06:19:06,305 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Not adding non existing language path C:\\Users\\i49877\\AppData\\Roaming\\Greenshot\\Languages\\\r\n2017-01-26 06:19:06,305 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Searching language directory 'C:\\Program Files\\Greenshot\\Languages' for language files with pattern 'language*.xml'\r\n2017-01-26 06:19:06,325 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Deutsch from: C:\\Program Files\\Greenshot\\Languages\\language-de-DE.xml\r\n2017-01-26 06:19:06,325 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition English from: C:\\Program Files\\Greenshot\\Languages\\language-en-US.xml\r\n2017-01-26 06:19:06,325 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Nederlands from: C:\\Program Files\\Greenshot\\Languages\\language-nl-NL.xml\r\n2017-01-26 06:19:06,325 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Czech from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-cs-CZ.xml\r\n2017-01-26 06:19:06,335 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Deutsch from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-de-DE.xml\r\n2017-01-26 06:19:06,335 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition English from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-en-US.xml\r\n2017-01-26 06:19:06,335 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition French from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-fr-FR.xml\r\n2017-01-26 06:19:06,335 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Bahasa Indonesia from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-id-ID.xml\r\n2017-01-26 06:19:06,335 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Italiano from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-it-IT.xml\r\n2017-01-26 06:19:06,335 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition korean from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-ko-KR.xml\r\n2017-01-26 06:19:06,335 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Latviski from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-lv-LV.xml\r\n2017-01-26 06:19:06,345 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Polski from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-pl-PL.xml\r\n2017-01-26 06:19:06,345 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Portuguese (Portugal) from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-pt-PT.xml\r\n2017-01-26 06:19:06,345 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Русский from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-ru-RU.xml\r\n2017-01-26 06:19:06,345 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Slovenčina from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-sk-SK.xml\r\n2017-01-26 06:19:06,355 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Српски from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-sr-RS.xml\r\n2017-01-26 06:19:06,365 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Svenska from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-sv-SE.xml\r\n2017-01-26 06:19:06,365 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Українська from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-uk-UA.xml\r\n2017-01-26 06:19:06,365 [Greenshot] WARN  - [GreenshotPlugin.Core.Language] Fixing missing ietf in language-file C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-zh-CN.xml\r\n2017-01-26 06:19:06,365 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Fixed IETF to zh-CN\r\n2017-01-26 06:19:06,365 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition 简体中文 from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-zh-CN.xml\r\n2017-01-26 06:19:06,365 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition 正體中文 from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotExternalCommandPlugin\\language_externalcommandplugin-zh-TW.xml\r\n2017-01-26 06:19:06,365 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Czech from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotOCRPlugin\\language_ocrplugin-cs-CZ.xml\r\n2017-01-26 06:19:06,375 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition Deutsch from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotOCRPlugin\\language_ocrplugin-de-DE.xml\r\n2017-01-26 06:19:06,375 [Greenshot] INFO  - [GreenshotPlugin.Core.Language] Added language definition English from: C:\\Program Files\\Greenshot\\Languages\\Plugins\\GreenshotOCRPlugin\\language_ocrplugin-en-US.xml\r\n2017-01-26 06:19:06,375 [Greens...",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-26T11:14:00.128+0100",
+          "updated": "2017-01-26T11:14:00.128+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103356",
+          "id": "103356",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "I am confused, that is not the logfile of the new build, the DISP_E_TYPEMISMATCH should be fixed with that and it still mentions 1.2.9.112-RELEASE\r\n\r\ndid you try this:\r\nhttps://github.com/greenshot/greenshot/releases/tag/Greenshot-UNSTABLE-1.2.9.124\r\n\r\nYou told me the PAF version freezes when a region capture is used, that is why I adviced you to use a different capture modus so there is not a window in front of the error.\r\n\r\nP.S.\r\nKannst gerne Deutsch schreiben, wir Holländer werden das auch verstehen.",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-26T11:18:25.462+0100",
+          "updated": "2017-01-26T11:18:25.462+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103357",
+          "id": "103357",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "P.S.\r\nAxa nutzt der PAF version auf ihre Rechner? Portable-Application-Framework ist eigentlich eher für USB Sticks gedacht.\r\nFür einen rollout oder kurze Tests, ist der .zip vermutlich besser geeignet.",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-26T11:20:06.668+0100",
+          "updated": "2017-01-26T11:20:06.668+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103358",
+          "id": "103358",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Hallo Robin,\r\nmich wundert es, dass aus Greenshot heraus PowerPoint geöffnet werden kann, um in einer neuen Präsentation den Screenshot einzufügen.\r\nOneNote dagegen war ja bereits offen, aber minimiert. Da funktioniert die Übergabe nicht.\r\nLiegt das an OneNote?\r\n\r\nGrüße\r\nVolker\r\n\r\nVon: Bourtscheidt, Volker\r\nGesendet: Donnerstag, 26. Januar 2017 11:41\r\nAn: 'Another One (JIRA)'\r\nBetreff: AW: [JIRA] (BUG-2125) Send to OneNote does not work\r\n\r\nHallo Robin,\r\n\r\nes klappt unter folgender Konstallation\r\n\r\n·         Das OneNote darf nicht als geöffnetes Programm in der taskleiste liegen, sondern muss ein aktives angezeigtes fenster sein\r\n\r\n·         Desweiteren haben wir ein riesiges Notizbuch mit ganz vielen Seiten. Hier liest Greenshot anscheinend alle Seiten erst einmal ein und zeigt dann ein weiteres Kontextmenü mit allen Unterseiten als Ziele in OneNote.\r\nBesser wäre es, man könnte ein Ziel in OneNote festlegen, in das die Screenshots gelegt werden.\r\nDann wäre der Prozess des Einlesens der OneNote-Seiten nicht so lange. Ich habe gedacht, Greenshot ist eingefroren.\r\nEs konnte nur nichts mit dem in der taskleiste liegenden OneNote anfangen.\r\nHilft das eventuell weiter?\r\n\r\nGrüße\r\nVolker\r\n\r\nVon: Another One (JIRA) [mailto:jira@greenshot.atlassian.net]\r\nGesendet: Donnerstag, 26. Januar 2017 11:20\r\nAn: Bourtscheidt, Volker\r\nBetreff: [JIRA] (BUG-2125) Send to OneNote does not work\r\n\r\n[cid:image001.png@01D277CE.3591ED90]\r\n\r\nAnother One<https://greenshot.atlassian.net/secure/ViewProfile.jspa?name=aone> commented on [Bug] BUG-2125<https://greenshot.atlassian.net/browse/BUG-2125>\r\n\r\n\r\n\r\n\r\nRe: Send to OneNote does not work<https://greenshot.atlassian.net/browse/BUG-2125>\r\n\r\n\r\n\r\nP.S.\r\nAxa nutzt der PAF version auf ihre Rechner? Portable-Application-Framework ist eigentlich eher für USB Sticks gedacht.\r\nFür einen rollout oder kurze Tests, ist der .zip vermutlich besser geeignet.\r\n\r\n\r\n[Add Comment]<https://greenshot.atlassian.net/browse/BUG-2125#add-comment>\r\n\r\nAdd Comment<https://greenshot.atlassian.net/browse/BUG-2125#add-comment>\r\n\r\n\r\n\r\n\r\n\r\n\r\nThis message was sent by Atlassian JIRA (v1000.718.1#100026-sha1:45ff291)\r\n\r\n[Atlassian logo]\r\n\r\n\r\n\r\n\r\n=========================================================================\nAXA Konzern Aktiengesellschaft\nColonia-Allee 10-20, 51067 Köln · Postanschrift: 51171 Köln\nInternet: www.AXA.de\nSitz der Gesellschaft Köln · Handelsregister Köln HR B Nr. 672\nUSt.-Ident-Nr. DE 122786679\nVorsitzender des Aufsichtsrats: Dr. Thomas Buberl\nVorstand: Dr. Alexander Vollert, Vorsitzender; Dr. Andrea van Aubel, Dr. Patrick Dahmen, Thierry Daucourt, Jens Hasselbächer,\nFrank Hüppelshäuser, Dr. Nils Kaschner, Dr. Thilo Schumacher, Dr. Astrid Stange, Jens Warkentin\n-------------------------------------------------------------------------\nDer Inhalt dieser E-Mail ist vertraulich und ausschliesslich fuer den\nbezeichneten Adressaten oder dessen Vertreter bestimmt. Sollten Sie\nnicht der vorgesehene Adressat dieser E-Mail oder dessen Vertreter sein,\nso bitten wir Sie, sich mit dem Absender der E-Mail in Verbindung zu\nsetzen. Beachten Sie bitte, dass jede Form der unautorisierten Nutzung,\nVeroeffentlichung, Vervielfaeltigung oder Weitergabe des Inhaltes dieser\nE-Mail nicht gestattet ist.\n-------------------------------------------------------------------------\nThis message contains confidential information and is exclusively for the\nperson addressed or their representative. If you are not the intended\nrecipient of this message and its contents, please notify the sender\nimmediately. Any form of unauthorised use, publication, reproduction,\ncopying or disclosure of the content of the e-mail is not permitted.\n=========================================================================\n",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-26T12:18:00.138+0100",
+          "updated": "2017-01-26T12:18:00.138+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103360",
+          "id": "103360",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Greenshot kann leider bei OneNote nicht erkennen was offen ist und was nicht, zeigt alle Notizen an.\r\nAber in dem Note einfugen müsste trotzdem funktionieren.\r\nJedenfalls habe ich, ganz zufällig einen Windows 7 mit OneNote 2010, und dort kann ich in dem geöffnete Dokument exportieren.\r\nKommt aber nur am ende drin, und das Fenster kommt nicht in der Vordergrund (geht nicht ohne weiteres..).\r\n\r\nIch glaube das ich inzwischen ein wenig verwirrt bin, wir sind von nicht funktionieren (was ein klare Fehler war) in Hängen angekommen.\r\nIst dass der aktuelle Stand was mit Greenshot 1.2.9.124 passiert?",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-26T12:39:49.482+0100",
+          "updated": "2017-01-26T12:39:49.482+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103362",
+          "id": "103362",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Hallo Robin,\r\nmit der ZIP-Version teste ich gerade.\r\nWenn OneNote eines der sichtbaren Fenster ist, funktioniert die Übergabe an die Seite, die mit ein wenig Verzögerung neben anderen Seiten ausgewählt wird.\r\nDa Greenshot anscheinend versucht, alle möglichen Notizbuchseiten als Zielort anzubieten, kommt es zu Verzögerung beim Einlesen der Seiten.\r\nNach 2, 3 Sekunden klappt bei OneNote ein Unterfenster auf, in dem alle gefundenen Seiten angezeigt werden.\r\nWir haben aber auch ein Notizbuch mit vielen Foldern und vielen Seiten. Hier geht es nur, wenn ich die Zwischenablage als Ziel wähle und von dort in der gewünschten Seite den Inhalt einfüge.\r\nWähle ich hier OneNote aus, stürzt Greenshot ab, vermutlich durch Speicherüberlauf.\r\n\r\nViele Grüße\r\nVolker\r\n\r\n\r\n\r\nVon: Another One (JIRA) [mailto:jira@greenshot.atlassian.net]\r\nGesendet: Donnerstag, 26. Januar 2017 12:40\r\nAn: Bourtscheidt, Volker\r\nBetreff: [JIRA] (BUG-2125) Send to OneNote does not work\r\n\r\n[cid:image001.png@01D277D4.AB838120]\r\n\r\nAnother One<https://greenshot.atlassian.net/secure/ViewProfile.jspa?name=aone> commented on [Bug] BUG-2125<https://greenshot.atlassian.net/browse/BUG-2125>\r\n\r\n\r\n\r\n\r\nRe: Send to OneNote does not work<https://greenshot.atlassian.net/browse/BUG-2125>\r\n\r\n\r\n\r\nGreenshot kann leider bei OneNote nicht erkennen was offen ist und was nicht, zeigt alle Notizen an.\r\nAber in dem Note einfugen müsste trotzdem funktionieren.\r\nJedenfalls habe ich, ganz zufällig einen Windows 7 mit OneNote 2010, und dort kann ich in dem geöffnete Dokument exportieren.\r\nKommt aber nur am ende drin, und das Fenster kommt nicht in der Vordergrund (geht nicht ohne weiteres..).\r\n\r\nIch glaube das ich inzwischen ein wenig verwirrt bin, wir sind von nicht funktionieren (was ein klare Fehler war) in Hängen angekommen.\r\nIst dass der aktuelle Stand was mit Greenshot 1.2.9.124 passiert?\r\n\r\n\r\n[Add Comment]<https://greenshot.atlassian.net/browse/BUG-2125#add-comment>\r\n\r\nAdd Comment<https://greenshot.atlassian.net/browse/BUG-2125#add-comment>\r\n\r\n\r\n\r\n\r\n\r\n\r\nThis message was sent by Atlassian JIRA (v1000.718.1#100026-sha1:45ff291)\r\n\r\n[Atlassian logo]\r\n\r\n\r\n\r\n\r\n=========================================================================\nAXA Konzern Aktiengesellschaft\nColonia-Allee 10-20, 51067 Köln · Postanschrift: 51171 Köln\nInternet: www.AXA.de\nSitz der Gesellschaft Köln · Handelsregister Köln HR B Nr. 672\nUSt.-Ident-Nr. DE 122786679\nVorsitzender des Aufsichtsrats: Dr. Thomas Buberl\nVorstand: Dr. Alexander Vollert, Vorsitzender; Dr. Andrea van Aubel, Dr. Patrick Dahmen, Thierry Daucourt, Jens Hasselbächer,\nFrank Hüppelshäuser, Dr. Nils Kaschner, Dr. Thilo Schumacher, Dr. Astrid Stange, Jens Warkentin\n-------------------------------------------------------------------------\nDer Inhalt dieser E-Mail ist vertraulich und ausschliesslich fuer den\nbezeichneten Adressaten oder dessen Vertreter bestimmt. Sollten Sie\nnicht der vorgesehene Adressat dieser E-Mail oder dessen Vertreter sein,\nso bitten wir Sie, sich mit dem Absender der E-Mail in Verbindung zu\nsetzen. Beachten Sie bitte, dass jede Form der unautorisierten Nutzung,\nVeroeffentlichung, Vervielfaeltigung oder Weitergabe des Inhaltes dieser\nE-Mail nicht gestattet ist.\n-------------------------------------------------------------------------\nThis message contains confidential information and is exclusively for the\nperson addressed or their representative. If you are not the intended\nrecipient of this message and its contents, please notify the sender\nimmediately. Any form of unauthorised use, publication, reproduction,\ncopying or disclosure of the content of the e-mail is not permitted.\n=========================================================================\n",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-26T13:05:00.119+0100",
+          "updated": "2017-01-26T13:05:00.119+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103365",
+          "id": "103365",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Ah jetzt verstehe ich es... jedenfalls teils, da ich nicht direkt nachvollziehen kann wieso Greenshot absturzt aber glauben tue ich es schon.\r\n\r\nÜber wie viele Pages reden wir, grob?\r\n\r\nIch selber bin grundsätzlich schon nicht so zufrieden mit die OneNote Integration, bin aber kein richtige Benutzer.\r\nMir würde es mal interessieren was euer Anwendungsfall ist, damit ich eventuell mir eine Lösung überlegen kann.\r\n\r\nEigentlich macht es keinen Sinn alle anzuzeigen, aber die Frage ist welche wäre interessant?\r\nHabe z.B. einen \"isCurrentlyViewed\" Attribute in der Page, was tatsächlich der *aktuell* (jetzt) angezeigte OneNote Page ist.\r\nKönnte z.B. nur dieses nehmen, was ist aber wenn gerade nichts angeschaut wird?\r\n\r\nUnd einen Fehler habe ich noch gefunden, der gleiche wir bei jeder export (was ich behoben habe) aber jetzt nur bei das erstellen einen neuen Page.\r\n",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-26T15:06:34.452+0100",
+          "updated": "2017-01-26T15:06:34.452+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103402",
+          "id": "103402",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Hallo Robin,\r\nwir haben ca. 17 Abschnitte im Notizbuch. In den Abschnitten sind zwischen 1 und 100 Seiten.\r\n\r\nIn OneNote haben wir eine Sammlung von Lösungen für Probleme, die Anwender in den letzten 15 Jahren hatten.\r\nOneNote hat eine OCR-Funktion, mit der Screenshots nach enthaltenen Texten analysiert werden.\r\nDadurch sind Texte aus Fehlermeldungen leicht wiederzufinden über die Suche in OneNote.\r\nZu allen Produkten, die wir betreuen, gibt es einen eigenen Abschnitt.\r\nIn den Seiten des Abschnitts sind die aufgetauchten Probleme und Lösungen jeweils in einer Seite beschrieben.\r\n\r\nEigentlich würde es schon reichen, wenn nur die vorhandenen Abschnitte ausgelesen und angeboten würden.\r\n\r\nHier ein Beispiel:\r\n[cid:image007.jpg@01D2787C.C2B14140]\r\n\r\nP.S.\r\nHeute hängt sich Greenshot leider wieder auf, wenn ich OneNote als Ziel wähle. Anbei die Logdatei\r\n\r\nVon: Another One (JIRA) [mailto:jira@greenshot.atlassian.net]\r\nGesendet: Donnerstag, 26. Januar 2017 15:07\r\nAn: Bourtscheidt, Volker\r\nBetreff: [JIRA] (BUG-2125) Send to OneNote does not work\r\n\r\n[cid:image001.png@01D2787B.58055260]\r\n\r\nAnother One<https://greenshot.atlassian.net/secure/ViewProfile.jspa?name=aone> commented on [Bug] BUG-2125<https://greenshot.atlassian.net/browse/BUG-2125>\r\n\r\n\r\n\r\n\r\nRe: Send to OneNote does not work<https://greenshot.atlassian.net/browse/BUG-2125>\r\n\r\n\r\n\r\nAh jetzt verstehe ich es... jedenfalls teils, da ich nicht direkt nachvollziehen kann wieso Greenshot absturzt aber glauben tue ich es schon.\r\n\r\nÜber wie viele Pages reden wir, grob?\r\n\r\nIch selber bin grundsätzlich schon nicht so zufrieden mit die OneNote Integration, bin aber kein richtige Benutzer.\r\nMir würde es mal interessieren was euer Anwendungsfall ist, damit ich eventuell mir eine Lösung überlegen kann.\r\n\r\nEigentlich macht es keinen Sinn alle anzuzeigen, aber die Frage ist welche wäre interessant?\r\nHabe z.B. einen \"isCurrentlyViewed\" Attribute in der Page, was tatsächlich der aktuell (jetzt) angezeigte OneNote Page ist.\r\nKönnte z.B. nur dieses nehmen, was ist aber wenn gerade nichts angeschaut wird?\r\n\r\nUnd einen Fehler habe ich noch gefunden, der gleiche wir bei jeder export (was ich behoben habe) aber jetzt nur bei das erstellen einen neuen Page.\r\n\r\n\r\n[Add Comment]<https://greenshot.atlassian.net/browse/BUG-2125#add-comment>\r\n\r\nAdd Comment<https://greenshot.atlassian.net/browse/BUG-2125#add-comment>\r\n\r\n\r\n\r\n\r\n\r\n\r\nThis message was sent by Atlassian JIRA (v1000.718.1#100026-sha1:45ff291)\r\n\r\n[Atlassian logo]\r\n\r\n\r\n\r\n\r\n=========================================================================\nAXA Konzern Aktiengesellschaft\nColonia-Allee 10-20, 51067 Köln · Postanschrift: 51171 Köln\nInternet: www.AXA.de\nSitz der Gesellschaft Köln · Handelsregister Köln HR B Nr. 672\nUSt.-Ident-Nr. DE 122786679\nVorsitzender des Aufsichtsrats: Dr. Thomas Buberl\nVorstand: Dr. Alexander Vollert, Vorsitzender; Dr. Andrea van Aubel, Dr. Patrick Dahmen, Thierry Daucourt, Jens Hasselbächer,\nFrank Hüppelshäuser, Dr. Nils Kaschner, Dr. Thilo Schumacher, Dr. Astrid Stange, Jens Warkentin\n-------------------------------------------------------------------------\nDer Inhalt dieser E-Mail ist vertraulich und ausschliesslich fuer den\nbezeichneten Adressaten oder dessen Vertreter bestimmt. Sollten Sie\nnicht der vorgesehene Adressat dieser E-Mail oder dessen Vertreter sein,\nso bitten wir Sie, sich mit dem Absender der E-Mail in Verbindung zu\nsetzen. Beachten Sie bitte, dass jede Form der unautorisierten Nutzung,\nVeroeffentlichung, Vervielfaeltigung oder Weitergabe des Inhaltes dieser\nE-Mail nicht gestattet ist.\n-------------------------------------------------------------------------\nThis message contains confidential information and is exclusively for the\nperson addressed or their representative. If you are not the intended\nrecipient of this message and its contents, please notify the sender\nimmediately. Any form of unauthorised use, publication, reproduction,\ncopying or disclosure of the content of the e-mail is not permitted.\n=========================================================================\n",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-27T09:07:43.441+0100",
+          "updated": "2017-01-27T09:07:43.441+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103406",
+          "id": "103406",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Der Fehler im Log, ist derjenige worüber ich hier geschrieben habe:\r\nhttps://greenshot.atlassian.net/browse/BUG-2125?focusedCommentId=103365&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-103365\r\n\r\nDafür habe ich noch keinen Build gemacht, kommt aber.\r\n\r\nIch muss mich mal überlegen wie ich der OneNote zugriff optimieren kann, so wie es jetzt ist geht es jedenfalls nicht.",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-27T10:07:27.208+0100",
+          "updated": "2017-01-27T10:07:27.208+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103408",
+          "id": "103408",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Also, ich glaube ich werde folgendes machen:\r\nErst mal behebe ich der letzte Fehler, und wir gehen mit dem Bugfix live, soll verhindern das Greenshot nicht funktioniert. (langsam aber trotzdem)\r\nMöchte nicht der Release aufhalten, wollte nämlich am WE der Release machen.\r\n\r\nDann habe ich mir ein wenig Gedanken gemacht, über die Präsentierung von OneNote.\r\n\r\nWerde folgendes Versuchen:\r\n# Die Struktur von Notebook / Section / Page könnte ich in dem Destination Picker abbilden, der aktuell angezeigte Page immer ganz oben, die rest Hierarchisch nach Modifizierung Zeit sortiert. Dazu wäre es selbst möglich die Farben von Notebook & Section zu übernehmen (bekomme ich auch)\r\n# Performance Optimierungen, da muss ich mir mal einiges anschauen:\r\n## vielleicht ist das aktuelle Problem schon die mengen von Menu-Items in einer Ebene...\r\n## Eventuell kriege ich es hin dass ich nur bei einen Laufendes OneNote diese zum auslesen verwenden kann (was der startup vom Prozess verringert)\r\n## Testen kann ich auf ein einfaches XML. Könnte ich eventuell was liefern was von euer Struktur der XML Erstell? (dort stehen NUR die Notebook, Section und Page namen, keinen Content!!) Damit ich realistische Daten habe?\r\n\r\nMit Greenshot 1.x kann ich leider schlecht Sachen parallel machen, in Greenshot 2.x kann ich es dann weiter aktualisieren damit die Aufbau im Hintergrund läuft ohne die restliche Funktionalität zu sperren.\r\n\r\nWenn es okay ist, da ich kein OneNote power User bin, würde es schön sein wenn ihr dann mal dem Vorschlag anschaut?\r\n\r\nP.S.\r\nBzgl. OCR wird in Greenshot 2.x auch was kommen, aber erst mal nur wenn Windows 10 vorhanden ist. Eventuell schaue ich auch noch mal ob ich OneNote dafür verwenden kann, soll angeblich möglich sein.",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-27T12:30:53.450+0100",
+          "updated": "2017-01-27T12:32:14.520+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103409",
+          "id": "103409",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Eventually it's possible to optimize the OneNote access by using the ROT:\r\nhttps://msdn.microsoft.com/en-us/library/windows/desktop/ms695276(v=vs.85).aspx\r\n\r\nDetails:\r\nhttp://adndevblog.typepad.com/autocad/2013/12/accessing-com-applications-from-the-running-object-table.html\r\nhttps://www.codeproject.com/articles/7984/automating-a-specific-instance-of-visual-studio-ne",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-27T12:35:58.225+0100",
+          "updated": "2017-01-27T12:35:58.225+0100",
+          "visibility": {
+            "type": "role",
+            "value": "Developers"
+          }
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103410",
+          "id": "103410",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Example of a XML which comes from: GetHierarchy(HierarchyScope.hsPages, ...)\r\nFrom this is visible that the name of a Page contain the names of the Section and Notebook, when representing this it should be cleaned.\r\n\r\n{code}\r\n<?xml version=\"1.0\"?>\r\n\r\n<one:Notebooks xmlns:one=\"http://schemas.microsoft.com/office/onenote/2010/onenote\">\r\n\t<one:Notebook name=\"Persönlich\" nickname=\"Persönlich\" ID=\"{8A064146-CC4D-4495-8886-26F1E3EA9786}{1}{B0}\"\r\n\t\t\t\tpath=\"..\\OneNote-Notizbücher\\Persönlich\"\r\n\t\t\t\tlastModifiedTime=\"2017-01-26T14:04:58.000Z\" color=\"#FFD869\">\r\n\t\t<one:Section name=\"Allgemein\" ID=\"{D7CE083A-99E4-07E5-33BD-A773264D5531}{1}{B0}\"\r\n\t\t\t\t\tpath=\"..\\OneNote-Notizbücher\\Persönlich\\Allgemein.one\"\r\n\t\t\t\t\tlastModifiedTime=\"2017-01-26T14:04:58.000Z\" color=\"#B49EDE\">\r\n\t\t\t<one:Page ID=\"{60DB02F4-7ECD-4DC8-A216-1C194A6441E8}{1}{B0}\" name=\"Testje!\" dateTime=\"2014-07-29T11:46:37.000Z\"\r\n\t\t\t\t\tlastModifiedTime=\"2014-07-29T11:46:49.000Z\" pageLevel=\"1\" />\r\n\t\t\t<one:Page ID=\"{C913B426-36C6-4898-B521-FBFDB5961545}{1}{B0}\" name=\"Blub\" dateTime=\"2014-07-29T11:56:24.000Z\"\r\n\t\t\t\t\tlastModifiedTime=\"2014-07-29T11:56:37.000Z\" pageLevel=\"1\" />\r\n\t\t\t<one:Page ID=\"{DEF9D830-15D2-4CA0-B51E-0DDE95A976D3}{1}{B0}\" name=\"Seite ohne Titel\"\r\n\t\t\t\t\tdateTime=\"2015-02-10T09:38:43.000Z\" lastModifiedTime=\"2017-01-26T14:04:58.000Z\" pageLevel=\"1\" />\r\n\t\t</one:Section>\r\n\t\t<one:SectionGroup name=\"OneNote_RecycleBin\" ID=\"{5CDC0962-6C78-4D61-AFE6-0753AB00CA8F}{1}{B0}\"\r\n\t\t\t\t\t\tpath=\"..\\OneNote-Notizbücher\\Persönlich\\OneNote_RecycleBin\"\r\n\t\t\t\t\t\tlastModifiedTime=\"2017-01-26T13:14:09.000Z\" isRecycleBin=\"true\">\r\n\t\t\t<one:Section name=\"Gelöschte Seiten\" ID=\"{80BDF89D-77C4-088A-032C-B10C8EF21C6B}{1}{B0}\"\r\n\t\t\t\t\t\tpath=\"..\\OneNote-Notizbücher\\Persönlich\\OneNote_RecycleBin\\OneNote_DeletedPages.one\"\r\n\t\t\t\t\t\tlastModifiedTime=\"2017-01-26T13:14:09.000Z\" color=\"#E1E1E1\" isInRecycleBin=\"true\" isDeletedPages=\"true\" />\r\n\t\t</one:SectionGroup>\r\n\t</one:Notebook>\r\n\t<one:Notebook name=\"Handbuch zu OneNote 2010\" nickname=\"Handbuch zu OneNote 2010\"\r\n\t\t\t\tID=\"{29414AEC-1E0F-41B9-8C46-5F6205073471}{1}{B0}\"\r\n\t\t\t\tpath=\"..\\OneNote-Notizbücher\\Handbuch zu OneNote 2010\"\r\n\t\t\t\tlastModifiedTime=\"2014-11-11T11:59:10.000Z\" color=\"#FFD869\">\r\n\t\t<one:Section name=\"OneNote-Handbuch\" ID=\"{1C330CCF-9E90-0C3A-096E-B6212A54028E}{1}{B0}\"\r\n\t\t\t\t\tpath=\"..\\OneNote-Notizbücher\\Handbuch zu OneNote 2010\\OneNote-Handbuch.one\"\r\n\t\t\t\t\tlastModifiedTime=\"2014-07-29T14:29:31.000Z\" color=\"#B49EDE\">\r\n\t\t\t<one:Page ID=\"{364D706D-76A2-4AC3-B975-233837AF3F98}{1}{B0}\"\r\n\t\t\t\t\tname=\"OneNote  verfolgt geschäftliche, private oder schulische Vorgänge nach.\" dateTime=\"2009-12-15T02:18:20.000Z\"\r\n\t\t\t\t\tlastModifiedTime=\"2014-07-29T10:41:58.000Z\" pageLevel=\"1\">\r\n\t\t\t\t<one:Meta name=\"PageLocID\" content=\"0001\" /><one:Meta name=\"LocVer\" content=\"1\" />\r\n\t\t\t\t<one:Meta name=\"PageVerComment\" content=\"\" /><one:Meta name=\"PageOveride\" content=\"0\" />\r\n\t\t\t</one:Page>\r\n\t\t\t<one:Page ID=\"{9977BA7E-ECCC-40B9-8E22-DB5AACA6ACC9}{1}{B0}\"\r\n\t\t\t\t\tname=\"Handbuch zu OneNote 2010 / OneNote-Handbuch / OneNote - Grundlagen\" dateTime=\"2009-12-15T02:18:20.000Z\"\r\n\t\t\t\t\tlastModifiedTime=\"2014-07-29T14:29:31.000Z\" pageLevel=\"1\">\r\n\t\t\t\t<one:Meta name=\"PageLocID\" content=\"0002\" /><one:Meta name=\"LocVer\" content=\"1\" />\r\n\t\t\t\t<one:Meta name=\"PageVerComment\" content=\"\" /><one:Meta name=\"PageOveride\" content=\"0\" />\r\n\t\t\t</one:Page>\r\n\t\t\t<one:Page ID=\"{49A6F13C-2882-46F1-A378-5F5A70E4D223}{1}{B0}\" name=\"Häufigste Verwendungen\"\r\n\t\t\t\t\tdateTime=\"2009-12-15T02:18:20.000Z\" lastModifiedTime=\"2014-07-29T10:26:37.000Z\" pageLevel=\"1\">\r\n\t\t\t\t<one:Meta name=\"PageLocID\" content=\"0003\" /><one:Meta name=\"LocVer\" content=\"1\" />\r\n\t\t\t\t<one:Meta name=\"PageVerComment\" content=\"\" /><one:Meta name=\"PageOveride\" content=\"0\" />\r\n\t\t\t</one:Page>\r\n\t\t\t<one:Page ID=\"{95F2B952-EEE9-4B1F-857E-77F73B806D6A}{1}{B0}\"\r\n\t\t\t\t\tname=\"Handbuch zu OneNote 2010 / OneNote-Handbuch / Neuigkeiten\" dateTime=\"2009-12-15T02:18:21.000Z\"\r\n\t\t\t\t\tlastModifiedTime=\"2014-07-29T11:45:54.000Z\" pageLevel=\"1\">\r\n\t\t\t\t<one:Meta name=\"PageLocID\" content=\"0004\" /><one:Meta name=\"LocVer\" content=\"1\" />\r\n\t\t\t\t<one:Meta name=\"PageVerComment\" content=\"\" /><one:Meta name=\"PageOveride\" content=\"0\" />\r\n\t\t\t</one:Page>\r\n\t\t\t<one:Page ID=\"{7167B1B9-5AD1-4A4A-BE13-E8226BDDCF59}{1}{B0}\" name=\"Seite ohne Titel\"\r\n\t\t\t\t\tdateTime=\"2013-09-12T13:08:47.000Z\" lastModifiedTime=\"2014-07-23T08:29:32.000Z\" pageLevel=\"1\" />\r\n\t\t</one:Section>\r\n\t\t<one:Section name=\"Neuer Abschnitt 1\" ID=\"{3B09C879-4A81-4016-B752-656F5BDABEBA}{1}{B0}\"\r\n\t\t\t\t\tpath=\"..\\OneNote-Notizbücher\\Handbuch zu OneNote 2010\\Neuer Abschnitt 1.one\"\r\n\t\t\t\t\tlastModifiedTime=\"2014-11-11T11:59:10.000Z\" color=\"#B49EDE\">\r\n\t\t\t<one:Page ID=\"{7D02A767-B0B8-4F74-9250-1912E44DF447}{1}{B0}\" name=\"Seite ohne Titel\"\r\n\t\t\t\t\tdateTime=\"2014-11-11T11:59:08.000Z\" lastModifiedTime=\"2014-11-11T11:59:08.000Z\" pageLevel=\"1\" />\r\n\t\t</one:Section>\r\n\t</one:Notebook>\r\n\t<one:UnfiledNotes ID=\"{041F7E1C-CD71-4545-9D71-96ACB3A989BC}{1}{B0}\">\r\n\t\t<one:Section name=\"Nicht abgelegte Notizen\" ID=\"{E3AFAB67-E4E8-0F90-1237-DBC4172895EE}{1}{B0}\"\r\n\t\t\t\t\tpath=\"..\\OneNote-Notizbücher\\Nicht abgelegte Notizen.one\"\r\n\t\t\t\t\tlastModifiedTime=\"2017-01-26T16:08:34.000Z\" color=\"#B7C997\">\r\n\t\t\t<one:Page ID=\"{44B14C2D-7560-4FE4-87A3-2118A2989422}{1}{B0}\" name=\"Seite ohne Titel - Microsoft OneNote\"\r\n\t\t\t\t\tdateTime=\"2017-01-26T16:08:32.000Z\" lastModifiedTime=\"2017-01-26T16:08:33.000Z\" pageLevel=\"1\" />\r\n\t\t</one:Section>\r\n\t</one:UnfiledNotes>\r\n</one:Notebooks>\r\n{code}",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-27T12:39:09.200+0100",
+          "updated": "2017-01-27T12:42:00.643+0100",
+          "visibility": {
+            "type": "role",
+            "value": "Developers"
+          }
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103413",
+          "id": "103413",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Hallo Robin,\r\ndass Du dich so um die OneNote Schnittstelle kümmern willst, begrüße ich sehr und es freut mich sehr.\r\nDa wir bei AXA Deutschland ja noch mit OneNote 2010 arbeiten, das nicht in der Lage ist, mit dem internen Screenshot-Programm (Windows-Taste + s) ein Bild an einen gewünschten Standort legt, sondern immer eine neue Seite erzeugt, nutzen die Anwender gerne Greenshot.\r\nHäufig will man ja mehrere Schnappschüsse machen und sie immer hintereinander auf einer bestimmten Seite ablegen.\r\n\r\nWenn es hierfür eine Lösung in Greenshot geben würde, wäre das eine große Hilfe.\r\n\r\nVerstehe ich dich richtig, dass ich dir für Tests ein Notizbuch zur Verfügung stellen soll?\r\nIch könnte ein Notizbuch erstellen mit genau den gleichen Abschnitten und Seiten ohne oder mit nur sehr wenig Inhalt.\r\nDas muss ja per Mail transportierbar bleiben.\r\n\r\nWenn das der Fall ist, gib mir bitte kurz eine Rückmeldung. Dann kann ich das Anfang kommender Woche angehen.\r\n\r\nViele Grüße\r\nVolker\r\n\r\nVon: Another One (JIRA) [mailto:jira@greenshot.atlassian.net]\r\nGesendet: Freitag, 27. Januar 2017 12:32\r\nAn: Bourtscheidt, Volker\r\nBetreff: [JIRA] (BUG-2125) Send to OneNote does not work\r\n\r\n[cid:image001.png@01D278AB.54311810]\r\n\r\nAnother One<https://greenshot.atlassian.net/secure/ViewProfile.jspa?name=aone> edited a comment on [Bug] BUG-2125<https://greenshot.atlassian.net/browse/BUG-2125>\r\n\r\n\r\n\r\n\r\nRe: Send to OneNote does not work<https://greenshot.atlassian.net/browse/BUG-2125>\r\n\r\n\r\nAlso, ich glaube ich werde folgendes machen:\r\nErst mal behebe ich der letzte Fehler, und wir gehen mit dem Bugfix live, soll verhindern das Greenshot nicht funktioniert. (langsam aber trotzdem)\r\nMöchte nicht der Release aufhalten, wollte nämlich am WE der Release machen.\r\n\r\nDann habe ich mir ein wenig gedanken Gedanken gemacht, über die Presentierung Präsentierung von OneNote.\r\n\r\nWerde folgendes Versuchen:\r\n# Die Struktur von Notebook / Section / Page könnte ich in dem Destination Picker abbilden, der aktuel aktuell angezeigte Page immer ganz oben, die rest Hierarchisch nach modifizierungszeit Modifizierung Zeit sortiert. Dazu wäre es selbst möglich die Farben von Notebook & Section zu übernehmen (bekomme ich auch)\r\n# Performance optimierungen Optimierungen , da muss ich mir mal einiges anschauen:\r\n## vielleicht ist das aktuelle Problem schon die mengen von Menu-Items in einer Ebene...\r\n## Eventuell kriege ich es hin dass ich nur bei einen Laufendes OneNote diese zum auslesen verwenden kann (was der startup vom Prozess verringert)\r\n## Testen kann ich auf ein einfaches XML. Könnte ich eventuell was liefern was von euer Struktur der XML Erstell? (dort stehen NUR die Notebook, Section und Page namen, keinen Content!!) Damit ich relatische realistische Daten habe?\r\n\r\nMit Greenshot 1.x kann ich leider schlecht Sachen parallel machen, in Greenshot 2.x kann ich es dann weiter aktualiseren aktualisieren damit die Aufbau im hintergrund Hintergrund läuft ohne die restliche Funktionalität zu sperren.\r\n\r\nWenn es okay ist, da ich kein OneNote power user User bin, würde es schön sein wenn ihr dann mal dem Vorschlag anschaut?\r\n\r\nP.S.\r\nBzgl. OCR wird in Greenshot 2.x auch was kommen, aber erst mal nur wenn Windows 10 vorhanden ist. Eventuell schaue ich auch noch mal ob ich OneNote dafür verwenden kann, soll angeblich möglich sein.\r\n\r\n\r\n[Add Comment]<https://greenshot.atlassian.net/browse/BUG-2125#add-comment>\r\n\r\nAdd Comment<https://greenshot.atlassian.net/browse/BUG-2125#add-comment>\r\n\r\n\r\n\r\n\r\n\r\n\r\nThis message was sent by Atlassian JIRA (v1000.718.3#100026-sha1:529d721)\r\n\r\n[Atlassian logo]\r\n\r\n\r\n\r\n\r\n=========================================================================\nAXA Konzern Aktiengesellschaft\nColonia-Allee 10-20, 51067 Köln · Postanschrift: 51171 Köln\nInternet: www.AXA.de\nSitz der Gesellschaft Köln · Handelsregister Köln HR B Nr. 672\nUSt.-Ident-Nr. DE 122786679\nVorsitzender des Aufsichtsrats: Dr. Thomas Buberl\nVorstand: Dr. Alexander Vollert, Vorsitzender; Dr. Andrea van Aubel, Dr. Patrick Dahmen, Thierry Daucourt, Jens Hasselbächer,\nFrank Hüppelshäuser, Dr. Nils Kaschner, Dr. Thilo Schumacher, Dr. Astrid Stange, Jens Warkentin\n-------------------------------------------------------------------------\nDer Inhalt dieser E-Mail ist vertraulich und ausschliesslich fuer den\nbezeichneten Adressaten oder dessen Vertreter bestimmt. Sollten Sie\nnicht der vorgesehene Adressat dieser E-Mail oder dessen Vertreter sein,\nso bitten wir Sie, sich mit dem Absender der E-Mail in Verbindung zu\nsetzen. Beachten Sie bitte, dass jede Form der unautorisierten Nutzung,\nVeroeffentlichung, Vervielfaeltigung oder Weitergabe des Inhaltes dieser\nE-Mail nicht gestattet ist.\n-------------------------------------------------------------------------\nThis message contains confidential information and is exclusively for the\nperson addressed or their representative. If you are not the intended\nrecipient of this message and its contents, please notify the sender\nimmediately. Any form of unauthorised use, publication, reproduction,\ncopying or disclosure of the content of the e-mail is not permitted.\n=========================================================================\n",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-27T14:47:44.474+0100",
+          "updated": "2017-01-27T14:47:44.474+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103419",
+          "id": "103419",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Hallo Volker,\r\n\r\nNaja, ist doch klar das ich mich darum kümmere, der Axa kümmert sich doch auch um seine Kunden (mich)?\r\nDazu wart ihr bestimmt sehr großzügig mit euer Spenden, da ihr Greenshot durch die ganze Firma nutzt und damit viel Geld sparen könnte. :)\r\n\r\nSpaß beiseite, mit https://github.com/greenshot/greenshot/releases/tag/Greenshot-UNSTABLE-1.2.9.127 ist die andere Fehler auch behoben. Da bleibt uns dann nur noch die grottenschlechte Performance, und die verbesserte Darstellung.\r\n\r\nWas ich brauche ist der output von einen Tool, welches ich liefern kann.\r\nDieses erstellt einen XML von der Hierarchie von euer Notebooks / sections und pages, mehr nicht.\r\n\r\nKönntest du das noch mal erklären:\r\nbq. Häufig will man ja mehrere Schnappschüsse machen und sie immer hintereinander auf einer bestimmten Seite ablegen. Wenn es hierfür eine Lösung in Greenshot geben würde, wäre das eine große Hilfe. \r\n\r\nIch bin wie gesagt nicht der OneNote power user, bin mich (Scham) nicht mal genau sicher wie das verhalten aktuell ist.\r\n\r\nViele Grüße,\r\nRobin",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-27T22:00:30.455+0100",
+          "updated": "2017-01-27T22:00:30.455+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103421",
+          "id": "103421",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Ich habe schnell ein kleine Anwendung angehängt, dieses liest die OneNote Struktur aus (ist XML) und schreibt diese in einen .txt File \"hierarchie.txt\" auf der Desktop.\r\nDazu werden alle Path werte gelöscht, damit es kein Firmen-Laufwerk Struktur oder ähnliches gibt.\r\nDie Namen von Notebook / Section und Pages sind aber noch drin.\r\nBitte anschauen, es wird automatisch geöffnet, wenn es irgendwelche Daten drin gibt die irgendwie nicht nach außen gehen dürfen dann lasse es.\r\n\r\nSonst bitte der \"hierarchie.txt\" file hier anhängen bitte, werde es auch wieder löschen.",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-28T16:23:36.600+0100",
+          "updated": "2017-01-28T16:23:36.600+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103426",
+          "id": "103426",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "With the latest build, the OneNote plugin should be a lot more stable.\r\nThere is still a long delay when the user has a lot of pages, but in general it should work again.\r\n\r\nFor the bug itself, I am closing the ticket.\r\nWe should continue working on a better performance and maybe a better representation in another ticket.",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-28T16:35:02.360+0100",
+          "updated": "2017-01-28T16:35:02.360+0100"
+        },
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/comment/103439",
+          "id": "103439",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "body": "Good morning, Robin,\r\nyou are doing a remarkable job. Thank you.\r\nUnfortunately our security systems deleted the attachment.\r\nAn exe-file never will be allowed.\r\nThe only way goes via a download-link.\r\nI have special rights for downloads.\r\n\r\nThe following link for the unstable version is not valid:\r\nhttps://github.com/greenshot/greenshot/releases/tag/Greenshot-UNSTABLE-1.2.9.127\r\n\r\nThis is the result:\r\n[cid:image001.jpg@01D27AC5.A1D03AD0]\r\n\r\nRegards\r\n\r\nVolker\r\n\r\n\r\n\r\nVon: Another One (JIRA) [mailto:jira@greenshot.atlassian.net]\r\nGesendet: Samstag, 28. Januar 2017 16:19\r\nAn: Bourtscheidt, Volker\r\nBetreff: [JIRA] (BUG-2125) Send to OneNote does not work\r\n\r\n[cid:image002.png@01D27AC5.A1D03AD0]\r\n\r\nAnother One<https://greenshot.atlassian.net/secure/ViewProfile.jspa?name=aone> updated an issue\r\n\r\n\r\n\r\n\r\nGreenshot bugs<https://greenshot.atlassian.net/browse/BUG> / [Bug] <https://greenshot.atlassian.net/browse/BUG-2125> BUG-2125<https://greenshot.atlassian.net/browse/BUG-2125>\r\n\r\nSend to OneNote does not work<https://greenshot.atlassian.net/browse/BUG-2125>\r\n\r\n\r\nChange By:\r\n\r\nAnother One<https://greenshot.atlassian.net/secure/ViewProfile.jspa?name=aone>\r\n\r\nAttachment:\r\n\r\nCreateHierachy.exe\r\n\r\n\r\n[Add Comment]<https://greenshot.atlassian.net/browse/BUG-2125#add-comment>\r\n\r\nAdd Comment<https://greenshot.atlassian.net/browse/BUG-2125#add-comment>\r\n\r\n\r\n\r\n\r\n\r\n\r\nThis message was sent by Atlassian JIRA (v1000.718.3#100026-sha1:529d721)\r\n\r\n[Atlassian logo]\r\n\r\n\r\n\r\n\r\n=========================================================================\nAXA Konzern Aktiengesellschaft\nColonia-Allee 10-20, 51067 Köln · Postanschrift: 51171 Köln\nInternet: www.AXA.de\nSitz der Gesellschaft Köln · Handelsregister Köln HR B Nr. 672\nUSt.-Ident-Nr. DE 122786679\nVorsitzender des Aufsichtsrats: Dr. Thomas Buberl\nVorstand: Dr. Alexander Vollert, Vorsitzender; Dr. Andrea van Aubel, Dr. Patrick Dahmen, Thierry Daucourt, Jens Hasselbächer,\nFrank Hüppelshäuser, Dr. Nils Kaschner, Dr. Thilo Schumacher, Dr. Astrid Stange, Jens Warkentin\n-------------------------------------------------------------------------\nDer Inhalt dieser E-Mail ist vertraulich und ausschliesslich fuer den\nbezeichneten Adressaten oder dessen Vertreter bestimmt. Sollten Sie\nnicht der vorgesehene Adressat dieser E-Mail oder dessen Vertreter sein,\nso bitten wir Sie, sich mit dem Absender der E-Mail in Verbindung zu\nsetzen. Beachten Sie bitte, dass jede Form der unautorisierten Nutzung,\nVeroeffentlichung, Vervielfaeltigung oder Weitergabe des Inhaltes dieser\nE-Mail nicht gestattet ist.\n-------------------------------------------------------------------------\nThis message contains confidential information and is exclusively for the\nperson addressed or their representative. If you are not the intended\nrecipient of this message and its contents, please notify the sender\nimmediately. Any form of unauthorised use, publication, reproduction,\ncopying or disclosure of the content of the e-mail is not permitted.\n=========================================================================\n",
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=soneone",
+            "name": "soneone",
+            "key": "soneone",
+            "avatarUrls": {
+              "48x48": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=48",
+              "24x24": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=24",
+              "16x16": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=16",
+              "32x32": "https://secure.gravatar.com/avatar/8626e5a50b6140e10eb04ea191a0b1fe?d=mm&s=32"
+            },
+            "displayName": "Some One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "created": "2017-01-30T06:54:54.633+0100",
+          "updated": "2017-01-30T06:54:54.633+0100"
+        }
+      ],
+      "maxResults": 23,
+      "total": 23,
+      "startAt": 0
+    },
+    "votes": {
+      "self": "https://greenshot.atlassian.net/rest/api/2/issue/BUG-2125/votes",
+      "votes": 0,
+      "hasVoted": false
+    },
+    "worklog": {
+      "startAt": 0,
+      "maxResults": 20,
+      "total": 1,
+      "worklogs": [
+        {
+          "self": "https://greenshot.atlassian.net/rest/api/2/issue/53102/worklog/13209",
+          "author": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "updateAuthor": {
+            "self": "https://greenshot.atlassian.net/rest/api/2/user?username=aone",
+            "name": "aone",
+            "key": "aone",
+            "avatarUrls": {
+              "48x48": "https://greenshot.atlassian.net/secure/useravatar?ownerId=aone&avatarId=10600",
+              "24x24": "https://greenshot.atlassian.net/secure/useravatar?size=small&ownerId=aone&avatarId=10600",
+              "16x16": "https://greenshot.atlassian.net/secure/useravatar?size=xsmall&ownerId=aone&avatarId=10600",
+              "32x32": "https://greenshot.atlassian.net/secure/useravatar?size=medium&ownerId=aone&avatarId=10600"
+            },
+            "displayName": "Another One",
+            "active": true,
+            "timeZone": "Europe/Berlin"
+          },
+          "comment": "I already found the issue, anyways can you please test it to confirm the fix?\r\n\r\nThe version of Greenshot to test can be found here:\r\nhttps://github.com/greenshot/greenshot/releases/tag/Greenshot-UNSTABLE-1.2.9.124",
+          "created": "2017-01-26T09:16:20.233+0100",
+          "updated": "2017-01-26T09:16:20.233+0100",
+          "started": "2017-01-26T09:06:00.000+0100",
+          "timeSpent": "1h",
+          "timeSpentSeconds": 3600,
+          "id": "13209",
+          "issueId": "53102"
+        }
+      ]
+    }
+  }
+}

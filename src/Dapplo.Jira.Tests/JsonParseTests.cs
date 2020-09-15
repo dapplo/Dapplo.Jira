@@ -35,7 +35,7 @@ namespace Dapplo.Jira.Tests
         public void TestParseIssue()
         {
             var json = File.ReadAllText(Path.Combine(_testFileLocation, "issue.json"));
-            
+
             var issue = (Issue)_jsonSerializer.Deserialize(typeof(Issue), json);
             Assert.NotNull(issue);
         }
@@ -59,10 +59,20 @@ namespace Dapplo.Jira.Tests
             Assert.True(projects.Count > 0);
             Assert.Contains(projects, digest => "Greenshot bugs".Equals(digest.Name));
         }
+
         [Fact]
-        public void TestParseAgileIssue()
+        public void TestParseAgileIssueOld()
         {
-            var json = File.ReadAllText(Path.Combine(_testFileLocation, "agileIssue.json"));
+            var json = File.ReadAllText(Path.Combine(_testFileLocation, "agileIssueOld.json"));
+            var issue = (AgileIssue)_jsonSerializer.Deserialize(typeof(AgileIssue), json);
+            Assert.NotNull(issue);
+            Assert.NotNull(issue.Sprint);
+        }
+
+        [Fact]
+        public void TestParseAgileIssueNew()
+        {
+            var json = File.ReadAllText(Path.Combine(_testFileLocation, "agileIssueNew.json"));
             var issue = (AgileIssue)_jsonSerializer.Deserialize(typeof(AgileIssue), json);
             Assert.NotNull(issue);
             Assert.NotNull(issue.Sprint);
