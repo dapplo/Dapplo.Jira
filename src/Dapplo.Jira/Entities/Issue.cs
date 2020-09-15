@@ -12,5 +12,5 @@ namespace Dapplo.Jira.Entities
 	[JsonObject]
 	public class Issue : IssueWithFields<IssueFields>
 	{
-	}
+    }
 }

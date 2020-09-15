@@ -44,7 +44,7 @@ namespace Dapplo.Jira.Tests
         [Fact]
         public async Task Test_GetIssueTransitions()
         {
-            var issueTransitions = await Client.Issue.GetIssueTransitionsAsync(TestIssueKey);
+            var issueTransitions = await Client.Issue.GetTransitionsAsync(TestIssueKey);
             Assert.NotEmpty(issueTransitions);
         }
 
@@ -82,7 +82,7 @@ namespace Dapplo.Jira.Tests
         {
             var issueInitial = await Client.Issue.GetAsync(TestIssueKey);
             Assert.Equal("To Do", issueInitial.Fields.Status.Name);
-			var possibleTransitions = await Client.Issue.GetIssueTransitionsAsync(TestIssueKey);
+			var possibleTransitions = await Client.Issue.GetTransitionsAsync(TestIssueKey);
             Assert.NotEmpty(possibleTransitions);
 
 			// Set the issue to the state "In Progress"
@@ -213,7 +213,7 @@ namespace Dapplo.Jira.Tests
 			};
 			HttpBehaviour.Current.SetConfig(defaultJsonHttpContentConverterConfiguration);
 			JiraConfig.ExpandGetTransitions = new[] {"transitions.fields"};
-			var transitions = await Client.Issue.GetPossibleTransitionsAsync(TestIssueKey);
+			var transitions = await Client.Issue.GetTransitionsAsync(TestIssueKey);
 			Assert.NotNull(transitions);
 			Assert.True(transitions.Count > 0);
 			Assert.NotNull(transitions[0].PossibleFields);

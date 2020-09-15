@@ -17,7 +17,7 @@ namespace Dapplo.Jira
     /// <summary>
     ///     This holds all the filter related extension methods
     /// </summary>
-    public static class FilterExtensions
+    public static class FilterDomainExtensions
     {
         private static readonly LogSource Log = new LogSource();
 

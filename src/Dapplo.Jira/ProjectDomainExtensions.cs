@@ -17,7 +17,7 @@ namespace Dapplo.Jira
     /// <summary>
     ///     This holds all the project related extensions methods
     /// </summary>
-    public static class ProjectExtensions
+    public static class ProjectDomainExtensions
     {
         private static readonly LogSource Log = new LogSource();
 

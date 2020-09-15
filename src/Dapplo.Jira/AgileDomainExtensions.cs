@@ -17,7 +17,7 @@ namespace Dapplo.Jira
     /// <summary>
     ///     This holds all the issue related extensions methods
     /// </summary>
-    public static class AgileExtensions
+    public static class AgileDomainExtensions
     {
         /// <summary>
         ///     Add comment to the specified issue

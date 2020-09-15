@@ -13,7 +13,7 @@ namespace Dapplo.Jira
     /// <summary>
     ///     This holds all the greenhopper related extensions methods
     /// </summary>
-    public static class GreenhopperExtensions
+    public static class GreenhopperDomainExtensions
     {
         /// <summary>
         ///     This is a <i>not documented endpont</i>, and could fail with every update.

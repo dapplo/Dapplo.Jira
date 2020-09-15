@@ -21,7 +21,7 @@ namespace Dapplo.Jira
     /// <summary>
     ///     This holds all the user session extension methods
     /// </summary>
-    public static class SessionExtensions
+    public static class SessionDomainExtensions
     {
         private static readonly LogSource Log = new LogSource();
 

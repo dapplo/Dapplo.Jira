@@ -16,7 +16,7 @@ namespace Dapplo.Jira
     /// <summary>
     ///     This holds all the attachment related extension methods
     /// </summary>
-    public static class AttachmentExtensions
+    public static class AttachmentDomainExtensions
     {
         private static readonly LogSource Log = new LogSource();
 

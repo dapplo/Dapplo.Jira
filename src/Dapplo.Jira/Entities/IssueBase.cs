@@ -19,12 +19,30 @@ namespace Dapplo.Jira.Entities
 		public string Key { get; set; }
 
 		/// <summary>
-		///     Gets or sets the changelogs.
+		///     Gets or sets the change logs.
 		/// </summary>
 		/// <value>
-		///     The changelogs.
+		///     The change logs.
 		/// </value>
 		[JsonProperty("changelog")]
 		public Changelog Changelog { get; set; }
+
+		/// <summary>
+		/// Specify the IJiraClient used to perform certain actions with
+		/// </summary>
+		/// <param name="jiraClient"></param>
+		/// <returns>IssueBase (this)</returns>
+        public IssueBase WithClient(IJiraClient jiraClient)
+        {
+            AssociatedJiraClient = jiraClient;
+            return this;
+        }
+
+        /// <summary>
+        /// The JiraClient which is associated with this issue.
+        /// In general this is the JiraClient which was used to retrieve the issue
+        /// </summary>
+        [JsonIgnore]
+        public IJiraClient AssociatedJiraClient { get; private set; }
 	}
 }

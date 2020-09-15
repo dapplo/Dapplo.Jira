@@ -16,7 +16,7 @@ namespace Dapplo.Jira
     /// <summary>
     ///     This holds all the user related extension methods
     /// </summary>
-    public static class UserExtensions
+    public static class UserDomainExtensions
     {
         private static readonly LogSource Log = new LogSource();
 

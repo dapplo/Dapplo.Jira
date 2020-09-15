@@ -16,7 +16,7 @@ namespace Dapplo.Jira.Entities
         /// The new transition
         /// </summary>
         [JsonProperty("transition")]
-        public IssueTransition IssueTransition { get; set; }
+        public Transition Transition { get; set; }
 
         /// <summary>
         ///     Container for issue updates

@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace Dapplo.Jira.Entities
 {
 	/// <summary>
-	///     Container for pagable information in a result
+	///     Container for pageable information in a result
 	/// </summary>
 	[JsonObject]
 	public class PageableResult : Page

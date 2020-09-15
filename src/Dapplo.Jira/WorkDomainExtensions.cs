@@ -18,7 +18,7 @@ namespace Dapplo.Jira
     /// <summary>
     ///     This holds all the work log related extension methods
     /// </summary>
-    public static class WorkExtensions
+    public static class WorkDomainExtensions
     {
         private static readonly LogSource Log = new LogSource();
 

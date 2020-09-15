@@ -31,10 +31,16 @@ namespace Dapplo.Jira.Entities
 		[JsonProperty("issues")]
 		public IList<TIssue> Issues { get; set; }
 
-	    /// <summary>
-	    ///     Nummber of items in the result
-	    /// </summary>
-	    [JsonIgnore]
+		/// <summary>
+		///     Contains a dictionary with the the display name of each field.
+		/// </summary>
+		[JsonProperty("names")]
+        public IDictionary<string, string> FieldDisplayNames { get; set; }
+
+        /// <summary>
+		///     Number of items in the result
+		/// </summary>
+		[JsonIgnore]
 	    public int Count => Issues?.Count ?? 0;
 
 	    /// <summary>

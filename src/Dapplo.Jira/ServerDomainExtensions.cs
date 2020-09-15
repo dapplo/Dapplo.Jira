@@ -17,7 +17,7 @@ namespace Dapplo.Jira
     /// <summary>
 	///     This holds all the server related extensions methods
 	/// </summary>
-	public static class ServerExtensions
+	public static class ServerDomainExtensions
 	{
 		private static readonly LogSource Log = new LogSource();
 
