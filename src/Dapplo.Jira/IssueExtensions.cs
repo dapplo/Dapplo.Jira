@@ -54,5 +54,17 @@ namespace Dapplo.Jira
         {
             return issue.AssociatedJiraClient.Issue.AddCommentAsync(issue.Key, comment, visibility, cancellationToken);
         }
+
+        /// <summary>
+        /// Assign the issue to someone
+        /// </summary>
+        /// <param name="issue">Issue to comment</param>
+        /// <param name="newUser">User to assign to</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <returns>Task</returns>
+        public static Task AssignAsync(this IssueBase issue, User newUser, CancellationToken cancellationToken = default)
+        {
+            return issue.AssociatedJiraClient.Issue.AssignAsync(issue.Key, newUser, cancellationToken);
+        }
     }
 }

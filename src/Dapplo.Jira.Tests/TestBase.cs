@@ -21,7 +21,7 @@ namespace Dapplo.Jira.Tests
         protected const string TestIssueKey2 = "DIT-123";
 
 		// Test against a well known JIRA
-		private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
+		protected static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
 
 		/// <summary>
 		///     Default test setup, can also take care of setting the authentication

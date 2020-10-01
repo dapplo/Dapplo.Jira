@@ -23,13 +23,5 @@ This client has support for:
 
 For examples on how to use this library, I advice you to look at the test cases.
 
-A simple exampe to find issues, and output their description
-```
-var jiraClient = JiraClient.Create(new Uri("https://jira"));
-jiraClient.SetBasicAuthentication(username, password);
-var searchResult = await jiraClient.Issue.SearchAsync(Where.Text.Contains("my text"));
-foreach (var issue in searchResult.Issues)
-{
-	Debug.WriteLine(issue.Fields.Description);
-}
-```
+A exampe to find issues which are assigned to someone who is currently (or langer) not available, and remove the assignment
+snippet: SearchExample
