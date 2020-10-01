@@ -23,5 +23,27 @@ This client has support for:
 
 For examples on how to use this library, I advice you to look at the test cases.
 
-A exampe to find issues which are assigned to someone who is currently (or langer) not available, and remove the assignment
-snippet: SearchExample
+A example to find issues which are assigned to someone who is currently (or langer) not available, and remove the assignment
+<!-- snippet: SearchExample -->
+<a id='snippet-searchexample'></a>
+```cs
+var client = JiraClient.Create(TestJiraUri);
+// Preferably use a "bot" user for maintenance
+var username = Environment.GetEnvironmentVariable("jira_test_username");
+var password = Environment.GetEnvironmentVariable("jira_test_password");
+client.SetBasicAuthentication(username, password);
+
+const string unavailableUser = "Robin Krom";
+// Find all issues in a certain state and assigned to a user who is not available
+var searchResult = await client.Issue.SearchAsync(Where.And(Where.Assignee.Is(unavailableUser), Where.Status.Is("Building")));
+
+foreach (var issue in searchResult.Issues)
+{
+    // Remote the assignment, to make clear no-one is working on it
+    await issue.AssignAsync(User.Nobody);
+    // Comment the reason to the issue
+    await issue.AddCommentAsync($"{unavailableUser} is currently not available.");
+}
+```
+<sup><a href='/src/Dapplo.Jira.Tests/IssueTests.cs#L226-L244' title='File snippet `searchexample` was extracted from'>snippet source</a> | <a href='#snippet-searchexample' title='Navigate to start of snippet `searchexample`'>anchor</a></sup>
+<!-- endSnippet -->
