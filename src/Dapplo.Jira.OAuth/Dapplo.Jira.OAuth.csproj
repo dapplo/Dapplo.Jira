@@ -1,10 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <Description>OAuth addition for Dapplo.Jira</Description>
-    <AssemblyTitle>Dapplo.Jira.OAuth</AssemblyTitle>
     <TargetFrameworks>net461;netcoreapp3.1</TargetFrameworks>
-    <AssemblyName>Dapplo.Jira.OAuth</AssemblyName>
-    <PackageId>Dapplo.Jira.OAuth</PackageId>
     <PackageTags>atlassian;jira;dapplo</PackageTags>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
