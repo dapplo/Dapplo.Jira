@@ -1,4 +1,4 @@
-# Dapplo.Jira <!-- include: readme.md. path: /readme.md -->
+# Dapplo.Jira <!-- include: readme.md. path: /README.md -->
 This is a simple REST based JIRA client, written for Greenshot, by using Dapplo.HttpExtension
 
 - Documentation: [Dapplo.Jira](https://www.dapplo.net/Dapplo.Jira/index.html)
