@@ -1,4 +1,4 @@
-# Dapplo.Jira <!-- include: readme.md. path: /README.md -->
+# Dapplo.Jira <!-- include: readme.md -->
 This is a simple REST based JIRA client, written for Greenshot, by using Dapplo.HttpExtension
 
 - Documentation: [Dapplo.Jira](https://www.dapplo.net/Dapplo.Jira/index.html)
@@ -27,7 +27,7 @@ For examples on how to use this library, I advice you to look at the test cases.
 
 A example to find issues which are assigned to someone who is currently (or langer) not available, and remove the assignment
 <!-- snippet: SearchExample -->
-<a id='snippet-searchexample'></a>
+<a id='2cc28931'></a>
 ```cs
 var client = JiraClient.Create(TestJiraUri);
 // Preferably use a "bot" user for maintenance
@@ -47,6 +47,6 @@ foreach (var issue in searchResult.Issues)
     await issue.AddCommentAsync($"{unavailableUser} is currently not available.");
 }
 ```
-<sup><a href='/src/Dapplo.Jira.Tests/IssueTests.cs#L226-L244' title='File snippet `searchexample` was extracted from'>snippet source</a> | <a href='#snippet-searchexample' title='Navigate to start of snippet `searchexample`'>anchor</a></sup>
+<sup><a href='/src/Dapplo.Jira.Tests/IssueTests.cs#L226-L244' title='Snippet source file'>snippet source</a> | <a href='#2cc28931' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 <!-- endInclude -->
