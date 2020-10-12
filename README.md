@@ -27,7 +27,7 @@ For examples on how to use this library, I advice you to look at the test cases.
 
 A example to find issues which are assigned to someone who is currently (or langer) not available, and remove the assignment
 <!-- snippet: SearchExample -->
-<a id='2cc28931'></a>
+<a id='snippet-searchexample'></a>
 ```cs
 var client = JiraClient.Create(TestJiraUri);
 // Preferably use a "bot" user for maintenance
@@ -47,5 +47,5 @@ foreach (var issue in searchResult.Issues)
     await issue.AddCommentAsync($"{unavailableUser} is currently not available.");
 }
 ```
-<sup><a href='/src/Dapplo.Jira.Tests/IssueTests.cs#L226-L244' title='Snippet source file'>snippet source</a> | <a href='#2cc28931' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Dapplo.Jira.Tests/IssueTests.cs#L226-L244' title='Snippet source file'>snippet source</a> | <a href='#snippet-searchexample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
