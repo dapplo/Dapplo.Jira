@@ -1,6 +1,6 @@
 # Jira Query Language (JQL) with Dapplo.Jira
 
-This acticle is not written to explain you what JQL is and how to use it, but will explain what Dapplo.Jira brings to help you.
+This article is not written to explain you what JQL is and how to use it, but will explain what Dapplo.Jira brings to help you.
 To read more about JQL, have a look here:
 https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql
 https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html
@@ -18,4 +18,4 @@ Use Where.And or Where.Or to combine multiple parts together, making the complet
 
 The Atlassian JQL: issuekey in issueHistory() and text ~ "dapplo" ORDER BY issuekey ASC 
 Could be written like this: Where.And(Where.IssueKey.InIssueHistory(), Where.Text.Contains("dapplo")).OrderByAscending(Fields.IssueKey)
-A ToString on the resultung object, generates the end query.
+A ToString on the resulting object, generates the end query.

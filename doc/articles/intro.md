@@ -1,8 +1,9 @@
-# Dapplo.Jira
-
+# Dapplo.Jira <!-- include: readme.md -->
 This is a simple REST based JIRA client, written for Greenshot, by using Dapplo.HttpExtension
 
-- Current build status: [![Build status](https://ci.appveyor.com/api/projects/status/d78ubenwypiwg3j4?svg=true)](https://ci.appveyor.com/project/dapplo/dapplo-jira)
+- Documentation: [Dapplo.Jira](https://www.dapplo.net/Dapplo.Jira/index.html)
+
+- Current build status: [![Build Status](https://dev.azure.com/Dapplo/Dapplo%20framework/_apis/build/status/dapplo.Dapplo.Jira?branchName=master)](https://dev.azure.com/Dapplo/Dapplo%20framework/_build/latest?definitionId=12&branchName=master)
 - Coverage Status: [![Coverage Status](https://coveralls.io/repos/github/dapplo/Dapplo.Jira/badge.svg?branch=master)](https://coveralls.io/github/dapplo/Dapplo.Jira?branch=master)
 - NuGet package: [![NuGet package](https://badge.fury.io/nu/Dapplo.Jira.svg)](https://badge.fury.io/nu/Dapplo.Jira)
 
@@ -15,6 +16,7 @@ This client has support for:
 * Attachments (CRUD)
 * Basic authorization, OAuth & session (via cookie)
 * Search, with a JQL builder e.g. Where.And(Where.User.IsCurrentUser,Where.Text.Contains("Urgent"))
+* Paging results
 * Information on projects, transitions and users
 * getting Avatars of users/projects and icons for Issue type 
 * CRUD methods for the work-log (time spend on issues)
@@ -45,5 +47,6 @@ foreach (var issue in searchResult.Issues)
     await issue.AddCommentAsync($"{unavailableUser} is currently not available.");
 }
 ```
-<sup><a href='/src/Dapplo.Jira.Tests/IssueTests.cs#L226-L244' title='File snippet `searchexample` was extracted from'>snippet source</a> | <a href='#snippet-searchexample' title='Navigate to start of snippet `searchexample`'>anchor</a></sup>
+<sup><a href='/src/Dapplo.Jira.Tests/IssueTests.cs#L226-L244' title='Snippet source file'>snippet source</a> | <a href='#snippet-searchexample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+<!-- endInclude -->
