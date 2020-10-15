@@ -8,7 +8,7 @@ This is a simple REST based JIRA client, written for Greenshot, by using Dapplo.
 - NuGet package: [![NuGet package](https://badge.fury.io/nu/Dapplo.Jira.svg)](https://badge.fury.io/nu/Dapplo.Jira)
 
 If you like this project, maybe it saves you time or money, and want to support me to continue the development?
-You can donate something via Paypal: https://www.paypal.me/dapplo
+You can donate something via [GitHub Sponsors](https://github.com/sponsors/Lakritzator) or Paypal: https://www.paypal.me/dapplo
 
 This client has support for:
 
