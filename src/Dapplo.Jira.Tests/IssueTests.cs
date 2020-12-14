@@ -196,6 +196,7 @@ namespace Dapplo.Jira.Tests
         [Fact]
         public async Task Test_GetIssue()
         {
+            JiraConfig.ExpandGetIssue = new[] { "renderedFields" };
             var issue = await Client.Issue.GetAsync(TestIssueKey);
             Assert.NotNull(issue);
             Assert.NotNull(issue.Fields.IssueType);

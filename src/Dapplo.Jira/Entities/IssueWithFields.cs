@@ -23,7 +23,7 @@ namespace Dapplo.Jira.Entities
 		///     This will be in the response when expand=renderedFields
 		/// </summary>
 		[JsonProperty("renderedFields")]
-		public TFields RenderedFields { get; set; }
+		public RenderedIssueFields RenderedFields { get; set; }
 
 		/// <summary>
 		///		List of operations to perform on issue screen fields.
