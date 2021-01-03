@@ -59,7 +59,6 @@ namespace Dapplo.Jira.Tests
 			var securityLevels = await Client.Project.GetSecurityLevelsAsync("DIT");
 
 			Assert.NotNull(securityLevels);
-			Assert.True(securityLevels.Any());
 		}
 
 		[Fact]
