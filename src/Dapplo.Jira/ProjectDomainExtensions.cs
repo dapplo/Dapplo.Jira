@@ -187,11 +187,11 @@ namespace Dapplo.Jira
 		{
 			Log.Debug().WriteLine("Retrieving SecurityLevels for {0}", projectKey);
 
-			var securityLevelUri = jiraClient.JiraRestUri.AppendSegments("project", projectKey, "securityLevel");
+			var securityLevelUri = jiraClient.JiraRestUri.AppendSegments("project", projectKey, "securitylevel");
 
 			jiraClient.Behaviour.MakeCurrent();
-			var response = await securityLevelUri.GetAsAsync<HttpResponse<IEnumerable<SecurityLevel>, Error>>(cancellationToken).ConfigureAwait(false);
-			return response.HandleErrors();
+			var response = await securityLevelUri.GetAsAsync<HttpResponse<SecurityLevels, Error>>(cancellationToken).ConfigureAwait(false);
+			return response.HandleErrors().Levels;
 		}
 	}
 }
