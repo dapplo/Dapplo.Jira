@@ -57,9 +57,11 @@ namespace Dapplo.Jira
 		/// </summary>
 		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
 		/// <param name="issueKey">the issue key</param>
+		/// <param name="fields">IEnumerable of string A list of fields to return for the issue. Use it to retrieve a subset of fields.</param>
+		/// <param name="expand">IEnumerable of string Use expand to include additional information about the issues in the response.</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Issue</returns>
-		public static async Task<TIssue> GetAsync<TIssue, TFields>(this IIssueDomain jiraClient, string issueKey, CancellationToken cancellationToken = default)
+		public static async Task<TIssue> GetAsync<TIssue, TFields>(this IIssueDomain jiraClient, string issueKey, IEnumerable<string> fields = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
 			where TIssue : IssueWithFields<TFields>
 			where TFields : IssueFields
 		{
@@ -69,10 +71,15 @@ namespace Dapplo.Jira
 			}
 			Log.Debug().WriteLine("Retrieving issue information for {0}", issueKey);
 			var issueUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey);
-			// Add the configurable expand values, if the value is not null or empty
-			if (JiraConfig.ExpandGetIssue?.Length > 0)
+			if (fields != null)
 			{
-				issueUri = issueUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetIssue));
+				issueUri = issueUri.ExtendQuery("fields", string.Join(",", fields));
+			}
+			// Add the configurable expand values, if the value is not null or empty
+			expand ??= JiraConfig.ExpandGetIssue;
+			if (expand != null)
+			{
+				issueUri = issueUri.ExtendQuery("expand", string.Join(",", expand));
 			}
 			jiraClient.Behaviour.MakeCurrent();
 
@@ -83,18 +90,20 @@ namespace Dapplo.Jira
 
 		/// <summary>
 		///     Get issue information
-		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e4539
+		///     See: https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issues/#api-rest-api-3-issue-issueidorkey-get
 		/// </summary>
 		/// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
 		/// <param name="issueKey">the issue key</param>
+		/// <param name="fields">IEnumerable of string A list of fields to return for the issue. Use it to retrieve a subset of fields.</param>
+		/// <param name="expand">IEnumerable of string to specified which fields to expand</param>
 		/// <param name="cancellationToken">CancellationToken</param>
 		/// <returns>Issue</returns>
-		public static Task<Issue> GetAsync(this IIssueDomain jiraClient, string issueKey, CancellationToken cancellationToken = default)
+		public static Task<Issue> GetAsync(this IIssueDomain jiraClient, string issueKey, IEnumerable<string> fields = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
 		{
-			return jiraClient.GetAsync<Issue, IssueFields>(issueKey, cancellationToken);
+			return jiraClient.GetAsync<Issue, IssueFields>(issueKey, fields, expand, cancellationToken);
 		}
 
-        /// <summary>
+		/// <summary>
 		///     Search for issues, with a JQL (e.g. from a filter)
 		///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2713
 		/// </summary>
