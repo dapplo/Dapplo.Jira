@@ -128,6 +128,12 @@ namespace Dapplo.Jira.Entities
 		public DateTimeOffset? ResolutionData { get; set; }
 
 		/// <summary>
+		///     Security level for this issue
+		/// </summary>
+		[JsonProperty("security")]
+		public SecurityLevel Security { get; set; }
+
+		/// <summary>
 		///     Current status of the issue
 		/// </summary>
 		[JsonProperty("status")]
@@ -175,10 +181,10 @@ namespace Dapplo.Jira.Entities
 		[JsonProperty("worklog")]
 		public Worklogs Worklogs { get; set; }
 
-        /// <summary>
-        /// All linked issues
-        /// </summary>
-        [JsonProperty("issueLinks")]
+		/// <summary>
+		/// All linked issues
+		/// </summary>
+		[JsonProperty("issueLinks")]
 		public IList<IssueLink> IssueLinks { get; set; }
 	}
 }
