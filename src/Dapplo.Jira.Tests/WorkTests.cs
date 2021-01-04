@@ -27,7 +27,7 @@ namespace Dapplo.Jira.Tests
 
             var worklog = new Worklog
             {
-                TimeSpentSeconds = (long) TimeSpan.FromHours(16).TotalSeconds,
+                TimeSpentSeconds = (long)TimeSpan.FromHours(16).TotalSeconds,
                 Comment = "Testing the logging of work",
                 Started = started
             };
@@ -45,7 +45,7 @@ namespace Dapplo.Jira.Tests
 
             var newWorkLog = new Worklog
             {
-                TimeSpentSeconds = (long) TimeSpan.FromHours(16).TotalSeconds,
+                TimeSpentSeconds = (long)TimeSpan.FromHours(16).TotalSeconds,
                 Comment = "Testing the logging of work",
                 Started = started
             };

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Drawing;
@@ -17,101 +17,107 @@ using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests
 {
-	public class ProjectTests : TestBase
-	{
- 		public ProjectTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
-		{
-			// Add SvgBitmapHttpContentConverter if it was not yet added
-			if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
-			{
-				HttpExtensionsGlobals.HttpContentConverters.Add(SvgBitmapHttpContentConverter.Instance.Value);
-			}
-			// Add BitmapHttpContentConverter if it was not yet added
-			if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(BitmapHttpContentConverter)))
-			{
-				HttpExtensionsGlobals.HttpContentConverters.Add(BitmapHttpContentConverter.Instance.Value);
-			}
-			// Add BitmapSourceHttpContentConverter if it was not yet added
-			if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(BitmapSourceHttpContentConverter)))
-			{
-				HttpExtensionsGlobals.HttpContentConverters.Add(BitmapSourceHttpContentConverter.Instance.Value);
-			}
-		}
+    public class ProjectTests : TestBase
+    {
+        public ProjectTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        {
+            // Add SvgBitmapHttpContentConverter if it was not yet added
+            if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
+            {
+                HttpExtensionsGlobals.HttpContentConverters.Add(SvgBitmapHttpContentConverter.Instance.Value);
+            }
 
-		[Fact]
-		public async Task TestGetProjectAsync()
-		{
-			var project = await Client.Project.GetAsync(TestProjectKey);
+            // Add BitmapHttpContentConverter if it was not yet added
+            if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(BitmapHttpContentConverter)))
+            {
+                HttpExtensionsGlobals.HttpContentConverters.Add(BitmapHttpContentConverter.Instance.Value);
+            }
 
-			Assert.NotNull(project);
-			Assert.True(project.Roles.Count > 0);
-			foreach (var componentDigest in project.Components)
-			{
-				var component = await Client.Project.GetComponentAsync(componentDigest.Id);
-				Assert.NotNull(component?.Name);
-				Log.Info().WriteLine("Component {0}", component.Name);
-			}
-		}
+            // Add BitmapSourceHttpContentConverter if it was not yet added
+            if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(BitmapSourceHttpContentConverter)))
+            {
+                HttpExtensionsGlobals.HttpContentConverters.Add(BitmapSourceHttpContentConverter.Instance.Value);
+            }
+        }
 
-		[Fact]
-		public async Task TestGetSecurityLevelsAsync()
-		{
-			var securityLevels = await Client.Project.GetSecurityLevelsAsync(TestProjectKey);
+        [Fact]
+        public async Task TestGetProjectAsync()
+        {
+            var project = await Client.Project.GetAsync(TestProjectKey);
 
-			Assert.NotNull(securityLevels);
-		}
+            Assert.NotNull(project);
+            Assert.True(project.Roles.Count > 0);
+            foreach (var componentDigest in project.Components)
+            {
+                var component = await Client.Project.GetComponentAsync(componentDigest.Id);
+                Assert.NotNull(component?.Name);
+                Log.Info().WriteLine("Component {0}", component.Name);
+            }
+        }
 
-		[Fact]
-		public async Task TestGetIssueCreatorsAsync()
-		{
-			var creators = await Client.Project.GetIssueCreatorsAsync(TestProjectKey);
-			Assert.NotNull(creators);
+        [Fact]
+        public async Task TestGetSecurityLevelsAsync()
+        {
+            var securityLevels = await Client.Project.GetSecurityLevelsAsync(TestProjectKey);
 
-			var firstCreator = creators.First();
-			await Client.Server.GetAvatarAsync<Bitmap>(firstCreator.Avatars);
-		}
+            Assert.NotNull(securityLevels);
+        }
 
-		[Fact]
-		public async Task TestComponentAsync()
-		{
-			// Create
-			var component = new Component
-			{
-				Name = "Component from Test",
-				Project = TestProjectKey,
-				Description = "This was created from a test"
-			};
-			component = await Client.Project.CreateComponentAsync(component);
+        [Fact]
+        public async Task TestGetIssueCreatorsAsync()
+        {
+            var creators = await Client.Project.GetIssueCreatorsAsync(TestProjectKey);
+            Assert.NotNull(creators);
 
-			// Update
-			const string descriptionUpdate = "Changed the description";
-			component.Description = descriptionUpdate;
-			await Client.Project.UpdateComponentAsync(component);
+            var firstCreator = creators.First();
+            await Client.Server.GetAvatarAsync<Bitmap>(firstCreator.Avatars);
+        }
 
-			// Delete
-			component = await Client.Project.GetComponentAsync(component.Id);
-			Assert.Equal(descriptionUpdate, component.Description);
-			await Client.Project.DeleteComponentAsync(component.Id);
-		}
+        [Fact]
+        public async Task TestComponentAsync()
+        {
+            // Create
+            var component = new Component
+            {
+                Name = "Component from Test",
+                Project = TestProjectKey,
+                Description = "This was created from a test"
+            };
+            component = await Client.Project.CreateComponentAsync(component);
 
-		[Fact]
-		public async Task TestGetProjectsAsync()
-		{
-			var projects = await Client.Project.GetAllAsync();
+            // Update
+            const string descriptionUpdate = "Changed the description";
+            component.Description = descriptionUpdate;
+            await Client.Project.UpdateComponentAsync(component);
 
-			Assert.NotNull(projects);
-			Assert.True(projects.Count > 0);
+            // Delete
+            component = await Client.Project.GetComponentAsync(component.Id);
+            Assert.Equal(descriptionUpdate, component.Description);
+            await Client.Project.DeleteComponentAsync(component.Id);
+        }
 
-			Client.Behaviour.SetConfig(new SvgConfiguration {Width = 24, Height = 24});
+        [Fact]
+        public async Task TestGetProjectsAsync()
+        {
+            var projects = await Client.Project.GetAllAsync();
 
-			foreach (var project in projects)
-			{
-				var avatar = await Client.Server.GetAvatarAsync<Bitmap>(project.Avatar, AvatarSizes.Medium);
-				Assert.True(avatar.Width == 24);
+            Assert.NotNull(projects);
+            Assert.True(projects.Count > 0);
 
-				var projectDetails = await Client.Project.GetAsync(project.Key);
-				Assert.NotNull(projectDetails);
-			}
-		}
-	}
+            Client.Behaviour.SetConfig(new SvgConfiguration
+            {
+                Width = 24,
+                Height = 24
+            });
+
+            foreach (var project in projects)
+            {
+                var avatar = await Client.Server.GetAvatarAsync<Bitmap>(project.Avatar, AvatarSizes.Medium);
+                Assert.True(avatar.Width == 24);
+
+                var projectDetails = await Client.Project.GetAsync(project.Key);
+                Assert.NotNull(projectDetails);
+            }
+        }
+    }
 }

@@ -28,7 +28,6 @@ namespace Dapplo.Jira.Tests
             {
                 _testFileLocation = Path.Combine(Path.GetDirectoryName(GetType().Assembly.Location), FilesDir);
             }
-
         }
 
         [Fact]
