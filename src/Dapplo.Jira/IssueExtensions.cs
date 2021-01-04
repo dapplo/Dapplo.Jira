@@ -9,11 +9,11 @@ using Dapplo.Jira.Entities;
 
 namespace Dapplo.Jira
 {
-	/// <summary>
-	///     This holds all the issue related extensions methods
-	/// </summary>
-	public static class IssueExtensions
-	{
+    /// <summary>
+    ///     This holds all the issue related extensions methods
+    /// </summary>
+    public static class IssueExtensions
+    {
         /// <summary>
         /// Transition the issue
         /// </summary>

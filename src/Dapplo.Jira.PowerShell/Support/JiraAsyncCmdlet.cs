@@ -7,46 +7,47 @@ using System.Threading.Tasks;
 
 namespace Dapplo.Jira.PowerShell.Support
 {
-	/// <summary>
-	///     This is the base class for all (most?) Jira CmdLets
-	///     It will create the JiraApi instance, so the derriving class only needs to implement the logic
-	/// </summary>
-	public class JiraAsyncCmdlet : AsyncCmdlet
-	{
-		/// <summary>
-		///     The Jira API which should be used to get information
-		/// </summary>
-		protected IJiraClient JiraApi;
+    /// <summary>
+    ///     This is the base class for all (most?) Jira CmdLets
+    ///     It will create the JiraApi instance, so the derriving class only needs to implement the logic
+    /// </summary>
+    public class JiraAsyncCmdlet : AsyncCmdlet
+    {
+        /// <summary>
+        ///     The Jira API which should be used to get information
+        /// </summary>
+        protected IJiraClient JiraApi;
 
-		/// <summary>
-		///     Url to the Jira system
-		/// </summary>
-		[Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
-		public Uri JiraUri { get; set; }
+        /// <summary>
+        ///     Url to the Jira system
+        /// </summary>
+        [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
+        public Uri JiraUri { get; set; }
 
-		/// <summary>
-		///     Password for the user
-		/// </summary>
-		[Parameter(ValueFromPipelineByPropertyName = true)]
-		public string Password { get; set; }
+        /// <summary>
+        ///     Password for the user
+        /// </summary>
+        [Parameter(ValueFromPipelineByPropertyName = true)]
+        public string Password { get; set; }
 
-		/// <summary>
-		///     User for the Jira connection
-		/// </summary>
-		[Parameter(ValueFromPipelineByPropertyName = true)]
-		public string Username { get; set; }
+        /// <summary>
+        ///     User for the Jira connection
+        /// </summary>
+        [Parameter(ValueFromPipelineByPropertyName = true)]
+        public string Username { get; set; }
 
-		/// <summary>
-		///     Override the BeginProcessingAsync to connect to our jira
-		/// </summary>
-		protected override Task BeginProcessingAsync()
-		{
-			JiraApi = JiraClient.Create(JiraUri);
-			if (Username != null)
-			{
-				JiraApi.SetBasicAuthentication(Username, Password);
-			}
-			return Task.FromResult(true);
-		}
-	}
+        /// <summary>
+        ///     Override the BeginProcessingAsync to connect to our jira
+        /// </summary>
+        protected override Task BeginProcessingAsync()
+        {
+            JiraApi = JiraClient.Create(JiraUri);
+            if (Username != null)
+            {
+                JiraApi.SetBasicAuthentication(Username, Password);
+            }
+
+            return Task.FromResult(true);
+        }
+    }
 }

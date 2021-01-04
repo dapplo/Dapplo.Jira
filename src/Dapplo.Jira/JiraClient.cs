@@ -5,8 +5,10 @@ using System;
 using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.JsonNet;
 using Dapplo.Jira.Domains;
+
 #if NET461
 using System.Net.Cache;
+
 #endif
 
 namespace Dapplo.Jira
@@ -14,7 +16,8 @@ namespace Dapplo.Jira
     /// <summary>
     ///     A client for accessing the Atlassian JIRA Api via REST, using Dapplo.HttpExtensions
     /// </summary>
-    public class JiraClient : IProjectDomain, IWorkDomain, IUserDomain, ISessionDomain, IIssueDomain, IFilterDomain, IAttachmentDomain, IServerDomain, IAgileDomain, IGreenhopperDomain
+    public class JiraClient : IProjectDomain, IWorkDomain, IUserDomain, ISessionDomain, IIssueDomain, IFilterDomain, IAttachmentDomain, IServerDomain, IAgileDomain,
+        IGreenhopperDomain
     {
         private string _password;
         private string _user;
@@ -76,6 +79,7 @@ namespace Dapplo.Jira
                 {
                     httpMessage?.SetBasicAuthorization(_user, _password);
                 }
+
                 return httpMessage;
             };
             return behaviour;

@@ -33,12 +33,17 @@ namespace Dapplo.Jira
             {
                 throw new ArgumentNullException(nameof(issueKey));
             }
+
             jiraClient.Behaviour.MakeCurrent();
             var agileIssueUri = jiraClient.JiraAgileRestUri.AppendSegments("issue", issueKey);
             if (JiraConfig.ExpandGetIssue?.Length > 0)
             {
-                agileIssueUri = agileIssueUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetIssue.Concat(new[] {"customfield_10007"})));
+                agileIssueUri = agileIssueUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetIssue.Concat(new[]
+                {
+                    "customfield_10007"
+                })));
             }
+
             var response = await agileIssueUri.GetAsAsync<HttpResponse<AgileIssue, Error>>(cancellationToken).ConfigureAwait(false);
             return response.HandleErrors();
         }
@@ -73,10 +78,12 @@ namespace Dapplo.Jira
                     }
                 });
             }
+
             if (stateFilter != null)
             {
                 sprintsUri = sprintsUri.ExtendQuery("state", stateFilter);
             }
+
             var response = await sprintsUri.GetAsAsync<HttpResponse<SearchResult<Sprint, Tuple<long, string>>, Error>>(cancellationToken).ConfigureAwait(false);
             var result = response.HandleErrors();
             // Store the original search parameter(s), so we can get the next page
@@ -114,6 +121,7 @@ namespace Dapplo.Jira
                     }
                 });
             }
+
             var response = await backlogIssuesUri.GetAsAsync<HttpResponse<SearchIssuesResult<AgileIssue, long>, Error>>(cancellationToken).ConfigureAwait(false);
             var result = response.HandleErrors();
             // Store the original search parameter(s), so we can get the next page
@@ -151,6 +159,7 @@ namespace Dapplo.Jira
                     }
                 });
             }
+
             var response = await boardIssuesUri.GetAsAsync<HttpResponse<SearchIssuesResult<AgileIssue, long>, Error>>(cancellationToken).ConfigureAwait(false);
             var result = response.HandleErrors();
             // Store the original search parameter(s), so we can get the next page
@@ -172,7 +181,8 @@ namespace Dapplo.Jira
         /// <param name="page">optional Page</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResult with AgileIssue objects</returns>
-        public static async Task<SearchIssuesResult<AgileIssue, Tuple<long, long>>> GetIssuesInSprintAsync(this IAgileDomain jiraClient, long boardId, long sprintId, Page page = null,
+        public static async Task<SearchIssuesResult<AgileIssue, Tuple<long, long>>> GetIssuesInSprintAsync(this IAgileDomain jiraClient, long boardId, long sprintId,
+            Page page = null,
             CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
@@ -189,10 +199,11 @@ namespace Dapplo.Jira
                     }
                 });
             }
+
             var response = await sprintIssuesUri.GetAsAsync<HttpResponse<SearchIssuesResult<AgileIssue, Tuple<long, long>>, Error>>(cancellationToken).ConfigureAwait(false);
             var result = response.HandleErrors();
             // Store the original search parameter(s), so we can get the next page
-            result.SearchParameter = new Tuple<long,long>(boardId, sprintId);
+            result.SearchParameter = new Tuple<long, long>(boardId, sprintId);
             return result;
         }
 
@@ -246,10 +257,12 @@ namespace Dapplo.Jira
             {
                 throw new ArgumentNullException(nameof(board));
             }
+
             if (board.FilterId == 0)
             {
                 throw new ArgumentNullException(nameof(board.FilterId));
             }
+
             jiraClient.Behaviour.MakeCurrent();
             var boardUri = jiraClient.JiraAgileRestUri.AppendSegments("board");
             var response = await boardUri.PostAsync<HttpResponse<Board>>(board, cancellationToken).ConfigureAwait(false);
@@ -285,7 +298,8 @@ namespace Dapplo.Jira
         /// <param name="page">optional Page</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Results with Board objects</returns>
-        public static async Task<SearchResult<Board, Tuple<string, string, string>>> GetBoardsAsync(this IAgileDomain jiraClient, string type = null, string name = null, string projectKeyOrId = null,
+        public static async Task<SearchResult<Board, Tuple<string, string, string>>> GetBoardsAsync(this IAgileDomain jiraClient, string type = null, string name = null,
+            string projectKeyOrId = null,
             Page page = null, CancellationToken cancellationToken = default)
         {
             jiraClient.Behaviour.MakeCurrent();
@@ -302,18 +316,22 @@ namespace Dapplo.Jira
                     }
                 });
             }
+
             if (type != null)
             {
                 boardsUri = boardsUri.ExtendQuery("type", type);
             }
+
             if (name != null)
             {
                 boardsUri = boardsUri.ExtendQuery("name", name);
             }
+
             if (projectKeyOrId != null)
             {
                 boardsUri = boardsUri.ExtendQuery("projectKeyOrId", projectKeyOrId);
             }
+
             var response = await boardsUri.GetAsAsync<HttpResponse<SearchResult<Board, Tuple<string, string, string>>, Error>>(cancellationToken).ConfigureAwait(false);
             // Store the original search parameter(s), so we can get the next page
             var result = response.HandleErrors();
@@ -348,6 +366,7 @@ namespace Dapplo.Jira
                     }
                 });
             }
+
             var response = await epicsUri.GetAsAsync<HttpResponse<SearchResult<Epic, long>, Error>>(cancellationToken).ConfigureAwait(false);
             // Store the original search parameter(s), so we can get the next page
             var result = response.HandleErrors();
@@ -383,6 +402,7 @@ namespace Dapplo.Jira
                     }
                 });
             }
+
             var response = await epicIssuesUri.GetAsAsync<HttpResponse<SearchIssuesResult<AgileIssue, Tuple<long, long>>, Error>>(cancellationToken).ConfigureAwait(false);
             var result = response.HandleErrors();
             // Store the original search parameter(s), so we can get the next page
@@ -418,6 +438,7 @@ namespace Dapplo.Jira
                     }
                 });
             }
+
             var response = await epicIssuesUri.GetAsAsync<HttpResponse<SearchIssuesResult<AgileIssue, long>, Error>>(cancellationToken).ConfigureAwait(false);
             var result = response.HandleErrors();
             // Store the original search parameter(s), so we can get the next page
@@ -483,6 +504,7 @@ namespace Dapplo.Jira
                     }
                 });
             }
+
             var response = await epicLessIssuesUri.GetAsAsync<HttpResponse<SearchIssuesResult<AgileIssue, long>, Error>>(cancellationToken).ConfigureAwait(false);
             var result = response.HandleErrors();
             // Store the original search parameter(s), so we can get the next page

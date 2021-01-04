@@ -6,16 +6,16 @@ using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
-	/// <summary>
-	///     Container for the fields of an agile issue
-	/// </summary>
-	[JsonObject]
-	public class AgileIssueFields : IssueFields
-	{
-		/// <summary>
-		///     The closed sprint information
-		/// </summary>
-		[JsonProperty("closedSprints")]
-		public IList<Sprint> ClosedSprints { get; set; }
-	}
+    /// <summary>
+    ///     Container for the fields of an agile issue
+    /// </summary>
+    [JsonObject]
+    public class AgileIssueFields : IssueFields
+    {
+        /// <summary>
+        ///     The closed sprint information
+        /// </summary>
+        [JsonProperty("closedSprints")]
+        public IList<Sprint> ClosedSprints { get; set; }
+    }
 }

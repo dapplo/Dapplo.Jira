@@ -12,7 +12,6 @@ namespace Dapplo.Jira.Entities
     [JsonObject]
     public class IssueUpdateOperationEdit : IIssueUpdateOperation
     {
-
         /// <summary>
         /// The values to edit
         /// </summary>

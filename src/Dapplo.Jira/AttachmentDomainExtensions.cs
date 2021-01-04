@@ -41,6 +41,7 @@ namespace Dapplo.Jira
             {
                 throw new ArgumentNullException(nameof(issueKey));
             }
+
             if (content == null)
             {
                 throw new ArgumentNullException(nameof(content));
@@ -137,6 +138,7 @@ namespace Dapplo.Jira
             {
                 throw new ArgumentNullException(nameof(attachment));
             }
+
             if (attachment.ThumbnailUri == null)
             {
                 return null;

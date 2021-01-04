@@ -107,6 +107,7 @@ namespace Dapplo.Jira
             {
                 throw new ArgumentNullException(nameof(filter));
             }
+
             var filterCopy = new Filter
             {
                 Name = filter.Name,
@@ -140,6 +141,7 @@ namespace Dapplo.Jira
             {
                 throw new ArgumentNullException(nameof(filter));
             }
+
             var filterCopy = new Filter
             {
                 Name = filter.Name,
@@ -174,6 +176,7 @@ namespace Dapplo.Jira
             {
                 throw new ArgumentNullException(nameof(filter));
             }
+
             Log.Debug().WriteLine("Deleting filter {0}", filter.Id);
 
             jiraClient.Behaviour.MakeCurrent();

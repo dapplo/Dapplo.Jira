@@ -6,17 +6,17 @@ using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
-	/// <summary>
-	///     Comment information
-	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/attachment
-	/// </summary>
-	[JsonObject]
-	public class Comments : PageableResult
-	{
-		/// <summary>
-		///     The actual commits
-		/// </summary>
-		[JsonProperty("comments")]
-		public IList<Comment> Elements { get; set; }
-	}
+    /// <summary>
+    ///     Comment information
+    ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/attachment
+    /// </summary>
+    [JsonObject]
+    public class Comments : PageableResult
+    {
+        /// <summary>
+        ///     The actual commits
+        /// </summary>
+        [JsonProperty("comments")]
+        public IList<Comment> Elements { get; set; }
+    }
 }

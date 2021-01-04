@@ -24,7 +24,8 @@ namespace Dapplo.Jira.Internal
         private static void LogError(HttpStatusCode httpStatusCode, Error error = null)
         {
             // Log all error information
-            Log.Warn().WriteLine("Http status code: {0} ({1}). Response from server: {2}", httpStatusCode.ToString(), (int)httpStatusCode, error?.Message ?? httpStatusCode.ToString());
+            Log.Warn().WriteLine("Http status code: {0} ({1}). Response from server: {2}", httpStatusCode.ToString(), (int)httpStatusCode,
+                error?.Message ?? httpStatusCode.ToString());
             if (error?.ErrorMessages?.Count > 0)
             {
                 foreach (var errorMessage in error.ErrorMessages)
@@ -32,10 +33,12 @@ namespace Dapplo.Jira.Internal
                     Log.Warn().WriteLine("JIRA server error message: {0}", errorMessage);
                 }
             }
+
             if (error?.Errors == null)
             {
                 return;
             }
+
             foreach (var errorKey in error.Errors.Keys)
             {
                 Log.Warn().WriteLine("JIRA server reports the following error: {0} -> {1}", errorKey, error.Errors[errorKey]);
@@ -58,6 +61,7 @@ namespace Dapplo.Jira.Internal
             {
                 return response.Response;
             }
+
             if (!response.HasError)
             {
                 return response.Response;
@@ -82,12 +86,17 @@ namespace Dapplo.Jira.Internal
         {
             if (expectedHttpStatusCodes == null || expectedHttpStatusCodes.Length == 0)
             {
-                expectedHttpStatusCodes = new[] { HttpStatusCode.OK };
+                expectedHttpStatusCodes = new[]
+                {
+                    HttpStatusCode.OK
+                };
             }
+
             if (expectedHttpStatusCodes.Any(code => code == response.StatusCode))
             {
                 return response.Response;
             }
+
             LogError(response.StatusCode);
             throw new JiraException(response.StatusCode);
         }
@@ -102,12 +111,17 @@ namespace Dapplo.Jira.Internal
         {
             if (expectedHttpStatusCodes == null || expectedHttpStatusCodes.Length == 0)
             {
-                expectedHttpStatusCodes = new [] { HttpStatusCode.OK};
+                expectedHttpStatusCodes = new[]
+                {
+                    HttpStatusCode.OK
+                };
             }
+
             if (expectedHttpStatusCodes.Any(code => code == response.StatusCode))
             {
                 return;
             }
+
             LogError(response.StatusCode);
             throw new JiraException(response.StatusCode);
         }
@@ -123,12 +137,17 @@ namespace Dapplo.Jira.Internal
         {
             if (expectedHttpStatusCodes == null || expectedHttpStatusCodes.Length == 0)
             {
-                expectedHttpStatusCodes = new[] { HttpStatusCode.OK };
+                expectedHttpStatusCodes = new[]
+                {
+                    HttpStatusCode.OK
+                };
             }
+
             if (expectedHttpStatusCodes.Any(code => code == response.StatusCode))
             {
                 return;
             }
+
             LogError(response.StatusCode, response.ErrorResponse);
             throw new JiraException(response.StatusCode, response.ErrorResponse);
         }
@@ -143,12 +162,17 @@ namespace Dapplo.Jira.Internal
         {
             if (expectedHttpStatusCodes == null || expectedHttpStatusCodes.Length == 0)
             {
-                expectedHttpStatusCodes = new[] { HttpStatusCode.OK };
+                expectedHttpStatusCodes = new[]
+                {
+                    HttpStatusCode.OK
+                };
             }
+
             if (expectedHttpStatusCodes.Any(code => code == response.StatusCode))
             {
                 return;
             }
+
             Log.Warn().WriteLine("Http status code: {0}. Response from server: {1}", response.StatusCode, response.ErrorResponse);
             throw new JiraException(response.StatusCode, response.ErrorResponse);
         }

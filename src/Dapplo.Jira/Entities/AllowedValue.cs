@@ -7,28 +7,28 @@ using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
-	/// <summary>
-	///     Possible field information
-	/// </summary>
-	[JsonObject]
-	public class AllowedValue : BaseProperties<long>
-	{
-		/// <summary>
-		///     TODO: Describe
-		/// </summary>
-		[JsonProperty("autoCompleteUrl")]
-		public Uri AutoCompleteUrl { get; set; }
+    /// <summary>
+    ///     Possible field information
+    /// </summary>
+    [JsonObject]
+    public class AllowedValue : BaseProperties<long>
+    {
+        /// <summary>
+        ///     TODO: Describe
+        /// </summary>
+        [JsonProperty("autoCompleteUrl")]
+        public Uri AutoCompleteUrl { get; set; }
 
-		/// <summary>
-		///     Name of the allowd value
-		/// </summary>
-		[JsonProperty("name")]
-		public string Name { get; set; }
+        /// <summary>
+        ///     Name of the allowd value
+        /// </summary>
+        [JsonProperty("name")]
+        public string Name { get; set; }
 
-		/// <summary>
-		///     Possible operations
-		/// </summary>
-		[JsonProperty("operations")]
-		public IList<string> Operations { get; set; }
-	}
+        /// <summary>
+        ///     Possible operations
+        /// </summary>
+        [JsonProperty("operations")]
+        public IList<string> Operations { get; set; }
+    }
 }

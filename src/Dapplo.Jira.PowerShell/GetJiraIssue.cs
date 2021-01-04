@@ -10,29 +10,29 @@ using Dapplo.Jira.PowerShell.Support;
 
 namespace Dapplo.Jira.PowerShell
 {
-	/// <summary>
-	///     A Cmdlet which processes the information of a Jira issue
-	/// </summary>
-	[Cmdlet(VerbsCommon.Get, "JiraIssue")]
-	[OutputType(typeof(IssueFields))]
-	public class GetJiraIssue : JiraAsyncCmdlet
-	{
-		/// <summary>
-		///     Key for the issue that needs to be retrieved
-		/// </summary>
-		[Parameter(ValueFromPipeline = true, Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
-		public string IssueKey { get; set; }
+    /// <summary>
+    ///     A Cmdlet which processes the information of a Jira issue
+    /// </summary>
+    [Cmdlet(VerbsCommon.Get, "JiraIssue")]
+    [OutputType(typeof(IssueFields))]
+    public class GetJiraIssue : JiraAsyncCmdlet
+    {
+        /// <summary>
+        ///     Key for the issue that needs to be retrieved
+        /// </summary>
+        [Parameter(ValueFromPipeline = true, Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
+        public string IssueKey { get; set; }
 
-		/// <summary>
-		///     Override ProcessRecordAsync to get the issue data and output the object
-		/// </summary>
-		/// <returns></returns>
-		protected override async Task ProcessRecordAsync()
-		{
-			var issue = await JiraApi.Issue.GetAsync(IssueKey).ConfigureAwait(false);
-			WriteObject(issue.Fields);
-		}
-	}
+        /// <summary>
+        ///     Override ProcessRecordAsync to get the issue data and output the object
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task ProcessRecordAsync()
+        {
+            var issue = await JiraApi.Issue.GetAsync(IssueKey).ConfigureAwait(false);
+            WriteObject(issue.Fields);
+        }
+    }
 }
 
 #endif

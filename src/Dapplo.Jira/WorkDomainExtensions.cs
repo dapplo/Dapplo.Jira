@@ -35,6 +35,7 @@ namespace Dapplo.Jira
             {
                 throw new ArgumentNullException(nameof(issueKey));
             }
+
             Log.Debug().WriteLine("Retrieving worklogs information for {0}", issueKey);
             var worklogUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "worklog");
             jiraClient.Behaviour.MakeCurrent();
@@ -66,6 +67,7 @@ namespace Dapplo.Jira
             {
                 throw new ArgumentNullException(nameof(issueKey));
             }
+
             if (worklog == null)
             {
                 throw new ArgumentNullException(nameof(worklog));
@@ -115,6 +117,7 @@ namespace Dapplo.Jira
             {
                 throw new ArgumentNullException(nameof(issueKey));
             }
+
             if (worklog == null)
             {
                 throw new ArgumentNullException(nameof(worklog));
@@ -164,10 +167,12 @@ namespace Dapplo.Jira
             {
                 throw new ArgumentNullException(nameof(issueKey));
             }
+
             if (worklog == null)
             {
                 throw new ArgumentNullException(nameof(worklog));
             }
+
             var worklogUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "worklog", worklog.Id);
             if (adjustEstimate != AdjustEstimate.Auto)
             {

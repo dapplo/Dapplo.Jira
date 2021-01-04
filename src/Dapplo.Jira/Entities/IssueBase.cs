@@ -5,33 +5,33 @@ using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
-	/// <summary>
-	///     Issue information
-	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
-	/// </summary>
-	[JsonObject]
-	public class IssueBase : BaseProperties<string>
-	{
-		/// <summary>
-		///     Key of the issue
-		/// </summary>
-		[JsonProperty("key")]
-		public string Key { get; set; }
+    /// <summary>
+    ///     Issue information
+    ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
+    /// </summary>
+    [JsonObject]
+    public class IssueBase : BaseProperties<string>
+    {
+        /// <summary>
+        ///     Key of the issue
+        /// </summary>
+        [JsonProperty("key")]
+        public string Key { get; set; }
 
-		/// <summary>
-		///     Gets or sets the change logs.
-		/// </summary>
-		/// <value>
-		///     The change logs.
-		/// </value>
-		[JsonProperty("changelog")]
-		public Changelog Changelog { get; set; }
+        /// <summary>
+        ///     Gets or sets the change logs.
+        /// </summary>
+        /// <value>
+        ///     The change logs.
+        /// </value>
+        [JsonProperty("changelog")]
+        public Changelog Changelog { get; set; }
 
-		/// <summary>
-		/// Specify the IJiraClient used to perform certain actions with
-		/// </summary>
-		/// <param name="jiraClient"></param>
-		/// <returns>IssueBase (this)</returns>
+        /// <summary>
+        /// Specify the IJiraClient used to perform certain actions with
+        /// </summary>
+        /// <param name="jiraClient"></param>
+        /// <returns>IssueBase (this)</returns>
         public IssueBase WithClient(IJiraClient jiraClient)
         {
             AssociatedJiraClient = jiraClient;
@@ -44,5 +44,5 @@ namespace Dapplo.Jira.Entities
         /// </summary>
         [JsonIgnore]
         public IJiraClient AssociatedJiraClient { get; private set; }
-	}
+    }
 }

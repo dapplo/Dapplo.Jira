@@ -5,18 +5,16 @@ using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
-	[JsonObject]
-	internal class JiraSession
-	{
-		[JsonProperty("name")]
-		public string Name { get; set; }
+    [JsonObject]
+    internal class JiraSession
+    {
+        [JsonProperty("name")] public string Name { get; set; }
 
-		[JsonProperty("value")]
-		public string Value { get; set; }
+        [JsonProperty("value")] public string Value { get; set; }
 
-		public override string ToString()
-		{
-			return $"{Name ?? string.Empty}={Value ?? string.Empty}";
-		}
-	}
+        public override string ToString()
+        {
+            return $"{Name ?? string.Empty}={Value ?? string.Empty}";
+        }
+    }
 }

@@ -6,16 +6,16 @@ using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
-	/// <summary>
-	///     Transitions information
-	/// </summary>
-	[JsonObject]
-	public class Transitions
-	{
-		/// <summary>
-		///     The actual list of transitions
-		/// </summary>
-		[JsonProperty("transitions")]
-		public IList<Transition> Items { get; set; }
-	}
+    /// <summary>
+    ///     Transitions information
+    /// </summary>
+    [JsonObject]
+    public class Transitions
+    {
+        /// <summary>
+        ///     The actual list of transitions
+        /// </summary>
+        [JsonProperty("transitions")]
+        public IList<Transition> Items { get; set; }
+    }
 }

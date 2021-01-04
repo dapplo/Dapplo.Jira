@@ -24,7 +24,10 @@ namespace Dapplo.Jira
         ///     The values that are expanded in the GetIssue result
         ///     Examples are: renderedFields, version
         /// </summary>
-        public static string[] ExpandGetIssue { get; set; } = { "version", "container" };
+        public static string[] ExpandGetIssue { get; set; } =
+        {
+            "version", "container"
+        };
 
         /// <summary>
         ///     The values that are expanded in the GetProject result
@@ -34,7 +37,10 @@ namespace Dapplo.Jira
         /// <summary>
         ///     The values that are expanded in the GetProjects result
         /// </summary>
-        public static string[] ExpandGetProjects { get; set; } = { "description", "lead" };
+        public static string[] ExpandGetProjects { get; set; } =
+        {
+            "description", "lead"
+        };
 
         /// <summary>
         ///     The values that are expanded in the GetTransitions result
@@ -50,7 +56,10 @@ namespace Dapplo.Jira
         /// <summary>
         ///     The fields that are requested by the Search result
         /// </summary>
-        public static string[] SearchFields { get; set; } = { "summary", "status", "assignee", "key", "project"};
+        public static string[] SearchFields { get; set; } =
+        {
+            "summary", "status", "assignee", "key", "project"
+        };
 
         /// <summary>
         ///     The custom issue field name to use for sprint information

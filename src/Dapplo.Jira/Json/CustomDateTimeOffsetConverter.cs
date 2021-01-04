@@ -41,6 +41,7 @@ namespace Dapplo.Jira.Json
             {
                 return;
             }
+
             var dateTime = (DateTimeOffset)value;
             string sign = dateTime.Offset < TimeSpan.Zero ? "-" : "+";
             var output = $"{dateTime.ToString(_format, CultureInfo.InvariantCulture)}{sign}{Math.Abs(dateTime.Offset.Hours):00}{Math.Abs(dateTime.Offset.Minutes):00}";
@@ -55,20 +56,23 @@ namespace Dapplo.Jira.Json
             {
                 return null;
             }
+
             string dateTimeOffsetString = (string)reader.Value;
             if (reader.TokenType != JsonToken.String)
             {
                 throw new Exception($"Unexpected token parsing date. Expected string, got {reader.TokenType}.");
             }
+
             if (dateTimeOffsetString.ToLowerInvariant() == "none")
             {
                 return null;
             }
+
             if (Regex.IsMatch(dateTimeOffsetString, @"\d{4}$"))
             {
                 dateTimeOffsetString = dateTimeOffsetString.Insert(dateTimeOffsetString.Length - 2, ":");
-
             }
+
             return DateTimeOffset.Parse(dateTimeOffsetString, CultureInfo.InvariantCulture);
         }
 
