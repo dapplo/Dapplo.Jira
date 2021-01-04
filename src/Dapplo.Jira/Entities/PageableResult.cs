@@ -5,22 +5,22 @@ using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
-	/// <summary>
-	///     Container for pageable information in a result
-	/// </summary>
-	[JsonObject]
-	public class PageableResult : Page
-	{
-		/// <summary>
-		///     The total results
-		/// </summary>
-		[JsonProperty("total")]
-		public int? Total { get; set; }
+    /// <summary>
+    ///     Container for pageable information in a result
+    /// </summary>
+    [JsonObject]
+    public class PageableResult : Page
+    {
+        /// <summary>
+        ///     The total results
+        /// </summary>
+        [JsonProperty("total")]
+        public int? Total { get; set; }
 
-		/// <summary>
-		///     Specifies if there are more results
-		/// </summary>
-		[JsonProperty("isLast")]
-		public bool IsLastPage { get; set; }
-	}
+        /// <summary>
+        ///     Specifies if there are more results
+        /// </summary>
+        [JsonProperty("isLast")]
+        public bool IsLastPage { get; set; }
+    }
 }

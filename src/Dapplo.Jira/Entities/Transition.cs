@@ -6,29 +6,29 @@ using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
-	/// <summary>
-	///     Transition information
-	/// </summary>
-	[JsonObject]
-	public class Transition : BaseId<long>
-	{
+    /// <summary>
+    ///     Transition information
+    /// </summary>
+    [JsonObject]
+    public class Transition : BaseId<long>
+    {
         /// <summary>
-		///     Name for this transition
-		/// </summary>
-		[JsonProperty("name")]
-		public string Name { get; set; }
+        ///     Name for this transition
+        /// </summary>
+        [JsonProperty("name")]
+        public string Name { get; set; }
 
-		/// <summary>
-		///     Possible fields for the transition
-		/// </summary>
-		[JsonProperty("fields")]
-		public IDictionary<string, PossibleField> PossibleFields { get; set; }
+        /// <summary>
+        ///     Possible fields for the transition
+        /// </summary>
+        [JsonProperty("fields")]
+        public IDictionary<string, PossibleField> PossibleFields { get; set; }
 
-		/// <summary>
-		///     To status for the transition
-		/// </summary>
-		[JsonProperty("to")]
-		public Status To { get; set; }
+        /// <summary>
+        ///     To status for the transition
+        /// </summary>
+        [JsonProperty("to")]
+        public Status To { get; set; }
 
 
         /// <summary>

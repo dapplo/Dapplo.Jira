@@ -6,11 +6,11 @@ using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
-	/// <summary>
-	///     This interface defines the ways to identify a user
-	/// </summary>
-	public interface IUserIdentifier
-	{
+    /// <summary>
+    ///     This interface defines the ways to identify a user
+    /// </summary>
+    public interface IUserIdentifier
+    {
         /// <summary>
         ///     Value for the account ID
         /// </summary>
@@ -18,10 +18,10 @@ namespace Dapplo.Jira.Entities
         [ReadOnly(true)]
         public string AccountId { get; set; }
 
-		/// <summary>
-		///     Name of the user
-		/// </summary>
-		[JsonProperty("name")]
-		public string Name { get; set; }
-	}
+        /// <summary>
+        ///     Name of the user
+        /// </summary>
+        [JsonProperty("name")]
+        public string Name { get; set; }
+    }
 }

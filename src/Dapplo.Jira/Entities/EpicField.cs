@@ -34,7 +34,7 @@ namespace Dapplo.Jira.Entities
         /// </summary>
         [JsonProperty("renderer")]
         public string Renderer { get; set; }
-        
+
         /// <summary>
         ///     The Key for the Epic
         /// </summary>

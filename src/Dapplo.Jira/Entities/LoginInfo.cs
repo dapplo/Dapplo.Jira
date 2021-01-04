@@ -5,34 +5,34 @@ using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
-	/// <summary>
-	///     Jira login info
-	/// </summary>
-	[JsonObject]
-	public class LoginInfo
-	{
-		/// <summary>
-		///     Failed login count
-		/// </summary>
-		[JsonProperty("failedLoginCount")]
-		public int? FailedLoginCount { get; set; }
+    /// <summary>
+    ///     Jira login info
+    /// </summary>
+    [JsonObject]
+    public class LoginInfo
+    {
+        /// <summary>
+        ///     Failed login count
+        /// </summary>
+        [JsonProperty("failedLoginCount")]
+        public int? FailedLoginCount { get; set; }
 
-		/// <summary>
-		///     Last failed login time
-		/// </summary>
-		[JsonProperty("lastFailedLoginTime")]
-		public string LastFailedLoginTime { get; set; }
+        /// <summary>
+        ///     Last failed login time
+        /// </summary>
+        [JsonProperty("lastFailedLoginTime")]
+        public string LastFailedLoginTime { get; set; }
 
-		/// <summary>
-		///     Login count
-		/// </summary>
-		[JsonProperty("loginCount")]
-		public int? LoginCount { get; set; }
+        /// <summary>
+        ///     Login count
+        /// </summary>
+        [JsonProperty("loginCount")]
+        public int? LoginCount { get; set; }
 
-		/// <summary>
-		///     Previous login time
-		/// </summary>
-		[JsonProperty("previousLoginTime")]
-		public string PreviousLoginTime { get; set; }
-	}
+        /// <summary>
+        ///     Previous login time
+        /// </summary>
+        [JsonProperty("previousLoginTime")]
+        public string PreviousLoginTime { get; set; }
+    }
 }

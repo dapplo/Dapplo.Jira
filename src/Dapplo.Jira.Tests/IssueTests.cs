@@ -60,10 +60,15 @@ namespace Dapplo.Jira.Tests
 
             var issueLink = new IssueLink()
             {
-                InwardIssue = new LinkedIssue {Key = TestIssueKey},
-
+                InwardIssue = new LinkedIssue
+                {
+                    Key = TestIssueKey
+                },
                 IssueLinkType = issueLinkTypes[0],
-                OutwardIssue = new LinkedIssue {Key = TestIssueKey2}
+                OutwardIssue = new LinkedIssue
+                {
+                    Key = TestIssueKey2
+                }
             };
 
             await Client.Issue.CreateIssueLinkAsync(issueLink);
@@ -108,13 +113,16 @@ namespace Dapplo.Jira.Tests
             var projects = await Client.Project.GetAllAsync();
 
             var bugIssueType = issueTypes.First(type => type.Name == "Bug");
-            var projectForIssue = projects.First(digest => digest.Key == "DIT");
+            var projectForIssue = projects.First(digest => digest.Key == TestProjectKey);
 
             var issueToCreate = new Issue
             {
                 Fields = new IssueFields
                 {
-                    Project = new Project {Key = projectForIssue.Key},
+                    Project = new Project
+                    {
+                        Key = projectForIssue.Key
+                    },
                     IssueType = bugIssueType,
                     Summary = "Some summary, this is a test",
                     Description = "Some description, this is a test"
@@ -138,7 +146,7 @@ namespace Dapplo.Jira.Tests
             var projects = await Client.Project.GetAllAsync();
 
             var bugIssueType = issueTypes.First(type => type.Name == "Bug");
-            var projectForIssue = projects.First(digest => digest.Key == "DIT");
+            var projectForIssue = projects.First(digest => digest.Key == TestProjectKey);
 
             var cfTextField = "customfield_10001";
             var cfLabelField = "customfield_10002";
@@ -147,14 +155,24 @@ namespace Dapplo.Jira.Tests
             {
                 Fields = new IssueFields
                 {
-                    Project = new Project {Key = projectForIssue.Key},
+                    Project = new Project
+                    {
+                        Key = projectForIssue.Key
+                    },
                     IssueType = bugIssueType,
                     Summary = "Some summary, this is a test",
                     Description = "Some description, this is a test",
                     CustomFields =
                     {
-                        {cfTextField, "plain text"},
-                        {cfLabelField, new[] {"label1 label2"}},
+                        {
+                            cfTextField, "plain text"
+                        },
+                        {
+                            cfLabelField, new[]
+                            {
+                                "label1 label2"
+                            }
+                        },
                     }
                 }
             };
@@ -196,7 +214,10 @@ namespace Dapplo.Jira.Tests
         [Fact]
         public async Task Test_GetIssue()
         {
-            JiraConfig.ExpandGetIssue = new[] { "renderedFields" };
+            JiraConfig.ExpandGetIssue = new[]
+            {
+                "renderedFields"
+            };
             var issue = await Client.Issue.GetAsync(TestIssueKey);
             Assert.NotNull(issue);
             Assert.NotNull(issue.Fields.IssueType);
@@ -214,7 +235,10 @@ namespace Dapplo.Jira.Tests
                 LogThreshold = 0
             };
             HttpBehaviour.Current.SetConfig(defaultJsonHttpContentConverterConfiguration);
-            JiraConfig.ExpandGetTransitions = new[] {"transitions.fields"};
+            JiraConfig.ExpandGetTransitions = new[]
+            {
+                "transitions.fields"
+            };
             var transitions = await Client.Issue.GetTransitionsAsync(TestIssueKey);
             Assert.NotNull(transitions);
             Assert.True(transitions.Count > 0);
@@ -242,6 +266,7 @@ namespace Dapplo.Jira.Tests
                 // Comment the reason to the issue
                 await issue.AddCommentAsync($"{unavailableUser} is currently not available.");
             }
+
             // end-snippet
         }
 
@@ -264,7 +289,10 @@ namespace Dapplo.Jira.Tests
         public async Task Test_Search_Paging()
         {
             // Create initial search
-            string[] fields = {"summary", "status", "assignee", "key", "project", "summary"};
+            string[] fields =
+            {
+                "summary", "status", "assignee", "key", "project", "summary"
+            };
             var searchResult = await Client.Issue.SearchAsync(Where.Text.Contains("DPI"), fields: fields);
             // Loop over all results
             while (searchResult.Count > 0)
@@ -292,7 +320,10 @@ namespace Dapplo.Jira.Tests
         public async Task Test_SearchWithChangelog()
         {
             var searchResult =
-                await Client.Issue.SearchAsync(Where.Text.Contains("robin"), expand: new[] {"changelog"});
+                await Client.Issue.SearchAsync(Where.Text.Contains("robin"), expand: new[]
+                {
+                    "changelog"
+                });
 
             Assert.NotNull(searchResult);
             Assert.True(searchResult.Issues.Count > 0);

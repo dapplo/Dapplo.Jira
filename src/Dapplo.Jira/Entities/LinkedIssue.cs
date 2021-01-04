@@ -16,6 +16,5 @@ namespace Dapplo.Jira.Entities
         /// </summary>
         [JsonProperty("key")]
         public string Key { get; set; }
-
     }
 }

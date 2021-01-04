@@ -32,6 +32,5 @@ namespace Dapplo.Jira.Entities
         /// </summary>
         [JsonProperty("inwardIssue")]
         public LinkedIssue InwardIssue { get; set; }
-
     }
 }

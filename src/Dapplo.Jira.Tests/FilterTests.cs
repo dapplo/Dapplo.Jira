@@ -10,44 +10,45 @@ using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests
 {
-	public class FilterTests : TestBase
-	{
-		public FilterTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
-		{
-		}
+    public class FilterTests : TestBase
+    {
+        public FilterTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        {
+        }
 
-		[Fact]
-		public async Task TestCreateAsync()
-		{
-			const string testFilterName = "MyTestFilter";
-			var filters = await Client.Filter.GetFiltersAsync();
-			var myTestFilter = filters.FirstOrDefault(filter => filter.Name == testFilterName);
-			if (myTestFilter != null)
-			{
-				await Client.Filter.DeleteAsync(myTestFilter);
-			}
-			var query = Where.IssueKey.In(TestIssueKey);
-			var createdFilter = await Client.Filter.CreateAsync(new Filter(testFilterName, query));
-			Assert.NotNull(createdFilter);
-			Assert.Equal(query.ToString(), createdFilter.Jql);
-			query = Where.IssueKey.In(TestIssueKey).OrderByAscending(Fields.IssueKey);
-			createdFilter.Jql = query.ToString();
-			var updatedFilter = await Client.Filter.UpdateAsync(createdFilter);
-			Assert.NotNull(updatedFilter);
-			Assert.Equal(query.ToString(), updatedFilter.Jql);
+        [Fact]
+        public async Task TestCreateAsync()
+        {
+            const string testFilterName = "MyTestFilter";
+            var filters = await Client.Filter.GetFiltersAsync();
+            var myTestFilter = filters.FirstOrDefault(filter => filter.Name == testFilterName);
+            if (myTestFilter != null)
+            {
+                await Client.Filter.DeleteAsync(myTestFilter);
+            }
 
-			await Client.Filter.DeleteAsync(createdFilter);
-		}
+            var query = Where.IssueKey.In(TestIssueKey);
+            var createdFilter = await Client.Filter.CreateAsync(new Filter(testFilterName, query));
+            Assert.NotNull(createdFilter);
+            Assert.Equal(query.ToString(), createdFilter.Jql);
+            query = Where.IssueKey.In(TestIssueKey).OrderByAscending(Fields.IssueKey);
+            createdFilter.Jql = query.ToString();
+            var updatedFilter = await Client.Filter.UpdateAsync(createdFilter);
+            Assert.NotNull(updatedFilter);
+            Assert.Equal(query.ToString(), updatedFilter.Jql);
 
-		[Fact]
-		public async Task TestGetFavoritesAsync()
-		{
-			var filters = await Client.Filter.GetFavoritesAsync();
-			Assert.NotNull(filters);
-			foreach (var filter in filters)
-			{
-				await Client.Filter.GetAsync(filter.Id);
-			}
-		}
-	}
+            await Client.Filter.DeleteAsync(createdFilter);
+        }
+
+        [Fact]
+        public async Task TestGetFavoritesAsync()
+        {
+            var filters = await Client.Filter.GetFavoritesAsync();
+            Assert.NotNull(filters);
+            foreach (var filter in filters)
+            {
+                await Client.Filter.GetAsync(filter.Id);
+            }
+        }
+    }
 }

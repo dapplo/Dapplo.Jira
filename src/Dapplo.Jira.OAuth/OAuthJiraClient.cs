@@ -42,8 +42,12 @@ namespace Dapplo.Jira.OAuth
                 AuthorizationUri = jiraOAuthUri.AppendSegments("authorize")
                     .ExtendQuery(new Dictionary<string, string>
                     {
-                        {OAuth1Parameters.Token.EnumValueOf(), "{RequestToken}"},
-                        {OAuth1Parameters.Callback.EnumValueOf(), "{RedirectUrl}"}
+                        {
+                            OAuth1Parameters.Token.EnumValueOf(), "{RequestToken}"
+                        },
+                        {
+                            OAuth1Parameters.Callback.EnumValueOf(), "{RedirectUrl}"
+                        }
                     })
             };
 

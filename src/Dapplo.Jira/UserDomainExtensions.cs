@@ -34,6 +34,7 @@ namespace Dapplo.Jira
             {
                 throw new ArgumentNullException(nameof(username));
             }
+
             Log.Debug().WriteLine("Retrieving user {0}", username);
 
             var userUri = jiraClient.JiraRestUri.AppendSegments("user").ExtendQuery("username", username);
@@ -57,6 +58,7 @@ namespace Dapplo.Jira
             {
                 throw new ArgumentNullException(nameof(accountId));
             }
+
             Log.Debug().WriteLine("Retrieving user for accountId {0}", accountId);
 
             var userUri = jiraClient.JiraRestUri.AppendSegments("user").ExtendQuery("accountId", accountId);
@@ -80,10 +82,12 @@ namespace Dapplo.Jira
             {
                 return GetByAccountIdAsync(jiraClient, userIdentifier.AccountId, cancellationToken);
             }
+
             if (userIdentifier?.Name != null)
             {
                 return GetByUsernameAsync(jiraClient, userIdentifier.Name, cancellationToken);
             }
+
             throw new ArgumentNullException(nameof(userIdentifier), "no users identifier specified");
         }
 
@@ -100,12 +104,14 @@ namespace Dapplo.Jira
         /// <param name="includeInactive">If true, then inactive users are included in the results (default false)</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResults</returns>
-        public static async Task<IList<User>> SearchAsync(this IUserDomain jiraClient, string query, bool includeActive = true, bool includeInactive = false, int startAt = 0, int maxResults = 20, CancellationToken cancellationToken = default)
+        public static async Task<IList<User>> SearchAsync(this IUserDomain jiraClient, string query, bool includeActive = true, bool includeInactive = false, int startAt = 0,
+            int maxResults = 20, CancellationToken cancellationToken = default)
         {
             if (query == null)
             {
                 throw new ArgumentNullException(nameof(query));
             }
+
             Log.Debug().WriteLine("Search user {0}", query);
 
             jiraClient.Behaviour.MakeCurrent();
@@ -143,12 +149,14 @@ namespace Dapplo.Jira
         /// <param name="maxResults">Maximum number of results returned, default is 20</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>SearchResults</returns>
-        public static async Task<IList<User>> SearchByQueryAsync(this IUserDomain jiraClient, string query, int startAt = 0, int maxResults = 20, CancellationToken cancellationToken = default)
+        public static async Task<IList<User>> SearchByQueryAsync(this IUserDomain jiraClient, string query, int startAt = 0, int maxResults = 20,
+            CancellationToken cancellationToken = default)
         {
             if (query == null)
             {
                 throw new ArgumentNullException(nameof(query));
             }
+
             Log.Debug().WriteLine("Search user by query {0}", query);
 
             jiraClient.Behaviour.MakeCurrent();
@@ -199,7 +207,8 @@ namespace Dapplo.Jira
         /// <param name="actionDescriptorId">optional int, not documented what this does</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>IEnumerable with User</returns>
-        public static async Task<IEnumerable<User>> GetAssignableUsersAsync(this IUserDomain jiraClient, string username = null, string projectKey = null, string issueKey = null, int? startAt = null, int? maxResults = null, int? actionDescriptorId = null, CancellationToken cancellationToken = default)
+        public static async Task<IEnumerable<User>> GetAssignableUsersAsync(this IUserDomain jiraClient, string username = null, string projectKey = null, string issueKey = null,
+            int? startAt = null, int? maxResults = null, int? actionDescriptorId = null, CancellationToken cancellationToken = default)
         {
             var usersSearchUri = jiraClient.JiraRestUri
                 .AppendSegments("user", "assignable", "search");
@@ -208,7 +217,9 @@ namespace Dapplo.Jira
             {
                 usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
                 {
-                    {"project", projectKey}
+                    {
+                        "project", projectKey
+                    }
                 });
             }
 
@@ -216,7 +227,9 @@ namespace Dapplo.Jira
             {
                 usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
                 {
-                    {"issueKey", issueKey}
+                    {
+                        "issueKey", issueKey
+                    }
                 });
             }
 
@@ -224,7 +237,9 @@ namespace Dapplo.Jira
             {
                 usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
                 {
-                    {"username", username}
+                    {
+                        "username", username
+                    }
                 });
             }
 
@@ -232,7 +247,9 @@ namespace Dapplo.Jira
             {
                 usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
                 {
-                    {"startAt", startAt.Value}
+                    {
+                        "startAt", startAt.Value
+                    }
                 });
             }
 
@@ -240,7 +257,9 @@ namespace Dapplo.Jira
             {
                 usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
                 {
-                    {"maxResults", maxResults.Value}
+                    {
+                        "maxResults", maxResults.Value
+                    }
                 });
             }
 
@@ -248,7 +267,9 @@ namespace Dapplo.Jira
             {
                 usersSearchUri = usersSearchUri.ExtendQuery(new Dictionary<string, object>
                 {
-                    {"actionDescriptorId", actionDescriptorId.Value}
+                    {
+                        "actionDescriptorId", actionDescriptorId.Value
+                    }
                 });
             }
 

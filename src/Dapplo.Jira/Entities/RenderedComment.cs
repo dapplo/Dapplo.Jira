@@ -12,7 +12,7 @@ namespace Dapplo.Jira.Entities
     ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/attachment
     /// </summary>
     [JsonObject]
-    public class Comment : BaseProperties<long>
+    public class RenderedComment : BaseProperties<long>
     {
         /// <summary>
         ///     Who created the comment
@@ -32,7 +32,7 @@ namespace Dapplo.Jira.Entities
         /// </summary>
         [JsonProperty("created")]
         [ReadOnly(true)]
-        public DateTimeOffset? Created { get; set; }
+        public string Created { get; set; }
 
         /// <summary>
         ///     Who updated the comment
@@ -46,7 +46,7 @@ namespace Dapplo.Jira.Entities
         /// </summary>
         [JsonProperty("updated")]
         [ReadOnly(true)]
-        public DateTimeOffset? Updated { get; set; }
+        public string Updated { get; set; }
 
         /// <summary>
         ///     Is a comment visible

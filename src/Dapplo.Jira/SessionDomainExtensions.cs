@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -44,21 +44,32 @@ namespace Dapplo.Jira
             {
                 throw new ArgumentNullException(nameof(username));
             }
+
             if (password == null)
             {
                 throw new ArgumentNullException(nameof(password));
             }
+
             if (!jiraClient.Behaviour.HttpSettings.UseCookies)
             {
                 throw new ArgumentException("Cookies need to be enabled", nameof(IHttpSettings.UseCookies));
             }
+
             Log.Debug().WriteLine("Starting a session for {0}", username);
 
             var sessionUri = jiraClient.JiraAuthUri.AppendSegments("session");
 
             jiraClient.Behaviour.MakeCurrent();
 
-            var jsonContent = new JObject {{"username", username}, {"password", password}};
+            var jsonContent = new JObject
+            {
+                {
+                    "username", username
+                },
+                {
+                    "password", password
+                }
+            };
             var content = new StringContent(jsonContent.ToString(Formatting.None));
             content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
 
@@ -89,15 +100,17 @@ namespace Dapplo.Jira
                         Log.Debug().WriteLine("Found cookie {0} for domain {1} which expires on {2}", sessionCookie.Name, sessionCookie.Domain, sessionCookie.Expires);
                     }
                 }
+
                 var sessionUri = jiraClient.JiraAuthUri.AppendSegments("session");
 
                 jiraClient.Behaviour.MakeCurrent();
-                var response = await sessionUri.DeleteAsync<HttpResponseMessage>(cancellationToken).ConfigureAwait(false);
+                var response = await sessionUri.DeleteAsync<HttpResponse>(cancellationToken).ConfigureAwait(false);
 
                 if (response.StatusCode != HttpStatusCode.NoContent)
                 {
                     Log.Warn().WriteLine("Failed to close jira session. Status code: {0} ", response.StatusCode);
                 }
+
                 // Expire the cookie, no mather what the return code was.
                 foreach (var sessionCookie in sessionCookies)
                 {

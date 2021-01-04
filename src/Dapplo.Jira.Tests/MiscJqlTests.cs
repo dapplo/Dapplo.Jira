@@ -13,26 +13,33 @@ using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests
 {
-	public class MiscJqlTests
-	{
-		public MiscJqlTests(ITestOutputHelper testOutputHelper)
-		{
-			LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
-		}
+    public class MiscJqlTests
+    {
+        public MiscJqlTests(ITestOutputHelper testOutputHelper)
+        {
+            LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
+        }
 
-		[Fact]
-		public void Issue44()
+        [Fact]
+        public void Issue44()
         {
             var project = new Project
             {
                 Key = "PROJ",
                 IssueTypes = new List<IssueType>
                 {
-                    new IssueType {Id = 1, Name = "Bug"}
+                    new IssueType
+                    {
+                        Id = 1,
+                        Name = "Bug"
+                    }
                 }
             };
 
-            var issueTypes = new List<string> {"Bug"};
+            var issueTypes = new List<string>
+            {
+                "Bug"
+            };
             var startDate = DateTime.FromFileTime(1234567890);
             var endDate = DateTime.FromFileTime(12356789000);
             var jql = Where.And(
@@ -49,6 +56,5 @@ namespace Dapplo.Jira.Tests
             var jqlString = jql.ToString();
             Assert.Equal("(project = PROJ and type in (1) and ((resolved >= \"1601-01-01 00:02\" and resolved <= \"1601-01-01 00:20\") or status = \"End to End Testing\"))", jqlString);
         }
-
-	}
+    }
 }

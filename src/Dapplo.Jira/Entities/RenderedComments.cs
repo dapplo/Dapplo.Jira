@@ -1,20 +1,22 @@
 // Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
     /// <summary>
-    ///     Information on the custom field id for the ranking information
+    ///     Comment information
+    ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/attachment
     /// </summary>
     [JsonObject]
-    public class RankingCustomFieldInfo
+    public class RenderedComments : PageableResult
     {
         /// <summary>
-        ///     Id of the Rank custom field
+        ///     The actual commits
         /// </summary>
-        [JsonProperty("rankCustomFieldId")]
-        public long? RankCustomFieldId { get; set; }
+        [JsonProperty("comments")]
+        public IList<RenderedComment> Elements { get; set; }
     }
 }

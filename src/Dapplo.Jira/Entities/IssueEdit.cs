@@ -25,7 +25,7 @@ namespace Dapplo.Jira.Entities
         public Dictionary<string, IIssueUpdateOperation> Update { get; } =
             new Dictionary<string, IIssueUpdateOperation>();
 
-            /// <summary>
+        /// <summary>
         /// The fields to edit
         /// </summary>
         [JsonProperty("fields")]

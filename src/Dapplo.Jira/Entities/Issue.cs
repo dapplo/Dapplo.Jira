@@ -5,12 +5,12 @@ using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
-	/// <summary>
-	///     Issue information
-	///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
-	/// </summary>
-	[JsonObject]
-	public class Issue : IssueWithFields<IssueFields>
-	{
+    /// <summary>
+    ///     Issue information
+    ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
+    /// </summary>
+    [JsonObject]
+    public class Issue : IssueWithFields<IssueFields>
+    {
     }
 }

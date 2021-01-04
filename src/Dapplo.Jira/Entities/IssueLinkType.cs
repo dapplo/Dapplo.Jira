@@ -30,6 +30,5 @@ namespace Dapplo.Jira.Entities
         /// </summary>
         [JsonProperty("outward")]
         public string Outward { get; set; }
-
     }
 }

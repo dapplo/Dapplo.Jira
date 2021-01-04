@@ -29,6 +29,7 @@ namespace Dapplo.Jira
                 var realHours = weeks * timeTrackingConfiguration.WorkingDaysPerWeek * timeTrackingConfiguration.WorkingHoursPerDay;
                 result = result.Add(TimeSpan.FromHours(realHours));
             }
+
             var daysMatch = Regex.Match(workingTime, "(\\d+)d");
             if (daysMatch.Success)
             {
@@ -36,18 +37,21 @@ namespace Dapplo.Jira
                 var realHours = days * timeTrackingConfiguration.WorkingHoursPerDay;
                 result = result.Add(TimeSpan.FromHours(realHours));
             }
+
             var hoursMatch = Regex.Match(workingTime, "(\\d+)h");
             if (hoursMatch.Success)
             {
                 var hours = int.Parse(hoursMatch.Groups[1].Value);
                 result = result.Add(TimeSpan.FromHours(hours));
             }
+
             var minutesMatch = Regex.Match(workingTime, "(\\d+)m");
             if (minutesMatch.Success)
             {
                 var minutes = int.Parse(minutesMatch.Groups[1].Value);
                 result = result.Add(TimeSpan.FromMinutes(minutes));
             }
+
             return result;
         }
 
@@ -65,10 +69,12 @@ namespace Dapplo.Jira
             {
                 return "";
             }
+
             if (timeSpan.Value.TotalMilliseconds < 0)
             {
                 return $"-{timeSpan.TimeSpanToIncrement()}";
             }
+
             return $"{timeSpan.TimeSpanToIncrement()}";
         }
 
@@ -87,6 +93,7 @@ namespace Dapplo.Jira
             {
                 return "";
             }
+
             return timeSpan.Value.ToWorkingTime(timeTrackingConfiguration);
         }
 
@@ -122,18 +129,22 @@ namespace Dapplo.Jira
             {
                 jiraTimeRange.AppendFormat("{0}w ", workingWeeks);
             }
+
             if (workingDays > 0)
             {
                 jiraTimeRange.AppendFormat("{0}d ", workingDays);
             }
+
             if (workingHours > 0)
             {
                 jiraTimeRange.AppendFormat("{0}h ", workingHours);
             }
+
             if (minutes > 0)
             {
                 jiraTimeRange.AppendFormat("{0}m ", minutes);
             }
+
             return jiraTimeRange.ToString().Trim();
         }
     }
