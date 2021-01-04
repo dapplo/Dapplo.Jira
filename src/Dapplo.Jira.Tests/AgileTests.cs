@@ -48,7 +48,7 @@ namespace Dapplo.Jira.Tests
 
 			var boardFilter = new Filter
 			{
-				Jql = Where.Project.Is("DIT").ToString(),
+				Jql = Where.Project.Is(TestProjectKey).ToString(),
 				Name = "DapploTest"
 			};
 			boardFilter = await Client.Filter.CreateAsync(boardFilter);

@@ -41,7 +41,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetProjectAsync()
 		{
-			var project = await Client.Project.GetAsync("DIT");
+			var project = await Client.Project.GetAsync(TestProjectKey);
 
 			Assert.NotNull(project);
 			Assert.True(project.Roles.Count > 0);
@@ -56,7 +56,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetSecurityLevelsAsync()
 		{
-			var securityLevels = await Client.Project.GetSecurityLevelsAsync("DIT");
+			var securityLevels = await Client.Project.GetSecurityLevelsAsync(TestProjectKey);
 
 			Assert.NotNull(securityLevels);
 		}
@@ -64,7 +64,7 @@ namespace Dapplo.Jira.Tests
 		[Fact]
 		public async Task TestGetIssueCreatorsAsync()
 		{
-			var creators = await Client.Project.GetIssueCreatorsAsync("DIT");
+			var creators = await Client.Project.GetIssueCreatorsAsync(TestProjectKey);
 			Assert.NotNull(creators);
 
 			var firstCreator = creators.First();
@@ -78,7 +78,7 @@ namespace Dapplo.Jira.Tests
 			var component = new Component
 			{
 				Name = "Component from Test",
-				Project = "DIT",
+				Project = TestProjectKey,
 				Description = "This was created from a test"
 			};
 			component = await Client.Project.CreateComponentAsync(component);
