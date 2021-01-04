@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
+using Newtonsoft.Json;
 
 namespace Dapplo.Jira
 {
@@ -65,6 +66,104 @@ namespace Dapplo.Jira
         public static Task AssignAsync(this IssueBase issue, User newUser, CancellationToken cancellationToken = default)
         {
             return issue.AssociatedJiraClient.Issue.AssignAsync(issue.Key, newUser, cancellationToken);
+        }
+
+        /// <summary>
+        /// Retrieve a custom field from an issue
+        /// </summary>
+        /// <typeparam name="TCustomField">type for the custom field</typeparam>
+        /// <param name="issue">Issue  to retrieve custom field value from</param>
+        /// <param name="customFieldName">string with the name of the custom field</param>
+        /// <returns>TCustomField</returns>
+        public static TCustomField GetCustomField<TCustomField>(this Issue issue, string customFieldName)
+        {
+            var customFields = issue.Fields.CustomFields;
+            if (customFields == null || !customFields.ContainsKey(customFieldName))
+            {
+                return default;
+            }
+            return JsonConvert.DeserializeObject<TCustomField>(issue.Fields.CustomFields[customFieldName].ToString());
+        }
+
+        /// <summary>
+        /// Retrieve a custom field from an issue
+        /// </summary>
+        /// <param name="issue">Issue  to retrieve custom field value from</param>
+        /// <param name="customFieldName">string with the name of the custom field</param>
+        /// <returns>string</returns>
+        public static string GetCustomField(this Issue issue, string customFieldName)
+        {
+            var customFields = issue.Fields.CustomFields;
+            if (customFields == null || !customFields.ContainsKey(customFieldName))
+            {
+                return default;
+            }
+            return issue.Fields.CustomFields[customFieldName].ToString();
+        }
+
+        /// <summary>
+        /// Retrieve a custom field from an agile issue
+        /// </summary>
+        /// <typeparam name="TCustomField">type for the custom field</typeparam>
+        /// <param name="issue">AgileIssue to retrieve custom field value from</param>
+        /// <param name="customFieldName">string with the name of the custom field</param>
+        /// <returns>TCustomField</returns>
+        public static TCustomField GetCustomField<TCustomField>(this AgileIssue issue, string customFieldName)
+        {
+            var customFields = issue.Fields.CustomFields;
+            if (customFields == null || !customFields.ContainsKey(customFieldName))
+            {
+                return default;
+            }
+            return JsonConvert.DeserializeObject<TCustomField>(issue.Fields.CustomFields[customFieldName].ToString());
+        }
+
+        /// <summary>
+        /// Retrieve a custom field from an agile issue
+        /// </summary>
+        /// <param name="issue">AgileIssue to retrieve custom field value from</param>
+        /// <param name="customFieldName">string with the name of the custom field</param>
+        /// <returns>string</returns>
+        public static string GetCustomField(this AgileIssue issue, string customFieldName)
+        {
+            var customFields = issue.Fields.CustomFields;
+            if (customFields == null || !customFields.ContainsKey(customFieldName))
+            {
+                return default;
+            }
+            return issue.Fields.CustomFields[customFieldName].ToString();
+        }
+
+        /// <summary>
+        /// Add a custom field to an IssueEdit
+        /// </summary>
+        /// <typeparam name="TCustomField">type for the custom field</typeparam>
+        /// <param name="issueToEdit">IssueEdit to add a custom field with value to</param>
+        /// <param name="customFieldName">string with the name of the custom field</param>
+        /// <param name="customFieldValue">TCustomField with the value</param>
+        /// <returns>IssueEdit for a fluent usage</returns>
+        public static IssueEdit AddCustomField<TCustomField>(this IssueEdit issueToEdit, string customFieldName, TCustomField customFieldValue)
+        {
+            // Make sure that IssueFields is available
+            issueToEdit.Fields ??= new IssueFields();
+            issueToEdit.Fields.CustomFields.Add(customFieldName, customFieldValue);
+            return issueToEdit;
+        }
+
+        /// <summary>
+        /// Add a custom field to an Issue
+        /// </summary>
+        /// <typeparam name="TCustomField">type for the custom field</typeparam>
+        /// <param name="issueToEdit">IssueEdit to add a custom field with value to</param>
+        /// <param name="customFieldName">string with the name of the custom field</param>
+        /// <param name="customFieldValue">TCustomField with the value</param>
+        /// <returns>Issue for a fluent usage</returns>
+        public static Issue AddCustomField<TCustomField>(this Issue issueToEdit, string customFieldName, TCustomField customFieldValue)
+        {
+            // Make sure that IssueFields is available
+            issueToEdit.Fields ??= new IssueFields();
+            issueToEdit.Fields.CustomFields.Add(customFieldName, customFieldValue);
+            return issueToEdit;
         }
     }
 }
