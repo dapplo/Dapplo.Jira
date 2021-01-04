@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapplo.HttpExtensions;
@@ -88,9 +89,9 @@ namespace Dapplo.Jira
 
             jiraClient.Behaviour.MakeCurrent();
             var deleteAttachmentUri = jiraClient.JiraRestUri.AppendSegments("attachment", attachmentId);
-            await deleteAttachmentUri.DeleteAsync(cancellationToken).ConfigureAwait(false);
+            var response = await deleteAttachmentUri.DeleteAsync<HttpResponse>(cancellationToken).ConfigureAwait(false);
+            response.HandleStatusCode(HttpStatusCode.NoContent);
         }
-
 
         /// <summary>
         ///     Get the content for the specified attachment
