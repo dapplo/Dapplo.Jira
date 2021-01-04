@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -92,7 +92,7 @@ namespace Dapplo.Jira
                 var sessionUri = jiraClient.JiraAuthUri.AppendSegments("session");
 
                 jiraClient.Behaviour.MakeCurrent();
-                var response = await sessionUri.DeleteAsync<HttpResponseMessage>(cancellationToken).ConfigureAwait(false);
+                var response = await sessionUri.DeleteAsync<HttpResponse>(cancellationToken).ConfigureAwait(false);
 
                 if (response.StatusCode != HttpStatusCode.NoContent)
                 {
