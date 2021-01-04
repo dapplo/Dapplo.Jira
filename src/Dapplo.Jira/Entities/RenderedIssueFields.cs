@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -35,7 +35,7 @@ namespace Dapplo.Jira.Entities
 		///     Container for the comments for this issue
 		/// </summary>
 		[JsonProperty("comment")]
-		public Comments Comments { get; set; }
+		public RenderedComments Comments { get; set; }
 
 		/// <summary>
 		///     Components for this issue

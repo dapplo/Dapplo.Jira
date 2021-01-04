@@ -108,7 +108,7 @@ namespace Dapplo.Jira.Tests
             var projects = await Client.Project.GetAllAsync();
 
             var bugIssueType = issueTypes.First(type => type.Name == "Bug");
-            var projectForIssue = projects.First(digest => digest.Key == "DIT");
+            var projectForIssue = projects.First(digest => digest.Key == TestProjectKey);
 
             var issueToCreate = new Issue
             {
@@ -138,7 +138,7 @@ namespace Dapplo.Jira.Tests
             var projects = await Client.Project.GetAllAsync();
 
             var bugIssueType = issueTypes.First(type => type.Name == "Bug");
-            var projectForIssue = projects.First(digest => digest.Key == "DIT");
+            var projectForIssue = projects.First(digest => digest.Key == TestProjectKey);
 
             var cfTextField = "customfield_10001";
             var cfLabelField = "customfield_10002";

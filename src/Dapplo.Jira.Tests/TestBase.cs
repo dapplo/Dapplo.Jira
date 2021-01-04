@@ -2,6 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Globalization;
+using System.Threading;
 using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.ContentConverter;
 using Dapplo.HttpExtensions.Extensions;
@@ -17,8 +19,9 @@ namespace Dapplo.Jira.Tests
 	public abstract class TestBase
 	{
 		protected static readonly LogSource Log = new LogSource();
-		protected const string TestIssueKey = "DIT-1";
-        protected const string TestIssueKey2 = "DIT-123";
+		protected const string TestProjectKey = "DIT";
+        protected const string TestIssueKey = "DIT-1";
+		protected const string TestIssueKey2 = "DIT-123";
 
 		// Test against a well known JIRA
 		protected static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
@@ -30,6 +33,9 @@ namespace Dapplo.Jira.Tests
 		/// <param name="doLogin"></param>
 		protected TestBase(ITestOutputHelper testOutputHelper, bool doLogin = true)
 		{
+            CultureInfo ci = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = ci;
+            Thread.CurrentThread.CurrentUICulture = ci;
 
 			var defaultJsonHttpContentConverterConfiguration = new DefaultJsonHttpContentConverterConfiguration
 			{
