@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -40,8 +40,8 @@ namespace Dapplo.Jira.Tests
             {
                 "Bug"
             };
-            var startDate = DateTime.FromFileTime(1234567890);
-            var endDate = DateTime.FromFileTime(12356789000);
+            var startDate = DateTimeOffset.FromFileTime(1234567890).ToUniversalTime();
+            var endDate = DateTime.FromFileTime(12356789000).ToUniversalTime();
             var jql = Where.And(
                 Where.Project.Is(project),
                 Where.Type.In(project.IssueTypes.Where(t => issueTypes.Contains(t.Name)).ToArray()),

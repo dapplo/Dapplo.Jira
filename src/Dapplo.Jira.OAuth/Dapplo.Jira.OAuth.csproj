@@ -1,19 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <Description>OAuth addition for Dapplo.Jira</Description>
-    <TargetFrameworks>net461;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp3.1;net5.0-windows</TargetFrameworks>
     <PackageTags>atlassian;jira;dapplo</PackageTags>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Dapplo.HttpExtensions" Version="1.0.3" />
-    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="1.0.3" />
-    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="1.0.3" />
+    <PackageReference Include="Dapplo.HttpExtensions" Version="1.0.8" />
+    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="1.0.8" />
+    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="1.0.8" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
-    <Reference Include="System.Drawing" />
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
     <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dapplo.Jira\Dapplo.Jira.csproj" />
