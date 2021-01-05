@@ -18,7 +18,7 @@ namespace Dapplo.Jira.Tests
     /// </summary>
     public abstract class TestBase
     {
-        protected static readonly LogSource Log = new();
+        protected static readonly LogSource Log = new LogSource();
         protected const string TestProjectKey = "DIT";
         protected const string TestIssueKey = "DIT-1";
         protected const string TestIssueKey2 = "DIT-123";
