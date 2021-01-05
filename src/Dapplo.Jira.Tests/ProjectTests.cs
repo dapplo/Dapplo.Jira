@@ -1,6 +1,7 @@
 // Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,23 +22,26 @@ namespace Dapplo.Jira.Tests
     {
         public ProjectTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
+            var httpContentConverters = new List<IHttpContentConverter>(HttpExtensionsGlobals.HttpContentConverters);
             // Add SvgBitmapHttpContentConverter if it was not yet added
-            if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
+            if (httpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
             {
-                HttpExtensionsGlobals.HttpContentConverters.Add(SvgBitmapHttpContentConverter.Instance.Value);
+                httpContentConverters.Add(SvgBitmapHttpContentConverter.Instance.Value);
             }
 
             // Add BitmapHttpContentConverter if it was not yet added
-            if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(BitmapHttpContentConverter)))
+            if (httpContentConverters.All(x => x.GetType() != typeof(BitmapHttpContentConverter)))
             {
-                HttpExtensionsGlobals.HttpContentConverters.Add(BitmapHttpContentConverter.Instance.Value);
+                httpContentConverters.Add(BitmapHttpContentConverter.Instance.Value);
             }
 
             // Add BitmapSourceHttpContentConverter if it was not yet added
-            if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(BitmapSourceHttpContentConverter)))
+            if (httpContentConverters.All(x => x.GetType() != typeof(BitmapSourceHttpContentConverter)))
             {
-                HttpExtensionsGlobals.HttpContentConverters.Add(BitmapSourceHttpContentConverter.Instance.Value);
+                httpContentConverters.Add(BitmapSourceHttpContentConverter.Instance.Value);
             }
+
+            HttpExtensionsGlobals.HttpContentConverters = httpContentConverters;
         }
 
         [Fact]
