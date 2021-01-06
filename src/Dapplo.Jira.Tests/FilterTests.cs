@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Linq;
@@ -20,8 +20,12 @@ namespace Dapplo.Jira.Tests
         public async Task TestCreateAsync()
         {
             const string testFilterName = "MyTestFilter";
-            var filters = await Client.Filter.GetFiltersAsync();
-            var myTestFilter = filters.FirstOrDefault(filter => filter.Name == testFilterName);
+            var filterSearch = new FilterSearch
+            {
+                FilterName = testFilterName
+            };
+            var filters = await Client.Filter.SearchFiltersAsync(filterSearch);
+            var myTestFilter = filters.Items.FirstOrDefault(filter => filter.Name == testFilterName);
             if (myTestFilter != null)
             {
                 await Client.Filter.DeleteAsync(myTestFilter);
@@ -49,6 +53,24 @@ namespace Dapplo.Jira.Tests
             {
                 await Client.Filter.GetAsync(filter.Id);
             }
+        }
+
+        [Fact]
+        public async Task TestFavoriteFiltersAsync()
+        {
+            var filters = await Client.Filter.GetFavoritesAsync();
+            Assert.NotNull(filters);
+            foreach (var filter in filters)
+            {
+                await Client.Filter.GetAsync(filter.Id);
+            }
+        }
+
+        [Fact]
+        public async Task TestMyFiltersAsync()
+        {
+            var filters = await Client.Filter.GetMyFiltersAsync();
+            Assert.NotNull(filters);
         }
     }
 }

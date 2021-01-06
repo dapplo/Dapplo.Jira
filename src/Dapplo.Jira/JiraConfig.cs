@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 namespace Dapplo.Jira
@@ -19,6 +19,14 @@ namespace Dapplo.Jira
         ///     The values that are expanded in the GetFilter result
         /// </summary>
         public static string[] ExpandGetFilter { get; set; }
+
+        /// <summary>
+        ///     The values that are expanded in the SearchFilter result
+        /// </summary>
+        public static string[] ExpandSearchFilters { get; set; } =
+        {
+            "description", "favourite", "jql"
+        };
 
         /// <summary>
         ///     The values that are expanded in the GetIssue result

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -32,6 +32,12 @@ namespace Dapplo.Jira.Entities
         public int? BuildNumber { get; set; }
 
         /// <summary>
+        ///     Type of deployment, this contains "cloud" if it's a cloud instance
+        /// </summary>
+        [JsonProperty("deploymentType")]
+        public string DeploymentType { get; set; }
+
+        /// <summary>
         ///     Git commit id (at lease until the SCM is changed)
         /// </summary>
         [JsonProperty("scmInfo")]
@@ -48,5 +54,7 @@ namespace Dapplo.Jira.Entities
         /// </summary>
         [JsonProperty("version")]
         public string Version { get; set; }
+
+
     }
 }

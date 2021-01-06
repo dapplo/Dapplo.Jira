@@ -40,7 +40,7 @@ namespace Dapplo.Jira.Tests
                 await Client.Agile.DeleteBoardAsync(board.Id);
             }
 
-            var filters = await Client.Filter.GetFiltersAsync();
+            var filters = await Client.Filter.GetFavoritesAsync();
             foreach (var testFilter in filters.Where(filter => filter.Name.Contains("DapploTest")))
             {
                 await Client.Filter.DeleteAsync(testFilter);

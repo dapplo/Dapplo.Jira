@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -225,6 +225,26 @@ namespace Dapplo.Jira.Tests
             Assert.True(issue.Fields.TimeTracking.TimeSpentSeconds > 0);
             Assert.True(issue.Fields.CustomFields.Count > 0);
             Assert.True(issue.Fields.Comments.Elements.Count > 0);
+        }
+
+        [Fact]
+        public void Test_CompareIssued()
+        {
+
+            var issue1 = new Issue
+            {
+                Id = "1"
+            };
+            var issue2 = new Issue
+            {
+                Id = "2"
+            };
+            var issue3 = new Issue
+            {
+                Id = "1"
+            };
+            Assert.NotEqual(issue1, issue2);
+            Assert.Equal(issue1,issue3);
         }
 
         [Fact]

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -12,7 +12,7 @@ namespace Dapplo.Jira.Entities
     ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/user
     /// </summary>
     [JsonObject]
-    public class User : IUserIdentifier
+    public class User : IUserIdentifier, IComparable, IComparable<User>
     {
         /// <summary>
         ///     Use this to specify nobody
@@ -79,5 +79,11 @@ namespace Dapplo.Jira.Entities
         [JsonProperty("self")]
         [ReadOnly(true)]
         public Uri Self { get; set; }
+
+        /// <inheritdoc />
+        public int CompareTo(object obj) => CompareTo(obj as User);
+
+        /// <inheritdoc />
+        public int CompareTo(User other) => string.Compare(AccountId, other?.AccountId, StringComparison.Ordinal);
     }
 }

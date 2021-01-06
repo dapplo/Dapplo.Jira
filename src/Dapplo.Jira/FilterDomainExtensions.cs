@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -47,25 +47,90 @@ namespace Dapplo.Jira
 
         /// <summary>
         ///     Get my filters
-        ///     See: https://docs.atlassian.com/jira/REST/latest/#d2e1388
         /// </summary>
         /// <param name="jiraClient">IFilterDomain to bind the extension method to</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>List of filter</returns>
-        public static async Task<IList<Filter>> GetFiltersAsync(this IFilterDomain jiraClient, CancellationToken cancellationToken = default)
+        public static async Task<IList<Filter>> GetMyFiltersAsync(this IFilterDomain jiraClient, CancellationToken cancellationToken = default)
         {
-            Log.Debug().WriteLine("Retrieving filters for current user");
+            var myself = await jiraClient.User.GetMyselfAsync(cancellationToken).ConfigureAwait(false);
+            Log.Debug().WriteLine("Retrieving filters for current user {0}", myself.AccountId);
+            var filterSearch = new FilterSearch
+            {
+                AccountId = myself.AccountId
+            };
+            var filters = await jiraClient.Filter.SearchFiltersAsync(filterSearch, null, cancellationToken).ConfigureAwait(false);
+            return filters.Items;
+        }
+
+        /// <summary>
+        ///     Search filters
+        ///     See <a href="https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-filters/#api-rest-api-2-filter-search-get">filter search</a>
+        /// </summary>
+        /// <param name="jiraClient">IFilterDomain to bind the extension method to</param>
+        /// <param name="filterSearch">FilterSearch</param>
+        /// <param name="page">Page for paging results</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <returns>Filters</returns>
+        public static async Task<Filters> SearchFiltersAsync(this IFilterDomain jiraClient, FilterSearch filterSearch = null, Page page = null, CancellationToken cancellationToken = default)
+        {
+            Log.Debug().WriteLine("Searching for filters");
 
             jiraClient.Behaviour.MakeCurrent();
-            var filtersUri = jiraClient.JiraRestUri.AppendSegments("filter", "my");
+            var filtersUri = jiraClient.JiraRestUri.AppendSegments("filter", "search");
 
-            // Add the configurable expand values, if the value is not null or empty
-            if (JiraConfig.ExpandGetFavoriteFilters?.Length > 0)
+            if (page != null)
             {
-                filtersUri = filtersUri.ExtendQuery("expand", string.Join(",", JiraConfig.ExpandGetFavoriteFilters));
+                filtersUri = filtersUri.ExtendQuery(new Dictionary<string, object>
+                {
+                    {
+                        "startAt", page.StartAt
+                    },
+                    {
+                        "maxResults", page.MaxResults
+                    }
+                });
             }
 
-            var response = await filtersUri.GetAsAsync<HttpResponse<IList<Filter>, Error>>(cancellationToken).ConfigureAwait(false);
+            if (filterSearch != null)
+            {
+                if (!string.IsNullOrEmpty(filterSearch.FilterName))
+                {
+                    filtersUri = filtersUri.ExtendQuery("filterName", filterSearch.FilterName);
+                }
+                if (!string.IsNullOrEmpty(filterSearch.AccountId))
+                {
+                    filtersUri = filtersUri.ExtendQuery("accountId", filterSearch.AccountId);
+                }
+                if (!string.IsNullOrEmpty(filterSearch.GroupName))
+                {
+                    filtersUri = filtersUri.ExtendQuery("groupname", filterSearch.GroupName);
+                }
+                if (filterSearch.ProjectId.HasValue)
+                {
+                    filtersUri = filtersUri.ExtendQuery("projectid", filterSearch.ProjectId);
+                }
+                if (!string.IsNullOrEmpty(filterSearch.OrderBy))
+                {
+                    filtersUri = filtersUri.ExtendQuery("orderBy", filterSearch.OrderBy);
+                }
+                if (filterSearch.Ids != null)
+                {
+                    foreach (var filterId in filterSearch.Ids)
+                    {
+                        filtersUri = filtersUri.ExtendQuery("id", filterId);
+                    }
+                }
+            }
+
+            var expand = filterSearch?.Expand ?? JiraConfig.ExpandSearchFilters;
+            // Add the configurable expand values, if the value is not null or empty
+            if (expand?.Length > 0)
+            {
+                filtersUri = filtersUri.ExtendQuery("expand", string.Join(",", expand));
+            }
+
+            var response = await filtersUri.GetAsAsync<HttpResponse<Filters, Error>>(cancellationToken).ConfigureAwait(false);
             return response.HandleErrors();
         }
 

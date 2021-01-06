@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -45,8 +45,7 @@ namespace Dapplo.Jira.Tests
             var serverInfo = await Client.Server.GetInfoAsync();
             Assert.NotNull(serverInfo.Version);
             Assert.NotNull(serverInfo.ServerTitle);
-            // This should be changed when the title changes
-            Assert.EndsWith("JIRA", serverInfo.ServerTitle);
+            Assert.True(serverInfo.ServerTitle.Length > 0);
             Log.Debug().WriteLine($"Version {serverInfo.Version} - Title: {serverInfo.ServerTitle}");
         }
     }

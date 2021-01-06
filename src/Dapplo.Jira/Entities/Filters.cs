@@ -1,23 +1,22 @@
 // Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
-using System.ComponentModel;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities
 {
     /// <summary>
-    ///     Base fields, used in pretty much every entity
+    ///     Filters information
+    ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/attachment
     /// </summary>
     [JsonObject]
-    public class BaseProperties<TId> : ReadOnlyBaseId<TId> where TId : IComparable
+    public class Filters : PageableResult
     {
         /// <summary>
-        ///     Link to itself
+        ///     The actual commits
         /// </summary>
-        [JsonProperty("self")]
-        [ReadOnly(true)]
-        public Uri Self { get; set; }
+        [JsonProperty("values")]
+        public IList<Filter> Items { get; set; }
     }
 }

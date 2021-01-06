@@ -22,7 +22,7 @@ namespace Dapplo.Jira.Tests
     {
         public ProjectTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
-            var httpContentConverters = new List<IHttpContentConverter>(HttpExtensionsGlobals.HttpContentConverters);
+            var httpContentConverters = Client.Behaviour.HttpContentConverters;
             // Add SvgBitmapHttpContentConverter if it was not yet added
             if (httpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
             {
@@ -40,8 +40,6 @@ namespace Dapplo.Jira.Tests
             {
                 httpContentConverters.Add(BitmapSourceHttpContentConverter.Instance.Value);
             }
-
-            HttpExtensionsGlobals.HttpContentConverters = httpContentConverters;
         }
 
         [Fact]
