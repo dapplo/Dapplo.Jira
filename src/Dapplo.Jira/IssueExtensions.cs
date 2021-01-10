@@ -69,6 +69,18 @@ namespace Dapplo.Jira
         }
 
         /// <summary>
+        /// Test if an issue has a custom field
+        /// </summary>
+        /// <param name="issue">Issue  to retrieve custom field value from</param>
+        /// <param name="customFieldName">string with the name of the custom field</param>
+        /// <returns>bool</returns>
+        public static bool HasCustomField(this Issue issue, string customFieldName)
+        {
+            var customFields = issue.Fields.CustomFields;
+            return customFields != null && customFields.ContainsKey(customFieldName);
+        }
+
+        /// <summary>
         /// Retrieve a custom field from an issue
         /// </summary>
         /// <typeparam name="TCustomField">type for the custom field</typeparam>
@@ -77,12 +89,36 @@ namespace Dapplo.Jira
         /// <returns>TCustomField</returns>
         public static TCustomField GetCustomField<TCustomField>(this Issue issue, string customFieldName)
         {
+            issue.TryGetCustomField<TCustomField>(customFieldName, out var returnValue);
+            return returnValue;
+        }
+
+        /// <summary>
+        /// Try to retrieve a custom field from an issue
+        /// </summary>
+        /// <typeparam name="TCustomField">type for the custom field</typeparam>
+        /// <param name="issue">Issue to retrieve custom field value from</param>
+        /// <param name="customFieldName">string with the name of the custom field</param>
+        /// <param name="value">TCustomField</param>
+        /// <returns>bool</returns>
+        public static bool TryGetCustomField<TCustomField>(this Issue issue, string customFieldName, out TCustomField value)
+        {
             var customFields = issue.Fields.CustomFields;
             if (customFields == null || !customFields.ContainsKey(customFieldName))
             {
-                return default;
+                value = default;
+                return false;
             }
-            return JsonConvert.DeserializeObject<TCustomField>(issue.Fields.CustomFields[customFieldName].ToString());
+            var stringValue = issue.Fields.CustomFields[customFieldName]?.ToString();
+            if (stringValue is null)
+            {
+                value = default;
+            }
+            else
+            {
+                value = JsonConvert.DeserializeObject<TCustomField>(stringValue);
+            }
+            return true;
         }
 
         /// <summary>
@@ -93,12 +129,27 @@ namespace Dapplo.Jira
         /// <returns>string</returns>
         public static string GetCustomField(this Issue issue, string customFieldName)
         {
+            issue.TryGetCustomField(customFieldName, out var returnValue);
+            return returnValue;
+        }
+
+        /// <summary>
+        /// Try to retrieve a custom field from an issue
+        /// </summary>
+        /// <param name="issue">Issue  to retrieve custom field value from</param>
+        /// <param name="customFieldName">string with the name of the custom field</param>
+        /// <param name="value">string</param>
+        /// <returns>bool</returns>
+        public static bool TryGetCustomField(this Issue issue, string customFieldName, out string value)
+        {
             var customFields = issue.Fields.CustomFields;
             if (customFields == null || !customFields.ContainsKey(customFieldName))
             {
-                return default;
+                value = null;
+                return false;
             }
-            return issue.Fields.CustomFields[customFieldName].ToString();
+            value = issue.Fields.CustomFields[customFieldName]?.ToString();
+            return true;
         }
 
         /// <summary>
@@ -110,12 +161,36 @@ namespace Dapplo.Jira
         /// <returns>TCustomField</returns>
         public static TCustomField GetCustomField<TCustomField>(this AgileIssue issue, string customFieldName)
         {
+            issue.TryGetCustomField<TCustomField>(customFieldName, out var returnValue);
+            return returnValue;
+        }
+
+        /// <summary>
+        /// Try to retrieve a custom field from an agile issue
+        /// </summary>
+        /// <typeparam name="TCustomField">type for the custom field</typeparam>
+        /// <param name="issue">AgileIssue to retrieve custom field value from</param>
+        /// <param name="customFieldName">string with the name of the custom field</param>
+        /// <param name="value">TCustomField</param>
+        /// <returns>bool</returns>
+        public static bool TryGetCustomField<TCustomField>(this AgileIssue issue, string customFieldName, out TCustomField value)
+        {
             var customFields = issue.Fields.CustomFields;
             if (customFields == null || !customFields.ContainsKey(customFieldName))
             {
-                return default;
+                value = default;
+                return false;
             }
-            return JsonConvert.DeserializeObject<TCustomField>(issue.Fields.CustomFields[customFieldName].ToString());
+            var stringValue = issue.Fields.CustomFields[customFieldName]?.ToString();
+            if (stringValue is null)
+            {
+                value = default;
+            }
+            else
+            {
+                value = JsonConvert.DeserializeObject<TCustomField>(stringValue);
+            }
+            return true;
         }
 
         /// <summary>
@@ -126,12 +201,27 @@ namespace Dapplo.Jira
         /// <returns>string</returns>
         public static string GetCustomField(this AgileIssue issue, string customFieldName)
         {
+            issue.TryGetCustomField(customFieldName, out var returnValue);
+            return returnValue;
+        }
+
+        /// <summary>
+        /// Retrieve a custom field from an agile issue
+        /// </summary>
+        /// <param name="issue">AgileIssue to retrieve custom field value from</param>
+        /// <param name="customFieldName">string with the name of the custom field</param>
+        /// <param name="value">string</param>
+        /// <returns>bool</returns>
+        public static bool TryGetCustomField(this AgileIssue issue, string customFieldName, out string value)
+        {
             var customFields = issue.Fields.CustomFields;
             if (customFields == null || !customFields.ContainsKey(customFieldName))
             {
-                return default;
+                value = null;
+                return false;
             }
-            return issue.Fields.CustomFields[customFieldName].ToString();
+            value = issue.Fields.CustomFields[customFieldName]?.ToString();
+            return true;
         }
 
         /// <summary>
