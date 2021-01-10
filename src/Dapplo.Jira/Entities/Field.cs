@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace Dapplo.Jira.Entities
 {
     /// <summary>
-    ///     Filter information
+    ///     Field information
     /// </summary>
     [JsonObject]
     public class Field : BaseProperties<string>
