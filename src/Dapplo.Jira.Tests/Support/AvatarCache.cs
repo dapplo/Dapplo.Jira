@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Threading;
@@ -15,16 +15,13 @@ namespace Dapplo.Jira.Tests.Support
     /// </summary>
     public class AvatarCache : AsyncMemoryCache<AvatarUrls, BitmapSource>
     {
-        private readonly IJiraClient _jiraClient;
+        private readonly IJiraClient jiraClient;
 
         /// <summary>
         ///     Constructor
         /// </summary>
         /// <param name="jiraClient"></param>
-        public AvatarCache(IJiraClient jiraClient)
-        {
-            _jiraClient = jiraClient;
-        }
+        public AvatarCache(IJiraClient jiraClient) => this.jiraClient = jiraClient;
 
         /// <summary>
         ///     This should rather be supplied to the CreateAsync by having a key as Tuple with AvatarUrls and Size...
@@ -37,9 +34,9 @@ namespace Dapplo.Jira.Tests.Support
         /// <param name="key">AvatarUrls</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>BitmapSource</returns>
-        protected override async Task<BitmapSource> CreateAsync(AvatarUrls key, CancellationToken cancellationToken = new CancellationToken())
+        protected override async Task<BitmapSource> CreateAsync(AvatarUrls key, CancellationToken cancellationToken = default)
         {
-            return await _jiraClient.Server.GetAvatarAsync<BitmapSource>(key, AvatarSize, cancellationToken).ConfigureAwait(false);
+            return await this.jiraClient.Server.GetAvatarAsync<BitmapSource>(key, AvatarSize, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -47,9 +44,6 @@ namespace Dapplo.Jira.Tests.Support
         /// </summary>
         /// <param name="keyObject">AvatarUrls</param>
         /// <returns>string</returns>
-        protected override string CreateKey(AvatarUrls keyObject)
-        {
-            return keyObject.GetUri(AvatarSize).AbsoluteUri;
-        }
+        protected override string CreateKey(AvatarUrls keyObject) => keyObject.GetUri(AvatarSize).AbsoluteUri;
     }
 }

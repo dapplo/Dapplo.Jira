@@ -54,9 +54,9 @@ namespace Dapplo.Jira
         IFilterDomain Filter { get; }
 
         /// <summary>
-        ///     Work domain
+        ///     WorkLog domain
         /// </summary>
-        IWorkDomain Work { get; }
+        IWorkLogDomain WorkLog { get; }
 
         /// <summary>
         ///     Server domain

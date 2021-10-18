@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Threading.Tasks;
@@ -26,7 +26,7 @@ namespace Dapplo.Jira.Tests
             await Client.Session.EndAsync();
 
             // WhoAmI should give an exception if there is no login
-            await Assert.ThrowsAsync<JiraException>(async () => await Client.User.GetMyselfAsync());
+            _ = await Assert.ThrowsAsync<JiraException>(async () => await Client.User.GetMyselfAsync());
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -50,7 +50,7 @@ namespace Dapplo.Jira.Tests
                 Started = started
             };
 
-            var worklog = await Client.Work.CreateAsync(TestIssueKey, newWorkLog);
+            var worklog = await Client.WorkLog.CreateAsync(TestIssueKey, newWorkLog);
 
             Assert.NotNull(worklog);
             Assert.Equal("2d", worklog.TimeSpent);
@@ -60,22 +60,35 @@ namespace Dapplo.Jira.Tests
             worklog.TimeSpent = "3d";
             worklog.TimeSpentSeconds = null;
             worklog.Started = DateTimeOffset.Now.Subtract(TimeSpan.FromDays(3));
-            await Client.Work.UpdateAsync(TestIssueKey, worklog);
-            var worklogs = await Client.Work.GetAsync(TestIssueKey);
+            await Client.WorkLog.UpdateAsync(TestIssueKey, worklog);
+            var worklogs = await Client.WorkLog.GetAsync(TestIssueKey);
             var retrievedWorklog = worklogs.FirstOrDefault(worklogItem => string.Equals(worklog.Id, worklogItem.Id));
             Assert.NotNull(retrievedWorklog);
             Assert.Equal("3d", retrievedWorklog.TimeSpent);
 
             // Delete again
-            await Client.Work.DeleteAsync(TestIssueKey, worklog);
+            await Client.WorkLog.DeleteAsync(TestIssueKey, worklog);
         }
 
         [Fact]
         public async Task TestWorklogs()
         {
-            var worklogs = await Client.Work.GetAsync(TestIssueKey);
+            var worklogs = await Client.WorkLog.GetAsync(TestIssueKey);
             Assert.NotNull(worklogs);
             Assert.True(worklogs.Elements.Count > 0);
         }
+
+        [Fact]
+        public async Task TestUpdatedWorklogs()
+        {
+            var updatedWorklogs = await Client.WorkLog.GetUpdatedAsync(DateTimeOffset.Now.Subtract(TimeSpan.FromDays(365)));
+            Assert.NotNull(updatedWorklogs);
+            Assert.True(updatedWorklogs.Elements.Count > 0);
+
+            var worklogs = await Client.WorkLog.GetAsync(updatedWorklogs);
+            Assert.NotNull(worklogs);
+            Assert.True(worklogs.Count > 0);
+        }
+        
     }
 }

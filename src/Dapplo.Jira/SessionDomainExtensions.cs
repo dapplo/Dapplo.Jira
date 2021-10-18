@@ -52,7 +52,7 @@ namespace Dapplo.Jira
 
             if (!jiraClient.Behaviour.HttpSettings.UseCookies)
             {
-                throw new ArgumentException("Cookies need to be enabled", nameof(IHttpSettings.UseCookies));
+                throw new InvalidOperationException($"Cookies need to be enabled, set {nameof(IHttpSettings.UseCookies)} to true");
             }
 
             Log.Debug().WriteLine("Starting a session for {0}", username);
