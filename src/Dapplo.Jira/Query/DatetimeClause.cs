@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -71,7 +71,7 @@ namespace Dapplo.Jira.Query
         }
 
         /// <inheritDoc />
-        public IFinalClause DateTime(DateTime dateTime)
+        public IFinalClause DateTime(DateTimeOffset dateTime)
         {
             if (dateTime.Minute == 0 && dateTime.Hour == 0)
             {

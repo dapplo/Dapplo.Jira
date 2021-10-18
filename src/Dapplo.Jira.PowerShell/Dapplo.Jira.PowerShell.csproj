@@ -7,7 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Dapplo.Jira\Dapplo.Jira.csproj" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
     <PackageReference Include="System.Management.Automation.dll" Version="10.0.10586" />
     <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Runtime" />

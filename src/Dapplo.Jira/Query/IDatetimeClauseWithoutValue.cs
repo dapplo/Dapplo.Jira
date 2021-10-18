@@ -15,7 +15,7 @@ namespace Dapplo.Jira.Query
         /// </summary>
         /// <param name="dateTime">DateTime</param>
         /// <returns>this</returns>
-        IFinalClause DateTime(DateTime dateTime);
+        IFinalClause DateTime(DateTimeOffset dateTime);
 
         /// <summary>
         ///     Use the endOfDay function as the value to compare

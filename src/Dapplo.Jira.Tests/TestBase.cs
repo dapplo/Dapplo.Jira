@@ -29,11 +29,11 @@ namespace Dapplo.Jira.Tests
         /// <summary>
         ///     Default test setup, can also take care of setting the authentication
         /// </summary>
-        /// <param name="testOutputHelper"></param>
-        /// <param name="doLogin"></param>
+        /// <param name="testOutputHelper">ITestOutputHelper</param>
+        /// <param name="doLogin">bool</param>
         protected TestBase(ITestOutputHelper testOutputHelper, bool doLogin = true)
         {
-            CultureInfo ci = new CultureInfo("en-US");
+            var ci = new CultureInfo("en-US");
             Thread.CurrentThread.CurrentCulture = ci;
             Thread.CurrentThread.CurrentUICulture = ci;
 
