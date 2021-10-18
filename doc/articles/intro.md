@@ -29,11 +29,12 @@ A example to find issues which are assigned to someone who is currently (or lang
 <!-- snippet: SearchExample -->
 <a id='snippet-searchexample'></a>
 ```cs
-var client = JiraClient.Create(TestJiraUri);
 // Preferably use a "bot" user for maintenance
 var username = Environment.GetEnvironmentVariable("jira_test_username");
 var password = Environment.GetEnvironmentVariable("jira_test_password");
-client.SetBasicAuthentication(username, password);
+var client = JiraClient
+    .Create(TestJiraUri)
+    .SetBasicAuthentication(username, password);
 
 const string unavailableUser = "Robin Krom";
 // Find all issues in a certain state and assigned to a user who is not available
@@ -47,6 +48,6 @@ foreach (var issue in searchResult.Issues)
     await issue.AddCommentAsync($"{unavailableUser} is currently not available.");
 }
 ```
-<sup><a href='/src/Dapplo.Jira.Tests/IssueTests.cs#L251-L270' title='Snippet source file'>snippet source</a> | <a href='#snippet-searchexample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Dapplo.Jira.Tests/IssueTests.cs#L264-L284' title='Snippet source file'>snippet source</a> | <a href='#snippet-searchexample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 <!-- endInclude -->

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -136,8 +136,8 @@ namespace Dapplo.Jira.Tests
             await Client.Issue.DeleteAsync(createdIssue.Key);
         }
 
-        //[Fact]
-        public async Task Test_CreateIssueWithCustomFields()
+        [Fact]
+        public async Task Test_Create_and_Retrieve_IssueWithCustomFields()
         {
             var meMyselfAndI = await Client.User.GetMyselfAsync();
             Assert.NotNull(meMyselfAndI);
@@ -148,8 +148,20 @@ namespace Dapplo.Jira.Tests
             var bugIssueType = issueTypes.First(type => type.Name == "Bug");
             var projectForIssue = projects.First(digest => digest.Key == TestProjectKey);
 
-            var cfTextField = "customfield_10001";
-            var cfLabelField = "customfield_10002";
+            var cfTextField = "customfield_10001"; // Make sure this custom field is created with: Configure 'Text Field (single line)' Field
+            var cfTextFieldValue = "plain text";
+            var cfLabelField = "customfield_10002"; // Make sure this custom field is created with: Configure 'Labels' Field
+            var cfLabelFieldValue = new[]
+            {
+                "label1",
+                "label2"
+            };
+
+            // Translate custom field names to ids
+
+            var fields = await Client.Server.GetFieldsAsync();
+            var cfTextFieldId = fields.First(f => f.Name == cfTextField).Id;
+            var cfLabelFieldId = fields.First(f => f.Name == cfLabelField).Id;
 
             var issueToCreate = new Issue
             {
@@ -161,27 +173,28 @@ namespace Dapplo.Jira.Tests
                     },
                     IssueType = bugIssueType,
                     Summary = "Some summary, this is a test",
-                    Description = "Some description, this is a test",
-                    CustomFields =
-                    {
-                        {
-                            cfTextField, "plain text"
-                        },
-                        {
-                            cfLabelField, new[]
-                            {
-                                "label1 label2"
-                            }
-                        },
-                    }
+                    Description = "Some description, this is a test"
                 }
-            };
+            }
+                .AddCustomField(cfTextFieldId, cfTextFieldValue)
+                .AddCustomField(cfLabelFieldId, cfLabelFieldValue);
 
             var createdIssue = await Client.Issue.CreateAsync(issueToCreate);
             Assert.NotNull(createdIssue);
             Assert.NotNull(createdIssue.Key);
-            // Remove again
-            await Client.Issue.DeleteAsync(createdIssue.Key);
+
+            try
+            {
+                var testIssue = await Client.Issue.GetAsync(createdIssue.Key);
+                Assert.Equal(cfTextFieldValue, testIssue.GetCustomField(cfTextFieldId));
+                Assert.Equal(cfLabelFieldValue, testIssue.GetCustomField<string[]>(cfLabelFieldId));
+            }
+            finally
+            {
+                // Remove again
+                await Client.Issue.DeleteAsync(createdIssue.Key);
+            }
+
         }
 
         [Fact]
@@ -249,11 +262,12 @@ namespace Dapplo.Jira.Tests
         public async Task Test_SearchSnippet()
         {
             // begin-snippet: SearchExample
-            var client = JiraClient.Create(TestJiraUri);
             // Preferably use a "bot" user for maintenance
             var username = Environment.GetEnvironmentVariable("jira_test_username");
             var password = Environment.GetEnvironmentVariable("jira_test_password");
-            client.SetBasicAuthentication(username, password);
+            var client = JiraClient
+                .Create(TestJiraUri)
+                .SetBasicAuthentication(username, password);
 
             const string unavailableUser = "Robin Krom";
             // Find all issues in a certain state and assigned to a user who is not available
