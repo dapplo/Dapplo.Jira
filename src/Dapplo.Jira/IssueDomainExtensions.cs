@@ -226,7 +226,7 @@ namespace Dapplo.Jira
             // Make sure all issues are associated with the used jira client
             foreach (var issue in result)
             {
-                issue.WithClient(jiraClient);
+                _ = issue.WithClient(jiraClient);
             }
 
             return result;
@@ -263,7 +263,7 @@ namespace Dapplo.Jira
         /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>List with IssueType elements</returns>
-        public static async Task<IList<IssueType>> GetIssueTypesAsync(this IIssueDomain jiraClient, CancellationToken cancellationToken = new CancellationToken())
+        public static async Task<IList<IssueType>> GetIssueTypesAsync(this IIssueDomain jiraClient, CancellationToken cancellationToken = default)
         {
             var issueTypesUri = jiraClient.JiraRestUri.AppendSegments("issuetype");
             jiraClient.Behaviour.MakeCurrent();
@@ -277,7 +277,7 @@ namespace Dapplo.Jira
         /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>List with IssueLinkType elements</returns>
-        public static async Task<IList<IssueLinkType>> GetIssueLinkTypesAsync(this IIssueDomain jiraClient, CancellationToken cancellationToken = new CancellationToken())
+        public static async Task<IList<IssueLinkType>> GetIssueLinkTypesAsync(this IIssueDomain jiraClient, CancellationToken cancellationToken = default)
         {
             var issueLinkTypesUri = jiraClient.JiraRestUri.AppendSegments("issueLinkType");
             jiraClient.Behaviour.MakeCurrent();
@@ -357,7 +357,7 @@ namespace Dapplo.Jira
         /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
         /// <param name="issueLink">IssueLink</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public static async Task CreateIssueLinkAsync(this IIssueDomain jiraClient, IssueLink issueLink, CancellationToken cancellationToken = new CancellationToken())
+        public static async Task CreateIssueLinkAsync(this IIssueDomain jiraClient, IssueLink issueLink, CancellationToken cancellationToken = default)
         {
             var issueLinkUri = jiraClient.JiraRestUri.AppendSegments("issueLink");
             jiraClient.Behaviour.MakeCurrent();
@@ -372,7 +372,7 @@ namespace Dapplo.Jira
         /// <param name="linkId">string</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Issue </returns>
-        public static async Task<IssueLink> GetIssueLinkAsync(this IIssueDomain jiraClient, string linkId, CancellationToken cancellationToken = new CancellationToken())
+        public static async Task<IssueLink> GetIssueLinkAsync(this IIssueDomain jiraClient, string linkId, CancellationToken cancellationToken = default)
         {
             var issueLinkUri = jiraClient.JiraRestUri.AppendSegments("issueLink", linkId);
             jiraClient.Behaviour.MakeCurrent();
@@ -386,7 +386,7 @@ namespace Dapplo.Jira
         /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
         /// <param name="issueLinkId">string with the ID of the issue link</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public static async Task DeleteIssueLinkAsync(this IIssueDomain jiraClient, string issueLinkId, CancellationToken cancellationToken = new CancellationToken())
+        public static async Task DeleteIssueLinkAsync(this IIssueDomain jiraClient, string issueLinkId, CancellationToken cancellationToken = default)
         {
             var issueLinkUri = jiraClient.JiraRestUri.AppendSegments("issueLink", issueLinkId);
             jiraClient.Behaviour.MakeCurrent();
@@ -521,15 +521,15 @@ namespace Dapplo.Jira
         /// </summary>
         /// <param name="jiraClient">IProjectDomain</param>
         /// <param name="issueKey">string with the key of the issue</param>
-        /// <param name="userpattern">optional string with a pattern to match the user to</param>
+        /// <param name="userPattern">optional string with a pattern to match the user to</param>
         /// <param name="startAt">optional int with the start, used for paging</param>
         /// <param name="maxResults">optional int with the maximum number of results, default is 50</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>IEnumerable with User</returns>
-        public static Task<IEnumerable<User>> GetAssignableUsersAsync(this IIssueDomain jiraClient, string issueKey, string userpattern = null, int? startAt = null,
+        public static Task<IEnumerable<User>> GetAssignableUsersAsync(this IIssueDomain jiraClient, string issueKey, string userPattern = null, int? startAt = null,
             int? maxResults = null, CancellationToken cancellationToken = default)
         {
-            return jiraClient.User.GetAssignableUsersAsync(issueKey: issueKey, username: userpattern, startAt: startAt, maxResults: maxResults,
+            return jiraClient.User.GetAssignableUsersAsync(issueKey: issueKey, username: userPattern, startAt: startAt, maxResults: maxResults,
                 cancellationToken: cancellationToken);
         }
     }

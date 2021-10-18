@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -16,11 +16,11 @@ namespace Dapplo.Jira
     /// <summary>
     ///     A client for accessing the Atlassian JIRA Api via REST, using Dapplo.HttpExtensions
     /// </summary>
-    public class JiraClient : IProjectDomain, IWorkDomain, IUserDomain, ISessionDomain, IIssueDomain, IFilterDomain, IAttachmentDomain, IServerDomain, IAgileDomain,
+    public class JiraClient : IProjectDomain, IWorkLogDomain, IUserDomain, ISessionDomain, IIssueDomain, IFilterDomain, IAttachmentDomain, IServerDomain, IAgileDomain,
         IGreenhopperDomain
     {
-        private string _password;
-        private string _user;
+        private string password;
+        private string user;
 
         /// <summary>
         ///     Store the specific HttpBehaviour, which contains a IHttpSettings and also some additional logic for making a
@@ -31,10 +31,7 @@ namespace Dapplo.Jira
         /// <summary>
         ///     Factory method to create the jira client
         /// </summary>
-        public static IJiraClient Create(Uri baseUri, IHttpSettings httpSettings = null)
-        {
-            return new JiraClient(baseUri, httpSettings);
-        }
+        public static IJiraClient Create(Uri baseUri, IHttpSettings httpSettings = null) => new JiraClient(baseUri, httpSettings);
 
         /// <summary>
         ///     Create the JiraApi object, here the HttpClient is configured
@@ -75,9 +72,9 @@ namespace Dapplo.Jira
             behaviour.OnHttpRequestMessageCreated = httpMessage =>
             {
                 httpMessage?.Headers.TryAddWithoutValidation("X-Atlassian-Token", "nocheck");
-                if (!string.IsNullOrEmpty(_user) && _password != null)
+                if (!string.IsNullOrEmpty(this.user) && this.password != null)
                 {
-                    httpMessage?.SetBasicAuthorization(_user, _password);
+                    httpMessage?.SetBasicAuthorization(this.user, this.password);
                 }
 
                 return httpMessage;
@@ -119,8 +116,8 @@ namespace Dapplo.Jira
         /// <returns>IJiraClient for using it in a more fluent way</returns>
         public IJiraClient SetBasicAuthentication(string user, string password)
         {
-            _user = user;
-            _password = password;
+            this.user = user;
+            this.password = password;
             return this;
         }
 
@@ -155,9 +152,9 @@ namespace Dapplo.Jira
         public IFilterDomain Filter => this;
 
         /// <summary>
-        ///     Work domain
+        ///     WorkLog domain
         /// </summary>
-        public IWorkDomain Work => this;
+        public IWorkLogDomain WorkLog => this;
 
         /// <summary>
         ///     Server domain

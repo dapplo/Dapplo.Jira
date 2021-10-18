@@ -24,18 +24,21 @@ namespace Dapplo.Jira.Tests
             // Add SvgBitmapHttpContentConverter if it was not yet added
             if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(SvgBitmapHttpContentConverter)))
             {
+                Log.Info().WriteLine("Added SvgBitmapHttpContentConverter");
                 HttpExtensionsGlobals.HttpContentConverters.Add(SvgBitmapHttpContentConverter.Instance.Value);
             }
 
             // Add BitmapHttpContentConverter if it was not yet added
             if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(BitmapHttpContentConverter)))
             {
+                Log.Info().WriteLine("Added BitmapHttpContentConverter");
                 HttpExtensionsGlobals.HttpContentConverters.Add(BitmapHttpContentConverter.Instance.Value);
             }
 
             // Add BitmapSourceHttpContentConverter if it was not yet added
             if (HttpExtensionsGlobals.HttpContentConverters.All(x => x.GetType() != typeof(BitmapSourceHttpContentConverter)))
             {
+                Log.Info().WriteLine("Added BitmapSourceHttpContentConverter");
                 HttpExtensionsGlobals.HttpContentConverters.Add(BitmapSourceHttpContentConverter.Instance.Value);
             }
         }

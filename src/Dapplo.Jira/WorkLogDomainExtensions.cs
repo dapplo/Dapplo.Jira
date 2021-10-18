@@ -2,6 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,18 +20,18 @@ namespace Dapplo.Jira
     /// <summary>
     ///     This holds all the work log related extension methods
     /// </summary>
-    public static class WorkDomainExtensions
+    public static class WorkLogDomainExtensions
     {
         private static readonly LogSource Log = new LogSource();
 
         /// <summary>
         ///     Get worklogs information
         /// </summary>
-        /// <param name="jiraClient">IWorkDomain to bind the extension method to</param>
+        /// <param name="jiraClient">IWorkLogDomain to bind the extension method to</param>
         /// <param name="issueKey">the issue key</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>Worklogs</returns>
-        public static async Task<Worklogs> GetAsync(this IWorkDomain jiraClient, string issueKey, CancellationToken cancellationToken = default)
+        public static async Task<Worklogs> GetAsync(this IWorkLogDomain jiraClient, string issueKey, CancellationToken cancellationToken = default)
         {
             if (issueKey == null)
             {
@@ -45,9 +47,64 @@ namespace Dapplo.Jira
         }
 
         /// <summary>
+        ///     Get worklogs information for the updated worklogs object
+        /// </summary>
+        /// <param name="jiraClient">IWorkLogDomain to bind the extension method to</param>
+        /// <param name="updatedWorklogs">UpdatedWorklogs</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <returns>IList{WorkLog}</returns>
+        public static Task<IList<Worklog>> GetAsync(this IWorkLogDomain jiraClient, UpdatedWorklogs updatedWorklogs, CancellationToken cancellationToken = default)
+        {
+            var updatedWorklogIds = updatedWorklogs.Select(wl => wl.Id);
+            return GetAsync(jiraClient, updatedWorklogIds, cancellationToken);
+        }
+
+        /// <summary>
+        ///     Get worklogs information for the supplied list of worklog IDs
+        /// </summary>
+        /// <param name="jiraClient">IWorkLogDomain to bind the extension method to</param>
+        /// <param name="ids">IEnumerable with worklog ids</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <returns>IList{WorkLog}</returns>
+        public static async Task<IList<Worklog>> GetAsync(this IWorkLogDomain jiraClient, IEnumerable<long> ids, CancellationToken cancellationToken = default)
+        {
+            var worklogUri = jiraClient.JiraRestUri
+                .AppendSegments("worklog", "list")
+                .ExtendQuery("expand", "comment");
+            jiraClient.Behaviour.MakeCurrent();
+            var idContainer = new IdContainer
+            {
+                Ids = ids
+            };
+            var response = await worklogUri.PostAsync<HttpResponse<IList<Worklog>, Error>>(idContainer, cancellationToken).ConfigureAwait(false);
+            return response.HandleErrors();
+        }
+
+        /// <summary>
+        ///     Get recently updated worklogs information
+        /// </summary>
+        /// <param name="jiraClient">IWorkLogDomain to bind the extension method to</param>
+        /// <param name="since">timestamp of since we need to get the updated worklogs</param>
+        /// <param name="cancellationToken">CancellationToken</param>
+        /// <returns>UpdatedWorklogs</returns>
+        public static async Task<UpdatedWorklogs> GetUpdatedAsync(this IWorkLogDomain jiraClient, DateTimeOffset since, CancellationToken cancellationToken = default)
+        {
+
+            Log.Debug().WriteLine("Retrieving update worklogs information since {0}", since);
+            var worklogUri = jiraClient.JiraRestUri
+                .AppendSegments("worklog", "updated")
+                .ExtendQuery("since", since.ToUnixTimeMilliseconds())
+                .ExtendQuery("expand", "properties");
+            jiraClient.Behaviour.MakeCurrent();
+
+            var response = await worklogUri.GetAsAsync<HttpResponse<UpdatedWorklogs, Error>>(cancellationToken).ConfigureAwait(false);
+            return response.HandleErrors();
+        }
+
+        /// <summary>
         ///     Log work for the specified issue
         /// </summary>
-        /// <param name="jiraClient">IWorkDomain to bind the extension method to</param>
+        /// <param name="jiraClient">IWorkLogDomain to bind the extension method to</param>
         /// <param name="issueKey">key for the issue</param>
         /// <param name="worklog">Worklog with the work which needs to be logged</param>
         /// <param name="adjustEstimate">
@@ -60,7 +117,7 @@ namespace Dapplo.Jira
         ///     When "manual" is selected for adjustEstimate the amount to reduce the remaining estimate by.
         /// </param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public static async Task<Worklog> CreateAsync(this IWorkDomain jiraClient, string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto,
+        public static async Task<Worklog> CreateAsync(this IWorkLogDomain jiraClient, string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto,
             string adjustValue = null, CancellationToken cancellationToken = default)
         {
             if (issueKey == null)
@@ -97,7 +154,7 @@ namespace Dapplo.Jira
         /// <summary>
         ///     Update work log for the specified issue
         /// </summary>
-        /// <param name="jiraClient">IWorkDomain to bind the extension method to</param>
+        /// <param name="jiraClient">IWorkLogDomain to bind the extension method to</param>
         /// <param name="issueKey">key for the issue</param>
         /// <param name="worklog">Worklog with the work which needs to be updated</param>
         /// <param name="adjustEstimate">
@@ -110,7 +167,7 @@ namespace Dapplo.Jira
         ///     When "manual" is selected for adjustEstimate the amount to reduce the remaining estimate by.
         /// </param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public static async Task UpdateAsync(this IWorkDomain jiraClient, string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto,
+        public static async Task UpdateAsync(this IWorkLogDomain jiraClient, string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto,
             string adjustValue = null, CancellationToken cancellationToken = default)
         {
             if (issueKey == null)
@@ -147,7 +204,7 @@ namespace Dapplo.Jira
         /// <summary>
         ///     Delete the spefified Worklog
         /// </summary>
-        /// <param name="jiraClient">IWorkDomain to bind the extension method to</param>
+        /// <param name="jiraClient">IWorkLogDomain to bind the extension method to</param>
         /// <param name="issueKey">Key of the issue to delete to worklog for</param>
         /// <param name="worklog">Worklog to delete</param>
         /// <param name="adjustEstimate">
@@ -160,7 +217,7 @@ namespace Dapplo.Jira
         ///     When "manual" is selected for adjustEstimate the amount to reduce the remaining estimate by.
         /// </param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public static async Task DeleteAsync(this IWorkDomain jiraClient, string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto,
+        public static async Task DeleteAsync(this IWorkLogDomain jiraClient, string issueKey, Worklog worklog, AdjustEstimate adjustEstimate = AdjustEstimate.Auto,
             string adjustValue = null, CancellationToken cancellationToken = default)
         {
             if (issueKey == null)

@@ -4,9 +4,9 @@
 namespace Dapplo.Jira.Domains
 {
     /// <summary>
-    ///     Marker interface for the work domain
+    ///     Marker interface for the work log domain
     /// </summary>
-    public interface IWorkDomain : IJiraDomain
+    public interface IWorkLogDomain : IJiraDomain
     {
     }
 }

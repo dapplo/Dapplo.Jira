@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -20,7 +20,7 @@ namespace Dapplo.Jira.Entities
         public Uri AutoCompleteUrl { get; set; }
 
         /// <summary>
-        ///     Name of the allowd value
+        ///     Name of the allowed value
         /// </summary>
         [JsonProperty("name")]
         public string Name { get; set; }
