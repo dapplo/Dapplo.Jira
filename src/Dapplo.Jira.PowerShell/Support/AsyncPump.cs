@@ -1,7 +1,5 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
-#if NET461 || NETCOREAPP3_1
 
 using System;
 using System.Collections.Concurrent;
@@ -55,13 +53,13 @@ namespace Dapplo.Jira.PowerShell.Support
         private sealed class SingleThreadSynchronizationContext : SynchronizationContext
         {
             /// <summary>The queue of work items.</summary>
-            private readonly BlockingCollection<KeyValuePair<SendOrPostCallback, object>> _queue =
+            private readonly BlockingCollection<KeyValuePair<SendOrPostCallback, object>> queue =
                 new BlockingCollection<KeyValuePair<SendOrPostCallback, object>>();
 
             /// <summary>Notifies the context that no more work will arrive.</summary>
             public void Complete()
             {
-                _queue.CompleteAdding();
+                this.queue.CompleteAdding();
             }
 
             /// <summary>Dispatches an asynchronous message to the synchronization context.</summary>
@@ -74,13 +72,13 @@ namespace Dapplo.Jira.PowerShell.Support
                     throw new ArgumentNullException(nameof(d));
                 }
 
-                _queue.Add(new KeyValuePair<SendOrPostCallback, object>(d, state));
+                this.queue.Add(new KeyValuePair<SendOrPostCallback, object>(d, state));
             }
 
             /// <summary>Runs an loop to process all queued work items.</summary>
             public void RunOnCurrentThread()
             {
-                foreach (var workItem in _queue.GetConsumingEnumerable())
+                foreach (var workItem in this.queue.GetConsumingEnumerable())
                 {
                     workItem.Key(workItem.Value);
                 }
@@ -94,5 +92,3 @@ namespace Dapplo.Jira.PowerShell.Support
         }
     }
 }
-
-#endif

@@ -9,17 +9,17 @@ using Dapplo.Jira.PowerShell.Support;
 namespace Dapplo.Jira.PowerShell
 {
     /// <summary>
-    ///     A Cmdlet which processes the information of a Jira issue
+    ///     A Cmdlet which queries a jira system for issues
     /// </summary>
-    [Cmdlet(VerbsCommon.Get, "JiraIssue")]
+    [Cmdlet(VerbsCommon.Get, "JiraQueryIssues")]
     [OutputType(typeof(IssueFields))]
-    public class GetJiraIssue : JiraAsyncCmdlet
+    public class QueryJiraIssue : JiraAsyncCmdlet
     {
         /// <summary>
         ///     Key for the issue that needs to be retrieved
         /// </summary>
         [Parameter(ValueFromPipeline = true, Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
-        public string IssueKey { get; set; }
+        public string Query { get; set; }
 
         /// <summary>
         ///     Override ProcessRecordAsync to get the issue data and output the object
@@ -27,8 +27,8 @@ namespace Dapplo.Jira.PowerShell
         /// <returns></returns>
         protected override async Task ProcessRecordAsync()
         {
-            var issue = await this.JiraApi.Issue.GetAsync(IssueKey).ConfigureAwait(false);
-            WriteObject(issue.Fields);
+            var issues = await this.JiraApi.Issue.SearchAsync(Query).ConfigureAwait(false);
+            WriteObject(issues, true);
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
-#if NET461 || NETCOREAPP3_1
 
 using System.Management.Automation;
 using System.Threading.Tasks;
@@ -22,7 +20,7 @@ namespace Dapplo.Jira.PowerShell
         /// </summary>
         protected override async Task ProcessRecordAsync()
         {
-            var projects = await JiraApi.Project.GetAllAsync().ConfigureAwait(false);
+            var projects = await this.JiraApi.Project.GetAllAsync().ConfigureAwait(false);
             foreach (var projectDigest in projects)
             {
                 WriteObject(projectDigest);
@@ -30,5 +28,3 @@ namespace Dapplo.Jira.PowerShell
         }
     }
 }
-
-#endif

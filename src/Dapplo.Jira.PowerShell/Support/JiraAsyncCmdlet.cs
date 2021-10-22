@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -9,7 +9,7 @@ namespace Dapplo.Jira.PowerShell.Support
 {
     /// <summary>
     ///     This is the base class for all (most?) Jira CmdLets
-    ///     It will create the JiraApi instance, so the derriving class only needs to implement the logic
+    ///     It will create the JiraApi instance, so the deriving class only needs to implement the logic
     /// </summary>
     public class JiraAsyncCmdlet : AsyncCmdlet
     {
@@ -41,10 +41,10 @@ namespace Dapplo.Jira.PowerShell.Support
         /// </summary>
         protected override Task BeginProcessingAsync()
         {
-            JiraApi = JiraClient.Create(JiraUri);
+            this.JiraApi = JiraClient.Create(JiraUri);
             if (Username != null)
             {
-                JiraApi.SetBasicAuthentication(Username, Password);
+                this.JiraApi.SetBasicAuthentication(Username, Password);
             }
 
             return Task.FromResult(true);

@@ -1,14 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>A library for accessing Atlassians JIRA from .NET via the PowerShell</Description>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
     <PackageTags>atlassian;jira;dapplo;powershell</PackageTags>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.PowerShell.5.1.ReferenceAssemblies" Version="1.0.0" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dapplo.Jira\Dapplo.Jira.csproj" />
   </ItemGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
-    <PackageReference Include="System.Management.Automation.dll" Version="10.0.10586" />
     <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Runtime" />
     <Reference Include="System" />

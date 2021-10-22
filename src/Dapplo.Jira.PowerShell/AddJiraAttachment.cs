@@ -1,7 +1,5 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
-#if NET461 || NETCOREAPP3_1
 
 using System.IO;
 using System.Management.Automation;
@@ -60,11 +58,9 @@ namespace Dapplo.Jira.PowerShell
 
             using (var stream = File.OpenRead(Filepath))
             {
-                var attachment = await JiraApi.Attachment.AttachAsync(IssueKey, stream, Filename, ContentType).ConfigureAwait(false);
+                var attachment = await this.JiraApi.Attachment.AttachAsync(IssueKey, stream, Filename, ContentType).ConfigureAwait(false);
                 WriteObject(attachment);
             }
         }
     }
 }
-
-#endif

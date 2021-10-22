@@ -1,7 +1,5 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
-#if NET461 || NETCOREAPP3_1
 
 using System.Management.Automation;
 using System.Threading.Tasks;
@@ -14,7 +12,7 @@ namespace Dapplo.Jira.PowerShell.Support
     public abstract class AsyncCmdlet : PSCmdlet
     {
         /// <summary>
-        ///     This is called from the "Powershell Cmdlet" framework, calls the BeginProcessingAsync
+        ///     This is called from the "Powerhell Cmdlet" framework, calls the BeginProcessingAsync
         /// </summary>
         protected override void BeginProcessing()
         {
@@ -25,10 +23,7 @@ namespace Dapplo.Jira.PowerShell.Support
         /// <summary>
         ///     Override this to implement the BeginProcessing with Async code
         /// </summary>
-        protected virtual Task BeginProcessingAsync()
-        {
-            return Task.FromResult(0);
-        }
+        protected virtual Task BeginProcessingAsync() => Task.FromResult(0);
 
         /// <summary>
         ///     This is called from the "Powershell Cmdlet" framework, calls the EndProcessingAsync
@@ -41,10 +36,7 @@ namespace Dapplo.Jira.PowerShell.Support
         /// <summary>
         ///     Override this to implement the EndProcessing with Async code
         /// </summary>
-        protected virtual Task EndProcessingAsync()
-        {
-            return Task.FromResult(0);
-        }
+        protected virtual Task EndProcessingAsync() => Task.FromResult(0);
 
         /// <summary>
         ///     Override to ProcessRecord and call ProcessRecordAsync
@@ -57,11 +49,6 @@ namespace Dapplo.Jira.PowerShell.Support
         /// <summary>
         ///     Override this to implement the ProcessRecord with Async code
         /// </summary>
-        protected virtual Task ProcessRecordAsync()
-        {
-            return Task.FromResult(0);
-        }
+        protected virtual Task ProcessRecordAsync() => Task.FromResult(0);
     }
 }
-
-#endif
