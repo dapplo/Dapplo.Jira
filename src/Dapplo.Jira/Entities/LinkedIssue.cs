@@ -3,18 +3,17 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+/// The ID or key of a linked issue.
+/// </summary>
+[JsonObject]
+public class LinkedIssue : ReadOnlyBaseId<string>
 {
     /// <summary>
-    /// The ID or key of a linked issue.
+    /// Issue key of linked issue
     /// </summary>
-    [JsonObject]
-    public class LinkedIssue : ReadOnlyBaseId<string>
-    {
-        /// <summary>
-        /// Issue key of linked issue
-        /// </summary>
-        [JsonProperty("key")]
-        public string Key { get; set; }
-    }
+    [JsonProperty("key")]
+    public string Key { get; set; }
 }

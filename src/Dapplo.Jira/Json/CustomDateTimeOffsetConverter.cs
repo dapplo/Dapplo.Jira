@@ -1,85 +1,82 @@
 ﻿// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using Newtonsoft.Json;
 using System.Globalization;
-using System.Text.RegularExpressions;
 using Newtonsoft.Json.Converters;
 
-namespace Dapplo.Jira.Json
+namespace Dapplo.Jira.Json;
+
+/// <summary>
+/// A JsonConverter especially for the Jira datetime format
+/// </summary>
+public class CustomDateTimeOffsetConverter : DateTimeConverterBase
 {
+    private const string Iso8601Format = @"yyyy-MM-dd\THH:mm:ss.fff";
+
+    private readonly string _format;
+
     /// <summary>
-    /// A JsonConverter especially for the Jira datetime format
+    /// Default constructor with the Iso8601 format
     /// </summary>
-    public class CustomDateTimeOffsetConverter : DateTimeConverterBase
+    public CustomDateTimeOffsetConverter() : this(Iso8601Format)
     {
-        private const string Iso8601Format = @"yyyy-MM-dd\THH:mm:ss.fff";
+    }
 
-        private readonly string _format;
+    /// <summary>
+    /// Constructor which supports a custom format
+    /// </summary>
+    /// <param name="format"></param>
+    public CustomDateTimeOffsetConverter(string format)
+    {
+        _format = format;
+    }
 
-        /// <summary>
-        /// Default constructor with the Iso8601 format
-        /// </summary>
-        public CustomDateTimeOffsetConverter() : this(Iso8601Format)
+    /// <inheritdoc />
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+        if (value == null)
         {
+            return;
         }
 
-        /// <summary>
-        /// Constructor which supports a custom format
-        /// </summary>
-        /// <param name="format"></param>
-        public CustomDateTimeOffsetConverter(string format)
+        var dateTime = (DateTimeOffset)value;
+        string sign = dateTime.Offset < TimeSpan.Zero ? "-" : "+";
+        var output = $"{dateTime.ToString(_format, CultureInfo.InvariantCulture)}{sign}{Math.Abs(dateTime.Offset.Hours):00}{Math.Abs(dateTime.Offset.Minutes):00}";
+        writer.WriteValue(output);
+        writer.Flush();
+    }
+
+    /// <inheritdoc />
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    {
+        if (reader.Value == null)
         {
-            _format = format;
+            return null;
         }
 
-        /// <inheritdoc />
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        string dateTimeOffsetString = (string)reader.Value;
+        if (reader.TokenType != JsonToken.String)
         {
-            if (value == null)
-            {
-                return;
-            }
-
-            var dateTime = (DateTimeOffset)value;
-            string sign = dateTime.Offset < TimeSpan.Zero ? "-" : "+";
-            var output = $"{dateTime.ToString(_format, CultureInfo.InvariantCulture)}{sign}{Math.Abs(dateTime.Offset.Hours):00}{Math.Abs(dateTime.Offset.Minutes):00}";
-            writer.WriteValue(output);
-            writer.Flush();
+            throw new Exception($"Unexpected token parsing date. Expected string, got {reader.TokenType}.");
         }
 
-        /// <inheritdoc />
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        if (dateTimeOffsetString.ToLowerInvariant() == "none")
         {
-            if (reader.Value == null)
-            {
-                return null;
-            }
-
-            string dateTimeOffsetString = (string)reader.Value;
-            if (reader.TokenType != JsonToken.String)
-            {
-                throw new Exception($"Unexpected token parsing date. Expected string, got {reader.TokenType}.");
-            }
-
-            if (dateTimeOffsetString.ToLowerInvariant() == "none")
-            {
-                return null;
-            }
-
-            if (Regex.IsMatch(dateTimeOffsetString, @"\d{4}$"))
-            {
-                dateTimeOffsetString = dateTimeOffsetString.Insert(dateTimeOffsetString.Length - 2, ":");
-            }
-
-            return DateTimeOffset.Parse(dateTimeOffsetString, CultureInfo.InvariantCulture);
+            return null;
         }
 
-        /// <inheritdoc />
-        public override bool CanConvert(Type objectType)
+        if (Regex.IsMatch(dateTimeOffsetString, @"\d{4}$"))
         {
-            return objectType == typeof(DateTimeOffset);
+            dateTimeOffsetString = dateTimeOffsetString.Insert(dateTimeOffsetString.Length - 2, ":");
         }
+
+        return DateTimeOffset.Parse(dateTimeOffsetString, CultureInfo.InvariantCulture);
+    }
+
+    /// <inheritdoc />
+    public override bool CanConvert(Type objectType)
+    {
+        return objectType == typeof(DateTimeOffset);
     }
 }

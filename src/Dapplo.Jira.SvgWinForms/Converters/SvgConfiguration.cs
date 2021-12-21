@@ -6,35 +6,34 @@ using Dapplo.HttpExtensions;
 using Dapplo.HttpExtensions.Extensions;
 using Dapplo.HttpExtensions.Support;
 
-namespace Dapplo.Jira.SvgWinForms.Converters
+namespace Dapplo.Jira.SvgWinForms.Converters;
+
+/// <summary>
+///     Configuration for the SvgBitmapHttpContentConverter or SvgBitmapSourceHttpContentConverter
+/// </summary>
+public class SvgConfiguration : IHttpRequestConfiguration
 {
     /// <summary>
-    ///     Configuration for the SvgBitmapHttpContentConverter or SvgBitmapSourceHttpContentConverter
+    ///     Specify the supported content types
     /// </summary>
-    public class SvgConfiguration : IHttpRequestConfiguration
+    public IList<string> SupportedContentTypes { get; } = new List<string>
     {
-        /// <summary>
-        ///     Specify the supported content types
-        /// </summary>
-        public IList<string> SupportedContentTypes { get; } = new List<string>
-        {
-            MediaTypes.Svg.EnumValueOf()
-        };
+        MediaTypes.Svg.EnumValueOf()
+    };
 
-        /// <summary>
-        ///     Target width for the generated SVG Bitmap
-        /// </summary>
-        public int Width { get; set; } = 64;
+    /// <summary>
+    ///     Target width for the generated SVG Bitmap
+    /// </summary>
+    public int Width { get; set; } = 64;
 
 
-        /// <summary>
-        ///     Target height for the generated SVG Bitmap
-        /// </summary>
-        public int Height { get; set; } = 64;
+    /// <summary>
+    ///     Target height for the generated SVG Bitmap
+    /// </summary>
+    public int Height { get; set; } = 64;
 
-        /// <summary>
-        ///     Name of the configuration, this should be unique and usually is the type of the object
-        /// </summary>
-        public string Name { get; } = nameof(SvgConfiguration);
-    }
+    /// <summary>
+    ///     Name of the configuration, this should be unique and usually is the type of the object
+    /// </summary>
+    public string Name { get; } = nameof(SvgConfiguration);
 }

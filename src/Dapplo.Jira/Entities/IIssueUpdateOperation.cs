@@ -3,13 +3,12 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     Interface for the issue update operation
+/// </summary>
+[JsonObject]
+public interface IIssueUpdateOperation
 {
-    /// <summary>
-    ///     Interface for the issue update operation
-    /// </summary>
-    [JsonObject]
-    public interface IIssueUpdateOperation
-    {
-    }
 }

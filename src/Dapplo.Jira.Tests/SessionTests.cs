@@ -5,28 +5,27 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Dapplo.Jira.Tests
+namespace Dapplo.Jira.Tests;
+
+public class SessionTests : TestBase
 {
-    public class SessionTests : TestBase
+    public SessionTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper, false)
     {
-        public SessionTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper, false)
+    }
+
+    //[Fact]
+    public async Task TestSession()
+    {
+        if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
         {
+            _ = await Client.Session.StartAsync(Username, Password);
         }
 
-        //[Fact]
-        public async Task TestSession()
-        {
-            if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
-            {
-                await Client.Session.StartAsync(Username, Password);
-            }
+        var me = await Client.User.GetMyselfAsync();
+        Assert.Equal(me.Name, Username);
+        await Client.Session.EndAsync();
 
-            var me = await Client.User.GetMyselfAsync();
-            Assert.Equal(me.Name, Username);
-            await Client.Session.EndAsync();
-
-            // WhoAmI should give an exception if there is no login
-            _ = await Assert.ThrowsAsync<JiraException>(async () => await Client.User.GetMyselfAsync());
-        }
+        // WhoAmI should give an exception if there is no login
+        _ = await Assert.ThrowsAsync<JiraException>(async () => await Client.User.GetMyselfAsync());
     }
 }

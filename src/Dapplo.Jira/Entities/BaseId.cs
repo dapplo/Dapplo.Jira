@@ -3,18 +3,17 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     Base id, used in pretty much every entity
+/// </summary>
+[JsonObject]
+public class BaseId<TId>
 {
     /// <summary>
-    ///     Base id, used in pretty much every entity
+    ///     Id of this entity
     /// </summary>
-    [JsonObject]
-    public class BaseId<TId>
-    {
-        /// <summary>
-        ///     Id of this entity
-        /// </summary>
-        [JsonProperty("id")]
-        public TId Id { get; set; }
-    }
+    [JsonProperty("id")]
+    public TId Id { get; set; }
 }

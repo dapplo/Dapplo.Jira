@@ -3,52 +3,51 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     Visibility information
+/// </summary>
+[JsonObject]
+public class Visibility
 {
     /// <summary>
-    ///     Visibility information
+    ///     Type for the visibility
     /// </summary>
-    [JsonObject]
-    public class Visibility
+    [JsonProperty("type")]
+    public string Type { get; set; }
+
+    /// <summary>
+    ///     Value of the visibility
+    /// </summary>
+    [JsonProperty("value")]
+    public string Value { get; set; }
+
+    /// <summary>
+    /// Factory for a role visibility
+    /// </summary>
+    /// <param name="role">string with the name of the role</param>
+    /// <returns>Visibility</returns>
+    public static Visibility ForRole(string role)
     {
-        /// <summary>
-        ///     Type for the visibility
-        /// </summary>
-        [JsonProperty("type")]
-        public string Type { get; set; }
-
-        /// <summary>
-        ///     Value of the visibility
-        /// </summary>
-        [JsonProperty("value")]
-        public string Value { get; set; }
-
-        /// <summary>
-        /// Factory for a role visibility
-        /// </summary>
-        /// <param name="role">string with the name of the role</param>
-        /// <returns>Visibility</returns>
-        public static Visibility ForRole(string role)
+        return new Visibility
         {
-            return new Visibility
-            {
-                Type = "role",
-                Value = role
-            };
-        }
+            Type = "role",
+            Value = role
+        };
+    }
 
-        /// <summary>
-        /// Factory for a group visibility
-        /// </summary>
-        /// <param name="group">string with the name of the group</param>
-        /// <returns>Visibility</returns>
-        public static Visibility ForGroup(string group)
+    /// <summary>
+    /// Factory for a group visibility
+    /// </summary>
+    /// <param name="group">string with the name of the group</param>
+    /// <returns>Visibility</returns>
+    public static Visibility ForGroup(string group)
+    {
+        return new Visibility
         {
-            return new Visibility
-            {
-                Type = "group",
-                Value = group
-            };
-        }
+            Type = "group",
+            Value = group
+        };
     }
 }

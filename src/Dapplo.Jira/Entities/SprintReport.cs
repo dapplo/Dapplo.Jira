@@ -3,30 +3,29 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     Grasshopper Sprint Report
+/// </summary>
+[JsonObject]
+public class SprintReport
 {
     /// <summary>
-    ///     Grasshopper Sprint Report
+    ///     The Sprint Report contents
     /// </summary>
-    [JsonObject]
-    public class SprintReport
-    {
-        /// <summary>
-        ///     The Sprint Report contents
-        /// </summary>
-        [JsonProperty("contents")]
-        public SprintReportContents Contents { get; set; }
+    [JsonProperty("contents")]
+    public SprintReportContents Contents { get; set; }
 
-        /// <summary>
-        ///     Sprint information
-        /// </summary>
-        [JsonProperty("sprint")]
-        public SprintInReport Sprint { get; set; }
+    /// <summary>
+    ///     Sprint information
+    /// </summary>
+    [JsonProperty("sprint")]
+    public SprintInReport Sprint { get; set; }
 
-        /// <summary>
-        ///     Indicates if the sprint supports pages
-        /// </summary>
-        [JsonProperty("supportsPages")]
-        public bool SupportsPages { get; set; }
-    }
+    /// <summary>
+    ///     Indicates if the sprint supports pages
+    /// </summary>
+    [JsonProperty("supportsPages")]
+    public bool SupportsPages { get; set; }
 }

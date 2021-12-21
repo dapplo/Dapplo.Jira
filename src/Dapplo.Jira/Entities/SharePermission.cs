@@ -3,30 +3,29 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     Share Permission information
+/// </summary>
+[JsonObject]
+public class SharePermission
 {
     /// <summary>
-    ///     Share Permission information
+    ///     Id for the share permission
     /// </summary>
-    [JsonObject]
-    public class SharePermission
-    {
-        /// <summary>
-        ///     Id for the share permission
-        /// </summary>
-        [JsonProperty("id")]
-        public string Id { get; set; }
+    [JsonProperty("id")]
+    public string Id { get; set; }
 
-        /// <summary>
-        ///     Project for the permissions
-        /// </summary>
-        [JsonProperty("project")]
-        public ProjectDigest Project { get; set; }
+    /// <summary>
+    ///     Project for the permissions
+    /// </summary>
+    [JsonProperty("project")]
+    public ProjectDigest Project { get; set; }
 
-        /// <summary>
-        ///     Share type can be project
-        /// </summary>
-        [JsonProperty("type")]
-        public string Type { get; set; }
-    }
+    /// <summary>
+    ///     Share type can be project
+    /// </summary>
+    [JsonProperty("type")]
+    public string Type { get; set; }
 }

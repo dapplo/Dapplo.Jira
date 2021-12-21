@@ -3,24 +3,23 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     Represents Values in numeric and string modes
+/// </summary>
+[JsonObject]
+public class ValueField
 {
     /// <summary>
-    ///     Represents Values in numeric and string modes
+    ///     The numeric value
     /// </summary>
-    [JsonObject]
-    public class ValueField
-    {
-        /// <summary>
-        ///     The numeric value
-        /// </summary>
-        [JsonProperty("value")]
-        public long Value { get; set; }
+    [JsonProperty("value")]
+    public long Value { get; set; }
 
-        /// <summary>
-        ///     The string value
-        /// </summary>
-        [JsonProperty("text")]
-        public string Text { get; set; }
-    }
+    /// <summary>
+    ///     The string value
+    /// </summary>
+    [JsonProperty("text")]
+    public string Text { get; set; }
 }

@@ -3,24 +3,23 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     Security level information
+/// </summary>
+[JsonObject]
+public class SecurityLevel : BaseProperties<long>
 {
     /// <summary>
-    ///     Security level information
+    ///     Description for the security level
     /// </summary>
-    [JsonObject]
-    public class SecurityLevel : BaseProperties<long>
-    {
-        /// <summary>
-        ///     Description for the security level
-        /// </summary>
-        [JsonProperty("description")]
-        public string Description { get; set; }
+    [JsonProperty("description")]
+    public string Description { get; set; }
 
-        /// <summary>
-        ///     Name of the security level
-        /// </summary>
-        [JsonProperty("name")]
-        public string Name { get; set; }
-    }
+    /// <summary>
+    ///     Name of the security level
+    /// </summary>
+    [JsonProperty("name")]
+    public string Name { get; set; }
 }

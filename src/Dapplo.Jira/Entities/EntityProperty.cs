@@ -3,24 +3,23 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     Represents a property of an entity
+/// </summary>
+[JsonObject]
+public class EntityProperty
 {
     /// <summary>
-    ///     Represents a property of an entity
+    ///     The property key
     /// </summary>
-    [JsonObject]
-    public class EntityProperty
-    {
-        /// <summary>
-        ///     The property key
-        /// </summary>
-        [JsonProperty("key")]
-        public string Key { get; set; }
+    [JsonProperty("key")]
+    public string Key { get; set; }
 
-        /// <summary>
-        ///     The property value
-        /// </summary>
-        [JsonProperty("value")]
-        public string Value { get; set; }
-    }
+    /// <summary>
+    ///     The property value
+    /// </summary>
+    [JsonProperty("value")]
+    public string Value { get; set; }
 }

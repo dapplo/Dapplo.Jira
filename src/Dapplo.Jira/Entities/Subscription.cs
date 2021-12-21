@@ -3,18 +3,17 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     Subscription information
+/// </summary>
+[JsonObject]
+public class Subscription : ReadOnlyBaseId<long>
 {
     /// <summary>
-    ///     Subscription information
+    ///     The user which subscribed
     /// </summary>
-    [JsonObject]
-    public class Subscription : ReadOnlyBaseId<long>
-    {
-        /// <summary>
-        ///     The user which subscribed
-        /// </summary>
-        [JsonProperty("user")]
-        public User Subscriber { get; set; }
-    }
+    [JsonProperty("user")]
+    public User Subscriber { get; set; }
 }

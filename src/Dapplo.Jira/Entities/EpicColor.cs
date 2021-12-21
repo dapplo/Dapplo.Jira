@@ -3,18 +3,17 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     Epic color information
+/// </summary>
+[JsonObject]
+public class EpicColor
 {
     /// <summary>
-    ///     Epic color information
+    ///     Key for the color
     /// </summary>
-    [JsonObject]
-    public class EpicColor
-    {
-        /// <summary>
-        ///     Key for the color
-        /// </summary>
-        [JsonProperty("key")]
-        public string Key { get; set; }
-    }
+    [JsonProperty("key")]
+    public string Key { get; set; }
 }

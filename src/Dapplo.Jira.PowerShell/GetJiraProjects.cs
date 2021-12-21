@@ -6,25 +6,24 @@ using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
 using Dapplo.Jira.PowerShell.Support;
 
-namespace Dapplo.Jira.PowerShell
+namespace Dapplo.Jira.PowerShell;
+
+/// <summary>
+///     A Cmdlet which outputs the projects in the specified jira
+/// </summary>
+[Cmdlet(VerbsCommon.Get, "JiraProjects")]
+[OutputType(typeof(ProjectDigest))]
+public class GetJiraProjects : JiraAsyncCmdlet
 {
     /// <summary>
-    ///     A Cmdlet which outputs the projects in the specified jira
+    ///     Process the Projects output
     /// </summary>
-    [Cmdlet(VerbsCommon.Get, "JiraProjects")]
-    [OutputType(typeof(ProjectDigest))]
-    public class GetJiraProjects : JiraAsyncCmdlet
+    protected override async Task ProcessRecordAsync()
     {
-        /// <summary>
-        ///     Process the Projects output
-        /// </summary>
-        protected override async Task ProcessRecordAsync()
+        var projects = await this.JiraApi.Project.GetAllAsync().ConfigureAwait(false);
+        foreach (var projectDigest in projects)
         {
-            var projects = await this.JiraApi.Project.GetAllAsync().ConfigureAwait(false);
-            foreach (var projectDigest in projects)
-            {
-                WriteObject(projectDigest);
-            }
+            WriteObject(projectDigest);
         }
     }
 }

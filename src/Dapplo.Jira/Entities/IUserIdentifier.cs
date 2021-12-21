@@ -4,24 +4,23 @@
 using System.ComponentModel;
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     This interface defines the ways to identify a user
+/// </summary>
+public interface IUserIdentifier
 {
     /// <summary>
-    ///     This interface defines the ways to identify a user
+    ///     Value for the account ID
     /// </summary>
-    public interface IUserIdentifier
-    {
-        /// <summary>
-        ///     Value for the account ID
-        /// </summary>
-        [JsonProperty("accountId")]
-        [ReadOnly(true)]
-        public string AccountId { get; set; }
+    [JsonProperty("accountId")]
+    [ReadOnly(true)]
+    public string AccountId { get; set; }
 
-        /// <summary>
-        ///     Name of the user
-        /// </summary>
-        [JsonProperty("name")]
-        public string Name { get; set; }
-    }
+    /// <summary>
+    ///     Name of the user
+    /// </summary>
+    [JsonProperty("name")]
+    public string Name { get; set; }
 }

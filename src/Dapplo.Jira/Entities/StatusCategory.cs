@@ -3,30 +3,29 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     StatusCategory information
+/// </summary>
+[JsonObject]
+public class StatusCategory : BaseProperties<long>
 {
     /// <summary>
-    ///     StatusCategory information
+    ///     Name of the color
     /// </summary>
-    [JsonObject]
-    public class StatusCategory : BaseProperties<long>
-    {
-        /// <summary>
-        ///     Name of the color
-        /// </summary>
-        [JsonProperty("colorName")]
-        public string ColorName { get; set; }
+    [JsonProperty("colorName")]
+    public string ColorName { get; set; }
 
-        /// <summary>
-        ///     Key for the status category
-        /// </summary>
-        [JsonProperty("key")]
-        public string Key { get; set; }
+    /// <summary>
+    ///     Key for the status category
+    /// </summary>
+    [JsonProperty("key")]
+    public string Key { get; set; }
 
-        /// <summary>
-        ///     Name of the status category
-        /// </summary>
-        [JsonProperty("name")]
-        public string Name { get; set; }
-    }
+    /// <summary>
+    ///     Name of the status category
+    /// </summary>
+    [JsonProperty("name")]
+    public string Name { get; set; }
 }

@@ -3,24 +3,23 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     Statistic Field information
+/// </summary>
+[JsonObject]
+public class StatisticField
 {
     /// <summary>
-    ///     Statistic Field information
+    ///     The Statistic Field Id
     /// </summary>
-    [JsonObject]
-    public class StatisticField
-    {
-        /// <summary>
-        ///     The Statistic Field Id
-        /// </summary>
-        [JsonProperty("statFieldId")]
-        public string StatFieldId { get; set; }
+    [JsonProperty("statFieldId")]
+    public string StatFieldId { get; set; }
 
-        /// <summary>
-        ///     The Statistic Field value
-        /// </summary>
-        [JsonProperty("statFieldValue")]
-        public ValueField StatFieldValue { get; set; }
-    }
+    /// <summary>
+    ///     The Statistic Field value
+    /// </summary>
+    [JsonProperty("statFieldValue")]
+    public ValueField StatFieldValue { get; set; }
 }

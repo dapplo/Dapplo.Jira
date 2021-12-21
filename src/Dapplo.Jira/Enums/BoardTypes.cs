@@ -3,26 +3,25 @@
 
 using System.ComponentModel;
 
-namespace Dapplo.Jira.Enums
+namespace Dapplo.Jira.Enums;
+
+/// <summary>
+/// Types of an agile board
+/// </summary>
+public enum BoardTypes
 {
     /// <summary>
-    /// Types of an agile board
+    /// Identifies the board to be of type Kanban
     /// </summary>
-    public enum BoardTypes
-    {
-        /// <summary>
-        /// Identifies the board to be of type Kanban
-        /// </summary>
-        [Description("Kanban")] Kanban,
+    [Description("Kanban")] Kanban,
 
-        /// <summary>
-        /// Identifies the board to be of type Scrum
-        /// </summary>
-        [Description("Scrum")] Scrum,
+    /// <summary>
+    /// Identifies the board to be of type Scrum
+    /// </summary>
+    [Description("Scrum")] Scrum,
 
-        /// <summary>
-        /// Identifies the board to be of type Simple
-        /// </summary>
-        [Description("Simple")] Simple
-    }
+    /// <summary>
+    /// Identifies the board to be of type Simple
+    /// </summary>
+    [Description("Simple")] Simple
 }

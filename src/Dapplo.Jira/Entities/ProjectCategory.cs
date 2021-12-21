@@ -3,24 +3,23 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     Project category information
+/// </summary>
+[JsonObject]
+public class ProjectCategory : BaseProperties<long>
 {
     /// <summary>
-    ///     Project category information
+    ///     Description for the category
     /// </summary>
-    [JsonObject]
-    public class ProjectCategory : BaseProperties<long>
-    {
-        /// <summary>
-        ///     Description for the category
-        /// </summary>
-        [JsonProperty("description")]
-        public string Description { get; set; }
+    [JsonProperty("description")]
+    public string Description { get; set; }
 
-        /// <summary>
-        ///     Name of the category
-        /// </summary>
-        [JsonProperty("name")]
-        public string Name { get; set; }
-    }
+    /// <summary>
+    ///     Name of the category
+    /// </summary>
+    [JsonProperty("name")]
+    public string Name { get; set; }
 }

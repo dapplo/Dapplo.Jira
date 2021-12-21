@@ -1,118 +1,115 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System.Linq;
+namespace Dapplo.Jira.Query;
 
-namespace Dapplo.Jira.Query
+/// <summary>
+///     A clause for version values like fixVersion and more
+/// </summary>
+public class VersionClause : IVersionClause
 {
+    private readonly Clause clause;
+
+    private bool negate;
+
     /// <summary>
-    ///     A clause for version values like fixVersion and more
+    /// Constructor of a version clause with a field
     /// </summary>
-    public class VersionClause : IVersionClause
+    /// <param name="versionField">Fields</param>
+    public VersionClause(Fields versionField)
     {
-        private readonly Clause _clause;
-
-        private bool _negate;
-
-        /// <summary>
-        /// contructor of a version clause with a field
-        /// </summary>
-        /// <param name="versionField">Fields</param>
-        public VersionClause(Fields versionField)
+        this.clause = new Clause
         {
-            _clause = new Clause
-            {
-                Field = versionField
-            };
+            Field = versionField
+        };
+    }
+
+    /// <inheritDoc />
+    public IVersionClause Not
+    {
+        get
+        {
+            this.negate = !this.negate;
+            return this;
+        }
+    }
+
+    /// <inheritDoc />
+    public IFinalClause Is(string version)
+    {
+        this.clause.Operator = Operators.EqualTo;
+        this.clause.Value = $"\"{version}\"";
+        if (this.negate)
+        {
+            this.clause.Negate();
         }
 
-        /// <inheritDoc />
-        public IVersionClause Not
+        return this.clause;
+    }
+
+    /// <inheritDoc />
+    public IFinalClause In(params string[] versions)
+    {
+        this.clause.Operator = Operators.In;
+        this.clause.Value = "(" + string.Join(", ", versions.Select(version => $"\"{version}\"")) + ")";
+        if (this.negate)
         {
-            get
-            {
-                _negate = !_negate;
-                return this;
-            }
+            this.clause.Negate();
         }
 
-        /// <inheritDoc />
-        public IFinalClause Is(string version)
-        {
-            _clause.Operator = Operators.EqualTo;
-            _clause.Value = $"\"{version}\"";
-            if (_negate)
-            {
-                _clause.Negate();
-            }
+        return this.clause;
+    }
 
-            return _clause;
+    /// <inheritDoc />
+    public IFinalClause InReleasedVersions(string project = null)
+    {
+        this.clause.Operator = Operators.In;
+        this.clause.Value = $"releasedVersions({project})";
+        if (this.negate)
+        {
+            this.clause.Negate();
         }
 
-        /// <inheritDoc />
-        public IFinalClause In(params string[] versions)
-        {
-            _clause.Operator = Operators.In;
-            _clause.Value = "(" + string.Join(", ", versions.Select(version => $"\"{version}\"")) + ")";
-            if (_negate)
-            {
-                _clause.Negate();
-            }
+        return this.clause;
+    }
 
-            return _clause;
+    /// <inheritDoc />
+    public IFinalClause InLatestReleasedVersion(string project)
+    {
+        this.clause.Operator = Operators.In;
+        this.clause.Value = $"latestReleasedVersion({project})";
+        if (this.negate)
+        {
+            this.clause.Negate();
         }
 
-        /// <inheritDoc />
-        public IFinalClause InReleasedVersions(string project = null)
-        {
-            _clause.Operator = Operators.In;
-            _clause.Value = $"releasedVersions({project})";
-            if (_negate)
-            {
-                _clause.Negate();
-            }
+        return this.clause;
+    }
 
-            return _clause;
+    /// <inheritDoc />
+    public IFinalClause InUnreleasedVersions(string project = null)
+    {
+        this.clause.Operator = Operators.In;
+        this.clause.Value = $"unreleasedVersions({project})";
+        if (this.negate)
+        {
+            this.clause.Negate();
         }
 
-        /// <inheritDoc />
-        public IFinalClause InLatestReleasedVersion(string project)
-        {
-            _clause.Operator = Operators.In;
-            _clause.Value = $"latestReleasedVersion({project})";
-            if (_negate)
-            {
-                _clause.Negate();
-            }
+        return this.clause;
+    }
 
-            return _clause;
+
+    /// <inheritDoc />
+    public IFinalClause InEarliestUnreleasedVersion(string project)
+    {
+        this.clause.Operator = Operators.In;
+        this.clause.Value = $"earliestUnreleasedVersion({project})";
+        if (this.negate)
+        {
+            this.clause.Negate();
         }
 
-        /// <inheritDoc />
-        public IFinalClause InUnreleasedVersions(string project = null)
-        {
-            _clause.Operator = Operators.In;
-            _clause.Value = $"unreleasedVersions({project})";
-            if (_negate)
-            {
-                _clause.Negate();
-            }
-
-            return _clause;
-        }
-
-
-        /// <inheritDoc />
-        public IFinalClause InEarliestUnreleasedVersion(string project)
-        {
-            _clause.Operator = Operators.In;
-            _clause.Value = $"earliestUnreleasedVersion({project})";
-            if (_negate)
-            {
-                _clause.Negate();
-            }
-
-            return _clause;
-        }
+        return this.clause;
     }
 }

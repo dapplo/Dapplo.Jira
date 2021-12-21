@@ -3,18 +3,17 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     Information on the custom field id for the ranking information
+/// </summary>
+[JsonObject]
+public class RankingCustomFieldInfo
 {
     /// <summary>
-    ///     Information on the custom field id for the ranking information
+    ///     Id of the Rank custom field
     /// </summary>
-    [JsonObject]
-    public class RankingCustomFieldInfo
-    {
-        /// <summary>
-        ///     Id of the Rank custom field
-        /// </summary>
-        [JsonProperty("rankCustomFieldId")]
-        public long? RankCustomFieldId { get; set; }
-    }
+    [JsonProperty("rankCustomFieldId")]
+    public long? RankCustomFieldId { get; set; }
 }

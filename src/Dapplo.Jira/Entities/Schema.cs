@@ -3,24 +3,23 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     Schema information of a field
+/// </summary>
+[JsonObject]
+public class Schema
 {
     /// <summary>
-    ///     Schema information of a field
+    ///     System for this schema
     /// </summary>
-    [JsonObject]
-    public class Schema
-    {
-        /// <summary>
-        ///     System for this schema
-        /// </summary>
-        [JsonProperty("system")]
-        public string System { get; set; }
+    [JsonProperty("system")]
+    public string System { get; set; }
 
-        /// <summary>
-        ///     Type for this schema
-        /// </summary>
-        [JsonProperty("type")]
-        public string Type { get; set; }
-    }
+    /// <summary>
+    ///     Type for this schema
+    /// </summary>
+    [JsonProperty("type")]
+    public string Type { get; set; }
 }

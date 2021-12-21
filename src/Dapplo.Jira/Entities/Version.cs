@@ -3,30 +3,29 @@
 
 using Newtonsoft.Json;
 
-namespace Dapplo.Jira.Entities
+namespace Dapplo.Jira.Entities;
+
+/// <summary>
+///     Version information
+/// </summary>
+[JsonObject]
+public class Version : BaseProperties<string>
 {
     /// <summary>
-    ///     Version information
+    ///     Is this an achived version?
     /// </summary>
-    [JsonObject]
-    public class Version : BaseProperties<string>
-    {
-        /// <summary>
-        ///     Is this an achived version?
-        /// </summary>
-        [JsonProperty("archived")]
-        public bool Archived { get; set; }
+    [JsonProperty("archived")]
+    public bool Archived { get; set; }
 
-        /// <summary>
-        ///     Name of the version
-        /// </summary>
-        [JsonProperty("name")]
-        public string Name { get; set; }
+    /// <summary>
+    ///     Name of the version
+    /// </summary>
+    [JsonProperty("name")]
+    public string Name { get; set; }
 
-        /// <summary>
-        ///     Is this version released?
-        /// </summary>
-        [JsonProperty("released")]
-        public bool Released { get; set; }
-    }
+    /// <summary>
+    ///     Is this version released?
+    /// </summary>
+    [JsonProperty("released")]
+    public bool Released { get; set; }
 }

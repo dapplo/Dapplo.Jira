@@ -11,50 +11,49 @@ using Dapplo.Log.XUnit;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Dapplo.Jira.Tests
+namespace Dapplo.Jira.Tests;
+
+public class MiscJqlTests
 {
-    public class MiscJqlTests
+    public MiscJqlTests(ITestOutputHelper testOutputHelper)
     {
-        public MiscJqlTests(ITestOutputHelper testOutputHelper)
-        {
-            LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
-        }
+        LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
+    }
 
-        [Fact]
-        public void Issue44()
+    [Fact]
+    public void Issue44()
+    {
+        var project = new Project
         {
-            var project = new Project
+            Key = "PROJ",
+            IssueTypes = new List<IssueType>
             {
-                Key = "PROJ",
-                IssueTypes = new List<IssueType>
+                new IssueType
                 {
-                    new IssueType
-                    {
-                        Id = 1,
-                        Name = "Bug"
-                    }
+                    Id = 1,
+                    Name = "Bug"
                 }
-            };
+            }
+        };
 
-            var issueTypes = new List<string>
-            {
-                "Bug"
-            };
-            var startDate = DateTimeOffset.FromFileTime(1234567890).ToUniversalTime();
-            var endDate = DateTime.FromFileTime(12356789000).ToUniversalTime();
-            var jql = Where.And(
-                Where.Project.Is(project),
-                Where.Type.In(project.IssueTypes.Where(t => issueTypes.Contains(t.Name)).ToArray()),
-                Where.Or(
-                    Where.And(
-                        Where.Resolved.AfterOrOn.DateTime(startDate),
-                        Where.Resolved.BeforeOrOn.DateTime(endDate)
-                    ),
-                    Where.Status.Is("End to End Testing")
-                )
-            );
-            var jqlString = jql.ToString();
-            Assert.Equal("(project = PROJ and type in (1) and ((resolved >= \"1601-01-01 00:02\" and resolved <= \"1601-01-01 00:20\") or status = \"End to End Testing\"))", jqlString);
-        }
+        var issueTypes = new List<string>
+        {
+            "Bug"
+        };
+        var startDate = DateTimeOffset.FromFileTime(1234567890).ToUniversalTime();
+        var endDate = DateTime.FromFileTime(12356789000).ToUniversalTime();
+        var jql = Where.And(
+            Where.Project.Is(project),
+            Where.Type.In(project.IssueTypes.Where(t => issueTypes.Contains(t.Name)).ToArray()),
+            Where.Or(
+                Where.And(
+                    Where.Resolved.AfterOrOn.DateTime(startDate),
+                    Where.Resolved.BeforeOrOn.DateTime(endDate)
+                ),
+                Where.Status.Is("End to End Testing")
+            )
+        );
+        var jqlString = jql.ToString();
+        Assert.Equal("(project = PROJ and type in (1) and ((resolved >= \"1601-01-01 00:02\" and resolved <= \"1601-01-01 00:20\") or status = \"End to End Testing\"))", jqlString);
     }
 }

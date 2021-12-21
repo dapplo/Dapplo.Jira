@@ -7,47 +7,46 @@ using Dapplo.Log;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Dapplo.Jira.Tests
+namespace Dapplo.Jira.Tests;
+
+public class JiraTests : TestBase
 {
-    public class JiraTests : TestBase
+    public JiraTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
     {
-        public JiraTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
-        {
-        }
+    }
 
-        [Fact]
-        public void TestConstructor()
-        {
-            Assert.Throws<ArgumentNullException>(() => JiraClient.Create(null));
-        }
+    [Fact]
+    public void TestConstructor()
+    {
+        Assert.Throws<ArgumentNullException>(() => JiraClient.Create(null));
+    }
 
 
-        [Fact]
-        public async Task TestGetFieldsAsync()
-        {
-            var fields = await Client.Server.GetFieldsAsync();
-            Assert.True(fields.Count > 0);
-            Assert.Contains(fields, field => field.Id == "issuetype");
-        }
+    [Fact]
+    public async Task TestGetFieldsAsync()
+    {
+        var fields = await Client.Server.GetFieldsAsync();
+        Assert.True(fields.Count > 0);
+        Assert.Contains(fields, field => field.Id == "issuetype");
+    }
 
-        [Fact]
-        public async Task TestGetServerConfigurationAsync()
-        {
-            Assert.NotNull(Client);
-            var configuration = await Client.Server.GetConfigurationAsync();
-            Assert.NotNull(configuration.TimeTrackingConfiguration.TimeFormat);
-        }
+    [Fact]
+    public async Task TestGetServerConfigurationAsync()
+    {
+        Assert.NotNull(Client);
+        var configuration = await Client.Server.GetConfigurationAsync();
+        Assert.NotNull(configuration.TimeTrackingConfiguration.TimeFormat);
+    }
 
-        [Fact]
-        public async Task TestGetServerInfoAsync()
-        {
-            Assert.NotNull(Client);
-            var serverInfo = await Client.Server.GetInfoAsync();
-            Assert.NotNull(serverInfo.Version);
-            Assert.NotNull(serverInfo.ServerTitle);
-            // This should be changed when the title changes
-            Assert.EndsWith("JIRA", serverInfo.ServerTitle);
-            Log.Debug().WriteLine($"Version {serverInfo.Version} - Title: {serverInfo.ServerTitle}");
-        }
+    [Fact]
+    public async Task TestGetServerInfoAsync()
+    {
+        Assert.NotNull(Client);
+        var serverInfo = await Client.Server.GetInfoAsync();
+        Assert.NotNull(serverInfo.Version);
+        Assert.NotNull(serverInfo.ServerTitle);
+        // This should be changed when the title changes
+        Assert.EndsWith("JIRA", serverInfo.ServerTitle);
+        Log.Debug().WriteLine($"Version {serverInfo.Version} - Title: {serverInfo.ServerTitle}");
     }
 }

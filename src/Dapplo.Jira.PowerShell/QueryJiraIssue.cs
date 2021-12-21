@@ -6,29 +6,28 @@ using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
 using Dapplo.Jira.PowerShell.Support;
 
-namespace Dapplo.Jira.PowerShell
+namespace Dapplo.Jira.PowerShell;
+
+/// <summary>
+///     A Cmdlet which queries a jira system for issues
+/// </summary>
+[Cmdlet(VerbsCommon.Get, "JiraQueryIssues")]
+[OutputType(typeof(IssueFields))]
+public class QueryJiraIssue : JiraAsyncCmdlet
 {
     /// <summary>
-    ///     A Cmdlet which queries a jira system for issues
+    ///     Key for the issue that needs to be retrieved
     /// </summary>
-    [Cmdlet(VerbsCommon.Get, "JiraQueryIssues")]
-    [OutputType(typeof(IssueFields))]
-    public class QueryJiraIssue : JiraAsyncCmdlet
-    {
-        /// <summary>
-        ///     Key for the issue that needs to be retrieved
-        /// </summary>
-        [Parameter(ValueFromPipeline = true, Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
-        public string Query { get; set; }
+    [Parameter(ValueFromPipeline = true, Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
+    public string Query { get; set; }
 
-        /// <summary>
-        ///     Override ProcessRecordAsync to get the issue data and output the object
-        /// </summary>
-        /// <returns></returns>
-        protected override async Task ProcessRecordAsync()
-        {
-            var issues = await this.JiraApi.Issue.SearchAsync(Query).ConfigureAwait(false);
-            WriteObject(issues, true);
-        }
+    /// <summary>
+    ///     Override ProcessRecordAsync to get the issue data and output the object
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task ProcessRecordAsync()
+    {
+        var issues = await this.JiraApi.Issue.SearchAsync(Query).ConfigureAwait(false);
+        WriteObject(issues, true);
     }
 }

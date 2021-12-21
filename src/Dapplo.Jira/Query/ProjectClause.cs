@@ -1,104 +1,85 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System.Linq;
-using Dapplo.Jira.Entities;
+namespace Dapplo.Jira.Query;
 
-namespace Dapplo.Jira.Query
+/// <summary>
+///     A clause for searching projects belonging to a project
+/// </summary>
+public class ProjectClause : IProjectClause
 {
-    /// <summary>
-    ///     A clause for searching projects belonging to a project
-    /// </summary>
-    public class ProjectClause : IProjectClause
+    private readonly Clause clause = new()
     {
-        private readonly Clause _clause = new Clause
-        {
-            Field = Fields.Project
-        };
+        Field = Fields.Project
+    };
 
-        private bool _negate;
+    private bool negate;
 
-        /// <inheritDoc />
-        public IProjectClause Not
+    /// <inheritDoc />
+    public IProjectClause Not
+    {
+        get
         {
-            get
-            {
-                _negate = !_negate;
-                return this;
-            }
+            this.negate = !this.negate;
+            return this;
+        }
+    }
+
+    /// <inheritDoc />
+    public IFinalClause Is(string projectKey)
+    {
+        this.clause.Operator = Operators.EqualTo;
+        this.clause.Value = projectKey;
+        if (this.negate)
+        {
+            this.clause.Negate();
         }
 
-        /// <inheritDoc />
-        public IFinalClause Is(string projectKey)
-        {
-            _clause.Operator = Operators.EqualTo;
-            _clause.Value = projectKey;
-            if (_negate)
-            {
-                _clause.Negate();
-            }
+        return this.clause;
+    }
 
-            return _clause;
+    /// <inheritDoc />
+    public IFinalClause Is(Project project) => Is(project.Key);
+
+    /// <inheritDoc />
+    public IFinalClause In(params string[] projectKeys)
+    {
+        this.clause.Operator = Operators.In;
+        this.clause.Value = "(" + string.Join(", ", projectKeys) + ")";
+        if (this.negate)
+        {
+            this.clause.Negate();
         }
 
-        /// <inheritDoc />
-        public IFinalClause Is(Project project)
+        return this.clause;
+    }
+
+    /// <inheritDoc />
+    public IFinalClause In(params Project[] projects) => In(projects.Select(project => project.Key).ToArray());
+
+    /// <inheritDoc />
+    public IFinalClause InProjectsLeadByUser() => InFunction("projectsLeadByUser()");
+
+    /// <inheritDoc />
+    public IFinalClause InProjectsWhereUserHasPermission() => InFunction("projectsWhereUserHasPermission()");
+
+    /// <inheritDoc />
+    public IFinalClause InProjectsWhereUserHasRole() => InFunction("projectsWhereUserHasRole()");
+
+    /// <summary>
+    /// Create clause for a function
+    /// </summary>
+    /// <param name="functionName">Name of the function</param>
+    /// <returns>IFinalClause</returns>
+    private IFinalClause InFunction(string functionName)
+    {
+        this.clause.Operator = Operators.In;
+        this.clause.Value = functionName;
+        if (this.negate)
         {
-            return Is(project.Key);
+            this.clause.Negate();
         }
 
-        /// <inheritDoc />
-        public IFinalClause In(params string[] projectKeys)
-        {
-            _clause.Operator = Operators.In;
-            _clause.Value = "(" + string.Join(", ", projectKeys) + ")";
-            if (_negate)
-            {
-                _clause.Negate();
-            }
-
-            return _clause;
-        }
-
-        /// <inheritDoc />
-        public IFinalClause In(params Project[] projects)
-        {
-            return In(projects.Select(project => project.Key).ToArray());
-        }
-
-        /// <inheritDoc />
-        public IFinalClause InProjectsLeadByUser()
-        {
-            return InFunction("projectsLeadByUser()");
-        }
-
-        /// <inheritDoc />
-        public IFinalClause InProjectsWhereUserHasPermission()
-        {
-            return InFunction("projectsWhereUserHasPermission()");
-        }
-
-        /// <inheritDoc />
-        public IFinalClause InProjectsWhereUserHasRole()
-        {
-            return InFunction("projectsWhereUserHasRole()");
-        }
-
-        /// <summary>
-        /// Create clause for a function
-        /// </summary>
-        /// <param name="functionName">Name of the function</param>
-        /// <returns>IFinalClause</returns>
-        private IFinalClause InFunction(string functionName)
-        {
-            _clause.Operator = Operators.In;
-            _clause.Value = functionName;
-            if (_negate)
-            {
-                _clause.Negate();
-            }
-
-            return _clause;
-        }
+        return this.clause;
     }
 }
