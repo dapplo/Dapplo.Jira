@@ -22,6 +22,7 @@ public abstract class TestBase
     protected const string TestProjectKey = "DIT";
     protected const string TestIssueKey = "DIT-1";
     protected const string TestIssueKey2 = "DIT-123";
+    protected const string TestSubTaskIssueKey = "DIT-179";
 
     // Test against a well known JIRA
     protected static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");

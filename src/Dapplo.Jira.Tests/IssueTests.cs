@@ -241,6 +241,14 @@ public class IssueTests : TestBase
     }
 
     [Fact]
+    public async Task Test_GetIssue_Parent()
+    {
+        var issue = await Client.Issue.GetAsync(TestSubTaskIssueKey);
+        Assert.NotNull(issue);
+        Assert.NotNull(issue.Fields.Parent);
+    }
+
+    [Fact]
     public async Task Test_GetPossibleTransitions()
     {
         var defaultJsonHttpContentConverterConfiguration = new DefaultJsonHttpContentConverterConfiguration

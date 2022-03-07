@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Newtonsoft.Json;
@@ -88,6 +88,12 @@ public class IssueFields
     /// </summary>
     [JsonProperty("lastViewed")]
     public DateTimeOffset? LastViewed { get; set; }
+
+    /// <summary>
+    ///     Parent of this issue
+    /// </summary>
+    [JsonProperty("parent")]
+    public IssueWithFields<IssueFields> Parent { get; set; }
 
     /// <summary>
     ///     Priority for this issue

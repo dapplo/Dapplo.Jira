@@ -48,5 +48,5 @@ foreach (var issue in searchResult.Issues)
     await issue.AddCommentAsync($"{unavailableUser} is currently not available.");
 }
 ```
-<sup><a href='/src/Dapplo.Jira.Tests/IssueTests.cs#L264-L284' title='Snippet source file'>snippet source</a> | <a href='#snippet-searchexample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Dapplo.Jira.Tests/IssueTests.cs#L272-L292' title='Snippet source file'>snippet source</a> | <a href='#snippet-searchexample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
