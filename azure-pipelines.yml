@@ -24,25 +24,23 @@ stages:
       buildConfiguration: 'Release'
 
     steps:
-    - task: NuGetToolInstaller@1
+    - task: NuGetToolInstaller@0
+      displayName: 'Use NuGet 6.3.0'
+      inputs:
+        versionSpec: 6.3.0
+        checkLatest: true
 
     - task: UseDotNet@2
-      displayName: 'Use .NET Core sdk 3.1.22'
+      displayName: 'Use .NET Core sdk 3.1.28'
       inputs:
         packageType: sdk
-        version: 3.1.416
+        version: 3.1.422
 
     - task: UseDotNet@2
-      displayName: 'Use .NET Core sdk 5.0.13'
+      displayName: 'Use .NET Core sdk 6.0.8'
       inputs:
         packageType: sdk
-        version: 5.0.404
-
-    - task: UseDotNet@2
-      displayName: 'Use .NET Core sdk 6.0.1'
-      inputs:
-        packageType: sdk
-        version: 6.0.101
+        version: 6.0.400
 
     - task: DotNetCoreCLI@2
       displayName: Test
@@ -113,9 +111,9 @@ stages:
             artifact: drop
 
           - task: NuGetToolInstaller@0
-            displayName: 'Use NuGet 6.0.0'
+            displayName: 'Use NuGet 6.3.0'
             inputs:
-              versionSpec: 6.0.0
+              versionSpec: 6.3.0
               checkLatest: true
 
           - task: NuGetCommand@2
