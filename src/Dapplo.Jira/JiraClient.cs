@@ -3,7 +3,7 @@
 
 using Dapplo.HttpExtensions.JsonNet;
 
-#if NET461
+#if NET471
 using System.Net.Cache;
 
 #endif
@@ -55,7 +55,7 @@ namespace Dapplo.Jira
         public IHttpBehaviour ConfigureBehaviour(IChangeableHttpBehaviour behaviour, IHttpSettings httpSettings = null)
         {
             behaviour.HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings.ShallowClone();
-#if NET461
+#if NET471
             // Disable caching, if no HTTP settings were provided.
             if (httpSettings == null)
             {
