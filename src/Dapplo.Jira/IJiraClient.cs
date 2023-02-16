@@ -75,4 +75,10 @@ public interface IJiraClient
     /// <param name="user">username</param>
     /// <param name="password">password</param>
     IJiraClient SetBasicAuthentication(string user, string password);
+
+    /// <summary>
+    ///     Set Bearer Authentication for the current client
+    /// </summary>
+    /// <param name="bearer">bearer</param>
+    IJiraClient SetBearerAuthentication(string bearer);
 }

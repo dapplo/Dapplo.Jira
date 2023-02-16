@@ -18,6 +18,7 @@ namespace Dapplo.Jira
     {
         private string password;
         private string user;
+        private string bearer;
 
         /// <summary>
         ///     Store the specific HttpBehaviour, which contains a IHttpSettings and also some additional logic for making a
@@ -73,6 +74,10 @@ namespace Dapplo.Jira
                 {
                     httpMessage?.SetBasicAuthorization(this.user, this.password);
                 }
+                if (!string.IsNullOrEmpty(this.bearer))
+                {
+                    httpMessage?.SetBearerAuthorization(this.bearer);
+                }
 
                 return httpMessage;
             };
@@ -115,6 +120,17 @@ namespace Dapplo.Jira
         {
             this.user = user;
             this.password = password;
+            return this;
+        }
+
+        /// <summary>
+        ///     Set Bearer Authentication for the current client
+        /// </summary>
+        /// <param name="bearer">bearer</param>
+        /// <returns>IJiraClient for using it in a more fluent way</returns>
+        public IJiraClient SetBearerAuthentication(string bearer)
+        {
+            this.bearer = bearer;
             return this;
         }
 
