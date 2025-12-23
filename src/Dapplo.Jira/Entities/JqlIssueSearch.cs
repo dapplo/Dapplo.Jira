@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
-///     Search request information, see <a href="https://docs.atlassian.com/jira/REST/latest/#api/2/search-search">here</a>
+///     Search request information, see <a href="https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issue-search/#api-rest-api-3-search-jql-post">here</a>
 /// </summary>
 [JsonObject]
 public class JqlIssueSearch : Page

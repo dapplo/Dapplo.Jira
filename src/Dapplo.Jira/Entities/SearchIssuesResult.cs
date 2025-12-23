@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
-///     Search result information, see <a href="https://docs.atlassian.com/jira/REST/latest/#api/2/search-search">here</a>
+///     Search result information, see <a href="https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issue-search/#api-rest-api-3-search-jql-post">here</a>
 /// </summary>
 [JsonObject]
 public class SearchIssuesResult<TIssue, TSearch> : PageableResult, IEnumerable<TIssue> where TIssue : IssueBase
