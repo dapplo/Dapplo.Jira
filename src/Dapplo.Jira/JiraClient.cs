@@ -41,7 +41,7 @@ namespace Dapplo.Jira
             Behaviour = ConfigureBehaviour(new HttpBehaviour(), httpSettings);
 
             JiraBaseUri = baseUri;
-            JiraRestUri = baseUri.AppendSegments("rest", "api", "3");
+            JiraRestUri = baseUri.AppendSegments("rest", "api", "2");
             JiraAuthUri = baseUri.AppendSegments("rest", "auth", "1");
             JiraAgileRestUri = baseUri.AppendSegments("rest", "agile", "1.0");
             JiraGreenhopperRestUri = baseUri.AppendSegments("rest", "greenhopper", "1.0");

@@ -205,7 +205,8 @@ public static class IssueDomainExtensions
         Log.Debug().WriteLine("Searching via JQL: {0}", search.Jql);
 
         jiraClient.Behaviour.MakeCurrent();
-        var searchUri = jiraClient.JiraRestUri.AppendSegments("search", "jql");
+        // Use API v3 for search endpoint as v2 was removed (https://developer.atlassian.com/changelog/#CHANGE-2046)
+        var searchUri = jiraClient.JiraBaseUri.AppendSegments("rest", "api", "3", "search", "jql");
 
         var response = await searchUri
             .PostAsync<HttpResponse<SearchIssuesResult<Issue, JqlIssueSearch>, Error>>(search, cancellationToken)
