@@ -3,14 +3,13 @@
 
 using System.ComponentModel;
 using Dapplo.Jira.Json;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
 ///     Worklog information
 /// </summary>
-[JsonObject]
 public class Worklog : BaseProperties<string>
 {
     /// <summary>
@@ -32,58 +31,58 @@ public class Worklog : BaseProperties<string>
     /// <summary>
     ///     Author of this worklog
     /// </summary>
-    [JsonProperty("author")]
+    [JsonPropertyName("author")]
     public User Author { get; set; }
 
     /// <summary>
     ///     Comment for this worklog
     /// </summary>
-    [JsonProperty("comment")]
+    [JsonPropertyName("comment")]
     public string Comment { get; set; }
 
     /// <summary>
     ///     When was the worklog created
     /// </summary>
-    [JsonProperty("created")]
+    [JsonPropertyName("created")]
     [ReadOnly(true)]
     public DateTimeOffset? Created { get; set; }
 
     /// <summary>
     ///     When was the worklog started
     /// </summary>
-    [JsonProperty("started")]
-    [JsonConverter(typeof(CustomDateTimeOffsetConverter))]
+    [JsonPropertyName("started")]
+    [JsonConverter(typeof(JiraDateTimeOffsetConverter))]
     public DateTimeOffset? Started { get; set; }
 
     /// <summary>
     ///     Time spent in this worklog, this is a number and qualifier (h = hour, d = day etc)
     /// </summary>
-    [JsonProperty("timeSpent")]
+    [JsonPropertyName("timeSpent")]
     public string TimeSpent { get; set; }
 
     /// <summary>
     ///     Time spent in this worklog, in seconds
     /// </summary>
-    [JsonProperty("timeSpentSeconds")]
+    [JsonPropertyName("timeSpentSeconds")]
     public long? TimeSpentSeconds { get; set; }
 
     /// <summary>
     ///     Who updated this worklog, this cannot be updated
     /// </summary>
-    [JsonProperty("updateAuthor")]
+    [JsonPropertyName("updateAuthor")]
     [ReadOnly(true)]
     public User UpdateAuthor { get; set; }
 
     /// <summary>
     ///     When was the worklog updated, this cannot be updated
     /// </summary>
-    [JsonProperty("updated")]
+    [JsonPropertyName("updated")]
     [ReadOnly(true)]
     public DateTimeOffset? Updated { get; set; }
 
     /// <summary>
     ///     Visibility
     /// </summary>
-    [JsonProperty("visibility")]
+    [JsonPropertyName("visibility")]
     public Visibility Visibility { get; set; }
 }

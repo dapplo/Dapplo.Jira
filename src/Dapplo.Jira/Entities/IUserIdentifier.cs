@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.ComponentModel;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
@@ -14,13 +14,13 @@ public interface IUserIdentifier
     /// <summary>
     ///     Value for the account ID
     /// </summary>
-    [JsonProperty("accountId")]
+    [JsonPropertyName("accountId")]
     [ReadOnly(true)]
     public string AccountId { get; set; }
 
     /// <summary>
     ///     Name of the user
     /// </summary>
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 }

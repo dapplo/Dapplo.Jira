@@ -2,15 +2,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.ComponentModel;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using System.Text.Json.Serialization;
+
 
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
 ///     One change on one specific field of one item
 /// </summary>
-[JsonObject]
 public class HistoryItem
 {
     /// <summary>
@@ -19,7 +18,7 @@ public class HistoryItem
     /// <value>
     ///     The field.
     /// </value>
-    [JsonProperty("field")]
+    [JsonPropertyName("field")]
     [ReadOnly(true)]
     public string Field { get; set; }
 
@@ -29,9 +28,9 @@ public class HistoryItem
     /// <value>
     ///     The type of the field.
     /// </value>
-    [JsonProperty("fieldtype")]
+    [JsonPropertyName("fieldtype")]
     [ReadOnly(true)]
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public FieldType FieldType { get; set; }
 
     /// <summary>
@@ -40,7 +39,7 @@ public class HistoryItem
     /// <value>
     ///     From.
     /// </value>
-    [JsonProperty("from")]
+    [JsonPropertyName("from")]
     [ReadOnly(true)]
     public string From { get; set; }
 
@@ -50,7 +49,7 @@ public class HistoryItem
     /// <value>
     ///     From string.
     /// </value>
-    [JsonProperty("fromString")]
+    [JsonPropertyName("fromString")]
     [ReadOnly(true)]
     public string FromAsString { get; set; }
 
@@ -60,7 +59,7 @@ public class HistoryItem
     /// <value>
     ///     From.
     /// </value>
-    [JsonProperty("to")]
+    [JsonPropertyName("to")]
     [ReadOnly(true)]
     public string To { get; set; }
 
@@ -70,7 +69,7 @@ public class HistoryItem
     /// <value>
     ///     From string.
     /// </value>
-    [JsonProperty("toString")]
+    [JsonPropertyName("toString")]
     [ReadOnly(true)]
     public string ToAsString { get; set; }
 }

@@ -1,56 +1,55 @@
 // Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
 ///     Container for the fields
 /// </summary>
-[JsonObject]
 public class IssueFields
 {
     /// <summary>
     ///     The summary of the time spend on this issue
     /// </summary>
-    [JsonProperty("aggregatetimespent")]
+    [JsonPropertyName("aggregatetimespent")]
     public long? AggregateTimeSpent { get; set; }
 
     /// <summary>
     ///     User who this issue is assigned to
     /// </summary>
-    [JsonProperty("assignee")]
+    [JsonPropertyName("assignee")]
     public User Assignee { get; set; }
 
     /// <summary>
     ///     Attachments for this issue
     /// </summary>
-    [JsonProperty("attachment")]
+    [JsonPropertyName("attachment")]
     public IList<Attachment> Attachments { get; set; }
 
     /// <summary>
     ///     Container for the comments for this issue
     /// </summary>
-    [JsonProperty("comment")]
+    [JsonPropertyName("comment")]
     public Comments Comments { get; set; }
 
     /// <summary>
     ///     Components for this issue
     /// </summary>
-    [JsonProperty("components")]
+    [JsonPropertyName("components")]
     public IList<Component> Components { get; set; }
 
     /// <summary>
     ///     When was this issue created
     /// </summary>
-    [JsonProperty("created")]
+    [JsonPropertyName("created")]
     public DateTimeOffset? Created { get; set; }
 
     /// <summary>
     ///     User who created this issue
     /// </summary>
-    [JsonProperty("creator")]
+    [JsonPropertyName("creator")]
     public User Creator { get; set; }
 
     /// <summary>
@@ -62,132 +61,132 @@ public class IssueFields
     /// <summary>
     ///     Description of this issue
     /// </summary>
-    [JsonProperty("description")]
+    [JsonPropertyName("description")]
     public string Description { get; set; }
 
     /// <summary>
     ///     Versions where this issue is fixed
     /// </summary>
-    [JsonProperty("fixVersions")]
+    [JsonPropertyName("fixVersions")]
     public IList<Version> FixVersions { get; set; }
 
     /// <summary>
     ///     Type of the issue
     /// </summary>
-    [JsonProperty("issuetype")]
+    [JsonPropertyName("issuetype")]
     public IssueType IssueType { get; set; }
 
     /// <summary>
     ///     Labels for this issue
     /// </summary>
-    [JsonProperty("labels")]
+    [JsonPropertyName("labels")]
     public IList<string> Labels { get; set; }
 
     /// <summary>
     ///     When was this issue viewed (by whom??)
     /// </summary>
-    [JsonProperty("lastViewed")]
+    [JsonPropertyName("lastViewed")]
     public DateTimeOffset? LastViewed { get; set; }
 
     /// <summary>
     ///     Parent of this issue
     /// </summary>
-    [JsonProperty("parent")]
+    [JsonPropertyName("parent")]
     public IssueWithFields<IssueFields> Parent { get; set; }
 
     /// <summary>
     ///     Priority for this issue
     /// </summary>
-    [JsonProperty("priority")]
+    [JsonPropertyName("priority")]
     public Priority Priority { get; set; }
 
     /// <summary>
     ///     Progress for this issue
     /// </summary>
-    [JsonProperty("progress")]
+    [JsonPropertyName("progress")]
     public ProgressInfo Progress { get; set; }
 
     /// <summary>
     ///     Project to which this issue belongs
     /// </summary>
-    [JsonProperty("project")]
+    [JsonPropertyName("project")]
     public Project Project { get; set; }
 
     /// <summary>
     ///     What user reported the issue?
     /// </summary>
-    [JsonProperty("reporter")]
+    [JsonPropertyName("reporter")]
     public User Reporter { get; set; }
 
     /// <summary>
     ///     The resolution for this issue
     /// </summary>
-    [JsonProperty("resolution")]
+    [JsonPropertyName("resolution")]
     public Resolution Resolution { get; set; }
 
     /// <summary>
     ///     Resolution date for this issue
     /// </summary>
-    [JsonProperty("resolutiondate")]
+    [JsonPropertyName("resolutiondate")]
     public DateTimeOffset? ResolutionData { get; set; }
 
     /// <summary>
     ///     Security level for this issue
     /// </summary>
-    [JsonProperty("security")]
+    [JsonPropertyName("security")]
     public SecurityLevel Security { get; set; }
 
     /// <summary>
     ///     Current status of the issue
     /// </summary>
-    [JsonProperty("status")]
+    [JsonPropertyName("status")]
     public Status Status { get; set; }
 
     /// <summary>
     ///     Summary for the issue
     /// </summary>
-    [JsonProperty("summary")]
+    [JsonPropertyName("summary")]
     public string Summary { get; set; }
 
     /// <summary>
     ///     How much time is spent on this issue
     /// </summary>
-    [JsonProperty("timespent")]
+    [JsonPropertyName("timespent")]
     public long? TimeSpent { get; set; }
 
     /// <summary>
     ///     Time tracking information
     /// </summary>
-    [JsonProperty("timetracking")]
+    [JsonPropertyName("timetracking")]
     public TimeTracking TimeTracking { get; set; }
 
     /// <summary>
     ///     When was the last update
     /// </summary>
-    [JsonProperty("updated")]
+    [JsonPropertyName("updated")]
     public DateTimeOffset? Updated { get; set; }
 
     /// <summary>
     ///     Version for which this ticket is
     /// </summary>
-    [JsonProperty("versions")]
+    [JsonPropertyName("versions")]
     public IList<Version> Versions { get; set; }
 
     /// <summary>
     ///     Information on the watches for the ticket
     /// </summary>
-    [JsonProperty("watches")]
+    [JsonPropertyName("watches")]
     public Watches Watches { get; set; }
 
     /// <summary>
     ///     The worklog entries
     /// </summary>
-    [JsonProperty("worklog")]
+    [JsonPropertyName("worklog")]
     public Worklogs Worklogs { get; set; }
 
     /// <summary>
     /// All linked issues
     /// </summary>
-    [JsonProperty("issueLinks")]
+    [JsonPropertyName("issueLinks")]
     public IList<IssueLink> IssueLinks { get; set; }
 }

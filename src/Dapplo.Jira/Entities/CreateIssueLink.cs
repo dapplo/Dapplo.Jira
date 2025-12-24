@@ -1,14 +1,13 @@
 ﻿// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
 ///     Describes a link between Jira issues
 /// </summary>
-[JsonObject]
 public class CreateIssueLink : ReadOnlyBaseId<string>
 {
     /// <summary>
@@ -24,12 +23,12 @@ public class CreateIssueLink : ReadOnlyBaseId<string>
     /// <summary>
     /// This describes the issue where the issue link if pointing to
     /// </summary>
-    [JsonProperty("outwardIssue")]
+    [JsonPropertyName("outwardIssue")]
     public LinkedIssue OutwardIssue { get; set; }
 
     /// <summary>
     /// This describes the issue which is pointing to this
     /// </summary>
-    [JsonProperty("inwardIssue")]
+    [JsonPropertyName("inwardIssue")]
     public LinkedIssue InwardIssue { get; set; }
 }

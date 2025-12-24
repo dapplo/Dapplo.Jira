@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.ComponentModel;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using Dapplo.Jira.Json;
 
 namespace Dapplo.Jira.Entities;
@@ -10,54 +10,53 @@ namespace Dapplo.Jira.Entities;
 /// <summary>
 ///     Sprint information
 /// </summary>
-[JsonObject]
 public class Sprint : BaseProperties<long>
 {
     /// <summary>
     ///     Name of the Sprint
     /// </summary>
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
     /// <summary>
     ///     Goal of the Sprint
     /// </summary>
-    [JsonProperty("goal")]
+    [JsonPropertyName("goal")]
     public string Goal { get; set; }
 
     /// <summary>
     ///     From what board is this sprint?
     /// </summary>
-    [JsonProperty("originBoardId")]
+    [JsonPropertyName("originBoardId")]
     public int? OriginBoardId { get; set; }
 
     /// <summary>
     ///     State of the Sprint
     /// </summary>
-    [JsonProperty("state")]
+    [JsonPropertyName("state")]
     public string State { get; set; }
 
     /// <summary>
     ///     When was the sprint started
     /// </summary>
-    [JsonProperty("startDate")]
+    [JsonPropertyName("startDate")]
     [ReadOnly(true)]
-    [JsonConverter(typeof(CustomDateTimeOffsetConverter))]
+    [JsonConverter(typeof(JiraDateTimeOffsetConverter))]
     public DateTimeOffset? StartDate { get; set; }
 
     /// <summary>
     ///     When was the sprint ended
     /// </summary>
-    [JsonProperty("endDate")]
+    [JsonPropertyName("endDate")]
     [ReadOnly(true)]
-    [JsonConverter(typeof(CustomDateTimeOffsetConverter))]
+    [JsonConverter(typeof(JiraDateTimeOffsetConverter))]
     public DateTimeOffset? EndDate { get; set; }
 
     /// <summary>
     ///     When was the sprint completed
     /// </summary>
-    [JsonProperty("completeDate")]
+    [JsonPropertyName("completeDate")]
     [ReadOnly(true)]
-    [JsonConverter(typeof(CustomDateTimeOffsetConverter))]
+    [JsonConverter(typeof(JiraDateTimeOffsetConverter))]
     public DateTimeOffset? CompleteDate { get; set; }
 }

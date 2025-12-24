@@ -2,20 +2,19 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
 ///     Worklog information
 /// </summary>
-[JsonObject]
 public class Worklogs : PageableResult, IEnumerable<Worklog>
 {
     /// <summary>
     ///     The worklog items
     /// </summary>
-    [JsonProperty("worklogs")]
+    [JsonPropertyName("worklogs")]
     public IList<Worklog> Elements { get; set; }
 
     IEnumerator IEnumerable.GetEnumerator()

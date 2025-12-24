@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
@@ -10,54 +10,53 @@ namespace Dapplo.Jira.Entities;
 ///     See
 ///     <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/configuration-getConfiguration">get configuration</a>
 /// </summary>
-[JsonObject]
 public class Configuration
 {
     /// <summary>
     ///     Is voting enabled?
     /// </summary>
-    [JsonProperty("votingEnabled")]
+    [JsonPropertyName("votingEnabled")]
     public bool IsVotingEnabled { get; set; }
 
     /// <summary>
     ///     Is watching enabled?
     /// </summary>
-    [JsonProperty("watchingEnabled")]
+    [JsonPropertyName("watchingEnabled")]
     public bool IsWatchingEnabled { get; set; }
 
     /// <summary>
     ///     Are unassigned issues allowed?
     /// </summary>
-    [JsonProperty("unassignedIssuesAllowed")]
+    [JsonPropertyName("unassignedIssuesAllowed")]
     public bool AreUnassignedIssuesAllowed { get; set; }
 
     /// <summary>
     ///     Are sub-tasks enabled?
     /// </summary>
-    [JsonProperty("subTasksEnabled")]
+    [JsonPropertyName("subTasksEnabled")]
     public bool AreSubTasksEnabled { get; set; }
 
     /// <summary>
     ///     Is issue linking enabled?
     /// </summary>
-    [JsonProperty("issueLinkingEnabled")]
+    [JsonPropertyName("issueLinkingEnabled")]
     public bool IsIssueLinkingEnabled { get; set; }
 
     /// <summary>
     ///     Is time tracking enabled?
     /// </summary>
-    [JsonProperty("timeTrackingEnabled")]
+    [JsonPropertyName("timeTrackingEnabled")]
     public bool IsTimeTrackingEnabled { get; set; }
 
     /// <summary>
     ///     Are attachments enabled?
     /// </summary>
-    [JsonProperty("attachmentsEnabled")]
+    [JsonPropertyName("attachmentsEnabled")]
     public bool AreAttachmentsEnabled { get; set; }
 
     /// <summary>
     ///     The configuration of the time tracking
     /// </summary>
-    [JsonProperty("timeTrackingConfiguration")]
+    [JsonPropertyName("timeTrackingConfiguration")]
     public TimeTrackingConfiguration TimeTrackingConfiguration { get; set; }
 }

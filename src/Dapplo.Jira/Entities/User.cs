@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.ComponentModel;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
@@ -10,7 +10,6 @@ namespace Dapplo.Jira.Entities;
 ///     User information
 ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/user
 /// </summary>
-[JsonObject]
 public class User : IUserIdentifier
 {
     /// <summary>
@@ -34,48 +33,48 @@ public class User : IUserIdentifier
     /// <summary>
     ///     Value for the account ID
     /// </summary>
-    [JsonProperty("accountId")]
+    [JsonPropertyName("accountId")]
     [ReadOnly(true)]
     public string AccountId { get; set; }
 
     /// <summary>
     ///     true if the user is active (license count)
     /// </summary>
-    [JsonProperty("active")]
+    [JsonPropertyName("active")]
     [ReadOnly(true)]
     public bool Active { get; set; }
 
     /// <summary>
     ///     Avatar urls (links to 16x16, 24x24, 32x32, 48x48 icons) for this user
     /// </summary>
-    [JsonProperty("avatarUrls")]
+    [JsonPropertyName("avatarUrls")]
     [ReadOnly(true)]
     public AvatarUrls Avatars { get; set; }
 
     /// <summary>
     ///     Display name for the user
     /// </summary>
-    [JsonProperty("displayName")]
+    [JsonPropertyName("displayName")]
     [ReadOnly(true)]
     public string DisplayName { get; set; }
 
     /// <summary>
     ///     Email address of the user
     /// </summary>
-    [JsonProperty("emailAddress")]
+    [JsonPropertyName("emailAddress")]
     [ReadOnly(true)]
     public string EmailAddress { get; set; }
 
     /// <summary>
     ///     Name of the user
     /// </summary>
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
     /// <summary>
     ///     Link to this item (self)
     /// </summary>
-    [JsonProperty("self")]
+    [JsonPropertyName("self")]
     [ReadOnly(true)]
     public Uri Self { get; set; }
 }

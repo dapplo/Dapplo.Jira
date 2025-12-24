@@ -1,19 +1,18 @@
 ﻿// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
 ///     Base id, used in pretty much every entity
 /// </summary>
-[JsonObject]
 public class BaseId<TId>
 {
     /// <summary>
     ///     Id of this entity
     /// </summary>
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public TId Id { get; set; }
 }

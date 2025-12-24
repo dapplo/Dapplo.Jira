@@ -1,7 +1,7 @@
 // Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Dapplo.HttpExtensions.JsonNet;
+using Dapplo.HttpExtensions;
 
 namespace Dapplo.Jira
 {
@@ -53,8 +53,8 @@ namespace Dapplo.Jira
         {
             behaviour.HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings.ShallowClone();
 
-            // Using our own Json Serializer, implemented with Json.NET
-            behaviour.JsonSerializer = new JsonNetJsonSerializer();
+            // Using our own Json Serializer, implemented with System.Text.Json
+            behaviour.JsonSerializer = new SystemTextJsonSerializer();
 
             behaviour.OnHttpRequestMessageCreated = httpMessage =>
             {
