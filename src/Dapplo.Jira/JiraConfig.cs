@@ -54,11 +54,23 @@ public static class JiraConfig
     public static string[] ExpandSearch { get; set; }
 
     /// <summary>
-    ///     The fields that are requested by the Search result
+    ///     The fields that are requested by the Search result.
+    ///     Default is "*navigable" which returns all navigable fields (most fields).
+    ///     
+    ///     Changed from v0.x: Previously defaulted to a minimal set of 5 fields.
+    ///     Now defaults to "*navigable" to provide complete issue data.
+    ///     
+    ///     Options:
+    ///     - "*navigable" - all navigable fields (default, provides complete issue data)
+    ///     - "*all" - all fields including system fields
+    ///     - Specific list like: "summary", "status", "assignee", "key", "project"
+    ///     
+    ///     Note: Using "*navigable" or "*all" returns more data and may impact performance
+    ///     for large result sets. Consider using specific fields for high-volume searches.
     /// </summary>
     public static string[] SearchFields { get; set; } =
     {
-        "summary", "status", "assignee", "key", "project"
+        "*navigable"
     };
 
     /// <summary>

@@ -101,7 +101,7 @@ public static class IssueDomainExtensions
 
     /// <summary>
     ///     Search for issues, with a JQL (e.g. from a filter)
-    ///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2713
+    ///     See: https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issue-search/#api-rest-api-3-search-jql-post
     /// </summary>
     /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
     /// <param name="jql">Jira Query Language, like SQL, for the search. Use Where builder</param>
@@ -126,7 +126,7 @@ public static class IssueDomainExtensions
 
     /// <summary>
     ///     Search for issues, with a JQL (e.g. from a filter)
-    ///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2713
+    ///     See: https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issue-search/#api-rest-api-3-search-jql-post
     /// </summary>
     /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
     /// <param name="jql">Jira Query Language, like SQL, for the search</param>
@@ -162,7 +162,7 @@ public static class IssueDomainExtensions
 
     /// <summary>
     ///     Search for issues, with a JQL (e.g. from a filter)
-    ///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2713
+    ///     See: https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issue-search/#api-rest-api-3-search-jql-post
     /// </summary>
     /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
     /// <param name="search">Search information, with Jira Query Language, like SQL, for the search</param>
@@ -188,7 +188,7 @@ public static class IssueDomainExtensions
 
     /// <summary>
     ///     Search for issues, with a JQL (e.g. from a filter)
-    ///     See: https://docs.atlassian.com/jira/REST/latest/#d2e2713
+    ///     See: https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issue-search/#api-rest-api-3-search-jql-post
     /// </summary>
     /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
     /// <param name="search">The search arguments</param>
@@ -205,7 +205,8 @@ public static class IssueDomainExtensions
         Log.Debug().WriteLine("Searching via JQL: {0}", search.Jql);
 
         jiraClient.Behaviour.MakeCurrent();
-        var searchUri = jiraClient.JiraRestUri.AppendSegments("search");
+        // Use API v3 for search endpoint as v2 was removed (https://developer.atlassian.com/changelog/#CHANGE-2046)
+        var searchUri = jiraClient.JiraBaseUri.AppendSegments("rest", "api", "3", "search", "jql");
 
         var response = await searchUri
             .PostAsync<HttpResponse<SearchIssuesResult<Issue, JqlIssueSearch>, Error>>(search, cancellationToken)
