@@ -3,15 +3,11 @@
 
 using Dapplo.HttpExtensions.JsonNet;
 
-#if NET471
-using System.Net.Cache;
-
-#endif
-
 namespace Dapplo.Jira
 {
     /// <summary>
-    ///     A client for accessing the Atlassian JIRA Api via REST, using Dapplo.HttpExtensions
+    ///     A client for accessing the Atlassian JIRA Api via REST
+    ///     NOTE: Modernization in progress - currently using Dapplo.HttpExtensions, will migrate to RestSharp
     /// </summary>
     public class JiraClient : IProjectDomain, IWorkLogDomain, IUserDomain, ISessionDomain, IIssueDomain, IFilterDomain, IAttachmentDomain, IServerDomain, IAgileDomain,
         IGreenhopperDomain
@@ -56,13 +52,6 @@ namespace Dapplo.Jira
         public IHttpBehaviour ConfigureBehaviour(IChangeableHttpBehaviour behaviour, IHttpSettings httpSettings = null)
         {
             behaviour.HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings.ShallowClone();
-#if NET471
-            // Disable caching, if no HTTP settings were provided.
-            if (httpSettings == null)
-            {
-                behaviour.HttpSettings.RequestCacheLevel = RequestCacheLevel.NoCacheNoStore;
-            }
-#endif
 
             // Using our own Json Serializer, implemented with Json.NET
             behaviour.JsonSerializer = new JsonNetJsonSerializer();
