@@ -52,6 +52,16 @@ public static class UriExtensions
             throw new ArgumentNullException(nameof(uri));
         }
 
+        if (string.IsNullOrEmpty(key))
+        {
+            throw new ArgumentNullException(nameof(key));
+        }
+
+        if (value == null)
+        {
+            throw new ArgumentNullException(nameof(value));
+        }
+
         var uriBuilder = new UriBuilder(uri);
         var query = uriBuilder.Query;
         

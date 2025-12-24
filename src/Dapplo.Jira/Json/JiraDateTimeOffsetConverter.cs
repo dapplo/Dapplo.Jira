@@ -61,7 +61,7 @@ public class JiraDateTimeOffsetConverter : JsonConverter<DateTimeOffset?>
             throw new JsonException($"Unexpected token parsing date. Expected string, got {reader.TokenType}.");
         }
 
-        string dateTimeOffsetString = reader.GetString();
+        string? dateTimeOffsetString = reader.GetString();
         
         if (string.IsNullOrEmpty(dateTimeOffsetString) || dateTimeOffsetString.Equals("none", StringComparison.OrdinalIgnoreCase))
         {
