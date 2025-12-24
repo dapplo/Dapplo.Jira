@@ -9,12 +9,6 @@ namespace Dapplo.Jira;
 public interface IJiraClient
 {
     /// <summary>
-    ///     Store the specific HttpBehaviour, which contains a IHttpSettings and also some additional logic for making a
-    ///     HttpClient which works with Jira
-    /// </summary>
-    IHttpBehaviour Behaviour { get; }
-
-    /// <summary>
     ///     The base URI for your JIRA server
     /// </summary>
     Uri JiraBaseUri { get; }
