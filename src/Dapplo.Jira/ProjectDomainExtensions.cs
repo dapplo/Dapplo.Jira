@@ -186,4 +186,54 @@ public static class ProjectDomainExtensions
         var response = await securityLevelUri.GetAsAsync<HttpResponse<SecurityLevels, Error>>(cancellationToken).ConfigureAwait(false);
         return response.HandleErrors().Levels;
     }
+
+    /// <summary>
+    ///	 Get all versions (releases) for a project
+    ///	 More information <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/project/{projectKeyOrId}/versions">here</a>
+    /// </summary>
+    /// <param name="jiraClient">IProjectDomain to bind the extension method to</param>
+    /// <param name="projectKey">project key or ID</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>IList with Version information</returns>
+    public static async Task<IList<Entities.Version>> GetVersionsAsync(this IProjectDomain jiraClient, string projectKey,
+        CancellationToken cancellationToken = default)
+    {
+        if (projectKey == null)
+        {
+            throw new ArgumentNullException(nameof(projectKey));
+        }
+
+        Log.Debug().WriteLine("Retrieving versions for project {0}", projectKey);
+
+        var versionsUri = jiraClient.JiraRestUri.AppendSegments("project", projectKey, "versions");
+
+        jiraClient.Behaviour.MakeCurrent();
+        var response = await versionsUri.GetAsAsync<HttpResponse<IList<Entities.Version>, Error>>(cancellationToken).ConfigureAwait(false);
+        return response.HandleErrors();
+    }
+
+    /// <summary>
+    ///	 Get a specific version (release) by ID
+    ///	 More information <a href="https://docs.atlassian.com/jira/REST/cloud/#api/2/version/{id}">here</a>
+    /// </summary>
+    /// <param name="jiraClient">IProjectDomain to bind the extension method to</param>
+    /// <param name="versionId">version ID</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Version information</returns>
+    public static async Task<Entities.Version> GetVersionAsync(this IProjectDomain jiraClient, string versionId,
+        CancellationToken cancellationToken = default)
+    {
+        if (versionId == null)
+        {
+            throw new ArgumentNullException(nameof(versionId));
+        }
+
+        Log.Debug().WriteLine("Retrieving version with ID {0}", versionId);
+
+        var versionUri = jiraClient.JiraRestUri.AppendSegments("version", versionId);
+
+        jiraClient.Behaviour.MakeCurrent();
+        var response = await versionUri.GetAsAsync<HttpResponse<Entities.Version, Error>>(cancellationToken).ConfigureAwait(false);
+        return response.HandleErrors();
+    }
 }
