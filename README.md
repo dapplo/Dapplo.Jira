@@ -17,7 +17,7 @@ This client has support for:
 * Basic authorization, OAuth & session (via cookie)
 * Search, with a JQL builder e.g. Where.And(Where.User.IsCurrentUser,Where.Text.Contains("Urgent"))
 * Paging results
-* Information on projects, transitions and users
+* Information on projects, transitions, users, versions/releases and components
 * getting Avatars of users/projects and icons for Issue type 
 * CRUD methods for the work-log (time spend on issues)
 * CRUD methods for filters

@@ -134,7 +134,8 @@ public class ProjectTests : TestBase
         foreach (var version in versions)
         {
             Assert.NotNull(version.Name);
-            Log.Info().WriteLine("Version: {0}, Released: {1}, Archived: {2}", version.Name, version.Released, version.Archived);
+            Log.Info().WriteLine("Version: {0}, Released: {1}, Archived: {2}, ReleaseDate: {3}", 
+                version.Name, version.Released, version.Archived, version.ReleaseDate);
         }
     }
 
