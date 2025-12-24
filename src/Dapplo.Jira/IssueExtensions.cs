@@ -111,7 +111,7 @@ public static class IssueExtensions
         }
         else
         {
-            value = JsonSerializer.Deserialize<TCustomField>(stringValue);
+            value = JsonSerializer.Deserialize<TCustomField>(stringValue, JiraJsonSerializerOptions.Default);
         }
         return true;
     }
@@ -183,7 +183,7 @@ public static class IssueExtensions
         }
         else
         {
-            value = JsonSerializer.Deserialize<TCustomField>(stringValue);
+            value = JsonSerializer.Deserialize<TCustomField>(stringValue, JiraJsonSerializerOptions.Default);
         }
         return true;
     }

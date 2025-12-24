@@ -45,7 +45,7 @@ public class AgileIssue : IssueWithFields<AgileIssueFields>
             switch (jArray[0].ValueKind)
             {
                 case JsonValueKind.Object:
-                    return JsonSerializer.Deserialize<Sprint>(jArray[0].GetRawText());
+                    return JsonSerializer.Deserialize<Sprint>(jArray[0].GetRawText(), JiraJsonSerializerOptions.Default);
                 case JsonValueKind.String:
                 {
                     var serializedSprintInformation = jArray[0].GetString();

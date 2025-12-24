@@ -15,16 +15,7 @@ namespace Dapplo.Jira;
 /// </summary>
 public class SystemTextJsonSerializer : IJsonSerializer
 {
-    private static readonly JsonSerializerOptions DefaultOptions = new()
-    {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-        Converters = 
-        {
-            new JiraDateTimeOffsetConverter(),
-            new JsonStringEnumConverter()
-        }
-    };
+    private static readonly JsonSerializerOptions DefaultOptions = JiraJsonSerializerOptions.Default;
 
     /// <inheritdoc />
     public string MimeType => "application/json";
@@ -38,24 +29,25 @@ public class SystemTextJsonSerializer : IJsonSerializer
     /// <inheritdoc />
     public T Deserialize<T>(Stream jsonStream)
     {
-        return JsonSerializer.Deserialize<T>(jsonStream, DefaultOptions);
+        return JsonSerializer.Deserialize<T>(jsonStream, DefaultOptions) ?? throw new InvalidOperationException("Deserialization returned null");
     }
 
     /// <inheritdoc />
     public object Deserialize(Type targetType, Stream jsonStream)
     {
-        return JsonSerializer.Deserialize(jsonStream, targetType, DefaultOptions);
+        return JsonSerializer.Deserialize(jsonStream, targetType, DefaultOptions) ?? throw new InvalidOperationException("Deserialization returned null");
     }
 
     /// <inheritdoc />
     public object Deserialize(Type targetType, string jsonString)
     {
-        return JsonSerializer.Deserialize(jsonString, targetType, DefaultOptions);
+        return JsonSerializer.Deserialize(jsonString, targetType, DefaultOptions) ?? throw new InvalidOperationException("Deserialization returned null");
     }
 
     /// <inheritdoc />
     public void Serialize(Stream outputStream, object obj)
     {
+        if (obj == null) throw new ArgumentNullException(nameof(obj));
         using var writer = new Utf8JsonWriter(outputStream);
         JsonSerializer.Serialize(writer, obj, obj.GetType(), DefaultOptions);
     }
@@ -63,12 +55,14 @@ public class SystemTextJsonSerializer : IJsonSerializer
     /// <inheritdoc />
     public string Serialize(object obj)
     {
+        if (obj == null) throw new ArgumentNullException(nameof(obj));
         return JsonSerializer.Serialize(obj, obj.GetType(), DefaultOptions);
     }
 
     /// <inheritdoc />
     public string Serialize<T>(T obj)
     {
+        if (obj == null) throw new ArgumentNullException(nameof(obj));
         return JsonSerializer.Serialize(obj, DefaultOptions);
     }
 }

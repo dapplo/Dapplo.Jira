@@ -53,7 +53,7 @@ public static class SessionDomainExtensions
         jiraClient.Behaviour.MakeCurrent();
 
         var credentials = new { username, password };
-        var json = JsonSerializer.Serialize(credentials);
+        var json = JsonSerializer.Serialize(credentials, JiraJsonSerializerOptions.Default);
         var content = new StringContent(json);
         content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
 
