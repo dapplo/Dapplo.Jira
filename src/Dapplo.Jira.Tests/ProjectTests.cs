@@ -122,4 +122,42 @@ public class ProjectTests : TestBase
             Assert.NotNull(projectDetails);
         }
     }
+
+    [Fact]
+    public async Task TestGetVersionsAsync()
+    {
+        var versions = await Client.Project.GetVersionsAsync(TestProjectKey);
+
+        Assert.NotNull(versions);
+        Log.Info().WriteLine("Found {0} versions for project {1}", versions.Count, TestProjectKey);
+        
+        foreach (var version in versions)
+        {
+            Assert.NotNull(version.Name);
+            Log.Info().WriteLine("Version: {0}, Released: {1}, Archived: {2}", version.Name, version.Released, version.Archived);
+        }
+    }
+
+    [Fact]
+    public async Task TestGetVersionAsync()
+    {
+        // First get all versions to get a valid version ID
+        var versions = await Client.Project.GetVersionsAsync(TestProjectKey);
+        
+        if (versions.Count > 0)
+        {
+            var firstVersion = versions.First();
+            
+            // Get the specific version by ID
+            var version = await Client.Project.GetVersionAsync(firstVersion.Id);
+            
+            Assert.NotNull(version);
+            Assert.Equal(firstVersion.Name, version.Name);
+            Log.Info().WriteLine("Retrieved version: {0}", version.Name);
+        }
+        else
+        {
+            Log.Info().WriteLine("No versions found for project {0}, skipping version retrieval test", TestProjectKey);
+        }
+    }
 }
