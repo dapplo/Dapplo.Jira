@@ -1,14 +1,13 @@
 // Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using RestSharp;
-using System.Text.Json;
+using Dapplo.HttpExtensions.JsonNet;
 
 namespace Dapplo.Jira
 {
     /// <summary>
     ///     A client for accessing the Atlassian JIRA Api via REST
-    ///     Modernized to support both RestSharp and legacy Dapplo.HttpExtensions patterns
+    ///     NOTE: Modernization in progress - currently using Dapplo.HttpExtensions, will migrate to RestSharp
     /// </summary>
     public class JiraClient : IProjectDomain, IWorkLogDomain, IUserDomain, ISessionDomain, IIssueDomain, IFilterDomain, IAttachmentDomain, IServerDomain, IAgileDomain,
         IGreenhopperDomain
@@ -16,69 +15,62 @@ namespace Dapplo.Jira
         private string password;
         private string user;
         private string bearer;
-        private readonly RestClient _restClient;
 
         /// <summary>
-        ///     Factory method to create the jira client (legacy API)
+        ///     Store the specific HttpBehaviour, which contains a IHttpSettings and also some additional logic for making a
+        ///     HttpClient which works with Jira
         /// </summary>
-        [Obsolete("Use Create(Uri) instead. IHttpSettings parameter is no longer used.")]
-        public static IJiraClient Create(Uri baseUri, object httpSettings) => new JiraClient(baseUri);
+        public IHttpBehaviour Behaviour { get; set; }
 
         /// <summary>
         ///     Factory method to create the jira client
         /// </summary>
-        public static IJiraClient Create(Uri baseUri) => new JiraClient(baseUri);
+        public static IJiraClient Create(Uri baseUri, IHttpSettings httpSettings = null) => new JiraClient(baseUri, httpSettings);
 
         /// <summary>
-        ///     Create the JiraApi object, here the RestClient is configured
+        ///     Create the JiraApi object, here the HttpClient is configured
         /// </summary>
         /// <param name="baseUri">Base URL, e.g. https://yourjiraserver</param>
-        private JiraClient(Uri baseUri)
+        /// <param name="httpSettings">IHttpSettings or null for default</param>
+        private JiraClient(Uri baseUri, IHttpSettings httpSettings = null)
         {
+            Behaviour = ConfigureBehaviour(new HttpBehaviour(), httpSettings);
+
             JiraBaseUri = baseUri;
             JiraRestUri = baseUri.AppendSegments("rest", "api", "2");
             JiraAuthUri = baseUri.AppendSegments("rest", "auth", "1");
             JiraAgileRestUri = baseUri.AppendSegments("rest", "agile", "1.0");
             JiraGreenhopperRestUri = baseUri.AppendSegments("rest", "greenhopper", "1.0");
-
-            // Configure RestClient
-            var options = new RestClientOptions(baseUri)
-            {
-                ThrowOnAnyError = false,
-                MaxTimeout = 30000
-            };
-
-            _restClient = new RestClient(options, configureSerialization: s => 
-            {
-                s.UseSystemTextJson(new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true,
-                    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-                    Converters = { new Json.JiraDateTimeOffsetConverter() }
-                });
-            });
-
-            // Set up default request interceptor
-            _restClient.AddDefaultHeader("X-Atlassian-Token", "nocheck");
-            
-            // Store the client for extension methods
-            RestSharpExtensions.SetRestClient(_restClient);
         }
 
         /// <summary>
-        ///     Configure authentication on requests
+        ///     Helper method to configure the IChangeableHttpBehaviour
         /// </summary>
-        internal void ConfigureAuthentication(RestRequest request)
+        /// <param name="behaviour">IChangeableHttpBehaviour</param>
+        /// <param name="httpSettings">IHttpSettings</param>
+        /// <returns>the behaviour, but configured as IHttpBehaviour </returns>
+        public IHttpBehaviour ConfigureBehaviour(IChangeableHttpBehaviour behaviour, IHttpSettings httpSettings = null)
         {
-            if (!string.IsNullOrEmpty(user) && password != null)
+            behaviour.HttpSettings = httpSettings ?? HttpExtensionsGlobals.HttpSettings.ShallowClone();
+
+            // Using our own Json Serializer, implemented with Json.NET
+            behaviour.JsonSerializer = new JsonNetJsonSerializer();
+
+            behaviour.OnHttpRequestMessageCreated = httpMessage =>
             {
-                var authValue = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{user}:{password}"));
-                request.AddHeader("Authorization", $"Basic {authValue}");
-            }
-            else if (!string.IsNullOrEmpty(bearer))
-            {
-                request.AddHeader("Authorization", $"Bearer {bearer}");
-            }
+                httpMessage?.Headers.TryAddWithoutValidation("X-Atlassian-Token", "nocheck");
+                if (!string.IsNullOrEmpty(this.user) && this.password != null)
+                {
+                    httpMessage?.SetBasicAuthorization(this.user, this.password);
+                }
+                if (!string.IsNullOrEmpty(this.bearer))
+                {
+                    httpMessage?.SetBearerAuthorization(this.bearer);
+                }
+
+                return httpMessage;
+            };
+            return behaviour;
         }
 
         /// <summary>
@@ -90,6 +82,7 @@ namespace Dapplo.Jira
         ///     The rest URI for your JIRA server
         /// </summary>
         public Uri JiraRestUri { get; }
+
 
         /// <summary>
         ///     The agile rest URI for your JIRA server

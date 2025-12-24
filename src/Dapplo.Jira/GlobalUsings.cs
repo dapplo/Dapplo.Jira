@@ -9,6 +9,9 @@ global using System.Threading.Tasks;
 global using System.Linq;
 global using System.Text;
 global using System.Text.RegularExpressions;
+// Legacy HTTP extensions - to be removed after migration
+global using Dapplo.HttpExtensions;
+global using Dapplo.HttpExtensions.Extensions;
 global using Dapplo.Jira.Domains;
 global using Dapplo.Jira.Entities;
 global using Dapplo.Jira.Internal;
