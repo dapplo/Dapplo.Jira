@@ -54,11 +54,13 @@ public static class JiraConfig
     public static string[] ExpandSearch { get; set; }
 
     /// <summary>
-    ///     The fields that are requested by the Search result
+    ///     The fields that are requested by the Search result.
+    ///     Default is "*navigable" which returns all navigable fields (most fields).
+    ///     Use "*all" for all fields or specify a list like: "summary", "status", "assignee".
     /// </summary>
     public static string[] SearchFields { get; set; } =
     {
-        "summary", "status", "assignee", "key", "project"
+        "*navigable"
     };
 
     /// <summary>
