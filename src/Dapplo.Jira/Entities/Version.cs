@@ -12,7 +12,7 @@ namespace Dapplo.Jira.Entities;
 public class Version : BaseProperties<string>
 {
     /// <summary>
-    ///     Is this an achived version?
+    ///     Is this an archived version?
     /// </summary>
     [JsonProperty("archived")]
     public bool Archived { get; set; }
