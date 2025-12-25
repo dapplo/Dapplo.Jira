@@ -3,14 +3,15 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - '*'
-      - '!gh-pages'
+      - '**'
+    branches-ignore:
+      - 'gh-pages'
   pull_request:
     branches:
-      - '*'
+      - '**'
 
 env:
-  SOLUTION_PATH: '**/src/*.sln'
+  SOLUTION_PATH: 'src/Dapplo.Jira.sln'
   BUILD_CONFIGURATION: Release
   BUILD_PLATFORM: Any CPU
 
