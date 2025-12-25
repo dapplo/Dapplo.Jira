@@ -15,14 +15,26 @@ public static class JiraJsonSerializerOptions
     /// <summary>
     /// Default options used across the library
     /// </summary>
-    public static JsonSerializerOptions Default { get; } = new()
+    public static JsonSerializerOptions Default { get; } = CreateDefaultOptions();
+
+    private static JsonSerializerOptions CreateDefaultOptions()
     {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-        Converters = 
+        var options = new JsonSerializerOptions
         {
-            new JiraDateTimeOffsetConverter(),
-            new JsonStringEnumConverter()
-        }
-    };
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            Converters = 
+            {
+                new JiraDateTimeOffsetConverter(),
+                new JsonStringEnumConverter()
+            }
+        };
+
+#if NET6_0_OR_GREATER
+        // Use source generation for better performance on .NET 6+
+        options.TypeInfoResolver = JiraJsonContext.Default;
+#endif
+
+        return options;
+    }
 }
