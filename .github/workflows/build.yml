@@ -11,9 +11,15 @@ env:
   BUILD_CONFIGURATION: Release
   BUILD_PLATFORM: Any CPU
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: windows-latest
+    
+    permissions:
+      contents: read
     
     steps:
     - name: Checkout code
@@ -91,6 +97,9 @@ jobs:
     if: github.event_name != 'pull_request'
     runs-on: windows-latest
     environment: NuGet
+    
+    permissions:
+      contents: read
     
     steps:
     - name: Download artifacts
