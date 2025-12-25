@@ -1,0 +1,116 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - '*'
+      - '!gh-pages'
+  pull_request:
+    branches:
+      - '*'
+
+env:
+  SOLUTION_PATH: '**/src/*.sln'
+  BUILD_CONFIGURATION: Release
+  BUILD_PLATFORM: Any CPU
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v2
+      with:
+        nuget-version: '6.3.0'
+    
+    - name: Setup .NET Core 3.1
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '3.1.422'
+    
+    - name: Setup .NET Core 6.0
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '6.0.400'
+    
+    - name: Test
+      if: github.event_name != 'pull_request'
+      run: dotnet test ${{ env.SOLUTION_PATH }} --configuration Debug /p:Platform="${{ env.BUILD_PLATFORM }}" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+      env:
+        jira_test_username: ${{ secrets.JIRA_TEST_USERNAME }}
+        jira_test_password: ${{ secrets.JIRA_TEST_PASSWORD }}
+    
+    - name: Build
+      run: dotnet build ${{ env.SOLUTION_PATH }} --configuration ${{ env.BUILD_CONFIGURATION }} /p:Platform="${{ env.BUILD_PLATFORM }}"
+    
+    - name: Copy NuGet packages
+      shell: pwsh
+      run: |
+        $artifacts = "${{ runner.temp }}/artifacts"
+        New-Item -ItemType Directory -Force -Path $artifacts
+        Get-ChildItem -Path . -Recurse -Filter "*.nupkg" | Where-Object { $_.FullName -like "*\bin\${{ env.BUILD_CONFIGURATION }}\*" } | Copy-Item -Destination $artifacts
+        Get-ChildItem -Path . -Recurse -Filter "coverage.*.xml" | Copy-Item -Destination $artifacts
+    
+    - name: Publish code coverage
+      if: github.event_name != 'pull_request'
+      uses: codecov/codecov-action@v4
+      with:
+        files: src/**/coverage.*.xml
+        fail_ci_if_error: false
+    
+    - name: Install docfx
+      run: choco install docfx -y --version 2.48.1
+    
+    - name: Build documentation
+      shell: pwsh
+      run: |
+        docfx doc/docfx.json
+        if ($LASTEXITCODE -ne 0) {
+          throw "Error generating docfx document"
+        }
+    
+    - name: Copy documentation
+      shell: pwsh
+      run: |
+        $artifacts = "${{ runner.temp }}/artifacts"
+        $siteDest = Join-Path $artifacts "site"
+        Copy-Item -Path doc/_site -Destination $siteDest -Recurse
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: drop
+        path: ${{ runner.temp }}/artifacts
+        retention-days: 30
+  
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: windows-latest
+    environment: NuGet
+    
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: drop
+        path: ${{ runner.temp }}/artifacts
+    
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v2
+      with:
+        nuget-version: '6.3.0'
+    
+    - name: Push to NuGet
+      shell: pwsh
+      run: |
+        $packages = Get-ChildItem -Path "${{ runner.temp }}/artifacts" -Filter "*.nupkg" | Where-Object { $_.Name -notlike "*.symbols.nupkg" }
+        foreach ($package in $packages) {
+          nuget push $package.FullName -Source https://api.nuget.org/v3/index.json -ApiKey ${{ secrets.NUGET_API_KEY }} -SkipDuplicate
+        }
