@@ -38,13 +38,13 @@ jobs:
     
     - name: Test
       if: github.event_name != 'pull_request'
-      run: dotnet test ${{ env.SOLUTION_PATH }} --configuration Debug /p:Platform="${{ env.BUILD_PLATFORM }}" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+      run: dotnet test ${{ env.SOLUTION_PATH }} --configuration Debug "/p:Platform=${{ env.BUILD_PLATFORM }}" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
       env:
         jira_test_username: ${{ secrets.JIRA_TEST_USERNAME }}
         jira_test_password: ${{ secrets.JIRA_TEST_PASSWORD }}
     
     - name: Build
-      run: dotnet build ${{ env.SOLUTION_PATH }} --configuration ${{ env.BUILD_CONFIGURATION }} /p:Platform="${{ env.BUILD_PLATFORM }}"
+      run: dotnet build ${{ env.SOLUTION_PATH }} --configuration ${{ env.BUILD_CONFIGURATION }} "/p:Platform=${{ env.BUILD_PLATFORM }}"
     
     - name: Copy NuGet packages
       shell: pwsh
