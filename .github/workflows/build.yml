@@ -2,13 +2,9 @@ name: Build and Deploy
 
 on:
   push:
-    branches:
-      - '**'
     branches-ignore:
       - 'gh-pages'
   pull_request:
-    branches:
-      - '**'
 
 env:
   SOLUTION_PATH: 'src/Dapplo.Jira.sln'
