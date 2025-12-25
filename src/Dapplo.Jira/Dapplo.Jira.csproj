@@ -6,10 +6,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="RestSharp" Version="112.1.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <!-- Legacy dependencies - to be removed after migration -->
+    <PackageReference Include="System.Text.Json" Version="9.0.1" />
+    <!-- Legacy dependency - HttpExtensions is still used but JsonNet version is removed -->
     <PackageReference Include="Dapplo.HttpExtensions" Version="1.1.2" />
-    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="1.1.2" />
   </ItemGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
     <Reference Include="System.Drawing" />

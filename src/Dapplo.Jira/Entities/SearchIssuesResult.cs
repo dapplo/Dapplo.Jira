@@ -2,14 +2,13 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
 ///     Search result information, see <a href="https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issue-search/#api-rest-api-3-search-jql-post">here</a>
 /// </summary>
-[JsonObject]
 public class SearchIssuesResult<TIssue, TSearch> : PageableResult, IEnumerable<TIssue> where TIssue : IssueBase
 {
     /// <summary>
@@ -21,19 +20,19 @@ public class SearchIssuesResult<TIssue, TSearch> : PageableResult, IEnumerable<T
     /// <summary>
     ///     Expand values
     /// </summary>
-    [JsonProperty("expand")]
+    [JsonPropertyName("expand")]
     public string Expand { get; set; }
 
     /// <summary>
     ///     List of issues
     /// </summary>
-    [JsonProperty("issues")]
+    [JsonPropertyName("issues")]
     public IList<TIssue> Issues { get; set; }
 
     /// <summary>
     ///     Contains a dictionary with the the display name of each field.
     /// </summary>
-    [JsonProperty("names")]
+    [JsonPropertyName("names")]
     public IDictionary<string, string> FieldDisplayNames { get; set; }
 
     /// <summary>

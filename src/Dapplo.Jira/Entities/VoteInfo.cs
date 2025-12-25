@@ -1,37 +1,36 @@
 ﻿// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
 ///     Vote information
 /// </summary>
-[JsonObject]
 public class VoteInfo
 {
     /// <summary>
     ///     Does the issue have votes?
     /// </summary>
-    [JsonProperty("hasVoted")]
+    [JsonPropertyName("hasVoted")]
     public bool HasVoted { get; set; }
 
     /// <summary>
     ///     Link to itself
     /// </summary>
-    [JsonProperty("self")]
+    [JsonPropertyName("self")]
     public Uri Self { get; set; }
 
     /// <summary>
     ///     Who are the voters
     /// </summary>
-    [JsonProperty("voters")]
+    [JsonPropertyName("voters")]
     public IList<User> Voters { get; set; }
 
     /// <summary>
     ///     How many votes does it have
     /// </summary>
-    [JsonProperty("votes")]
+    [JsonPropertyName("votes")]
     public long? Votes { get; set; }
 }

@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
@@ -9,31 +9,30 @@ namespace Dapplo.Jira.Entities;
 ///     Avatar information, has 16x16,24x24,32x32,48x48 Urls
 ///     See: <a href="https://docs.atlassian.com/jira/REST/latest/#api/2/project">Jira project</a>
 /// </summary>
-[JsonObject]
 public class AvatarUrls
 {
     /// <summary>
     ///     Url to the 48x48 Avatar
     /// </summary>
-    [JsonProperty("48x48")]
+    [JsonPropertyName("48x48")]
     public Uri ExtraLarge { get; set; }
 
     /// <summary>
     ///     Url to the 32x32 Avatar
     /// </summary>
-    [JsonProperty("32x32")]
+    [JsonPropertyName("32x32")]
     public Uri Large { get; set; }
 
     /// <summary>
     ///     Url to the 24x24 Avatar
     /// </summary>
-    [JsonProperty("24x24")]
+    [JsonPropertyName("24x24")]
     public Uri Medium { get; set; }
 
     /// <summary>
     ///     Url to the 16x16 Avatar
     /// </summary>
-    [JsonProperty("16x16")]
+    [JsonPropertyName("16x16")]
     public Uri Small { get; set; }
 
     /// <summary>

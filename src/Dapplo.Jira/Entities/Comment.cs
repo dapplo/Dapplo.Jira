@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.ComponentModel;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
@@ -10,46 +10,45 @@ namespace Dapplo.Jira.Entities;
 ///     Comment information
 ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/attachment
 /// </summary>
-[JsonObject]
 public class Comment : BaseProperties<long>
 {
     /// <summary>
     ///     Who created the comment
     /// </summary>
-    [JsonProperty("author")]
+    [JsonPropertyName("author")]
     [ReadOnly(true)]
     public User Author { get; set; }
 
     /// <summary>
     ///     The text of the comment
     /// </summary>
-    [JsonProperty("body")]
+    [JsonPropertyName("body")]
     public string Body { get; set; }
 
     /// <summary>
     ///     When was the comment created
     /// </summary>
-    [JsonProperty("created")]
+    [JsonPropertyName("created")]
     [ReadOnly(true)]
     public DateTimeOffset? Created { get; set; }
 
     /// <summary>
     ///     Who updated the comment
     /// </summary>
-    [JsonProperty("updateAuthor")]
+    [JsonPropertyName("updateAuthor")]
     [ReadOnly(true)]
     public User UpdateAuthor { get; set; }
 
     /// <summary>
     ///     When was the comment updated
     /// </summary>
-    [JsonProperty("updated")]
+    [JsonPropertyName("updated")]
     [ReadOnly(true)]
     public DateTimeOffset? Updated { get; set; }
 
     /// <summary>
     ///     Is a comment visible
     /// </summary>
-    [JsonProperty("visibility")]
+    [JsonPropertyName("visibility")]
     public Visibility Visibility { get; set; }
 }

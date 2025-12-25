@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
@@ -9,13 +9,12 @@ namespace Dapplo.Jira.Entities;
 ///     Issue information
 ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
 /// </summary>
-[JsonObject]
 public class IssueBase : BaseProperties<string>
 {
     /// <summary>
     ///     Key of the issue
     /// </summary>
-    [JsonProperty("key")]
+    [JsonPropertyName("key")]
     public string Key { get; set; }
 
     /// <summary>
@@ -24,7 +23,7 @@ public class IssueBase : BaseProperties<string>
     /// <value>
     ///     The change logs.
     /// </value>
-    [JsonProperty("changelog")]
+    [JsonPropertyName("changelog")]
     public Changelog Changelog { get; set; }
 
     /// <summary>

@@ -1,14 +1,13 @@
 ﻿// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
 ///     Filter information
 /// </summary>
-[JsonObject]
 public class Filter : BaseProperties<long>
 {
     /// <summary>
@@ -41,54 +40,54 @@ public class Filter : BaseProperties<long>
     /// <summary>
     ///     Description of the filter
     /// </summary>
-    [JsonProperty("description")]
+    [JsonPropertyName("description")]
     public string Description { get; set; }
 
     /// <summary>
     ///     Is the filter a favorite?
     /// </summary>
-    [JsonProperty("favorite")]
+    [JsonPropertyName("favorite")]
     public bool IsFavorite { get; set; }
 
     /// <summary>
     ///     The JQL (query) for the filter
     /// </summary>
-    [JsonProperty("jql")]
+    [JsonPropertyName("jql")]
     public string Jql { get; set; }
 
     /// <summary>
     ///     Name for the filter
     /// </summary>
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
     /// <summary>
     ///     User who owns the filter
     /// </summary>
-    [JsonProperty("owner")]
+    [JsonPropertyName("owner")]
     public User Owner { get; set; }
 
     /// <summary>
     ///     The URL to show the search results
     /// </summary>
-    [JsonProperty("searchUrl")]
+    [JsonPropertyName("searchUrl")]
     public Uri SearchUri { get; set; }
 
     /// <summary>
     ///     The permissions for sharing
     /// </summary>
-    [JsonProperty("sharePermissions")]
+    [JsonPropertyName("sharePermissions")]
     public IList<SharePermission> SharePermissions { get; set; }
 
     /// <summary>
     ///     The subscriptions for this filter
     /// </summary>
-    [JsonProperty("subscriptions")]
+    [JsonPropertyName("subscriptions")]
     public Subscriptions Subscriptions { get; set; }
 
     /// <summary>
     ///     The url to view the filter
     /// </summary>
-    [JsonProperty("viewUrl")]
+    [JsonPropertyName("viewUrl")]
     public Uri ViewUri { get; set; }
 }

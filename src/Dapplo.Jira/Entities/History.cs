@@ -2,27 +2,26 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.ComponentModel;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
 /// Part of the changelog
 /// </summary>
-[JsonObject]
 public class History : BaseProperties<long>
 {
     /// <summary>
     ///     Who created the comment
     /// </summary>
-    [JsonProperty("author")]
+    [JsonPropertyName("author")]
     [ReadOnly(true)]
     public User Author { get; set; }
 
     /// <summary>
     ///     When was the comment created
     /// </summary>
-    [JsonProperty("created")]
+    [JsonPropertyName("created")]
     [ReadOnly(true)]
     public DateTimeOffset? Created { get; set; }
 
@@ -32,7 +31,7 @@ public class History : BaseProperties<long>
     /// <value>
     ///     The items.
     /// </value>
-    [JsonProperty("items")]
+    [JsonPropertyName("items")]
     [ReadOnly(true)]
     public IList<HistoryItem> Items { get; set; }
 }

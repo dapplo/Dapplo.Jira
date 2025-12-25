@@ -1,7 +1,7 @@
 // Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Dapplo.Jira;
 
@@ -111,7 +111,7 @@ public static class IssueExtensions
         }
         else
         {
-            value = JsonConvert.DeserializeObject<TCustomField>(stringValue);
+            value = JsonSerializer.Deserialize<TCustomField>(stringValue, JiraJsonSerializerOptions.Default);
         }
         return true;
     }
@@ -183,7 +183,7 @@ public static class IssueExtensions
         }
         else
         {
-            value = JsonConvert.DeserializeObject<TCustomField>(stringValue);
+            value = JsonSerializer.Deserialize<TCustomField>(stringValue, JiraJsonSerializerOptions.Default);
         }
         return true;
     }

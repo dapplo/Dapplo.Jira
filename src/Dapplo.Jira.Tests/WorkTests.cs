@@ -4,7 +4,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Dapplo.HttpExtensions.JsonNet;
 using Dapplo.Jira.Entities;
 using Dapplo.Log;
 using Xunit;
@@ -31,7 +30,7 @@ public class WorkTests : TestBase
             Comment = "Testing the logging of work",
             Started = started
         };
-        var serializer = new JsonNetJsonSerializer();
+        var serializer = new SystemTextJsonSerializer();
         var json = serializer.Serialize(worklog);
         Log.Info().WriteLine(json);
         var deserializedWorklog = (Worklog)serializer.Deserialize(typeof(Worklog), json);

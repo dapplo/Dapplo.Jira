@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
@@ -9,60 +9,59 @@ namespace Dapplo.Jira.Entities;
 ///     Component information, retrieved for /component/id
 ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/component
 /// </summary>
-[JsonObject]
 public class Component : ComponentDigest
 {
     /// <summary>
     ///     TODO: Needs comment
     /// </summary>
-    [JsonProperty("assignee")]
+    [JsonPropertyName("assignee")]
     public User Assignee { get; set; }
 
     /// <summary>
     ///     TODO: Needs comment
     /// </summary>
-    [JsonProperty("assigneeType")]
+    [JsonPropertyName("assigneeType")]
     public string AssigneeType { get; set; }
 
     /// <summary>
     ///     Description of this component
     /// </summary>
-    [JsonProperty("description")]
+    [JsonPropertyName("description")]
     public string Description { get; set; }
 
     /// <summary>
     ///     Lead for this component
     /// </summary>
-    [JsonProperty("lead")]
+    [JsonPropertyName("lead")]
     public User Lead { get; set; }
 
     /// <summary>
     ///     Name of the component
     /// </summary>
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
     /// <summary>
     ///     Project key where this component belongs to
     /// </summary>
-    [JsonProperty("project")]
+    [JsonPropertyName("project")]
     public string Project { get; set; }
 
     /// <summary>
     ///     Id of the project where this component belongs to
     /// </summary>
-    [JsonProperty("projectId")]
+    [JsonPropertyName("projectId")]
     public int ProjectId { get; set; }
 
     /// <summary>
     ///     TODO: Needs comment
     /// </summary>
-    [JsonProperty("realAssignee")]
+    [JsonPropertyName("realAssignee")]
     public User RealAssignee { get; set; }
 
     /// <summary>
     ///     TODO: Needs comment
     /// </summary>
-    [JsonProperty("realAssigneeType")]
+    [JsonPropertyName("realAssigneeType")]
     public string RealAssigneeType { get; set; }
 }

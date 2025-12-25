@@ -1,32 +1,31 @@
 ﻿// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
 ///     Container for certain update fields
 /// </summary>
-[JsonObject]
 public class IssueEdit
 {
     /// <summary>
     /// The new transition
     /// </summary>
-    [JsonProperty("transition")]
+    [JsonPropertyName("transition")]
     public Transition Transition { get; set; }
 
     /// <summary>
     ///     Container for issue updates
     /// </summary>
-    [JsonProperty("update")]
+    [JsonPropertyName("update")]
     public Dictionary<string, IIssueUpdateOperation> Update { get; } =
         new Dictionary<string, IIssueUpdateOperation>();
 
     /// <summary>
     /// The fields to edit
     /// </summary>
-    [JsonProperty("fields")]
+    [JsonPropertyName("fields")]
     public IssueFields Fields { get; set; }
 }

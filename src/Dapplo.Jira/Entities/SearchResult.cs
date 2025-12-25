@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
@@ -11,7 +11,6 @@ namespace Dapplo.Jira.Entities;
 /// </summary>
 /// <typeparam name="TResultType">The type for the results</typeparam>
 /// <typeparam name="TSearch">The type for the search parameter</typeparam>
-[JsonObject]
 public class SearchResult<TResultType, TSearch> : PageableResult, IEnumerable<TResultType>
 {
     /// <summary>
@@ -23,13 +22,13 @@ public class SearchResult<TResultType, TSearch> : PageableResult, IEnumerable<TR
     /// <summary>
     ///     Expand values
     /// </summary>
-    [JsonProperty("expand")]
+    [JsonPropertyName("expand")]
     public string Expand { get; set; }
 
     /// <summary>
     ///     Results
     /// </summary>
-    [JsonProperty("values")]
+    [JsonPropertyName("values")]
     public IList<TResultType> Values { get; set; }
 
     /// <summary>

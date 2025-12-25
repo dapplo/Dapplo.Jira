@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using System.IO;
 using Dapplo.HttpExtensions;
-using Dapplo.HttpExtensions.JsonNet;
 using Dapplo.Jira.Entities;
 using Dapplo.Log;
 using Dapplo.Log.XUnit;
@@ -22,7 +21,7 @@ public class JsonParseTests
     public JsonParseTests(ITestOutputHelper testOutputHelper)
     {
         LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
-        _jsonSerializer = new JsonNetJsonSerializer();
+        _jsonSerializer = new SystemTextJsonSerializer();
         _testFileLocation = FilesDir;
         if (!Directory.Exists(FilesDir))
         {

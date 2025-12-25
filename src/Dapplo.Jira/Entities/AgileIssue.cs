@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace Dapplo.Jira.Entities;
 
@@ -10,7 +10,6 @@ namespace Dapplo.Jira.Entities;
 ///     Agile Issue information
 ///     See: https://docs.atlassian.com/jira-software/REST/cloud/#agile/1.0/issue-getIssue
 /// </summary>
-[JsonObject]
 public class AgileIssue : IssueWithFields<AgileIssueFields>
 {
     /// <summary>
@@ -27,18 +26,29 @@ public class AgileIssue : IssueWithFields<AgileIssueFields>
                 return null;
             }
 
-            if (!(Fields.CustomFields[JiraConfig.SpintCustomField] is JArray jArray))
+            if (!(Fields.CustomFields[JiraConfig.SpintCustomField] is JsonElement jsonElement))
             {
                 return null;
             }
 
-            switch (jArray[0].Type)
+            if (jsonElement.ValueKind != JsonValueKind.Array)
             {
-                case JTokenType.Object:
-                    return jArray[0]?.ToObject<Sprint>();
-                case JTokenType.String:
+                return null;
+            }
+
+            var jArray = jsonElement.EnumerateArray().ToArray();
+            if (jArray.Length == 0)
+            {
+                return null;
+            }
+
+            switch (jArray[0].ValueKind)
+            {
+                case JsonValueKind.Object:
+                    return JsonSerializer.Deserialize<Sprint>(jArray[0].GetRawText(), JiraJsonSerializerOptions.Default);
+                case JsonValueKind.String:
                 {
-                    var serializedSprintInformation = (string)jArray[0];
+                    var serializedSprintInformation = jArray[0].GetString();
                     if (serializedSprintInformation == null)
                     {
                         return null;

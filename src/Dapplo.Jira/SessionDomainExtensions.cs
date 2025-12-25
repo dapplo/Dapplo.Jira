@@ -3,8 +3,7 @@
 
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 namespace Dapplo.Jira;
 
@@ -53,16 +52,9 @@ public static class SessionDomainExtensions
 
         jiraClient.Behaviour.MakeCurrent();
 
-        var jsonContent = new JObject
-        {
-            {
-                "username", username
-            },
-            {
-                "password", password
-            }
-        };
-        var content = new StringContent(jsonContent.ToString(Formatting.None));
+        var credentials = new { username, password };
+        var json = JsonSerializer.Serialize(credentials, JiraJsonSerializerOptions.Default);
+        var content = new StringContent(json);
         content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
 
         var response = await sessionUri.PostAsync<HttpResponse<SessionResponse, Error>>(content, cancellationToken);

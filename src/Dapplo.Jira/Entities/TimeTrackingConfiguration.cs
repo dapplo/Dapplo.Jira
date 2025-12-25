@@ -1,37 +1,36 @@
 ﻿// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
 ///     Time tracking configuration
 /// </summary>
-[JsonObject]
 public class TimeTrackingConfiguration
 {
     /// <summary>
     ///     The number of working hours per day
     /// </summary>
-    [JsonProperty("workingHoursPerDay")]
+    [JsonPropertyName("workingHoursPerDay")]
     public float WorkingHoursPerDay { get; set; } = 8;
 
     /// <summary>
     ///     The number of working days per week
     /// </summary>
-    [JsonProperty("workingDaysPerWeek")]
+    [JsonPropertyName("workingDaysPerWeek")]
     public float WorkingDaysPerWeek { get; set; } = 5;
 
     /// <summary>
     ///     The time format used
     /// </summary>
-    [JsonProperty("timeFormat")]
+    [JsonPropertyName("timeFormat")]
     public string TimeFormat { get; set; } = "pretty";
 
     /// <summary>
     ///     The default unit
     /// </summary>
-    [JsonProperty("defaultUnit")]
+    [JsonPropertyName("defaultUnit")]
     public string DefaultUnit { get; set; } = "hour";
 }
