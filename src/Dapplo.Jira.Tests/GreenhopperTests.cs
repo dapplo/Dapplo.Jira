@@ -1,11 +1,10 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Linq;
 using System.Threading.Tasks;
 using Dapplo.Jira.Enums;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests;
 
@@ -25,13 +24,13 @@ public class GreenhopperTests : TestBase
         const string selectedBoard = "greenshot releases";
         const string selectedSprint = "greenshot 1.2.9 bf1";
 
-        var boards = await Client.Agile.GetBoardsAsync();
+        var boards = await Client.Agile.GetBoardsAsync(cancellationToken: TestContext.Current.CancellationToken);
         var scrumboard = boards.First(board => board.Type == BoardTypes.Scrum && board.Name.ToLowerInvariant() == selectedBoard);
-        var sprints = await Client.Agile.GetSprintsAsync(scrumboard.Id);
+        var sprints = await Client.Agile.GetSprintsAsync(scrumboard.Id, cancellationToken: TestContext.Current.CancellationToken);
         var sprint = sprints.First(s => s.Name.ToLowerInvariant() == selectedSprint);
 
         // Act
-        var report = await Client.Greenhopper.GetSprintReportAsync(scrumboard.Id, sprint.Id);
+        var report = await Client.Greenhopper.GetSprintReportAsync(scrumboard.Id, sprint.Id, cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
         Assert.NotNull(report);

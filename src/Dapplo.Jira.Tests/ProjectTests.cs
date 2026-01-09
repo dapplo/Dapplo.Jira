@@ -13,7 +13,6 @@ using Dapplo.Jira.Enums;
 using Dapplo.Jira.SvgWinForms.Converters;
 using Dapplo.Log;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests;
 
@@ -46,13 +45,13 @@ public class ProjectTests : TestBase
     [Fact]
     public async Task TestGetProjectAsync()
     {
-        var project = await Client.Project.GetAsync(TestProjectKey);
+        var project = await Client.Project.GetAsync(TestProjectKey, cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.NotNull(project);
         Assert.True(project.Roles.Count > 0);
         foreach (var componentDigest in project.Components)
         {
-            var component = await Client.Project.GetComponentAsync(componentDigest.Id);
+            var component = await Client.Project.GetComponentAsync(componentDigest.Id, cancellationToken: TestContext.Current.CancellationToken);
             Assert.NotNull(component?.Name);
             Log.Info().WriteLine("Component {0}", component.Name);
         }
@@ -61,7 +60,7 @@ public class ProjectTests : TestBase
     [Fact]
     public async Task TestGetSecurityLevelsAsync()
     {
-        var securityLevels = await Client.Project.GetSecurityLevelsAsync(TestProjectKey);
+        var securityLevels = await Client.Project.GetSecurityLevelsAsync(TestProjectKey, cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.NotNull(securityLevels);
     }
@@ -69,11 +68,11 @@ public class ProjectTests : TestBase
     [Fact]
     public async Task TestGetIssueCreatorsAsync()
     {
-        var creators = await Client.Project.GetIssueCreatorsAsync(TestProjectKey);
+        var creators = await Client.Project.GetIssueCreatorsAsync(TestProjectKey, cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(creators);
 
         var firstCreator = creators.First();
-        await Client.Server.GetAvatarAsync<Bitmap>(firstCreator.Avatars);
+        await Client.Server.GetAvatarAsync<Bitmap>(firstCreator.Avatars, cancellationToken: TestContext.Current.CancellationToken);
     }
 
     [Fact]
@@ -86,23 +85,23 @@ public class ProjectTests : TestBase
             Project = TestProjectKey,
             Description = "This was created from a test"
         };
-        component = await Client.Project.CreateComponentAsync(component);
+        component = await Client.Project.CreateComponentAsync(component, cancellationToken: TestContext.Current.CancellationToken);
 
         // Update
         const string descriptionUpdate = "Changed the description";
         component.Description = descriptionUpdate;
-        await Client.Project.UpdateComponentAsync(component);
+        await Client.Project.UpdateComponentAsync(component, cancellationToken: TestContext.Current.CancellationToken);
 
         // Delete
-        component = await Client.Project.GetComponentAsync(component.Id);
+        component = await Client.Project.GetComponentAsync(component.Id, cancellationToken: TestContext.Current.CancellationToken);
         Assert.Equal(descriptionUpdate, component.Description);
-        await Client.Project.DeleteComponentAsync(component.Id);
+        await Client.Project.DeleteComponentAsync(component.Id, cancellationToken: TestContext.Current.CancellationToken);
     }
 
     [Fact]
     public async Task TestGetProjectsAsync()
     {
-        var projects = await Client.Project.GetAllAsync();
+        var projects = await Client.Project.GetAllAsync(cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.NotNull(projects);
         Assert.True(projects.Count > 0);
@@ -115,10 +114,10 @@ public class ProjectTests : TestBase
 
         foreach (var project in projects)
         {
-            var avatar = await Client.Server.GetAvatarAsync<Bitmap>(project.Avatar, AvatarSizes.Medium);
+            var avatar = await Client.Server.GetAvatarAsync<Bitmap>(project.Avatar, AvatarSizes.Medium, cancellationToken: TestContext.Current.CancellationToken);
             Assert.True(avatar.Width == 24);
 
-            var projectDetails = await Client.Project.GetAsync(project.Key);
+            var projectDetails = await Client.Project.GetAsync(project.Key, cancellationToken: TestContext.Current.CancellationToken);
             Assert.NotNull(projectDetails);
         }
     }
@@ -126,7 +125,7 @@ public class ProjectTests : TestBase
     [Fact]
     public async Task TestGetVersionsAsync()
     {
-        var versions = await Client.Project.GetVersionsAsync(TestProjectKey);
+        var versions = await Client.Project.GetVersionsAsync(TestProjectKey, cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.NotNull(versions);
         Log.Info().WriteLine("Found {0} versions for project {1}", versions.Count, TestProjectKey);
@@ -143,14 +142,14 @@ public class ProjectTests : TestBase
     public async Task TestGetVersionAsync()
     {
         // First get all versions to get a valid version ID
-        var versions = await Client.Project.GetVersionsAsync(TestProjectKey);
+        var versions = await Client.Project.GetVersionsAsync(TestProjectKey, cancellationToken: TestContext.Current.CancellationToken);
         
         if (versions.Count > 0)
         {
             var firstVersion = versions.First();
             
             // Get the specific version by ID
-            var version = await Client.Project.GetVersionAsync(firstVersion.Id);
+            var version = await Client.Project.GetVersionAsync(firstVersion.Id, cancellationToken: TestContext.Current.CancellationToken);
             
             Assert.NotNull(version);
             Assert.Equal(firstVersion.Name, version.Name);

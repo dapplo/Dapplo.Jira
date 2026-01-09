@@ -9,7 +9,7 @@ using Dapplo.HttpExtensions.ContentConverter;
 using Dapplo.HttpExtensions.Extensions;
 using Dapplo.Log;
 using Dapplo.Log.XUnit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Dapplo.Jira.Tests;
 

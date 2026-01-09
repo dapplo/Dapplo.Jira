@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -9,7 +9,6 @@ using Dapplo.Jira.OAuth;
 using Dapplo.Log;
 using Dapplo.Log.XUnit;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests;
 
@@ -29,7 +28,7 @@ public class OAuthTests : IOAuth1Token
 {
     // Test against a well known JIRA
     private static readonly Uri TestJiraUri = new Uri("https://greenshot.atlassian.net");
-    private readonly IJiraClient _jiraApi;
+    private readonly IJiraClient jiraApi;
 
     public OAuthTests(ITestOutputHelper testOutputHelper)
     {
@@ -66,7 +65,7 @@ ZMUZaDWF58d3otc23mCzwh3YcUWFu09KnMpzZsK59OfyjtkS44EDWpbE=</D></RSAKeyValue>";
             Token = this
         };
         // Create the JiraApi for the Uri and the settings
-        _jiraApi = OAuthJiraClient.Create(TestJiraUri, oAuthSettings);
+        jiraApi = OAuthJiraClient.Create(TestJiraUri, oAuthSettings);
     }
 
     public string OAuthToken { get; set; }
@@ -82,7 +81,7 @@ ZMUZaDWF58d3otc23mCzwh3YcUWFu09KnMpzZsK59OfyjtkS44EDWpbE=</D></RSAKeyValue>";
     public async Task TestOauthRequest()
     {
         // Check "who am I" so we can see that the user who authenticated is really logged in
-        var user = await _jiraApi.User.GetMyselfAsync();
+        var user = await jiraApi.User.GetMyselfAsync();
         Assert.NotNull(user);
         Assert.NotEmpty(OAuthToken);
         Assert.NotEmpty(OAuthTokenSecret);

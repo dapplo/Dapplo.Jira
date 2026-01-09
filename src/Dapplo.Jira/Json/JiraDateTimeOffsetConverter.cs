@@ -15,7 +15,7 @@ public class JiraDateTimeOffsetConverter : JsonConverter<DateTimeOffset?>
 {
     private const string Iso8601Format = @"yyyy-MM-dd\THH:mm:ss.fff";
 
-    private readonly string _format;
+    private readonly string format;
 
     /// <summary>
     /// Default constructor with the Iso8601 format
@@ -30,7 +30,7 @@ public class JiraDateTimeOffsetConverter : JsonConverter<DateTimeOffset?>
     /// <param name="format"></param>
     public JiraDateTimeOffsetConverter(string format)
     {
-        _format = format;
+        this.format = format;
     }
 
     /// <inheritdoc />
@@ -44,7 +44,7 @@ public class JiraDateTimeOffsetConverter : JsonConverter<DateTimeOffset?>
 
         var dateTime = value.Value;
         string sign = dateTime.Offset < TimeSpan.Zero ? "-" : "+";
-        var output = $"{dateTime.ToString(_format, CultureInfo.InvariantCulture)}{sign}{Math.Abs(dateTime.Offset.Hours):00}{Math.Abs(dateTime.Offset.Minutes):00}";
+        var output = $"{dateTime.ToString(format, CultureInfo.InvariantCulture)}{sign}{Math.Abs(dateTime.Offset.Hours):00}{Math.Abs(dateTime.Offset.Minutes):00}";
         writer.WriteStringValue(output);
     }
 
@@ -61,7 +61,7 @@ public class JiraDateTimeOffsetConverter : JsonConverter<DateTimeOffset?>
             throw new JsonException($"Unexpected token parsing date. Expected string, got {reader.TokenType}.");
         }
 
-        string? dateTimeOffsetString = reader.GetString();
+        var dateTimeOffsetString = reader.GetString();
         
         if (string.IsNullOrEmpty(dateTimeOffsetString) || dateTimeOffsetString.Equals("none", StringComparison.OrdinalIgnoreCase))
         {

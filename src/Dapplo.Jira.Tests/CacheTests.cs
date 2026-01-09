@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Linq;
@@ -9,7 +9,6 @@ using Dapplo.HttpExtensions.Wpf.ContentConverter;
 using Dapplo.Jira.SvgWinForms.Converters;
 using Dapplo.Jira.Tests.Support;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests;
 
@@ -35,22 +34,22 @@ public class CacheTests : TestBase
             HttpExtensionsGlobals.HttpContentConverters.Add(BitmapSourceHttpContentConverter.Instance.Value);
         }
 
-        _avatarCache = new AvatarCache(Client);
+        avatarCache = new AvatarCache(Client);
     }
 
-    private readonly AvatarCache _avatarCache;
+    private readonly AvatarCache avatarCache;
 
     [Fact]
     public async Task TestCache()
     {
-        var me = await Client.User.GetMyselfAsync();
+        var me = await Client.User.GetMyselfAsync(TestContext.Current.CancellationToken);
         Assert.NotEmpty(me.AccountId);
 
-        var avatar = await _avatarCache.GetOrCreateAsync(me.Avatars);
+        var avatar = await avatarCache.GetOrCreateAsync(me.Avatars, cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(avatar);
         Assert.True(avatar.Width > 0);
 
-        avatar = await _avatarCache.GetAsync(me.Avatars);
+        avatar = await avatarCache.GetAsync(me.Avatars);
         Assert.NotNull(avatar);
         Assert.True(avatar.Width > 0);
     }

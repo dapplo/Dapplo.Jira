@@ -8,7 +8,6 @@ using Dapplo.HttpExtensions.JsonNet;
 using Dapplo.Jira.Entities;
 using Dapplo.Log;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests;
 
@@ -50,7 +49,7 @@ public class WorkTests : TestBase
             Started = started
         };
 
-        var worklog = await Client.WorkLog.CreateAsync(TestIssueKey, newWorkLog);
+        var worklog = await Client.WorkLog.CreateAsync(TestIssueKey, newWorkLog, cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.NotNull(worklog);
         Assert.Equal("2d", worklog.TimeSpent);
@@ -60,20 +59,20 @@ public class WorkTests : TestBase
         worklog.TimeSpent = "3d";
         worklog.TimeSpentSeconds = null;
         worklog.Started = DateTimeOffset.Now.Subtract(TimeSpan.FromDays(3));
-        await Client.WorkLog.UpdateAsync(TestIssueKey, worklog);
-        var worklogs = await Client.WorkLog.GetAsync(TestIssueKey);
+        await Client.WorkLog.UpdateAsync(TestIssueKey, worklog, cancellationToken: TestContext.Current.CancellationToken);
+        var worklogs = await Client.WorkLog.GetAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
         var retrievedWorklog = worklogs.FirstOrDefault(worklogItem => string.Equals(worklog.Id, worklogItem.Id));
         Assert.NotNull(retrievedWorklog);
         Assert.Equal("3d", retrievedWorklog.TimeSpent);
 
         // Delete again
-        await Client.WorkLog.DeleteAsync(TestIssueKey, worklog);
+        await Client.WorkLog.DeleteAsync(TestIssueKey, worklog, cancellationToken: TestContext.Current.CancellationToken);
     }
 
     [Fact]
     public async Task TestWorklogs()
     {
-        var worklogs = await Client.WorkLog.GetAsync(TestIssueKey);
+        var worklogs = await Client.WorkLog.GetAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(worklogs);
         Assert.True(worklogs.Elements.Count > 0);
     }
@@ -81,11 +80,11 @@ public class WorkTests : TestBase
     [Fact]
     public async Task TestUpdatedWorklogs()
     {
-        var updatedWorklogs = await Client.WorkLog.GetUpdatedAsync(DateTimeOffset.Now.Subtract(TimeSpan.FromDays(365)));
+        var updatedWorklogs = await Client.WorkLog.GetUpdatedAsync(DateTimeOffset.Now.Subtract(TimeSpan.FromDays(365)), cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(updatedWorklogs);
         Assert.True(updatedWorklogs.Elements.Count > 0);
 
-        var worklogs = await Client.WorkLog.GetAsync(updatedWorklogs);
+        var worklogs = await Client.WorkLog.GetAsync(updatedWorklogs, cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(worklogs);
         Assert.True(worklogs.Count > 0);
     }

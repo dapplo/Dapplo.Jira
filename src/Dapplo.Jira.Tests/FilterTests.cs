@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Linq;
@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Dapplo.Jira.Entities;
 using Dapplo.Jira.Query;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Dapplo.Jira.Tests;
 
@@ -20,34 +19,34 @@ public class FilterTests : TestBase
     public async Task TestCreateAsync()
     {
         const string testFilterName = "MyTestFilter";
-        var filters = await Client.Filter.GetFiltersAsync();
+        var filters = await Client.Filter.GetFiltersAsync(TestContext.Current.CancellationToken);
         var myTestFilter = filters.FirstOrDefault(filter => filter.Name == testFilterName);
         if (myTestFilter != null)
         {
-            await Client.Filter.DeleteAsync(myTestFilter);
+            await Client.Filter.DeleteAsync(myTestFilter, cancellationToken: TestContext.Current.CancellationToken);
         }
 
         var query = Where.IssueKey.In(TestIssueKey);
-        var createdFilter = await Client.Filter.CreateAsync(new Filter(testFilterName, query));
+        var createdFilter = await Client.Filter.CreateAsync(new Filter(testFilterName, query), cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(createdFilter);
         Assert.Equal(query.ToString(), createdFilter.Jql);
         query = Where.IssueKey.In(TestIssueKey).OrderByAscending(Fields.IssueKey);
         createdFilter.Jql = query.ToString();
-        var updatedFilter = await Client.Filter.UpdateAsync(createdFilter);
+        var updatedFilter = await Client.Filter.UpdateAsync(createdFilter, cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(updatedFilter);
         Assert.Equal(query.ToString(), updatedFilter.Jql);
 
-        await Client.Filter.DeleteAsync(createdFilter);
+        await Client.Filter.DeleteAsync(createdFilter, cancellationToken: TestContext.Current.CancellationToken);
     }
 
     [Fact]
     public async Task TestGetFavoritesAsync()
     {
-        var filters = await Client.Filter.GetFavoritesAsync();
+        var filters = await Client.Filter.GetFavoritesAsync(TestContext.Current.CancellationToken);
         Assert.NotNull(filters);
         foreach (var filter in filters)
         {
-            await Client.Filter.GetAsync(filter.Id);
+            await Client.Filter.GetAsync(filter.Id, cancellationToken: TestContext.Current.CancellationToken);
         }
     }
 }

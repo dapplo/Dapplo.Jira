@@ -1,9 +1,9 @@
-# Dapplo.Jira <!-- include: readme.md -->
+# Dapplo.Jira<!-- include: readme.md -->
 This is a simple REST based JIRA client, written for Greenshot, by using Dapplo.HttpExtension
 
 - Documentation: [Dapplo.Jira](https://www.dapplo.net/Dapplo.Jira/index.html)
 
-- Current build status: [![Build Status](https://dev.azure.com/Dapplo/Dapplo%20framework/_apis/build/status/dapplo.Dapplo.Jira?branchName=master)](https://dev.azure.com/Dapplo/Dapplo%20framework/_build/latest?definitionId=12&branchName=master)
+- Current build status: [![Build Status](https://github.com/dapplo/Dapplo.Jira/actions/workflows/build.yml/badge.svg)](https://github.com/dapplo/Dapplo.Jira/actions/workflows/build.yml)
 - Coverage Status: [![Coverage Status](https://coveralls.io/repos/github/dapplo/Dapplo.Jira/badge.svg?branch=master)](https://coveralls.io/github/dapplo/Dapplo.Jira?branch=master)
 - NuGet package: [![NuGet package](https://badge.fury.io/nu/Dapplo.Jira.svg)](https://badge.fury.io/nu/Dapplo.Jira)
 
@@ -27,7 +27,7 @@ For examples on how to use this library, I advice you to look at the test cases.
 
 A example to find issues which are assigned to someone who is currently (or langer) not available, and remove the assignment
 <!-- snippet: SearchExample -->
-<a id='snippet-searchexample'></a>
+<a id='snippet-SearchExample'></a>
 ```cs
 // Preferably use a "bot" user for maintenance
 var username = Environment.GetEnvironmentVariable("jira_test_username");
@@ -38,16 +38,16 @@ var client = JiraClient
 
 const string unavailableUser = "Robin Krom";
 // Find all issues in a certain state and assigned to a user who is not available
-var searchResult = await client.Issue.SearchAsync(Where.And(Where.Assignee.Is(unavailableUser), Where.Status.Is("Building")));
+var searchResult = await client.Issue.SearchAsync(Where.And(Where.Assignee.Is(unavailableUser), Where.Status.Is("Building")), cancellationToken: TestContext.Current.CancellationToken);
 
 foreach (var issue in searchResult.Issues)
 {
     // Remote the assignment, to make clear no-one is working on it
-    await issue.AssignAsync(User.Nobody);
+    await issue.AssignAsync(User.Nobody, cancellationToken: TestContext.Current.CancellationToken);
     // Comment the reason to the issue
-    await issue.AddCommentAsync($"{unavailableUser} is currently not available.");
+    await issue.AddCommentAsync($"{unavailableUser} is currently not available.", cancellationToken: TestContext.Current.CancellationToken);
 }
 ```
-<sup><a href='/src/Dapplo.Jira.Tests/IssueTests.cs#L272-L292' title='Snippet source file'>snippet source</a> | <a href='#snippet-searchexample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Dapplo.Jira.Tests/IssueTests.cs#L271-L291' title='Snippet source file'>snippet source</a> | <a href='#snippet-SearchExample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 <!-- endInclude -->

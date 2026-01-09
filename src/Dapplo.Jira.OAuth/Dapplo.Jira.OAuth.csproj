@@ -1,16 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <Description>OAuth addition for Dapplo.Jira</Description>
-    <TargetFrameworks>net10.0-windows;net481</TargetFrameworks>
+    <TargetFrameworks>net10.0-windows;net8.0-windows;net481</TargetFrameworks>
     <PackageTags>atlassian;jira;dapplo</PackageTags>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="RestSharp" Version="112.1.0" />
+    <PackageReference Include="RestSharp" Version="113.0.0" />
     <!-- Legacy dependencies - to be removed after migration -->
-    <PackageReference Include="Dapplo.HttpExtensions" Version="1.1.2" />
-    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="1.1.2" />
-    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="1.1.2" />
+    <PackageReference Include="Dapplo.HttpExtensions" Version="2.0.8" />
+    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="2.0.8" />
+    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="2.0.8" />
   </ItemGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
     <Reference Include="System.Drawing" />
