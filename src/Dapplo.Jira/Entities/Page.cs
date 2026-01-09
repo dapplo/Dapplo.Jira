@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Newtonsoft.Json;
@@ -20,6 +20,14 @@ public class Page
     /// <summary>
     ///     Where in the total this "page" is located
     /// </summary>
-    [JsonProperty("startAt")]
+    [JsonProperty("startAt", NullValueHandling = NullValueHandling.Ignore)]
     public int? StartAt { get; set; }
+
+    /// <summary>
+    ///     What is the next page? null for first.
+    /// </summary>
+    [JsonProperty("nextPageToken", NullValueHandling = NullValueHandling.Include)]
+    public string NextPageToken { get; set; }
+
+    
 }

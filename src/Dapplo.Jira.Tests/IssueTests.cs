@@ -27,7 +27,7 @@ public class IssueTests : TestBase
         {
             Fields = new IssueFields
             {
-                Description = "Test run at " + DateTime.Now.ToLocalTime()
+                Description = AdfDocument.FromText("Test run at " + DateTime.Now.ToLocalTime())
             }
         };
         await Client.Issue.EditAsync(TestIssueKey, updateIssue, cancellationToken: TestContext.Current.CancellationToken);
@@ -124,7 +124,7 @@ public class IssueTests : TestBase
                 },
                 IssueType = bugIssueType,
                 Summary = "Some summary, this is a test",
-                Description = "Some description, this is a test"
+                Description = AdfDocument.FromText("Some description, this is a test")
             }
         };
 
@@ -172,7 +172,7 @@ public class IssueTests : TestBase
                     },
                     IssueType = bugIssueType,
                     Summary = "Some summary, this is a test",
-                    Description = "Some description, this is a test"
+                    Description = AdfDocument.FromText("Some description, this is a test")
                 }
             }
             .AddCustomField(cfTextFieldId, cfTextFieldValue)
@@ -320,8 +320,7 @@ public class IssueTests : TestBase
         {
             Assert.NotNull(searchResult);
             Assert.True(searchResult.Issues.Count > 0);
-            Log.Info().WriteLine("Got {0} of {1} results, starting at index {2}, isLast: {3}", searchResult.Count,
-                searchResult.Total, searchResult.StartAt, searchResult.IsLastPage);
+            Log.Info().WriteLine("Got {0} of {1} results, starting at index {2}, isLast: {3}", searchResult.Count, searchResult.Total, searchResult.StartAt, searchResult.IsLastPage);
             foreach (var issue in searchResult)
             {
                 Log.Info().WriteLine("Found issue {0} - {1}", issue.Key, issue.Fields.Summary);

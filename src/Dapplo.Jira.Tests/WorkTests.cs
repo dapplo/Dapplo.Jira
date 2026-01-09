@@ -80,7 +80,7 @@ public class WorkTests : TestBase
     [Fact]
     public async Task TestUpdatedWorklogs()
     {
-        var updatedWorklogs = await Client.WorkLog.GetUpdatedAsync(DateTimeOffset.Now.Subtract(TimeSpan.FromDays(365)), cancellationToken: TestContext.Current.CancellationToken);
+        var updatedWorklogs = await Client.WorkLog.GetUpdatedAsync(DateTimeOffset.Now.Subtract(TimeSpan.FromDays(4000)), cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(updatedWorklogs);
         Assert.True(updatedWorklogs.Elements.Count > 0);
 

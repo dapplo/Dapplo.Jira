@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections;
@@ -43,12 +43,12 @@ public class SearchIssuesResult<TIssue, TSearch> : PageableResult, IEnumerable<T
     public int Count => Issues?.Count ?? 0;
 
     /// <summary>
-    /// Retrieve the next page, this is based upon the number of items that was returned
+    /// Retrieve the next page, this is based upon the next page token
     /// </summary>
     [JsonIgnore]
     public Page NextPage => new Page
     {
-        StartAt = StartAt + (Issues?.Count ?? 0),
+        NextPageToken = this.NextPageToken,
         MaxResults = MaxResults
     };
 

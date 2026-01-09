@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Newtonsoft.Json;
@@ -18,7 +18,13 @@ public class JqlIssueSearch : Page
     ///     The expands.
     /// </value>
     [JsonProperty("expand")]
-    public IEnumerable<string> Expand { get; set; } = JiraConfig.ExpandSearch;
+    public string Expand { get; set; } = JiraConfig.ExpandSearch != null ? string.Join(",", JiraConfig.ExpandSearch):null;
+
+    /// <summary>
+    /// A list of up to 5 issue properties to include in the results. This parameter accepts a comma-separated list.
+    /// </summary>
+    [JsonProperty("properties")]
+    public IEnumerable<string> Properties { get; set; }
 
     /// <summary>
     ///     Fields for this query
@@ -33,8 +39,9 @@ public class JqlIssueSearch : Page
     public string Jql { get; set; }
 
     /// <summary>
-    ///     Does the query (JQL) need to be validated?
+    ///     Reference fields by their key (rather than ID). The default is false.
     /// </summary>
-    [JsonProperty("validateQuery")]
-    public bool ValidateQuery { get; set; } = true;
+    [JsonProperty("fieldsByKeys", NullValueHandling = NullValueHandling.Include)]
+    public bool FieldsByKeys { get; set; } = false;
+    
 }

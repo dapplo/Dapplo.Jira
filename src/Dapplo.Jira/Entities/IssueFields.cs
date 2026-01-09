@@ -60,10 +60,10 @@ public class IssueFields
     public IDictionary<string, object> CustomFields { get; } = new Dictionary<string, object>();
 
     /// <summary>
-    ///     Description of this issue
+    ///     Description of this issue in ADF
     /// </summary>
     [JsonProperty("description")]
-    public string Description { get; set; }
+    public AdfDocument Description { get; set; }
 
     /// <summary>
     ///     Versions where this issue is fixed

@@ -151,12 +151,17 @@ public static class IssueDomainExtensions
         var search = new JqlIssueSearch
         {
             Jql = jql,
-            ValidateQuery = true,
             MaxResults = page?.MaxResults ?? 20,
-            StartAt = page?.StartAt ?? 0,
-            Fields = fields ?? new List<string>(JiraConfig.SearchFields),
-            Expand = expand ?? (JiraConfig.ExpandSearch != null ? new List<string>(JiraConfig.ExpandSearch) : null)
+            NextPageToken = page?.NextPageToken ?? null
         };
+        if (expand != null)
+        {
+            search.Expand = string.Join(",",expand);
+        }
+        if (fields != null)
+        {
+            search.Fields = fields;
+        }
         return jiraClient.SearchAsync(search, cancellationToken);
     }
 
@@ -169,8 +174,7 @@ public static class IssueDomainExtensions
     /// <param name="page">Page with paging information, overwriting the page info in the search.</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>SearchIssuesResult</returns>
-    public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search, Page page = null,
-        CancellationToken cancellationToken = default)
+    public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search, Page page = null, CancellationToken cancellationToken = default)
     {
         if (search == null)
         {
@@ -180,7 +184,7 @@ public static class IssueDomainExtensions
         if (page != null)
         {
             search.MaxResults = page.MaxResults ?? 20;
-            search.StartAt = page.StartAt ?? 0;
+            search.NextPageToken = page.NextPageToken ?? null;
         }
 
         return jiraClient.SearchAsync(search, cancellationToken);
