@@ -1,5 +1,7 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System.Net;
 
 namespace Dapplo.Jira.Internal;
 
@@ -18,8 +20,7 @@ internal static class HttpResponseExtensions
     private static void LogError(HttpStatusCode httpStatusCode, Error error = null)
     {
         // Log all error information
-        Log.Warn().WriteLine("Http status code: {0} ({1}). Response from server: {2}", httpStatusCode.ToString(), (int)httpStatusCode,
-            error?.Message ?? httpStatusCode.ToString());
+        Log.Warn().WriteLine("Http status code: {0} ({1}). Response from server: {2}", httpStatusCode.ToString(), (int)httpStatusCode, error?.Message ?? httpStatusCode.ToString());
         if (error?.ErrorMessages?.Count > 0)
         {
             foreach (var errorMessage in error.ErrorMessages)
@@ -37,6 +38,32 @@ internal static class HttpResponseExtensions
         {
             Log.Warn().WriteLine("JIRA server reports the following error: {0} -> {1}", errorKey, error.Errors[errorKey]);
         }
+    }
+
+    /// <summary>
+    ///     Helper method for handling errors in the response, if the response has an error an exception is thrown.
+    ///     Else the real response is returned.
+    /// </summary>
+    /// <typeparam name="TResponse">Type for the ok content</typeparam>
+    /// <param name="expectedHttpStatusCodes">optional HttpStatusCode(s) to expect</param>
+    /// <param name="response">TResponse</param>
+    /// <returns>TResponse</returns>
+    public static TResponse HandleErrors<TResponse>(this HttpResponse<TResponse, string> response, params HttpStatusCode[] expectedHttpStatusCodes)
+        where TResponse : class
+    {
+        if (expectedHttpStatusCodes != null && expectedHttpStatusCodes.Any(code => code == response.StatusCode))
+        {
+            return response.Response;
+        }
+
+        if (!response.HasError)
+        {
+            return response.Response;
+        }
+
+        // Log all error information
+        Log.Warn().WriteLine("Http status code: {0} ({1}). Response from server: {2}", response.StatusCode.ToString(), (int)response.StatusCode, response.ErrorResponse);
+        throw new JiraException(response.StatusCode, response.ErrorResponse);
     }
 
     /// <summary>

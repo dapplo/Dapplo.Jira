@@ -46,8 +46,8 @@ public abstract class TestBase
 
         LogSettings.RegisterDefaultLogger<XUnitLogger>(LogLevels.Verbose, testOutputHelper);
         Client = JiraClient.Create(TestJiraUri);
-        Username = Environment.GetEnvironmentVariable("jira_test_username");
-        Password = Environment.GetEnvironmentVariable("jira_test_password");
+        Username = Environment.GetEnvironmentVariable("JIRA_TEST_USERNAME");
+        Password = Environment.GetEnvironmentVariable("JIRA_TEST_PASSWORD");
 
         if (doLogin && !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
         {

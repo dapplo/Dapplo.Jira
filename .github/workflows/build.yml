@@ -21,6 +21,8 @@ jobs:
       SOLUTION: 'src/Dapplo.Jira.sln'
       BUILD_PLATFORM: 'Any CPU'
       BUILD_CONFIGURATION: 'Release'
+      JIRA_TEST_USERNAME: ${{ secrets.JIRA_TEST_USERNAME }}
+      JIRA_TEST_PASSWORD: ${{ secrets.JIRA_TEST_PASSWORD }}
     
     steps:
     - name: Checkout code

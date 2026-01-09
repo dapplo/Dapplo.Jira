@@ -182,7 +182,7 @@ public static class UserDomainExtensions
 
         var myselfUri = jiraClient.JiraRestUri.AppendSegments("myself");
         jiraClient.Behaviour.MakeCurrent();
-        var response = await myselfUri.GetAsAsync<HttpResponse<User, Error>>(cancellationToken).ConfigureAwait(false);
+        var response = await myselfUri.GetAsAsync<HttpResponse<User, string>>(cancellationToken).ConfigureAwait(false);
         return response.HandleErrors();
     }
 
