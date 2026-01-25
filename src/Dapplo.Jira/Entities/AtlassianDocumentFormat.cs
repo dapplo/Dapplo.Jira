@@ -1,24 +1,45 @@
 // Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
 /// The root object of an Atlassian Document Format (ADF) document.
 /// </summary>
+[JsonObject]
 public class AdfDocument
 {
-    [JsonPropertyName("version")]
+    /// <summary>
+    /// The version of the ADF format
+    /// </summary>
+    [JsonProperty("version")]
     public int Version { get; set; } = 1;
 
-    [JsonPropertyName("type")]
+    /// <summary>
+    /// Type of ADF content
+    /// </summary>
+    [JsonProperty("type")]
     public string Type { get; set; } = "doc";
 
-    [JsonPropertyName("content")]
+    /// <summary>
+    /// The content of the ADF document, represented as a list of nodes.
+    /// </summary>
+    [JsonProperty("content")]
     public List<AdfNode> Content { get; set; } = new List<AdfNode>();
+
+    /// <summary>
+    /// Exclict cast from string to AdfDocument
+    /// </summary>
+    /// <param name="text">string with Text</param>
+    public static explicit operator AdfDocument(string text) => FromText(text);
+
+    /// <summary>
+    /// Exclict cast from AdfDocument to string
+    /// </summary>
+    /// <param name="adfDocument">AdfDocument which needs to be converted</param>
+    public static explicit operator string(AdfDocument adfDocument) => adfDocument?.ToString();
 
     /// <summary>
     /// Create a simple text ADF document
@@ -29,8 +50,6 @@ public class AdfDocument
     {
         return new AdfDocument()
         {
-            Version = 1,
-            Type = "doc",
             Content  = new List<AdfNode>
             {
                 new AdfNode
@@ -48,81 +67,25 @@ public class AdfDocument
             }
         };
     }
-}
-
-/// <summary>
-/// Represents a single node in the document tree (e.g., paragraph, heading, text, media).
-/// </summary>
-public class AdfNode
-{
-    /// <summary>
-    /// The type of the node (e.g., "paragraph", "text", "heading", "bulletList").
-    /// </summary>
-    [JsonPropertyName("type")]
-    public string Type { get; set; }
 
     /// <summary>
-    /// The child nodes of this node (used for block nodes like paragraphs, lists, tables).
+    /// Returns a string that represents the concatenated text content of all nodes in the document, separated by line breaks.
     /// </summary>
-    [JsonPropertyName("content")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<AdfNode> Content { get; set; }
-
-    /// <summary>
-    /// The text content (only used if Type is "text").
-    /// </summary>
-    [JsonPropertyName("text")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Text { get; set; }
-
-    /// <summary>
-    /// Formatting marks applied to the node (e.g., bold, italic, link).
-    /// </summary>
-    [JsonPropertyName("marks")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<AdfMark> Marks { get; set; }
-
-    /// <summary>
-    /// Attributes specific to the node type (e.g., heading level, table layout, media ID).
-    /// We use Dictionary<string, object> to handle the flexible schema of attributes.
-    /// </summary>
-    [JsonPropertyName("attrs")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, object> Attrs { get; set; }
-
-    // Helper methods for common attributes
-    [JsonIgnore]
-    public int? HeadingLevel => GetAttribute<int?>("level");
-
-    private T GetAttribute<T>(string key)
+    /// <remarks>This method is useful for obtaining a plain text representation of the document's content,
+    /// with each node's text output on a separate line. The result does not include any formatting or markup.</remarks>
+    /// <returns>A string containing the combined text extracted from each node in the content collection, with each segment
+    /// separated by a newline character. Returns an empty string if the content is null or contains no nodes.</returns>
+    override public string ToString()
     {
-        if (Attrs != null && Attrs.ContainsKey(key))
+        if (Content == null || Content.Count == 0)
         {
-            if (Attrs[key] is JsonElement element)
-            {
-                return element.Deserialize<T>();
-            }
-            return (T)Attrs[key];
+            return string.Empty;
         }
-        return default;
+        var texts = new List<string>();
+        foreach (var node in Content)
+        {
+            texts.AddRange(node.ExtractText());
+        }
+        return string.Join(Environment.NewLine, texts);
     }
-}
-
-/// <summary>
-/// Represents a mark applied to a node (e.g., strong, em, strike, link).
-/// </summary>
-public class AdfMark
-{
-    /// <summary>
-    /// The type of the mark (e.g., "strong", "em", "link", "textColor").
-    /// </summary>
-    [JsonPropertyName("type")]
-    public string Type { get; set; }
-
-    /// <summary>
-    /// Attributes for the mark (e.g., href for links, color for textColor).
-    /// </summary>
-    [JsonPropertyName("attrs")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, object> Attrs { get; set; }
 }

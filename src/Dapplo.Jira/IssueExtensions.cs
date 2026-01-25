@@ -239,7 +239,7 @@ public static class IssueExtensions
     /// Add a custom field to an Issue
     /// </summary>
     /// <typeparam name="TCustomField">type for the custom field</typeparam>
-    /// <param name="issueToEdit">IssueEdit to add a custom field with value to</param>
+    /// <param name="issueToEdit">Issue to add a custom field with value to</param>
     /// <param name="customFieldName">string with the name of the custom field</param>
     /// <param name="customFieldValue">TCustomField with the value</param>
     /// <returns>Issue for a fluent usage</returns>
@@ -247,6 +247,23 @@ public static class IssueExtensions
     {
         // Make sure that IssueFields is available
         issueToEdit.Fields ??= new IssueFields();
+        issueToEdit.Fields.CustomFields.Add(customFieldName, customFieldValue);
+        return issueToEdit;
+    }
+
+
+    /// <summary>
+    /// Add a custom field to an IssueV3
+    /// </summary>
+    /// <typeparam name="TCustomField">type for the custom field</typeparam>
+    /// <param name="issueToEdit">IssueV3 to add a custom field with value to</param>
+    /// <param name="customFieldName">string with the name of the custom field</param>
+    /// <param name="customFieldValue">TCustomField with the value</param>
+    /// <returns>IssueV3 for a fluent usage</returns>
+    public static IssueV3 AddCustomField<TCustomField>(this IssueV3 issueToEdit, string customFieldName, TCustomField customFieldValue)
+    {
+        // Make sure that IssueFields is available
+        issueToEdit.Fields ??= new IssueFieldsV3();
         issueToEdit.Fields.CustomFields.Add(customFieldName, customFieldValue);
         return issueToEdit;
     }

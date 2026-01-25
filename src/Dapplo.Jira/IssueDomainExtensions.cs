@@ -114,7 +114,7 @@ public static class IssueDomainExtensions
     /// </param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>SearchResults</returns>
-    public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, IFinalClause jql, int maxResults = 20, int startAt = 0,
+    public static Task<SearchIssuesResult<IssueV3, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, IFinalClause jql, int maxResults = 20, int startAt = 0,
         IEnumerable<string> fields = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
     {
         return jiraClient.SearchAsync(jql.ToString(), new Page
@@ -140,7 +140,7 @@ public static class IssueDomainExtensions
     /// <returns>
     ///     SearchIssuesResult
     /// </returns>
-    public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, string jql, Page page = null, IEnumerable<string> fields = null,
+    public static Task<SearchIssuesResult<IssueV3, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, string jql, Page page = null, IEnumerable<string> fields = null,
         IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
     {
         if (jql == null)
@@ -174,7 +174,7 @@ public static class IssueDomainExtensions
     /// <param name="page">Page with paging information, overwriting the page info in the search.</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>SearchIssuesResult</returns>
-    public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search, Page page = null, CancellationToken cancellationToken = default)
+    public static Task<SearchIssuesResult<IssueV3, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search, Page page = null, CancellationToken cancellationToken = default)
     {
         if (search == null)
         {
@@ -198,7 +198,7 @@ public static class IssueDomainExtensions
     /// <param name="search">The search arguments</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>SearchIssuesResult</returns>
-    public static async Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search,
+    public static async Task<SearchIssuesResult<IssueV3, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search,
         CancellationToken cancellationToken = default)
     {
         if (search == null)
@@ -210,10 +210,10 @@ public static class IssueDomainExtensions
 
         jiraClient.Behaviour.MakeCurrent();
         // Use API v3 for search endpoint as v2 was removed (https://developer.atlassian.com/changelog/#CHANGE-2046)
-        var searchUri = jiraClient.JiraBaseUri.AppendSegments("rest", "api", "3", "search", "jql");
+        var searchUri = jiraClient.JiraV3RestUri.AppendSegments("search", "jql");
 
         var response = await searchUri
-            .PostAsync<HttpResponse<SearchIssuesResult<Issue, JqlIssueSearch>, Error>>(search, cancellationToken)
+            .PostAsync<HttpResponse<SearchIssuesResult<IssueV3, JqlIssueSearch>, Error>>(search, cancellationToken)
             .ConfigureAwait(false);
         var result = response.HandleErrors();
         // Store the original search parameter
@@ -399,7 +399,7 @@ public static class IssueDomainExtensions
     /// <returns>Issue</returns>
     public static async Task<IssueWithFields<TFields>> CreateAsync<TFields>(this IIssueDomain jiraClient, IssueWithFields<TFields> issue,
         CancellationToken cancellationToken = default)
-        where TFields : IssueFields
+        where TFields : BaseIssueFields
     {
         if (issue == null)
         {
@@ -408,7 +408,15 @@ public static class IssueDomainExtensions
 
         Log.Debug().WriteLine("Creating issue {0}", issue);
         jiraClient.Behaviour.MakeCurrent();
-        var issueUri = jiraClient.JiraRestUri.AppendSegments("issue");
+        Uri issueUri;
+        if (issue.Fields is IssueFieldsV3)
+        {
+            issueUri = jiraClient.JiraV3RestUri.AppendSegments("issue");
+        } else
+        {
+            issueUri = jiraClient.JiraRestUri.AppendSegments("issue");
+        }
+        
         var response = await issueUri.PostAsync<HttpResponse<IssueWithFields<TFields>, Error>>(issue, cancellationToken).ConfigureAwait(false);
         return response.HandleErrors(HttpStatusCode.Created);
     }

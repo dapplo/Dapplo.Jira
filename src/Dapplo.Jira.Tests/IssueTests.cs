@@ -27,7 +27,7 @@ public class IssueTests : TestBase
         {
             Fields = new IssueFields
             {
-                Description = AdfDocument.FromText("Test run at " + DateTime.Now.ToLocalTime())
+                Description = "Test run at " + DateTime.Now.ToLocalTime()
             }
         };
         await Client.Issue.EditAsync(TestIssueKey, updateIssue, cancellationToken: TestContext.Current.CancellationToken);
@@ -114,9 +114,9 @@ public class IssueTests : TestBase
         var bugIssueType = issueTypes.First(type => type.Name == "Bug");
         var projectForIssue = projects.First(digest => digest.Key == TestProjectKey);
 
-        var issueToCreate = new Issue
+        var issueToCreate = new IssueV3
         {
-            Fields = new IssueFields
+            Fields = new IssueFieldsV3
             {
                 Project = new Project
                 {
@@ -162,9 +162,9 @@ public class IssueTests : TestBase
         var cfTextFieldId = fields.First(f => f.Name == cfTextField).Id;
         var cfLabelFieldId = fields.First(f => f.Name == cfLabelField).Id;
 
-        var issueToCreate = new Issue
+        var issueToCreate = new IssueV3
             {
-                Fields = new IssueFields
+                Fields = new IssueFieldsV3
                 {
                     Project = new Project
                     {

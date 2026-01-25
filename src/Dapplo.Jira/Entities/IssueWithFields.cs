@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Newtonsoft.Json;
@@ -10,7 +10,7 @@ namespace Dapplo.Jira.Entities;
 ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
 /// </summary>
 [JsonObject]
-public class IssueWithFields<TFields> : IssueBase where TFields : IssueFields
+public class IssueWithFields<TFields> : IssueBase where TFields : BaseIssueFields
 {
     /// <summary>
     ///     Fields for the issue

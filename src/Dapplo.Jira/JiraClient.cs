@@ -38,6 +38,7 @@ namespace Dapplo.Jira
 
             JiraBaseUri = baseUri;
             JiraRestUri = baseUri.AppendSegments("rest", "api", "2");
+            JiraV3RestUri = baseUri.AppendSegments("rest", "api", "3");
             JiraAuthUri = baseUri.AppendSegments("rest", "auth", "1");
             JiraAgileRestUri = baseUri.AppendSegments("rest", "agile", "1.0");
             JiraGreenhopperRestUri = baseUri.AppendSegments("rest", "greenhopper", "1.0");
@@ -83,7 +84,11 @@ namespace Dapplo.Jira
         /// </summary>
         public Uri JiraRestUri { get; }
 
-
+        /// <summary>
+        ///     The rest V3 URI for your JIRA server
+        /// </summary>
+        public Uri JiraV3RestUri { get; }
+        
         /// <summary>
         ///     The agile rest URI for your JIRA server
         /// </summary>

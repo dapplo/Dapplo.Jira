@@ -14,6 +14,11 @@ public interface IJiraDomain : IJiraClient
     Uri JiraRestUri { get; }
 
     /// <summary>
+    ///     The rest URI for V3 of your JIRA server
+    /// </summary>
+    Uri JiraV3RestUri { get; }
+
+    /// <summary>
     ///     The agile rest URI for your JIRA server
     /// </summary>
     Uri JiraAgileRestUri { get; }

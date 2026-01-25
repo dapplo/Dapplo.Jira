@@ -1,4 +1,4 @@
-﻿// Copyright (c) Dapplo and contributors. All rights reserved.
+// Copyright (c) Dapplo and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Newtonsoft.Json;
@@ -28,5 +28,5 @@ public class IssueEdit
     /// The fields to edit
     /// </summary>
     [JsonProperty("fields")]
-    public IssueFields Fields { get; set; }
+    public BaseIssueFields Fields { get; set; }
 }

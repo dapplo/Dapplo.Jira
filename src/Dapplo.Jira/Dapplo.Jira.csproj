@@ -1,15 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>A library for accessing Atlassians Jira from .NET</Description>
-    <TargetFrameworks>net8.0;net10.0;net481</TargetFrameworks>
+    <TargetFrameworks>net8.0;net10.0;net480</TargetFrameworks>
     <PackageTags>atlassian;jira;dapplo</PackageTags>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="RestSharp" Version="113.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <!-- Legacy dependencies - to be removed after migration -->
-    <PackageReference Include="Dapplo.HttpExtensions" Version="2.0.8" />
-    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="2.0.8" />
+    <PackageReference Include="Dapplo.HttpExtensions" Version="2.0.10" />
+    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="2.0.10" />
   </ItemGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
     <Reference Include="System.Drawing" />

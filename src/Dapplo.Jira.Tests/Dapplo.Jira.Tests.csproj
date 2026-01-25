@@ -19,15 +19,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapplo.HttpExtensions.WinForms" Version="2.0.8" />
-    <PackageReference Include="Dapplo.HttpExtensions.Wpf" Version="2.0.8" />
+    <PackageReference Include="Dapplo.HttpExtensions.WinForms" Version="2.0.10" />
+    <PackageReference Include="Dapplo.HttpExtensions.Wpf" Version="2.0.10" />
     <PackageReference Include="Dapplo.Log.XUnit" Version="3.0.22" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="27.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-    <PackageReference Include="xunit.v3" Version="3.2.1" />
+    <PackageReference Include="xunit.v3" Version="3.2.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
