@@ -39,7 +39,7 @@ public class IssueClause : IIssueClause
     }
 
     /// <inheritDoc />
-    public IFinalClause Is(Issue issue) => Is(issue.Key);
+    public IFinalClause Is(IssueV2 issue) => Is(issue.Key);
 
     /// <inheritDoc />
     public IFinalClause In(params string[] issueKeys)
@@ -55,7 +55,7 @@ public class IssueClause : IIssueClause
     }
 
     /// <inheritDoc />
-    public IFinalClause In(params Issue[] issues) => In(issues.Select(issue => issue.Key).ToArray());
+    public IFinalClause In(params IssueV2[] issues) => In(issues.Select(issue => issue.Key).ToArray());
 
     /// <inheritDoc />
     public IFinalClause InIssueHistory()
@@ -86,7 +86,7 @@ public class IssueClause : IIssueClause
     }
 
     /// <inheritDoc />
-    public IFinalClause InLinkedIssues(Issue issue, string linkType = null) => InLinkedIssues(issue.Key, linkType);
+    public IFinalClause InLinkedIssues(IssueV2 issue, string linkType = null) => InLinkedIssues(issue.Key, linkType);
 
     /// <inheritDoc />
     public IFinalClause InVotedIssues()

@@ -25,7 +25,7 @@ public class IssueTests : TestBase
     {
         var updateIssue = new IssueEdit
         {
-            Fields = new IssueFields
+            Fields = new IssueFieldsV2
             {
                 Description = "Test run at " + DateTime.Now.ToLocalTime()
             }
@@ -114,9 +114,9 @@ public class IssueTests : TestBase
         var bugIssueType = issueTypes.First(type => type.Name == "Bug");
         var projectForIssue = projects.First(digest => digest.Key == TestProjectKey);
 
-        var issueToCreate = new IssueV3
+        var issueToCreate = new Issue
         {
-            Fields = new IssueFieldsV3
+            Fields = new IssueFields
             {
                 Project = new Project
                 {
@@ -162,9 +162,9 @@ public class IssueTests : TestBase
         var cfTextFieldId = fields.First(f => f.Name == cfTextField).Id;
         var cfLabelFieldId = fields.First(f => f.Name == cfLabelField).Id;
 
-        var issueToCreate = new IssueV3
+        var issueToCreate = new Issue
             {
-                Fields = new IssueFieldsV3
+                Fields = new IssueFields
                 {
                     Project = new Project
                     {

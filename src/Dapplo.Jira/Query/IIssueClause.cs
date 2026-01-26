@@ -22,7 +22,7 @@ public interface IIssueClause
     /// <summary>
     ///     This allows fluent constructs like IssueKey.In(issue1, issue2)
     /// </summary>
-    IFinalClause In(params Issue[] issues);
+    IFinalClause In(params IssueV2[] issues);
 
     /// <summary>
     ///     This allows fluent constructs like IssueKey.InIssueHistory()
@@ -48,7 +48,7 @@ public interface IIssueClause
     /// <param name="issue">Issue</param>
     /// <param name="linkType">string</param>
     /// <returns>IFinalClause</returns>
-    IFinalClause InLinkedIssues(Issue issue, string linkType = null);
+    IFinalClause InLinkedIssues(IssueV2 issue, string linkType = null);
 
     /// <summary>
     ///     This allows fluent constructs like IssueKey.InVotedIssues()
@@ -70,5 +70,5 @@ public interface IIssueClause
     /// <summary>
     ///     This allows fluent constructs like Id.Is(issue1)
     /// </summary>
-    IFinalClause Is(Issue issue);
+    IFinalClause Is(IssueV2 issue);
 }

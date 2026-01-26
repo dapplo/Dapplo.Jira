@@ -6,16 +6,17 @@ using Newtonsoft.Json;
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
-///     Container for the fields
+///     Container for the fields for the V3 API
 /// </summary>
 [JsonObject]
 public class IssueFields : BaseIssueFields
 {
+
     /// <summary>
     ///     Description of this issue in ADF
     /// </summary>
     [JsonProperty("description")]
-    public string Description { get; set; }
+    public AdfDocument Description { get; set; }
 
     /// <summary>
     ///     Parent of this issue

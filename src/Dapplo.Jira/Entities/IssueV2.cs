@@ -10,6 +10,6 @@ namespace Dapplo.Jira.Entities;
 ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue
 /// </summary>
 [JsonObject]
-public class IssueV3 : IssueWithFields<IssueFieldsV3>
+public class IssueV2 : IssueWithFields<IssueFieldsV2>
 {
 }

@@ -52,7 +52,7 @@ public class StatusClause : IStatusClause
     }
 
     /// <inheritDoc />
-    public IFinalClause Is(Issue issue) => Is(issue.Key);
+    public IFinalClause Is(IssueV2 issue) => Is(issue.Key);
 
     /// <inheritDoc />
     public IFinalClause In(params string[] states)

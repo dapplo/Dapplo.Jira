@@ -69,7 +69,7 @@ public static class IssueExtensions
     /// <param name="issue">Issue  to retrieve custom field value from</param>
     /// <param name="customFieldName">string with the name of the custom field</param>
     /// <returns>bool</returns>
-    public static bool HasCustomField(this Issue issue, string customFieldName)
+    public static bool HasCustomField(this IssueV2 issue, string customFieldName)
     {
         var customFields = issue.Fields.CustomFields;
         return customFields != null && customFields.ContainsKey(customFieldName);
@@ -82,7 +82,7 @@ public static class IssueExtensions
     /// <param name="issue">Issue  to retrieve custom field value from</param>
     /// <param name="customFieldName">string with the name of the custom field</param>
     /// <returns>TCustomField</returns>
-    public static TCustomField GetCustomField<TCustomField>(this Issue issue, string customFieldName)
+    public static TCustomField GetCustomField<TCustomField>(this IssueV2 issue, string customFieldName)
     {
         issue.TryGetCustomField<TCustomField>(customFieldName, out var returnValue);
         return returnValue;
@@ -96,7 +96,7 @@ public static class IssueExtensions
     /// <param name="customFieldName">string with the name of the custom field</param>
     /// <param name="value">TCustomField</param>
     /// <returns>bool</returns>
-    public static bool TryGetCustomField<TCustomField>(this Issue issue, string customFieldName, out TCustomField value)
+    public static bool TryGetCustomField<TCustomField>(this IssueV2 issue, string customFieldName, out TCustomField value)
     {
         var customFields = issue.Fields.CustomFields;
         if (customFields == null || !customFields.ContainsKey(customFieldName))
@@ -122,7 +122,7 @@ public static class IssueExtensions
     /// <param name="issue">Issue  to retrieve custom field value from</param>
     /// <param name="customFieldName">string with the name of the custom field</param>
     /// <returns>string</returns>
-    public static string GetCustomField(this Issue issue, string customFieldName)
+    public static string GetCustomField(this IssueV2 issue, string customFieldName)
     {
         issue.TryGetCustomField(customFieldName, out var returnValue);
         return returnValue;
@@ -135,7 +135,7 @@ public static class IssueExtensions
     /// <param name="customFieldName">string with the name of the custom field</param>
     /// <param name="value">string</param>
     /// <returns>bool</returns>
-    public static bool TryGetCustomField(this Issue issue, string customFieldName, out string value)
+    public static bool TryGetCustomField(this IssueV2 issue, string customFieldName, out string value)
     {
         var customFields = issue.Fields.CustomFields;
         if (customFields == null || !customFields.ContainsKey(customFieldName))
@@ -230,7 +230,7 @@ public static class IssueExtensions
     public static IssueEdit AddCustomField<TCustomField>(this IssueEdit issueToEdit, string customFieldName, TCustomField customFieldValue)
     {
         // Make sure that IssueFields is available
-        issueToEdit.Fields ??= new IssueFields();
+        issueToEdit.Fields ??= new IssueFieldsV2();
         issueToEdit.Fields.CustomFields.Add(customFieldName, customFieldValue);
         return issueToEdit;
     }
@@ -243,10 +243,10 @@ public static class IssueExtensions
     /// <param name="customFieldName">string with the name of the custom field</param>
     /// <param name="customFieldValue">TCustomField with the value</param>
     /// <returns>Issue for a fluent usage</returns>
-    public static Issue AddCustomField<TCustomField>(this Issue issueToEdit, string customFieldName, TCustomField customFieldValue)
+    public static IssueV2 AddCustomField<TCustomField>(this IssueV2 issueToEdit, string customFieldName, TCustomField customFieldValue)
     {
         // Make sure that IssueFields is available
-        issueToEdit.Fields ??= new IssueFields();
+        issueToEdit.Fields ??= new IssueFieldsV2();
         issueToEdit.Fields.CustomFields.Add(customFieldName, customFieldValue);
         return issueToEdit;
     }
@@ -260,10 +260,10 @@ public static class IssueExtensions
     /// <param name="customFieldName">string with the name of the custom field</param>
     /// <param name="customFieldValue">TCustomField with the value</param>
     /// <returns>IssueV3 for a fluent usage</returns>
-    public static IssueV3 AddCustomField<TCustomField>(this IssueV3 issueToEdit, string customFieldName, TCustomField customFieldValue)
+    public static Issue AddCustomField<TCustomField>(this Issue issueToEdit, string customFieldName, TCustomField customFieldValue)
     {
         // Make sure that IssueFields is available
-        issueToEdit.Fields ??= new IssueFieldsV3();
+        issueToEdit.Fields ??= new IssueFields();
         issueToEdit.Fields.CustomFields.Add(customFieldName, customFieldValue);
         return issueToEdit;
     }

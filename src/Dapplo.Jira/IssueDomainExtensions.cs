@@ -55,7 +55,7 @@ public static class IssueDomainExtensions
     public static async Task<TIssue> GetAsync<TIssue, TFields>(this IIssueDomain jiraClient, string issueKey, IEnumerable<string> fields = null,
         IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
         where TIssue : IssueWithFields<TFields>
-        where TFields : IssueFields
+        where TFields : IssueFieldsV2
     {
         if (issueKey == null)
         {
@@ -93,10 +93,10 @@ public static class IssueDomainExtensions
     /// <param name="expand">IEnumerable of string to specified which fields to expand</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Issue</returns>
-    public static Task<Issue> GetAsync(this IIssueDomain jiraClient, string issueKey, IEnumerable<string> fields = null, IEnumerable<string> expand = null,
+    public static Task<IssueV2> GetAsync(this IIssueDomain jiraClient, string issueKey, IEnumerable<string> fields = null, IEnumerable<string> expand = null,
         CancellationToken cancellationToken = default)
     {
-        return jiraClient.GetAsync<Issue, IssueFields>(issueKey, fields, expand, cancellationToken);
+        return jiraClient.GetAsync<IssueV2, IssueFieldsV2>(issueKey, fields, expand, cancellationToken);
     }
 
     /// <summary>
@@ -114,7 +114,7 @@ public static class IssueDomainExtensions
     /// </param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>SearchResults</returns>
-    public static Task<SearchIssuesResult<IssueV3, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, IFinalClause jql, int maxResults = 20, int startAt = 0,
+    public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, IFinalClause jql, int maxResults = 20, int startAt = 0,
         IEnumerable<string> fields = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
     {
         return jiraClient.SearchAsync(jql.ToString(), new Page
@@ -140,7 +140,7 @@ public static class IssueDomainExtensions
     /// <returns>
     ///     SearchIssuesResult
     /// </returns>
-    public static Task<SearchIssuesResult<IssueV3, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, string jql, Page page = null, IEnumerable<string> fields = null,
+    public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, string jql, Page page = null, IEnumerable<string> fields = null,
         IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
     {
         if (jql == null)
@@ -174,7 +174,7 @@ public static class IssueDomainExtensions
     /// <param name="page">Page with paging information, overwriting the page info in the search.</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>SearchIssuesResult</returns>
-    public static Task<SearchIssuesResult<IssueV3, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search, Page page = null, CancellationToken cancellationToken = default)
+    public static Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search, Page page = null, CancellationToken cancellationToken = default)
     {
         if (search == null)
         {
@@ -198,7 +198,7 @@ public static class IssueDomainExtensions
     /// <param name="search">The search arguments</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>SearchIssuesResult</returns>
-    public static async Task<SearchIssuesResult<IssueV3, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search,
+    public static async Task<SearchIssuesResult<Issue, JqlIssueSearch>> SearchAsync(this IIssueDomain jiraClient, JqlIssueSearch search,
         CancellationToken cancellationToken = default)
     {
         if (search == null)
@@ -213,7 +213,7 @@ public static class IssueDomainExtensions
         var searchUri = jiraClient.JiraV3RestUri.AppendSegments("search", "jql");
 
         var response = await searchUri
-            .PostAsync<HttpResponse<SearchIssuesResult<IssueV3, JqlIssueSearch>, Error>>(search, cancellationToken)
+            .PostAsync<HttpResponse<SearchIssuesResult<Issue, JqlIssueSearch>, Error>>(search, cancellationToken)
             .ConfigureAwait(false);
         var result = response.HandleErrors();
         // Store the original search parameter
@@ -409,7 +409,7 @@ public static class IssueDomainExtensions
         Log.Debug().WriteLine("Creating issue {0}", issue);
         jiraClient.Behaviour.MakeCurrent();
         Uri issueUri;
-        if (issue.Fields is IssueFieldsV3)
+        if (issue.Fields is IssueFields)
         {
             issueUri = jiraClient.JiraV3RestUri.AppendSegments("issue");
         } else

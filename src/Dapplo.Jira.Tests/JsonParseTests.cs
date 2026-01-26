@@ -34,7 +34,7 @@ public class JsonParseTests
     {
         var json = File.ReadAllText(Path.Combine(testFileLocation, "issue.json"));
 
-        var issue = (Issue)jsonSerializer.Deserialize(typeof(Issue), json);
+        var issue = (IssueV2)jsonSerializer.Deserialize(typeof(IssueV2), json);
         Assert.NotNull(issue);
     }
 

@@ -12,7 +12,7 @@ namespace Dapplo.Jira.PowerShell;
 ///     A Cmdlet which processes the information of a Jira issue
 /// </summary>
 [Cmdlet(VerbsCommon.Get, "JiraIssue")]
-[OutputType(typeof(IssueFields))]
+[OutputType(typeof(IssueFieldsV2))]
 public class GetJiraIssue : JiraAsyncCmdlet
 {
     /// <summary>
