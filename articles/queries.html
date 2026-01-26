@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Jira Query Language (JQL) with Dapplo.Jira | Dapplo.Jira </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Jira Query Language (JQL) with Dapplo.Jira | Dapplo.Jira ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc">
+    <meta property="docfx:tocrel" content="toc">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/d.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                <ul class="nav level1 navbar-nav">
+                  <li class="active">
+                    <a href="../articles/intro.html" title="Articles" class="active">Articles</a>
+                  </li>
+                  <li class="">
+                    <a href="../api/" title="Api Documentation" class="">Api Documentation</a>
+                  </li>
+                </ul>
+            </div>
+          </div>
+        </nav>        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidefilter">
+                <form class="toc-filter">
+                  <span class="glyphicon glyphicon-filter filter-icon"></span>
+                  <input type="text" id="toc_filter_input" placeholder="Enter here to filter..." onkeypress="if(event.keyCode==13) {return false;}">
+                </form>
+              </div>
+              <div class="sidetoc">
+                <div class="toc" id="toc">
+                  
+                  <ul class="nav level1">
+                    <li class="">
+                      <a href="intro.html" title="Introduction" class="">Introduction</a>
+                    </li>
+                    <li class="active">
+                      <a href="queries.html" title="Queries" class="active">Queries</a>
+                    </li>
+                  </ul>        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="jira-query-language-jql-with-dapplojira">Jira Query Language (JQL) with Dapplo.Jira</h1>
+
+<p>This article is not written to explain you what JQL is and how to use it, but will explain what Dapplo.Jira brings to help you.
+To read more about JQL, have a look here:
+<a href="https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql">https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql</a>
+<a href="https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html">https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html</a>
+<a href="https://www.atlassian.com/blog/jira-software/jql-the-most-flexible-way-to-search-jira-14">https://www.atlassian.com/blog/jira-software/jql-the-most-flexible-way-to-search-jira-14</a>
+<a href="https://www.atlassian.com/blog/jira-software/jql-secrets-and-shortcuts">https://www.atlassian.com/blog/jira-software/jql-secrets-and-shortcuts</a></p>
+<p>If you already know how to use JQL in Jira, the following information should make it possible to use &quot;dynamic&quot; JQL in your .NET application.</p>
+<p>Dapplo.Jira has implemented a JQL builder, using a fluent API, which makes it possible to create typed queries with confidence that they are generated correctly.
+The JQL which is generated can be used to create filters or search directly.</p>
+<p>After adding Dapplo.Jira to your project, you can directly start by using <a href="xref:Dapplo.Jira.Query.Where">Where</a>, this provides many static properties which represent certain fields to query for.
+Using these static properties make the entry point clear, and make the API extendable.
+Use Where.And or Where.Or to combine multiple parts together, making the complete JQL.</p>
+<p>The Atlassian JQL: issuekey in issueHistory() and text ~ &quot;dapplo&quot; ORDER BY issuekey ASC 
+Could be written like this: Where.And(Where.IssueKey.InIssueHistory(), Where.Text.Contains(&quot;dapplo&quot;)).OrderByAscending(Fields.IssueKey)
+A ToString on the resulting object, generates the end query.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/dapplo/Dapplo.Jira/blob/master/doc/articles/queries.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © Dapplo
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
