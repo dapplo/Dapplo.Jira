@@ -6,21 +6,20 @@ using Newtonsoft.Json;
 namespace Dapplo.Jira.Entities;
 
 /// <summary>
-///     Group information
-///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/group
+///     Represents an issue property with a value
 /// </summary>
 [JsonObject]
-public class Group
+public class IssueProperty
 {
     /// <summary>
-    ///     Name of the group
+    ///     The property key
     /// </summary>
-    [JsonProperty("name")]
-    public string Name { get; set; }
+    [JsonProperty("key")]
+    public string Key { get; set; }
 
     /// <summary>
-    ///     Link to this item (self)
+    ///     The property value (can be any JSON object)
     /// </summary>
-    [JsonProperty("self")]
-    public Uri Self { get; set; }
+    [JsonProperty("value")]
+    public object Value { get; set; }
 }
