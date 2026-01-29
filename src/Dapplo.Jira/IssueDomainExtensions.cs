@@ -537,6 +537,70 @@ public static class IssueDomainExtensions
     }
 
     /// <summary>
+    ///     Get vote information for an issue
+    ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue-getVotes
+    /// </summary>
+    /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+    /// <param name="issueKey">Key for the issue</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>VoteInfo with vote count and voters</returns>
+    public static async Task<VoteInfo> GetVotesAsync(this IIssueDomain jiraClient, string issueKey, CancellationToken cancellationToken = default)
+    {
+        if (issueKey == null)
+        {
+            throw new ArgumentNullException(nameof(issueKey));
+        }
+
+        Log.Debug().WriteLine("Retrieving votes for {0}", issueKey);
+        jiraClient.Behaviour.MakeCurrent();
+        var votesUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "votes");
+        var response = await votesUri.GetAsAsync<HttpResponse<VoteInfo, Error>>(cancellationToken).ConfigureAwait(false);
+        return response.HandleErrors();
+    }
+
+    /// <summary>
+    ///     Add a vote for an issue
+    ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue-addVote
+    /// </summary>
+    /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+    /// <param name="issueKey">Key for the issue to vote on</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    public static async Task AddVoteAsync(this IIssueDomain jiraClient, string issueKey, CancellationToken cancellationToken = default)
+    {
+        if (issueKey == null)
+        {
+            throw new ArgumentNullException(nameof(issueKey));
+        }
+
+        Log.Debug().WriteLine("Adding vote to {0}", issueKey);
+        jiraClient.Behaviour.MakeCurrent();
+        var votesUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "votes");
+        var response = await votesUri.PostAsync<HttpResponse>(cancellationToken).ConfigureAwait(false);
+        response.HandleStatusCode(HttpStatusCode.NoContent);
+    }
+
+    /// <summary>
+    ///     Remove vote from an issue
+    ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue-removeVote
+    /// </summary>
+    /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+    /// <param name="issueKey">Key for the issue to remove vote from</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    public static async Task RemoveVoteAsync(this IIssueDomain jiraClient, string issueKey, CancellationToken cancellationToken = default)
+    {
+        if (issueKey == null)
+        {
+            throw new ArgumentNullException(nameof(issueKey));
+        }
+
+        Log.Debug().WriteLine("Removing vote from {0}", issueKey);
+        jiraClient.Behaviour.MakeCurrent();
+        var votesUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "votes");
+        var response = await votesUri.DeleteAsync<HttpResponse>(cancellationToken).ConfigureAwait(false);
+        response.HandleStatusCode(HttpStatusCode.NoContent);
+    }
+
+    /// <summary>
     ///     Get watchers for the specified issue
     ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue-getIssueWatchers
     /// </summary>

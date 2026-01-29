@@ -390,4 +390,61 @@ public class IssueTests : TestBase
             Assert.NotNull(issue.Changelog);
         }
     }
+
+    [Fact]
+    public async Task Test_GetVotes()
+    {
+        var voteInfo = await Client.Issue.GetVotesAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
+        Assert.NotNull(voteInfo);
+    }
+
+    [Fact]
+    public async Task Test_AddAndRemoveVote()
+    {
+        // Get initial vote information
+        var initialVoteInfo = await Client.Issue.GetVotesAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
+        Assert.NotNull(initialVoteInfo);
+        var initialVoteCount = initialVoteInfo.Votes ?? 0;
+        var initialHasVoted = initialVoteInfo.HasVoted;
+
+        // Add a vote if not already voted
+        if (!initialHasVoted)
+        {
+            await Client.Issue.AddVoteAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
+
+            // Verify vote was added
+            var afterAddVoteInfo = await Client.Issue.GetVotesAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
+            Assert.NotNull(afterAddVoteInfo);
+            Assert.True(afterAddVoteInfo.HasVoted);
+            Assert.Equal(initialVoteCount + 1, afterAddVoteInfo.Votes);
+
+            // Remove the vote to clean up
+            await Client.Issue.RemoveVoteAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
+
+            // Verify vote was removed
+            var afterRemoveVoteInfo = await Client.Issue.GetVotesAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
+            Assert.NotNull(afterRemoveVoteInfo);
+            Assert.False(afterRemoveVoteInfo.HasVoted);
+            Assert.Equal(initialVoteCount, afterRemoveVoteInfo.Votes);
+        }
+        else
+        {
+            // If already voted, remove it first
+            await Client.Issue.RemoveVoteAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
+
+            // Verify vote was removed
+            var afterRemoveVoteInfo = await Client.Issue.GetVotesAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
+            Assert.NotNull(afterRemoveVoteInfo);
+            Assert.False(afterRemoveVoteInfo.HasVoted);
+
+            // Add vote back to restore original state
+            await Client.Issue.AddVoteAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
+
+            // Verify vote was added and count matches initial state
+            var afterAddVoteInfo = await Client.Issue.GetVotesAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
+            Assert.NotNull(afterAddVoteInfo);
+            Assert.True(afterAddVoteInfo.HasVoted);
+            Assert.Equal(initialVoteCount, afterAddVoteInfo.Votes);
+        }
+    }
 }
