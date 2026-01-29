@@ -29,6 +29,6 @@ public class Screens : PageableResult, IEnumerable<Screen>
     /// <returns>IEnumerator of type Screen</returns>
     public IEnumerator<Screen> GetEnumerator()
     {
-        return Values.GetEnumerator();
+        return (Values ?? Enumerable.Empty<Screen>()).GetEnumerator();
     }
 }
