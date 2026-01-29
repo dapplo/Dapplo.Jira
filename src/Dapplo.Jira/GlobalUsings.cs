@@ -19,3 +19,4 @@ global using Dapplo.Jira.Query;
 global using Dapplo.Jira.Enums;
 global using Dapplo.Jira.Extensions;
 global using Dapplo.Log;
+global using Newtonsoft.Json;
