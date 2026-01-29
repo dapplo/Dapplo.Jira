@@ -650,7 +650,7 @@ Files to update:
 **Current Implementation:**
 ```csharp
 /// <summary>
-///     This is a <i>not documented endpont</i>, and could fail with every update.
+///     This is a <i>not documented endpoint</i>, and could fail with every update.
 ///     The Greenhopper API is a leftover from when the agile functionality was not yet integrated.
 ///     Unfortunately they never finished the integration on the API level.
 /// </summary>
@@ -920,7 +920,6 @@ Files to update:
 
 ### Template: High Priority Missing Endpoint
 
-```markdown
 **Title:** Add support for [Feature Name] API
 
 **Description:**
@@ -951,19 +950,17 @@ var result = await client.[Domain].[MethodName](...);
 
 **Additional Context:**
 [Any other relevant information]
-```
 
 ### Template: Deprecation Notice
 
-```markdown
 **Title:** Update deprecated [Feature Name] API endpoint
 
 **Description:**
 The current implementation uses the deprecated `[endpoint]` which was deprecated by Atlassian on [date].
 
 **Current Implementation:**
-File: `[filename]`
-Endpoint: `[deprecated endpoint]`
+- File: `[filename]`
+- Endpoint: `[deprecated endpoint]`
 
 **Atlassian Deprecation Notice:**
 [Link to deprecation notice]
@@ -979,11 +976,9 @@ Endpoint: `[deprecated endpoint]`
 
 **Migration Path:**
 [Describe how users should migrate their code]
-```
 
 ### Template: Missing Fields
 
-```markdown
 **Title:** Add missing fields to [Entity Name]
 
 **Description:**
@@ -1002,11 +997,12 @@ The `[Entity Name]` entity is missing several fields that are available in the J
 Users cannot access these fields even though they are returned by the API.
 
 **Proposed Implementation:**
-Add properties to the entity class following the existing pattern:
+Add properties to the entity class following the existing pattern.
+
+Example:
 ```csharp
 [JsonProperty("fieldName")]
 public Type FieldName { get; set; }
-```
 ```
 
 ---
