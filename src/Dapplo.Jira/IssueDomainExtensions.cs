@@ -535,4 +535,78 @@ public static class IssueDomainExtensions
         return jiraClient.User.GetAssignableUsersAsync(issueKey: issueKey, username: userPattern, startAt: startAt, maxResults: maxResults,
             cancellationToken: cancellationToken);
     }
+
+    /// <summary>
+    ///     Get watchers for the specified issue
+    ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue-getIssueWatchers
+    /// </summary>
+    /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+    /// <param name="issueKey">the issue key</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Watches with list of watchers</returns>
+    public static async Task<Watches> GetWatchersAsync(this IIssueDomain jiraClient, string issueKey, CancellationToken cancellationToken = default)
+    {
+        if (issueKey == null)
+        {
+            throw new ArgumentNullException(nameof(issueKey));
+        }
+
+        Log.Debug().WriteLine("Retrieving watchers for {0}", issueKey);
+        jiraClient.Behaviour.MakeCurrent();
+        var watchersUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "watchers");
+        var response = await watchersUri.GetAsAsync<HttpResponse<Watches, Error>>(cancellationToken).ConfigureAwait(false);
+        return response.HandleErrors();
+    }
+
+    /// <summary>
+    ///     Add a watcher to the specified issue
+    ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue-addWatcher
+    /// </summary>
+    /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+    /// <param name="issueKey">the issue key</param>
+    /// <param name="username">Username of the user to add as a watcher. For Jira Cloud, use accountId instead.</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    public static async Task AddWatcherAsync(this IIssueDomain jiraClient, string issueKey, string username, CancellationToken cancellationToken = default)
+    {
+        if (issueKey == null)
+        {
+            throw new ArgumentNullException(nameof(issueKey));
+        }
+        if (username == null)
+        {
+            throw new ArgumentNullException(nameof(username));
+        }
+
+        Log.Debug().WriteLine("Adding watcher {0} to {1}", username, issueKey);
+        jiraClient.Behaviour.MakeCurrent();
+        var watchersUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "watchers");
+        var response = await watchersUri.PostAsync<HttpResponse>(username, cancellationToken).ConfigureAwait(false);
+        response.HandleStatusCode(HttpStatusCode.NoContent);
+    }
+
+    /// <summary>
+    ///     Remove a watcher from the specified issue
+    ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/issue-removeWatcher
+    /// </summary>
+    /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+    /// <param name="issueKey">the issue key</param>
+    /// <param name="username">Username of the user to remove as a watcher. For Jira Cloud, use accountId instead.</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    public static async Task RemoveWatcherAsync(this IIssueDomain jiraClient, string issueKey, string username, CancellationToken cancellationToken = default)
+    {
+        if (issueKey == null)
+        {
+            throw new ArgumentNullException(nameof(issueKey));
+        }
+        if (username == null)
+        {
+            throw new ArgumentNullException(nameof(username));
+        }
+
+        Log.Debug().WriteLine("Removing watcher {0} from {1}", username, issueKey);
+        jiraClient.Behaviour.MakeCurrent();
+        var watchersUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "watchers").ExtendQuery("username", username);
+        var response = await watchersUri.DeleteAsync<HttpResponse>(cancellationToken).ConfigureAwait(false);
+        response.HandleStatusCode(HttpStatusCode.NoContent);
+    }
 }
