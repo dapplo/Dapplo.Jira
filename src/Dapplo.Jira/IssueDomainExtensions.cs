@@ -580,7 +580,7 @@ public static class IssueDomainExtensions
         Log.Debug().WriteLine("Adding watcher {0} to {1}", username, issueKey);
         jiraClient.Behaviour.MakeCurrent();
         var watchersUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "watchers");
-        var response = await watchersUri.PostAsync<HttpResponse>(JsonConvert.SerializeObject(username), cancellationToken).ConfigureAwait(false);
+        var response = await watchersUri.PostAsync<HttpResponse>(username, cancellationToken).ConfigureAwait(false);
         response.HandleStatusCode(HttpStatusCode.NoContent);
     }
 
@@ -590,7 +590,7 @@ public static class IssueDomainExtensions
     /// </summary>
     /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
     /// <param name="issueKey">the issue key</param>
-    /// <param name="username">Username of the user to remove as a watcher. For Jira Cloud, use accountId parameter instead.</param>
+    /// <param name="username">Username of the user to remove as a watcher. For Jira Cloud, use accountId instead.</param>
     /// <param name="cancellationToken">CancellationToken</param>
     public static async Task RemoveWatcherAsync(this IIssueDomain jiraClient, string issueKey, string username, CancellationToken cancellationToken = default)
     {

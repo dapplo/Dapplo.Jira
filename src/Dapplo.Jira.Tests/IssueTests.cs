@@ -249,7 +249,7 @@ public class IssueTests : TestBase
 
         // Verify watcher was added
         var watchersAfterAdd = await Client.Issue.GetWatchersAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
-        Assert.True(watchersAfterAdd.WatchCount >= initialWatchCount);
+        Assert.True(watchersAfterAdd.WatchCount > initialWatchCount);
 
         // Remove watcher
         await Client.Issue.RemoveWatcherAsync(TestIssueKey, userIdentifier, cancellationToken: TestContext.Current.CancellationToken);
@@ -258,7 +258,6 @@ public class IssueTests : TestBase
         var watchersAfterRemove = await Client.Issue.GetWatchersAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
         Assert.Equal(initialWatchCount, watchersAfterRemove.WatchCount ?? 0);
     }
-
 
     [Fact]
     public async Task Test_GetIssue()
