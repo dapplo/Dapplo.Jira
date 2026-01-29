@@ -224,6 +224,42 @@ public class IssueTests : TestBase
     }
 
     [Fact]
+    public async Task Test_GetWatchers()
+    {
+        var watchers = await Client.Issue.GetWatchersAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
+        Assert.NotNull(watchers);
+        Assert.NotNull(watchers.Self);
+        Assert.True(watchers.WatchCount >= 0);
+    }
+
+    [Fact]
+    public async Task Test_AddAndRemoveWatcher()
+    {
+        var meMyselfAndI = await Client.User.GetMyselfAsync(TestContext.Current.CancellationToken);
+        Assert.NotNull(meMyselfAndI);
+
+        var watchersBefore = await Client.Issue.GetWatchersAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
+        var initialWatchCount = watchersBefore.WatchCount ?? 0;
+
+        // Determine the identifier to use (accountId for Cloud, username for Server)
+        var userIdentifier = !string.IsNullOrEmpty(meMyselfAndI.AccountId) ? meMyselfAndI.AccountId : meMyselfAndI.Name;
+
+        // Add watcher
+        await Client.Issue.AddWatcherAsync(TestIssueKey, userIdentifier, cancellationToken: TestContext.Current.CancellationToken);
+
+        // Verify watcher was added
+        var watchersAfterAdd = await Client.Issue.GetWatchersAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
+        Assert.True(watchersAfterAdd.WatchCount > initialWatchCount);
+
+        // Remove watcher
+        await Client.Issue.RemoveWatcherAsync(TestIssueKey, userIdentifier, cancellationToken: TestContext.Current.CancellationToken);
+
+        // Verify watcher was removed
+        var watchersAfterRemove = await Client.Issue.GetWatchersAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
+        Assert.Equal(initialWatchCount, watchersAfterRemove.WatchCount ?? 0);
+    }
+
+    [Fact]
     public async Task Test_GetIssue()
     {
         JiraConfig.ExpandGetIssue = new[]
