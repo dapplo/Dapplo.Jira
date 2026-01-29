@@ -404,10 +404,11 @@ public class IssueTests : TestBase
             // Add vote back to restore original state
             await Client.Issue.AddVoteAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
 
-            // Verify vote was added
+            // Verify vote was added and count matches initial state
             var afterAddVoteInfo = await Client.Issue.GetVotesAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
             Assert.NotNull(afterAddVoteInfo);
             Assert.True(afterAddVoteInfo.HasVoted);
+            Assert.Equal(initialVoteCount, afterAddVoteInfo.Votes);
         }
     }
 }
