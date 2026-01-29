@@ -535,4 +535,42 @@ public static class IssueDomainExtensions
         return jiraClient.User.GetAssignableUsersAsync(issueKey: issueKey, username: userPattern, startAt: startAt, maxResults: maxResults,
             cancellationToken: cancellationToken);
     }
+
+    /// <summary>
+    ///     Get the changelog/history for the specified issue
+    ///     This provides information about field changes over time, who made changes, and when they occurred
+    ///     See: https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issues/#api-rest-api-3-issue-issueidorkey-changelog-get
+    /// </summary>
+    /// <param name="jiraClient">IIssueDomain to bind the extension method to</param>
+    /// <param name="issueKey">the issue key</param>
+    /// <param name="startAt">optional int with the start index, used for paging (default: 0)</param>
+    /// <param name="maxResults">optional int with the maximum number of results (default: 100)</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Changelog with pageable history information</returns>
+    public static async Task<Changelog> GetChangelogAsync(this IIssueDomain jiraClient, string issueKey, int? startAt = null, int? maxResults = null,
+        CancellationToken cancellationToken = default)
+    {
+        if (issueKey == null)
+        {
+            throw new ArgumentNullException(nameof(issueKey));
+        }
+
+        Log.Debug().WriteLine("Retrieving changelog for {0}", issueKey);
+        var changelogUri = jiraClient.JiraRestUri.AppendSegments("issue", issueKey, "changelog");
+        
+        if (startAt.HasValue)
+        {
+            changelogUri = changelogUri.ExtendQuery("startAt", startAt.Value);
+        }
+        
+        if (maxResults.HasValue)
+        {
+            changelogUri = changelogUri.ExtendQuery("maxResults", maxResults.Value);
+        }
+
+        jiraClient.Behaviour.MakeCurrent();
+
+        var response = await changelogUri.GetAsAsync<HttpResponse<Changelog, Error>>(cancellationToken).ConfigureAwait(false);
+        return response.HandleErrors();
+    }
 }
