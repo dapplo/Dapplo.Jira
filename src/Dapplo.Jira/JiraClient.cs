@@ -10,7 +10,7 @@ namespace Dapplo.Jira
     ///     NOTE: Modernization in progress - currently using Dapplo.HttpExtensions, will migrate to RestSharp
     /// </summary>
     public class JiraClient : IProjectDomain, IWorkLogDomain, IUserDomain, ISessionDomain, IIssueDomain, IFilterDomain, IAttachmentDomain, IServerDomain, IAgileDomain,
-        IGreenhopperDomain, IGroupDomain
+        IGreenhopperDomain, IGroupDomain, IScreenDomain
     {
         private string password;
         private string user;
@@ -182,5 +182,10 @@ namespace Dapplo.Jira
         ///     Group domain
         /// </summary>
         public IGroupDomain Group => this;
+
+        /// <summary>
+        ///     Screen domain
+        /// </summary>
+        public IScreenDomain Screen => this;
     }
 }
