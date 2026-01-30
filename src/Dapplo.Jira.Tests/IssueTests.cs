@@ -392,6 +392,31 @@ public class IssueTests : TestBase
     }
 
     [Fact]
+    public async Task Test_GetChangelog()
+    {
+        var changelog = await Client.Issue.GetChangelogAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
+        
+        Assert.NotNull(changelog);
+        Assert.NotNull(changelog.Elements);
+        
+        // If there's changelog history, verify the structure
+        if (changelog.Elements.Count > 0)
+        {
+            var history = changelog.Elements[0];
+            Assert.NotNull(history.Author);
+            Assert.NotNull(history.Created);
+            Assert.NotNull(history.Items);
+            
+            // If there are items in the history, verify their structure
+            if (history.Items.Count > 0)
+            {
+                var item = history.Items[0];
+                Assert.NotNull(item.Field);
+            }
+        }
+    }
+
+    [Fact]
     public async Task Test_GetVotes()
     {
         var voteInfo = await Client.Issue.GetVotesAsync(TestIssueKey, cancellationToken: TestContext.Current.CancellationToken);
@@ -446,5 +471,6 @@ public class IssueTests : TestBase
             Assert.True(afterAddVoteInfo.HasVoted);
             Assert.Equal(initialVoteCount, afterAddVoteInfo.Votes);
         }
+    }
     }
 }
