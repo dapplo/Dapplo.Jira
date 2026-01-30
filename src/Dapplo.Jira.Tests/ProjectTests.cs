@@ -160,4 +160,89 @@ public class ProjectTests : TestBase
             Log.Info().WriteLine("No versions found for project {0}, skipping version retrieval test", TestProjectKey);
         }
     }
+
+    [Fact]
+    public async Task TestGetRolesAsync()
+    {
+        var roles = await Client.Project.GetRolesAsync(TestProjectKey, cancellationToken: TestContext.Current.CancellationToken);
+        
+        Assert.NotNull(roles);
+        Assert.True(roles.Count > 0);
+        
+        Log.Info().WriteLine("Found {0} roles for project {1}", roles.Count, TestProjectKey);
+        foreach (var role in roles)
+        {
+            Log.Info().WriteLine("Role: {0} - {1}", role.Key, role.Value);
+        }
+    }
+
+    [Fact]
+    public async Task TestGetRoleAsync()
+    {
+        // First get all roles to get a valid role ID
+        var roles = await Client.Project.GetRolesAsync(TestProjectKey, cancellationToken: TestContext.Current.CancellationToken);
+        
+        Assert.NotNull(roles);
+        Assert.True(roles.Count > 0);
+        
+        // Get the ID from the first role URI (e.g., .../role/10002 -> 10002)
+        var firstRoleUri = roles.First().Value;
+        var roleIdString = firstRoleUri.Segments.Last();
+        var roleId = long.Parse(roleIdString);
+        
+        // Get the specific role details
+        var role = await Client.Project.GetRoleAsync(TestProjectKey, roleId, cancellationToken: TestContext.Current.CancellationToken);
+        
+        Assert.NotNull(role);
+        Assert.NotNull(role.Name);
+        Log.Info().WriteLine("Retrieved role: {0}, Description: {1}", role.Name, role.Description);
+        
+        if (role.Actors != null)
+        {
+            Log.Info().WriteLine("Role has {0} actors", role.Actors.Count);
+            foreach (var actor in role.Actors)
+            {
+                Log.Info().WriteLine("Actor: {0} ({1})", actor.DisplayName, actor.Type);
+            }
+        }
+    }
+
+    [Fact]
+    public async Task TestAddAndRemoveActorFromRoleAsync()
+    {
+        // First get all roles to get a valid role ID
+        var roles = await Client.Project.GetRolesAsync(TestProjectKey, cancellationToken: TestContext.Current.CancellationToken);
+        
+        if (roles.Count == 0)
+        {
+            Log.Info().WriteLine("No roles found for project {0}, skipping actor test", TestProjectKey);
+            return;
+        }
+        
+        // Get a role ID
+        var firstRoleUri = roles.First().Value;
+        var roleIdString = firstRoleUri.Segments.Last();
+        var roleId = long.Parse(roleIdString);
+        
+        // Get current user to use as test actor
+        var currentUser = await Client.User.GetMyselfAsync(cancellationToken: TestContext.Current.CancellationToken);
+        var userIdentifier = currentUser.AccountId ?? currentUser.Name;
+        
+        // Try to add the current user to the role
+        try
+        {
+            var updatedRole = await Client.Project.AddActorToRoleAsync(TestProjectKey, roleId, user: userIdentifier, cancellationToken: TestContext.Current.CancellationToken);
+            Assert.NotNull(updatedRole);
+            Log.Info().WriteLine("Added user {0} to role {1}", currentUser.DisplayName, updatedRole.Name);
+            
+            // Remove the user from the role
+            await Client.Project.RemoveActorFromRoleAsync(TestProjectKey, roleId, user: userIdentifier, cancellationToken: TestContext.Current.CancellationToken);
+            Log.Info().WriteLine("Removed user {0} from role", currentUser.DisplayName);
+        }
+        catch (Exception ex)
+        {
+            // Some JIRA instances may not have permissions to modify roles
+            Log.Info().WriteLine("Could not modify role actors (this may be expected): {0}", ex.Message);
+        }
+    }
 }

@@ -472,5 +472,4 @@ public class IssueTests : TestBase
             Assert.Equal(initialVoteCount, afterAddVoteInfo.Votes);
         }
     }
-    }
 }
