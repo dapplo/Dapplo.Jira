@@ -3,6 +3,7 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using Dapplo.Log;
 using Xunit;
 
 namespace Dapplo.Jira.Tests;
