@@ -33,7 +33,7 @@ public static class IssueDomainExtensions
         Log.Debug().WriteLine("Adding comment to {0}", issueKey);
         var comment = new Comment
         {
-            Body = body,
+            Body = AdfDocument.FromText(body),
             Visibility = visibility
         };
         jiraClient.Behaviour.MakeCurrent();

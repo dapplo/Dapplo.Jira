@@ -11,7 +11,7 @@ namespace Dapplo.Jira.Entities;
 ///     See: https://docs.atlassian.com/jira/REST/latest/#api/2/attachment
 /// </summary>
 [JsonObject]
-public class Comment : BaseProperties<long>
+public class CommentV2 : BaseProperties<long>
 {
     /// <summary>
     ///     Who created the comment
@@ -24,7 +24,7 @@ public class Comment : BaseProperties<long>
     ///     The text of the comment
     /// </summary>
     [JsonProperty("body")]
-    public AdfDocument Body { get; set; }
+    public string Body { get; set; }
 
     /// <summary>
     ///     When was the comment created

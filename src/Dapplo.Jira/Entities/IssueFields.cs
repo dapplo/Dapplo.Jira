@@ -11,7 +11,6 @@ namespace Dapplo.Jira.Entities;
 [JsonObject]
 public class IssueFields : BaseIssueFields
 {
-
     /// <summary>
     ///     Description of this issue in ADF
     /// </summary>
