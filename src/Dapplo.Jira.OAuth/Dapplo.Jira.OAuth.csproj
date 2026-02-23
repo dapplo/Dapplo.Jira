@@ -6,9 +6,9 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Dapplo.HttpExtensions" Version="2.0.10" />
-    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="2.0.10" />
-    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="2.0.10" />
+    <PackageReference Include="Dapplo.HttpExtensions" Version="2.0.12" />
+    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="2.0.12" />
+    <PackageReference Include="Dapplo.HttpExtensions.OAuth" Version="2.0.12" />
   </ItemGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
     <Reference Include="System.Drawing" />

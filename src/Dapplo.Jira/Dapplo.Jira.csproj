@@ -6,8 +6,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="Dapplo.HttpExtensions" Version="2.0.10" />
-    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="2.0.10" />
+    <PackageReference Include="Dapplo.HttpExtensions" Version="2.0.12" />
+    <PackageReference Include="Dapplo.HttpExtensions.JsonNet" Version="2.0.12" />
   </ItemGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
     <Reference Include="System.Drawing" />

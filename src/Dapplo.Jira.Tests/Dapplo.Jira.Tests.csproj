@@ -19,10 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapplo.HttpExtensions.WinForms" Version="2.0.10" />
-    <PackageReference Include="Dapplo.HttpExtensions.Wpf" Version="2.0.10" />
+    <PackageReference Include="Dapplo.HttpExtensions.WinForms" Version="2.0.12" />
+    <PackageReference Include="Dapplo.HttpExtensions.Wpf" Version="2.0.12" />
     <PackageReference Include="Dapplo.Log.XUnit" Version="3.0.22" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" Version="27.0.2">
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="28.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -33,7 +33,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Dapplo.Utils" Version="1.1.21" />
-    <PackageReference Include="coverlet.msbuild" Version="6.0.4">
+    <PackageReference Include="coverlet.msbuild" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
