@@ -25,7 +25,19 @@ public class SvgBitmapHttpContentConverter : IHttpContentConverter
 {
 #pragma warning disable IDE0090 // Use 'new(...)'
     private static readonly LogSource Log = new LogSource();
+
 #pragma warning restore IDE0090 // Use 'new(...)'
+
+    /// <summary>
+    /// Restricts Svg.NET from resolving external resources (images, elements, entities)
+    /// to prevent outbound network requests and unauthorized file access when opening untrusted SVGs.
+    /// </summary>
+    static SvgBitmapHttpContentConverter()
+    {
+        SvgDocument.ResolveExternalImages = ExternalType.None;
+        SvgDocument.ResolveExternalElements = ExternalType.None;
+        SvgDocument.ResolveExternalXmlEntites = ExternalType.None;
+    }
 
     /// <summary>
     /// Instance of this IHttpContentConverter for reusing
@@ -81,7 +93,7 @@ public class SvgBitmapHttpContentConverter : IHttpContentConverter
                 graphics.Clear(Color.Transparent);
             }
 
-            var svgDoc = SvgDocument.Open<SvgDocument>(memoryStream);
+            var svgDoc = SvgDocument.Open<SvgDocument>(memoryStream, new SvgOptions());
             svgDoc.Width = configuration.Width;
             svgDoc.Height = configuration.Height;
             svgDoc.Draw(bitmap);

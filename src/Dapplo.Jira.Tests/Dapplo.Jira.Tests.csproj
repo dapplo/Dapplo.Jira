@@ -22,18 +22,18 @@
     <PackageReference Include="Dapplo.HttpExtensions.WinForms" Version="2.0.12" />
     <PackageReference Include="Dapplo.HttpExtensions.Wpf" Version="2.0.12" />
     <PackageReference Include="Dapplo.Log.XUnit" Version="3.0.22" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" Version="28.0.0">
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="28.4.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-    <PackageReference Include="xunit.v3" Version="3.2.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
+    <PackageReference Include="xunit.v3" Version="4.0.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="4.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Dapplo.Utils" Version="1.1.21" />
-    <PackageReference Include="coverlet.msbuild" Version="8.0.0">
+    <PackageReference Include="coverlet.msbuild" Version="10.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
